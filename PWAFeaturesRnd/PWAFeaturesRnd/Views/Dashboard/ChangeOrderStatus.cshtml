@@ -1,0 +1,181 @@
+﻿@{
+	Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+	Edit Delivery Details
+}
+
+@section ContentSection
+{
+	<div class="app-main__outer fixed-page-header">
+		<div class="app-main__inner background-padding">
+			<div class="app-page-title header-shadow">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+						<div>
+							Edit Delivery Details
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card content-pane margin-bottom-custom">
+				<div class="card-body">
+					<div id="smartwizardChangeOrderStatus" class="forms-wizard-alt">
+						<ul class="forms-wizard">
+							<li>
+								<a href="#stepSelectDeliveryAddress">
+									<em>1</em><span>Select Delivery Address</span>
+								</a>
+							</li>
+							<li>
+								<a href="#stepEditDeliveryInfo">
+									<em>2</em><span>Edit Delivery Info</span>
+								</a>
+							</li>
+							<li>
+								<a href="#stepSummary">
+									<em>3</em><span>Summary</span>
+								</a>
+							</li>
+						</ul>
+
+						<div class="form-wizard-content">
+							<div id="stepSelectDeliveryAddress">
+								<div class="row">
+									<div class="col-12 col-md-6">
+										<div class="position-relative form-group">
+											<label>Delivery To</label>
+											<div class="input-group input-group-sm m-0">
+												<input type="text" class="form-control-sm form-control">
+												<div class="input-group-append">
+													<span class="input-group-text">
+														<i class="fa fa-search"></i>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-12 col-md-6">
+										<div class="position-relative form-group">
+											<label>Port</label>
+											<div class="input-group input-group-sm m-0">
+												<input type="text" class="form-control-sm form-control">
+												<div class="input-group-append">
+													<span class="input-group-text">
+														<i class="fa fa-search"></i>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="divider"></div>
+								<div class="card-title">Available Delivery Address (1)</div>
+								<div class="table-responsive compact-table">
+									<table style="width: 100%;" id="dtAvailableDeliveryAddress" class="table table-hover table-bordered cardview row-sm">
+										<thead>
+											<tr>
+												<th>
+													Company Name
+												</th>
+												<th>
+													Address
+												</th>
+												<th>
+													Telephone
+												</th>
+												<th>
+													Fax
+												</th>
+												<th>
+													Email
+												</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+							<div id="stepEditDeliveryInfo">
+								<div class="row">
+									<div class="col-12 col-md-6">
+										<table>
+											<tr>
+												<td>
+													<span>Lead Time</span>
+												</td>
+												<td>
+													<span> 1 Days</span>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<span>Suggeested Delivery Date</span>
+												</td>
+												<td>
+													<span> 03 Sep 2020</span>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-12 col-md-6">
+										<table>
+											<tr>
+												<td>
+													<span>Delivery Date</span>
+												</td>
+												<td>
+													<div class="input-group input-group-sm m-0">
+														<div class="input-group-prepend datepicker-trigger-deliveryDate">
+															<div class="input-group-text">
+																<i class="fa fa-calendar-alt"></i>
+															</div>
+														</div>
+														<input type="text" class="form-control form-control-sm" data-toggle="datepicker-icon-deliveryDate" />
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<span>Transport Mode</span>
+												</td>
+												<td>
+													<span> 03 Sep 2020</span>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="divider"></div>
+								<div class="card-title">Notes</div>
+								<label>Notes</label>
+								<textarea class="form-control form-control-sm" rows="4"></textarea>
+							</div>
+							<div id="stepSummary">
+
+							</div>
+						</div>
+					</div>
+					<div class="divider"></div>
+					<div class="clearfix">
+						<a id="" href="/Dashboard/ViewPurchasingList" class="btn-shadow float-left btn btn-link">Cancel</a>
+						<button type="button" id="next-btnChangeOrderStatus" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>
+						<button type="button" id="prev-btnChangeOrderStatus" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Previous</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section Modal
+{
+
+}
+
+@section ScriptSection
+{
+	<script src="~/assets/scripts/changeOrderStatus.bundle.js"></script>
+}

@@ -1,0 +1,36 @@
+﻿@{
+
+    Layout = null;
+    ViewBag.Title = "Notification";
+}
+
+<head>
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .notificationiframe {
+            height: 100%;
+            width: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <form id="notificationcontainerform" target="NotificationContainerFrame" action="@AppSettings.NotificationChatURL" method="POST" class="d-none">   
+        <input type="hidden" id="clearSessionStorage" name="clearSessionStorage" value='false' />
+        <input type="hidden" id="urlParameter" name="urlParameter" value='' />
+    </form>
+    <iframe src="" id="NotificationContainerFrame" name="NotificationContainerFrame" class="notificationiframe" frameborder="0"></iframe>
+    <script>
+        function LoadChat(urlParameter) {
+            document.getElementById('urlParameter').value = urlParameter;
+            document.getElementById('clearSessionStorage').value = true;
+            document.getElementById('notificationcontainerform').submit();
+        }
+    </script>
+</body>

@@ -1,0 +1,139 @@
+<!DOCTYPE  html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Caleran - Date Range Picker</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet">
+    <link href="../build/css/caleran.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="../build/vendor/jquery.min.js"></script>
+    <script src="../build/vendor/moment.min.js"></script>
+    <script src="../build/vendor/jquery.hammer.js"></script>
+    <script src="../build/js/caleran.min.js"></script>
+</head>
+<body>
+    <div style="margin-top:4px; font-size:8pt;">Anreise $anreise<br />
+        <input type="text" onfocus="this.blur(); return false;" name="qs_anreise" value="24.12.2018" placeholder="Anreise"
+            id="qs_anreise" class="form_text" style="width:120px; cursor:default; border-top:1px solid #abadb3;	border-left:1px solid #e3e9ef; border-right:1px solid #e3e9ef; border-bottom:1px solid #e3e9ef; background-repeat:no-repeat; background-position:right center; background-size: auto 100%;" />
+    </div>
+
+    <div style="margin-top: 4px; font-size: 8pt;">Abreise<br />
+        <input type="text" onfocus="this.blur(); return false;" name="qs_abreise" value="31.12.2018" placeholder="Abreise"
+            id="qs_abreise" class="form_text" style="width:120px; cursor:default; border-top:1px solid #abadb3; border-left:1px solid #e3e9ef; border-right:1px solid #e3e9ef; border-bottom:1px solid #e3e9ef; background-repeat:no-repeat; background-position:right center; background-size: auto 100%;" />
+    </div>
+    <script type="text/javascript">
+        $(document).ready(
+            function () {
+
+                var startDate = moment($("#qs_anreise").val(), "DD.MM.YYYY"),
+                endDate = moment($("#qs_abreise").val(), "DD.MM.YYYY"),
+                startInstance, endInstance;
+                var fillInputs = function () {
+                    startInstance.$elem.val(startDate ? startDate.locale(startInstance.config.format).format(startInstance.config.format) : "");
+                    endInstance.$elem.val(endDate ? endDate.locale(endInstance.config.format).format(endInstance.config.format) : "");
+                };
+                var userLanguage = navigator.language || navigator.userLanguage;
+                if (userLanguage == "en") userLanguage = "de";
+
+                $("#qs_anreise").caleran({
+                    startOnMonday: true,
+                    locale: userLanguage,
+                    calendarCount: 2,
+                    showOn: "right", arrowOn: "top",
+                    minDate: moment(),
+                    startEmpty: $("#qs_anreise").val() === "",
+                    startDate: startDate,
+                    endDate: endDate,
+                    format: "DD.MM.YYYY",
+                    enableKeyboard: false,
+                    oninit: function (instance) {
+                        startInstance = instance;
+                        if (!instance.config.startEmpty && instance.config.startDate) {
+                            instance.$elem.val(instance.config.startDate.locale(instance.config.format).format(instance.config.format));
+                            startDate = instance.config.startDate.clone();
+                        }
+                    },
+                    onbeforeshow: function (instance) {
+                        if (startDate) {
+                            startInstance.config.startDate = startDate;
+                            endInstance.config.startDate = startDate;
+                        }
+                        if (endDate) {
+                            startInstance.config.endDate = endDate.clone();
+                            endInstance.config.endDate = endDate.clone();
+                        }
+                        fillInputs();
+                        instance.updateHeader();
+                        instance.reDrawCells();
+                    },
+                    onfirstselect: function (instance, start) {
+                        startDate = start.clone();
+                        startInstance.globals.startSelected = false;
+                        startInstance.hideDropdown();
+                        endInstance.showDropdown();
+                        endInstance.config.minDate = startDate.clone();
+                        endInstance.config.startDate = startDate.clone();
+                        endInstance.config.endDate = null;
+                        endInstance.globals.startSelected = true;
+                        endInstance.globals.endSelected = false;
+                        endInstance.globals.firstValueSelected = true;
+                        endInstance.setDisplayDate(start);
+                        if (endDate && startDate.isAfter(endDate)) {
+                            endInstance.globals.endDate = endDate.clone();
+                        }
+                        endInstance.updateHeader();
+                        endInstance.reDrawCells();
+                        fillInputs();
+                    }
+                });
+                $("#qs_abreise").caleran({
+                    startOnMonday: true,
+                    startEmpty: true,
+                    locale: userLanguage,
+                    calendarCount: 2,
+                    showOn: "right", arrowOn: "top",
+                    minDate: moment(),
+                    startEmpty: $("#qs_abreise").val() === "",
+                    startDate: startDate,
+                    endDate: endDate,
+                    format: "DD.MM.YYYY",
+                    enableKeyboard: false,
+                    autoCloseOnSelect: true,
+                    oninit: function (instance) {
+                        endInstance = instance;
+                        if (!instance.config.startEmpty && instance.config.endDate) {
+                            instance.$elem.val(instance.config.endDate.locale(instance.config.format).format(instance.config.format));
+                            endDate = instance.config.endDate.clone();
+                        }
+                    },
+                    onbeforeshow: function (instance) {
+                        if (startDate) {
+                            startInstance.config.startDate = startDate;
+                            endInstance.config.startDate = startDate;
+                        }
+                        if (endDate) {
+                            startInstance.config.endDate = endDate.clone();
+                            endInstance.config.endDate = endDate.clone();
+                        }
+                        fillInputs();
+                        instance.updateHeader();
+                        instance.reDrawCells();
+                    },
+                    onafterselect: function (instance, start, end) {
+                        startDate = start.clone();
+                        endDate = end.clone();
+                        endInstance.hideDropdown();
+                        startInstance.config.endDate = endDate.clone();
+                        startInstance.globals.firstValueSelected = true;
+                        fillInputs();
+                        endInstance.globals.startSelected = true;
+                        endInstance.globals.endSelected = false;
+                    }
+                });
+            }
+        );
+    </script>
+</body>
+</html>

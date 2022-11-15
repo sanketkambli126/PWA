@@ -1,0 +1,231 @@
+- v1.0.0
+   - Released initial version.
+
+- v1.0.1
+   - before updating the input, added check for null variables
+
+- v1.1.0
+   - added `ondraw` event
+   - added `disableDays` function to disable custom days
+   - fixed `startOnMonday` if moment.js locale already starts at Monday
+   - fixed deprecated `jQuery.size()` warnings
+   - added `autoCloseOnSelect` option to close when a date/range is selected
+   - added Show & Hide methods (`showDropdown`/`hideDropdown`)
+   - changed all locale aware weekdays to act constant in every locale (0-Sunday and 6-Saturday)
+   - added `oninit` event
+
+- v1.1.1
+   - added event handler checks before event.stopPropagation occurances
+   - seperated click & tap events on mobile and desktop
+   - checked jQuery UI tap event exist before loading hammer.js
+
+- v1.1.2
+   - fixed range click locale bug (which causes wrong start date output)
+
+- v1.1.3
+   - fixed apply button click event on mobile screens
+   - added `disabledRanges` option to specify schedule like selections
+   - added `countinuous` option to only allow continuous range selection
+
+- v1.2.0
+   - added direction parameter to `onbeforemonthchange` event
+   - added quick year and month switching feature
+   - added multiple calendar support for mobile
+
+- v1.2.1
+   - fixed IE10 compatibility on JS and CSS
+   - made some optimizations
+
+- v1.2.2
+   - fixed uninitialized startDateBackup variable bug
+   - added browserSync support
+
+- v1.2.3
+   - fixed event duplication on document click
+   - fixed outside triggers closing dropdown
+   - fixed target element confusion when different target option is specified
+   - added startEmpty option
+   - fixed multiple instance closing issues
+   - added missing event parameters to hideDropdown method
+
+- v1.3.0
+   - fixed autoCloseOnSelect on singleDate version / mobile views
+   - changed code to make clicking on disabled days select start/end date
+   - added some transition delays to make it smoother
+   - added keyboard navigation (`enableKeyboard` option)
+       up: previous week
+       down: next week
+       left: previous day
+       right: next day
+       space: select day
+       pageup: previous month
+       pagedown next month
+       shift + pageup: previous year
+       shift + pagedown: next year
+    - added easy year switch buttons on year list
+    - fixed startEmpty cell selected classes
+    - added destroy method and some extra tests
+
+- v1.3.1
+    - fixed missing cloning in isDisabled method
+    - buttons now don't submit forms
+    - added inline view support on mobile devices
+    - startEmpty property clears input on initialization
+    - added apply and cancel buttons in dropdown mode
+
+- v1.3.2
+    - fixed hovering bug after month change when first date is selected
+    - added jshint javascript linter to gruntfile
+    - some optimizations
+    - moved event bubbling in one method
+
+- v1.3.3
+    - documentation fixes
+    - fixed clickable disabled days
+
+- v1.3.4
+    - removed event bubbling prevention in document.click event
+    - configuration objects attached to prototype converted to independent objects
+    - added "left" "right" display options ("showOn" option, default "bottom")
+    - added auto positioning enable/disable flag ("autoAlign" option, default "true")
+    - added position recalculation on window scroll and resize events
+
+- v1.3.5
+    - fixed css issue about month selector in small calendars
+    - fixed locale error on month selector
+    - added adjustment for font-size in month selector page
+
+- v1.3.6
+    - fixed header display bug on startEmpty
+    - converted moment instances to unix timestamps on reDrawCells method
+    - added first and last hover classes (border radius effect)
+    - removed autoprefixer and added postcss plugin for browser compatible CSS
+    - fixed visibility issues
+
+- v1.3.7
+    - Repeating day issue caused by daylight saving time activation fixed.
+
+- v1.3.8
+    - Added `caleran-not-in-month` class for the days that don't belong to that month
+    - Replaced moment's `.startOf("day")` to `middleOfDay()` extension function to minimize DST change bugs.
+
+- v1.3.9
+    - startDate and endDate setting on plugin intialization didn't work, fixed.
+    - fixed mobile inline view resize bug after month changes
+    - fixed dropdown closing issues
+    - fixed ESC key closing inline calendars bug
+    - removed clearing of user value when user inputs a valid date when startEmpty is still active
+    - skipped input clearing when the input contains a valid date even if startEmpty is set
+
+- v1.3.10
+    - fixed month selector styling on small calendars on all browsers
+    - added numericMonthSwitcher config option to show month numbers instead of month names in month selector
+
+- v1.4.0
+    - updated jQuery library in demos and readme to v3.1.2
+    - updated getDimensions method to more paint and memory friendly version
+    - added setStart, setEnd, setMinDate, setMaxDate and setDisplayDate methods
+    - added istanbul test code coverage tools
+    - added start and end date validation regarding minimum and maximum allowed dates
+
+- v1.4.1
+    - fixed dropdown positioning on inner scrolling container other than window
+    - fixed wrong calendarStart calculation when startOnMonday is set and start of month is sunday
+
+- v1.4.2
+    - changed header's end month display from full to short.
+    - added predefined events to hideDropdown and showDropdown to prevent var undefined exception.
+    - updated example about linked date pickers
+    - added month name format on monthselector
+    - added week numbers on calendars
+
+- v1.4.3
+    - added vertical range listing feature
+    - updated missing parts of documentation
+    - added smart positioning on top/bottom dropdowns
+    - added selected range indicators
+    - massive performance upgrade
+    - added arrowOn parameter which moves the arrow to the desired position.
+    - improved positioning on viewport edges
+    - added center/center display option
+
+- v1.4.4
+    - added onaftermonthchange and onafteryearchange to month and year selectors
+    - added caleran-disabled-range class on mindate/maxdate effective days
+    - added day clones instead of real ones as attributes of events
+    - added formats when given start and end dates are strings to validateDates function
+    - changed mobile view instances to delay input update until apply button is pressed
+    - fixed cancel button click bug
+
+- v1.4.5
+    - fixed mobile button bug on month change
+    - fixed autocloseonselect not updating input on mobile
+
+- v1.4.6
+    - updated linked calendars example in documentation
+    - added onBeforeInit, onBeforeDestroy and ondestroy event
+
+- v1.4.7
+    - added hotel style booking feature for ranges
+    - added disableOnlyStart and disableOnlyEnd parameters
+
+- v1.4.8
+    - fix for hotel style booking
+    - selections not in month should have not-in-month class
+    - added minSelectedDays parameter to prevent users to select less than defined days
+    - updated documentation
+
+- v1.4.9
+    - added caleran overlay div to prevent clickthroughs
+    - fixed css for Edge
+
+- v1.4.10
+    - added enableSwipe configuration parameter to enable/disable calendar swipe left/right to switch months, default enabled
+    - added configurations for icons in the plugin
+    - rewritten the hotel booking system, single day disables only can be start date of a range
+    - added validateClick event, to prevent cell clicks before anything occurs
+    - added hideOutOfRange property for hiding the arrows
+    - added auto close after range selection
+    - added DOBCalendar option to act as a date-of-birth selector
+    - added onCancel event to verify cancellation
+    - fix for wrong week start regarding to locale on Safari
+
+- v1.4.11
+    - added RTL support
+    - more localization on calendar numerals
+
+- v1.4.12
+    - fixed hotel mode selection clear bug on dropdown open
+    - fixed IE9 & Edge right side range display
+    - added examples for disableOnlyStart and disableOnlyEnd options
+
+- v1.4.13
+    - added "!default" for scss variables to enable overrides
+    - added tests to package
+    - added date checks and needed conversions on initialization
+    - fixed single date selection on ranges
+
+- v1.4.14
+    - changed checkMobile method to only use media queries, not browser agent strings
+    - added setting for mobile/desktop view threshold (mobileBreakpoint)
+    - added calendar close feature on mobile backdrop click
+    - fixed swipe month switch ignoring hideOutOfRange setting
+    - fixed tests differing between mobile and desktop view
+
+- v1.4.15
+    - fixed continuous flag not working
+    - fixed hideOutOfRange not affecting month and year selectors
+
+- v1.4.16
+    - fix uninitialized disable cache bug
+    - change hotel booking mode from disabling days to nights
+    - remove IE test launchers
+    - added dayText property to display text under days
+
+- v1.4.17
+    - Change day container and day styles to CSS grid
+
+- v1.4.18
+    - Patch release: uninitalized disable days object clears initial selection  
+
+- v1.4.19

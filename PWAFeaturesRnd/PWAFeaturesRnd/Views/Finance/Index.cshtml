@@ -1,0 +1,1086 @@
+﻿@model IEnumerable<PWAFeaturesRnd.ViewModels.Report.FinanceReportViewModel>
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+	Finance Report
+}
+
+@section ContentSection
+{
+	<div class="app-main__outer">
+		<div class="app-main__inner">
+			<div class="main-card mb-3 card">
+				<div class="card-header-tab card-header">
+					<div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+						<i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Finance Report
+					</div>
+				</div>
+				<div class="card-body">
+					<ul class="list-group">
+						<li class="list-group-item pl-3 d-none d-sm-inline">
+							<div class="row">
+								<div class="col-8 col-md-4 col-lg-3">
+									Account Name
+								</div>
+								<div class="col-8 col-md-4 col-lg-2">
+									<div class="row">
+										<div class="d-inline d-sm-none col-6 col-md-4 col-lg-4 pr-0">
+											Total
+										</div>
+										<div class="text-right col-6 col-md-8 col-lg-8 pl-0">
+											Total
+										</div>
+									</div>
+								</div>
+								<div class="text-right col-8 col-md-4 col-lg-2">
+									<div class="row">
+										<div class="d-inline d-sm-none col-6 col-md-4 col-lg-4 pr-0">
+											Budget
+										</div>
+										<div class="text-right col-6 col-md-8 col-lg-8 pl-0">
+											Budget
+										</div>
+									</div>
+								</div>
+								<div class="text-right col-8 col-md-4 col-lg-2">
+									<div class="row">
+										<div class="d-inline d-sm-none col-6 col-md-4 col-lg-4 pr-0">
+											Variance
+										</div>
+										<div class="text-right col-6 col-md-8 col-lg-8 pl-0">
+											Variance
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+
+						@foreach (FinanceReportViewModel data in Model)
+						{
+							@*<a href="/Finance/Index/@data.AccountCode">*@
+							<li class="list-group-item cursor-pointer pl-3" onclick="location.href = '/Finance/Index/50'">
+								<div class="row">
+									<div class="col-8 col-md-4 col-lg-3">
+										@data.AccountName - @data.AccountCode
+									</div>
+									<div class="col-8 col-md-4 col-lg-2">
+										<div class="row">
+											<div class="d-inline d-sm-none col-6 col-md-4 col-lg-4 pr-0">
+												Total
+											</div>
+											<div class="text-right col-6 col-md-8 col-lg-8 pl-0">
+												@data.Total
+											</div>
+										</div>
+									</div>
+									<div class="col-8 col-md-4 col-lg-2">
+										<div class="row">
+											<div class="d-inline d-sm-none col-6 col-md-4 col-lg-4 pr-0">
+												Budget
+											</div>
+											<div class="text-right col-6 col-md-8 col-lg-8 pl-0">
+												@data.Budget
+											</div>
+										</div>
+									</div>
+									<div class="col-8 col-md-4 col-lg-2">
+										<div class="row">
+											<div class="d-inline d-sm-none col-6 col-md-4 col-lg-4 pr-0">
+												Variance
+											</div>
+											<div class="text-right col-6 col-md-8 col-lg-8 pl-0">
+												@data.Variance
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							@*</a>*@
+						}
+					</ul>
+				</div>
+
+
+				@*<div class="card-body">
+			<div class="col-md-12 p-0">
+				<div id="accordion" class="accordion-wrapper mb-3">
+					<div class="card">
+						<div id="headingOne" class="card-header">
+							<button type="button" data-toggle="collapse" data-target="#collapseOne50" aria-expanded="true" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-block">
+								<h5 class="m-0 p-0">50 - CREW</h5>
+								<div class="mt-1">
+									<div class="no-gutters row">
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Total
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													558,724
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Budget
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													797,567
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Variance
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													238,843
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Accrual
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													2,600
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Actual
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													556,124
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</button>
+						</div>
+						<div data-parent="#accordion" id="collapseOne50" aria-labelledby="headingOne" class="collapse show">
+							<div class="card-body">
+								<div id="accordion50" class="accordion-wrapper">
+									<div class="card">
+										<div id="headingOne" class="card-header">
+											<button type="button" data-toggle="collapse" data-target="#collapseOne501" aria-expanded="true" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-block">
+												<h5 class="m-0 p-0">501 - CREW WAGES</h5>
+												<div class="mt-1">
+													<div class="no-gutters row">
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Total
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	558,724
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Budget
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	797,567
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Variance
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	238,843
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Accrual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	2,600
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Actual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	556,124
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</button>
+										</div>
+										<div data-parent="#accordion50" id="collapseOne501" aria-labelledby="headingOne" class="collapse">
+											<div class="card-body">
+												<div class="accordion-wrapper">
+													<div class="card">
+														<div id="headingOne" class="card-header">
+															<button type="button" class="text-left m-0 p-0 btn btn-block">
+																<h5 class="m-0 p-0">5010100 - BASIC WAGES/ALLOWANCES/BONUS</h5>
+																<div class="mt-1">
+																	<div class="no-gutters row">
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Total
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					558,724
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Budget
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					797,567
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Variance
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					238,843
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Accrual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					2,600
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Actual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					556,124
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card">
+										<div id="headingTwo" class="b-radius-0 card-header">
+											<button type="button" data-toggle="collapse" data-target="#collapseOne503" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-block">
+												<h5 class="m-0 p-0">503 - CREW TRAVEL</h5>
+												<div class="mt-1">
+													<div class="no-gutters row">
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Total
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	558,724
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Budget
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	797,567
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Variance
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	238,843
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Accrual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	2,600
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Actual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	556,124
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</button>
+										</div>
+										<div data-parent="#accordion50" id="collapseOne503" class="collapse">
+											<div class="card-body">
+												<div class="accordion-wrapper">
+													<div class="card">
+														<div id="headingOne" class="card-header">
+															<button type="button" class="text-left m-0 p-0 btn btn-block">
+																<h5 class="m-0 p-0">5030100 - AIR TRAVEL</h5>
+																<div class="mt-1">
+																	<div class="no-gutters row">
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Total
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					558,724
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Budget
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					797,567
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Variance
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					238,843
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Accrual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					2,600
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Actual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					556,124
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div id="headingTwo" class="b-radius-0 card-header">
+							<button type="button" data-toggle="collapse" data-target="#collapseOne52" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-block">
+								<h5 class="m-0 p-0">52 - INSURANCE</h5>
+								<div class="mt-1">
+									<div class="no-gutters row">
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Total
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													558,724
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Budget
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													797,567
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Variance
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													238,843
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Accrual
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													2,600
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Actual
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													556,124
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</button>
+						</div>
+						<div data-parent="#accordion" id="collapseOne52" class="collapse">
+							<div class="card-body">
+								<div id="accordion52" class="accordion-wrapper">
+									<div class="card">
+										<div id="headingOne" class="card-header">
+											<button type="button" data-toggle="collapse" data-target="#collapseOne521" aria-expanded="true" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-block">
+												<h5 class="m-0 p-0">521 - HULL & MACHINERY PREMIUMS</h5>
+												<div class="mt-1">
+													<div class="no-gutters row">
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Total
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	558,724
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Budget
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	797,567
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Variance
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	238,843
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Accrual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	2,600
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Actual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	556,124
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</button>
+										</div>
+										<div data-parent="#accordion52" id="collapseOne521" aria-labelledby="headingOne" class="collapse">
+											<div class="card-body">
+												<div class="accordion-wrapper">
+													<div class="card">
+														<div id="headingOne" class="card-header">
+															<button type="button" class="text-left m-0 p-0 btn btn-block">
+																<h5 class="m-0 p-0">5210100 - H & M PREMIUMS</h5>
+																<div class="mt-1">
+																	<div class="no-gutters row">
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Total
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					558,724
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Budget
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					797,567
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Variance
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					238,843
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Accrual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					2,600
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Actual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					556,124
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card">
+										<div id="headingTwo" class="b-radius-0 card-header">
+											<button type="button" data-toggle="collapse" data-target="#collapseOne523" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-block">
+												<h5 class="m-0 p-0">523 - P&I PREMIUMS</h5>
+												<div class="mt-1">
+													<div class="no-gutters row">
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Total
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	558,724
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Budget
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	797,567
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Variance
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	238,843
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Accrual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	2,600
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Actual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	556,124
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</button>
+										</div>
+										<div data-parent="#accordion52" id="collapseOne523" class="collapse">
+											<div class="card-body">
+												<div class="accordion-wrapper">
+													<div class="card">
+														<div id="headingOne" class="card-header">
+															<button type="button" class="text-left m-0 p-0 btn btn-block">
+																<h5 class="m-0 p-0">5230100 - P & I ADVANCE CALLS</h5>
+																<div class="mt-1">
+																	<div class="no-gutters row">
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Total
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					558,724
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Budget
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					797,567
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Variance
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					238,843
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Accrual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					2,600
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Actual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					556,124
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div id="headingTwo" class="b-radius-0 card-header">
+							<button type="button" data-toggle="collapse" data-target="#collapseOne54" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-block">
+								<h5 class="m-0 p-0">54 - TOTAL TECHNICAL</h5>
+								<div class="mt-1">
+									<div class="no-gutters row">
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Total
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													558,724
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Budget
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													797,567
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Variance
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													238,843
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Accrual
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													2,600
+												</div>
+											</div>
+										</div>
+										<div class="col-6 col-md-4 col-lg-4">
+											<div class="row">
+												<div class="col-6 col-md-4 col-lg-4 pr-0">
+													Actual
+												</div>
+												<div class="col-6 col-md-8 col-lg-8 pl-0">
+													556,124
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</button>
+						</div>
+						<div data-parent="#accordion" id="collapseOne54" class="collapse">
+							<div class="card-body">
+								<div id="accordion54" class="accordion-wrapper">
+									<div class="card">
+										<div id="headingOne" class="card-header">
+											<button type="button" data-toggle="collapse" data-target="#collapseOne541" aria-expanded="true" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-block">
+												<h5 class="m-0 p-0">541 - STORES</h5>
+												<div class="mt-1">
+													<div class="no-gutters row">
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Total
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	558,724
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Budget
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	797,567
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Variance
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	238,843
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Accrual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	2,600
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Actual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	556,124
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</button>
+										</div>
+										<div data-parent="#accordion54" id="collapseOne541" aria-labelledby="headingOne" class="collapse">
+											<div class="card-body">
+												<div class="accordion-wrapper">
+													<div class="card">
+														<div id="headingOne" class="card-header">
+															<button type="button" class="text-left m-0 p-0 btn btn-block">
+																<h5 class="m-0 p-0">5411100 - CHARTS/NAUTICALS PUBS</h5>
+																<div class="mt-1">
+																	<div class="no-gutters row">
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Total
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					558,724
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Budget
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					797,567
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Variance
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					238,843
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Accrual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					2,600
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Actual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					556,124
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="card">
+										<div id="headingTwo" class="b-radius-0 card-header">
+											<button type="button" data-toggle="collapse" data-target="#collapseOne543" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-block">
+												<h5 class="m-0 p-0">543 - SPARES</h5>
+												<div class="mt-1">
+													<div class="no-gutters row">
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Total
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	558,724
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Budget
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	797,567
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Variance
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	238,843
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Accrual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	2,600
+																</div>
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-4">
+															<div class="row">
+																<div class="col-6 col-md-4 col-lg-4 pr-0">
+																	Actual
+																</div>
+																<div class="col-6 col-md-8 col-lg-8 pl-0">
+																	556,124
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</button>
+										</div>
+										<div data-parent="#accordion54" id="collapseOne543" class="collapse">
+											<div class="card-body">
+												<div class="accordion-wrapper">
+													<div class="card">
+														<div id="headingOne" class="card-header">
+															<button type="button" class="text-left m-0 p-0 btn btn-block">
+																<h5 class="m-0 p-0">5430200 - DECK MACHINERY</h5>
+																<div class="mt-1">
+																	<div class="no-gutters row">
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Total
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					558,724
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Budget
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					797,567
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Variance
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					238,843
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Accrual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					2,600
+																				</div>
+																			</div>
+																		</div>
+																		<div class="col-6 col-md-4 col-lg-4">
+																			<div class="row">
+																				<div class="col-6 col-md-4 col-lg-4 pr-0">
+																					Actual
+																				</div>
+																				<div class="col-6 col-md-8 col-lg-8 pl-0">
+																					556,124
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>*@
+			</div>
+		</div>
+	</div>
+}

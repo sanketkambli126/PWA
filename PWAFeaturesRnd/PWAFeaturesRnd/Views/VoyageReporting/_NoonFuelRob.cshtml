@@ -1,0 +1,486 @@
+﻿@model List<FuelROBDetailsViewModel>
+@{
+    List<string> rowlist = new List<string>
+{
+    "Tank Capacity",
+    "Previous ROB",
+    "Sulphur (%)",
+    "ME Consumption",
+    "Break Consumption",
+    "Cargo heat/cool",
+    "Boiler",
+    "DG Consumption",
+    "Deballast",
+    "IGS",
+    "Tank Clearing",
+    "Other",
+    "Total Consumption",
+    "Total ROB",
+    "Free Capacity",
+    };
+}
+
+<div class="row background-padding no-gutters consumptiondesign">
+    <div class="col-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0">
+        <div class="common-custom-card two-column-layout mb-0">
+            <div class="counters-heading border-none">
+                <div>
+                    <span>Fuel ROB</span>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2">
+                            <div class="dashboard-counters-label">
+                                <span id="">
+
+                                </span>
+                            </div>
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                Tank Capacity
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @CommonUtil.SetDecimalDefaultValue((decimal?)Model[i].TankCapacity)
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[1]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @CommonUtil.SetDecimalDefaultValue((decimal?)@Model[i].PreviousROB)
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[2]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @Model[i].Sulphur
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[3]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @Model[i].MEConsumption
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[4]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @Model[i].BreakConsumption
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[5]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @Model[i].Cargo
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[6]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @Model[i].Boiler
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[7]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @Model[i].DGConsumption
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[8]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @Model[i].DeBallast
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[9]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @Model[i].IGS
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[10]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @Model[i].TankCleaning
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[11]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @Model[i].Other
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[12]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @CommonUtil.SetDecimalDefaultValue((decimal?)Model[i].TotalConsumption)
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[13]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @CommonUtil.SetDecimalDefaultValue((decimal?)Model[i].TotalROB)
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-md-3 col-lg-2 col-xl-2 my-auto">
+                            <div class="dashboard-counters mb-2 mb-md-0">
+                                <span id="">
+                                    @rowlist[14]
+                                </span>
+                            </div>
+                        </div>
+                        @for (var i = 0; i < 6; i++)
+                        {
+                            if (!Model[i].IsTypeCollapsed)
+                            {
+                                <div class="col-6 col-md-1 col-lg-1 col-xl-1">
+                                    <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                        @Model[i].Title
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">
+                                            @CommonUtil.SetDecimalDefaultValue((decimal?)Model[i].FreeCapacity)
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

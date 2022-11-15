@@ -1,0 +1,168 @@
+﻿@model ChangeInDestinationViewModel
+<div class="modal-content">
+    <div class="modal-header header-background header-padding modaldetails-design">
+        <div class="col-md-11 pl-0">
+            <div class="common-sub-heading-black destinationheadershowmorewrapper">
+                <span class="header">
+                    <div class="common-small-heading" id="">DESTINATION CHANGED</div>
+                </span>
+                <div class="common-small-heading">
+                    <span class="common-heading-green"><div><span id="">@Model.VesselName</span></div></span>
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <span class="common-small-heading"><span class="head">Date & Time  </span><span id="" class="value">@Model.SpaDate</span></span>
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <span class="common-small-heading"><span class="head">Latitude  </span><span id="" class="value">@Model.SpaLat3</span></span>
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <span class="common-small-heading">
+                        <span class="head">Longitude  </span><span id="" class="value">@Model.SpaLong3</span>
+                    </span>
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                   
+                    <span class="common-small-heading">
+                        <span class="head">Security Level  </span><span id="" class="value">@Model.SpaSecurity</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body new-background padding-20">
+        <div class="">
+            
+            <div class="row background-padding no-gutters">
+                <div class="col-12 col-md-6 col-lg-3 col-xl-3 pl-0">
+                    <div class="common-custom-card two-column-layout height-equal-box mb-3 mb-md-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>Original Destination</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                <div class="dashboard-counters-label">
+                                    Port
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                <div class="dashboard-counters">
+                                    <span id=""> @Model.OldPortPrtName</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                <div class="dashboard-counters-label">
+                                    Distance to go
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                <div class="dashboard-counters">
+                                    <span id="">@Model.PoslistPosDistGo nm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                <div class="dashboard-counters-label">
+                                    Country
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                <div class="dashboard-counters">
+                                    <span id="">@Model.OldPortCntId</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                <div class="dashboard-counters-label">
+                                    Est. EOSP
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                <div class="dashboard-counters">
+                                    <span id="">@Model.PoslistPosDate3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 col-xl-4 comments">
+                    <div class="common-custom-card height-equal-box mb-3 mb-md-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>New Destination</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="dashboard-counters-label">
+                                    New Port
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-8 col-lg-8 col-xl-8">
+                                <div class="dashboard-counters">
+                                    <span id="">@Model.SpaPortNew</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="dashboard-counters-label">
+                                    Distance to go
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-8 col-lg-8 col-xl-8">
+                                <div class="dashboard-counters">
+                                    <span id="">@Model.SpaDistGo nm</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="dashboard-counters-label">
+                                    Country
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-8 col-lg-8 col-xl-8">
+                                <div class="dashboard-counters">
+                                    <span id="">@Model.NewPort1CntId</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-4 col-lg-4 col-xl-4">
+                                <div class="dashboard-counters-label">
+                                    Est. EOSP
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-8 col-lg-8 col-xl-8">
+                                <div class="dashboard-counters">
+                                    <span id="">@Model.SpaEtaDate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-5 col-xl-5 pr-0 ">
+                    <div class="common-custom-card height-equal-box mb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>Reason</span>
+                            </div>
+                        </div>
+                        <p id="" class="open-sans-font details-common scroller reasonscroller">
+                            @Model.SpaComment
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

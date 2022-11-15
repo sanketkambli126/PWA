@@ -1,0 +1,56 @@
+﻿<div class="voyage-from-to">
+    <div class="clearfix">
+        <div class="from-section float-left" id="divFromSection">
+            <div class="widget-subheading" id="spanFromHeaderSection"></div>
+            <div class="widget-numbers font-size-14 opacity-1 m-0">
+                <span id="spanFoap"></span>
+                <span id="spanFromPortName"></span>
+
+                <a href='javascript: void(0);' class='icon-hover-underline-none' id="FromAnchorPortAlert">
+                    <i class='fa fa-anchor icon-red ml-1'></i>
+                    <sup class='icon-red'>&#9733;</sup>
+                </a>
+            </div>
+            <div class="time widget-numbers font-size-14 my-1">
+                <span id="spanSeaPassageFromDate"></span>
+                <a href='javascript: void(0);' data-target='#modalAgentDetail' data-toggle='modal' class='icon-hover-underline-none' id="PortAgentDetails">
+                    <i class="fa fa-user text-black ml-1"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="to-section float-right" id="divToSection">
+            <div class="widget-subheading" id="spanToHeaderSection"></div>
+            <div class="widget-numbers font-size-14 opacity-1 m-0">
+                <span id="spanToEosp"></span>
+                <span id="spanToPortName"></span>
+                <a href='javascript: void(0);' class='icon-hover-underline-none' id="ToAnchorPortAlert">
+                    <i class='fa fa-anchor icon-red ml-1'></i>
+                    <sup class='icon-red'>&#9733;</sup>
+                </a>
+            </div>
+            <span class="time widget-numbers font-size-14 my-1" id="spanSeaPassageToDate"></span>
+        </div>
+    </div>
+</div>
+<div class="">
+    <div class="graph-indicator mt-5">
+        <div class="">
+            <div class="speed-indicator mt-1 pl-0" id="divProgressBar">
+                <div class="progress-bar-animated-alt progress">
+                    <div class="progress-bar bg-primary divProgressBarFlow" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100">
+                        <div class="widget-numbers fsize-1 mt-0 mb-0 total-covered">
+                            Total Distance Covered - <span id="spanSPDistanceCovered"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br class="mobile-br"/>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-right total-distance pl-0">
+                <div class="widget-numbers fsize-1 mt-2 mb-2">
+                    Total Distance - <span id="spanSPTotalDistance"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

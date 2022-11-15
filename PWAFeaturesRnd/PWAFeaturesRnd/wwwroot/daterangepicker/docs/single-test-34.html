@@ -1,0 +1,43 @@
+<!DOCTYPE  html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Caleran - Date Range Picker</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet">
+    <link href="../build/css/caleran.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="../build/vendor/jquery.min.js"></script>
+    <script src="../build/vendor/moment.min.js"></script>
+    <script src="../build/vendor/jquery.hammer.js"></script>
+    <script src="../build/js/caleran.min.js"></script>
+    <!-- end caleran includes -->
+</head>
+<body>
+    <input type="text" id="caleran_hidden" name="caleran_value">
+    <div class="well well-sm" style="overflow: auto;">
+        <div style="display: flex;">
+            <input type="text" id="caleran_start" autofocus>
+            <input type="text" id="caleran_end">
+        </div>
+    </div>
+    <script>
+        $("#caleran_start").caleran({
+            target: $("#caleran_hidden"),
+            onfirstselect: function(instance, start) {
+                instance.config.onafterhide(instance);
+            },
+            onafterselect: function(instance, start, end) {
+                instance.hideDropdown();
+                var end = instance.config.endDate;
+                $("#caleran_end").val(end ? end.format(instance.config.format) : "");
+            },
+            onafterhide: function(instance) {
+                var start = instance.config.startDate;
+                $("#caleran_start").val(start ? start.format(instance.config.format) : "");
+            }
+        });
+    </script>
+</body>
+</html>

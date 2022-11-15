@@ -1,0 +1,80 @@
+﻿@model List<OfficeViewDetailResponseViewModel>
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+    {
+	Sentinel - Office List
+}
+
+@section ContentSection
+    {
+<div class="app-main__outer font-family-open-sans">
+    <div class="app-main__inner white-background new-background common-border-radius sentinelpadmobile">
+        <div class="offc-head">
+            <h1>Sentinel, <br class="d-block d-md-none" />Vessel Health Index</h1>
+        </div>
+        <input type="hidden" id="IsAllowSelectFleetParent" value="true" />
+        <div class="sentinel-accordation sentineloff-accordation">
+            <div id="sentinelaccordion">
+
+                @foreach (var item in Model)
+                {
+                <div class="card">
+                    <partial name="officeHeaderPartialView" model="item" />
+                    <div id="collapse-@item.OfficeId" class="collapse" aria-labelledby="header-@item.OfficeId" data-parent="#sentinelaccordion">
+                        <div class="card-body">
+                            <div class="office-info">
+                                <div class="topinfo">
+                                    <div class="clearfix">
+                                        <div class="float-left">
+                                            <h1>BIGGEST MOVERS</h1>
+                                        </div>
+                                        <div class="float-right linkswidth">
+                                            @if (@item.OfficeName != "All Offices")
+                                            {
+                                            <a href="/Sentinel/FleetVesselList/?fleetRequest=@item.FleetRequest">
+                                                <span>See Fleets</span>
+                                            </a>
+                                            }
+                                            <a href="/Sentinel/FleetVesselList/?fleetRequest=@item.FleetRequest">
+                                                <span>See Vessels</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inc-dec-info" id="inc-dec-info-@item.OfficeId">
+                                </div>
+                                <div class="action-overridediv" id="overridediv-@item.OfficeId">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading-indicator d-none">
+    <div class="loader bg-transparent no-shadow p-0">
+        <div class="ball-spin-fade-loader">
+            <div class="bg-teal"></div>
+            <div class="bg-teal"></div>
+            <div class="bg-teal"></div>
+            <div class="bg-teal"></div>
+            <div class="bg-teal"></div>
+            <div class="bg-teal"></div>
+            <div class="bg-teal"></div>
+            <div class="bg-teal"></div>
+        </div>
+    </div>
+</div>
+
+}
+
+@section ScriptSection
+    {
+<script src="~/assets/scripts/sentinelOfficeList.bundle.js"></script>
+}

@@ -1,0 +1,66 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@RenderSection("Title")</title>
+    @RenderSection("TopHeaderSection", false)
+
+    @*<meta name="viewport" content="width=device-width" />*@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui" />
+    <link rel="manifest" href="/manifest.json">
+
+    <link rel="shortcut icon" href="~/images/icons/logo32.png" type="image/png" />
+    <link href="~/compiled-style.css" rel="stylesheet" />
+    <link href="~/styles/colReorder.dataTables.min.css" rel="stylesheet" />
+    <link href="~/styles/dataTables.checkboxes.css" rel="stylesheet" />
+    <link href="~/daterangepicker/build/css/caleran.min.css" rel="stylesheet" />
+    <link href="~/pwatour/bootstrap-tourist.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="~/styles/developer.css" rel="stylesheet" />
+    <link href="~/styles/sentinel.css" rel="stylesheet" />
+    <link href="~/styles/vvr.css" rel="stylesheet" />
+
+    @RenderSection("CSSSection", false)
+</head>
+
+<body>
+
+    @RenderSection("ContentSection")
+    <input type="hidden" id="hndUserEmail" value="" />
+    <input type="hidden" id="hdnAPIToken" value="" />
+    <script>
+
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }).catch(function(err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        }
+        function chatAfterSaveChannelSuccess() {
+            document.getElementById("notificationclosemodal").click();
+        }
+
+        function updateChatAndNotesCount() {
+            var event = new CustomEvent("updateCount");
+            document.dispatchEvent(event);
+        }
+
+    </script>
+    <script src="~/assets/scripts/main.bundle.js"></script>
+    <script src="~/scripts/lib/aes.js"></script>
+    @RenderSection("ScriptSection", false)
+
+</body>
+</html>
+
+@RenderSection("Modal", false)

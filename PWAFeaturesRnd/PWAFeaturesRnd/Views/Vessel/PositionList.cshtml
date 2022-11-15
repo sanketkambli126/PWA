@@ -1,0 +1,312 @@
+﻿
+@{
+	ViewData["Title"] = "PositionList";
+	Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+	Position List
+}
+
+@section ContentSection
+{
+	<div class="app-main__outer fixed-page-header">
+		<div class="app-main__inner background-padding">
+			<div class="app-page-title header-shadow">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+						<div>
+							Position List
+						</div>
+					</div>
+					<div class="page-title-actions">
+						<div class="d-inline-block mr-3 mb-mobile-3">
+							<button class="btn-shadow btn btn-info" id="dtrpositionlist">
+								<i class="fa fa-calendar pr-1"></i>
+								<span></span>
+								<i class="fa pl-1 fa-caret-down"></i>
+							</button>
+						</div>
+						<div class="d-inline-block mr-3">
+							<button type="button" data-toggle="modal" data-target="#fleetList" class="btn-shadow btn btn-info">
+								<span class="btn-icon-wrapper pr-2 opacity-7">
+									<i class="fa fa-filter fa-w-20"></i>
+								</span>
+								<span id="spSubtitle">V.Ships Glasgow</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="main-card content-pane card margin-bottom-custom">
+
+				<div class="card-header card-header-tab-animation d-none d-sm-block">
+					<ul class="nav nav-justified">
+						<li class="nav-item"><a data-toggle="tab" href="#tab-map" class="active nav-link nav-link-teal">VESSEL POSITION</a></li>
+						<li class="nav-item"><a data-toggle="tab" href="#tab-list" class="nav-link nav-link-teal">PORT CALL</a></li>
+					</ul>
+				</div>
+
+				<div class="card-body">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab-map" role="tabpanel">
+
+							<div id="positionlistMap">
+							</div>
+							<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"> </script>
+							@*<script src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>*@
+							<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtkdm4T14Ry_RJkMZo7LJK96Lio1I5uIw&callback=initMap"></script>
+						</div>
+
+						<div class="tab-pane" id="tab-list" role="tabpanel">
+								<div class="table-responsive compact-table">
+									<table style="width: 100%;" id="dtPositionList" class="table table-hover table-bordered cardview row-sm">
+										<thead>
+											<tr>
+												<th colspan="11">
+													&nbsp;
+												</th>
+												<th colspan="2">
+													Certificates
+												</th>
+												<th colspan="2">
+													Crew Lineup
+												</th>
+											</tr>
+											<tr>
+												<th>
+													Vessel
+												</th>
+												<th>
+													Country
+												</th>
+												<th>
+													Port
+												</th>
+												<th>
+													Activity
+												</th>
+												<th>
+													From Status
+												</th>
+												<th>
+													From Date
+												</th>
+												<th>
+													To Status
+												</th>
+												<th>
+													To Date
+												</th>
+												<th>
+													Agent Details
+												</th>
+												<th>
+													Exp Deliveries
+												</th>
+												<th>
+													Port Activities
+												</th>
+												<th class="d-block d-sm-none">
+													Certificates
+												</th>
+												<th>
+													OD
+												</th>
+												<th>
+													Due Now
+												</th>
+												<th class="d-block d-sm-none">
+													Crew Lineup
+												</th>
+												<th>
+													Sign On
+												</th>
+												<th>
+													Sign Off
+												</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section Modal{
+
+	<div class="modal fade" id="fleetList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Select Fleet</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p class="mb-0">
+						<div id="fleetTree"></div>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="agentDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Agent Details</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<div class="card">
+						<div class="card-header border-bottom-0">
+							<span class="widget-heading">Sichem Amethyst</span>
+							<span class="border-left ml-2 pl-2">IMO 9394959</span>
+							<i class="fa fa-info-circle ml-2 pl-2" data-html="true" title="Type: Tanker Crude <br/> Built Date: 01 Apr 2009 <br/> Age: 11 years" data-toggle="tooltip" data-placement="bottom"></i>
+						</div>
+
+						<div class="card-header card-header-tab-animation">
+							<ul class="nav">
+								<li class="nav-item"><a data-toggle="tab" href="#tab-agent1" class="active nav-link nav-link-teal">AGENT 1</a></li>
+								<li class="nav-item"><a data-toggle="tab" href="#tab-agent2" class="nav-link nav-link-teal">AGENT 2</a></li>
+							</ul>
+						</div>
+						<div class="card-body">
+							<div class="tab-content">
+								<div class="tab-pane active" id="tab-agent1" role="tabpanel">
+									<div>
+										<span class="float-right"><i class="fa fa-copy"></i></span>
+										<span class="font-weight-bold">Wafa Shipping S.A. (Owner)</span>
+									</div>
+									<div>
+										2/ Wafa Shipping Iman Cebter Rue Errachid, Angle Avenue des F.A.R. Casdablanca 20000
+									</div>
+									<div>
+										Casdablanca 20310
+									</div>
+									<div>
+										Morocco
+									</div>
+									<div>
+										<table class="table table-borderless py-2px-px-0px">
+											<tr>
+												<td class="font-weight-bold">
+													Fax
+												</td>
+												<td>
+													212 522 451834
+												</td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">
+													Mobile
+												</td>
+												<td>
+													212 661 966249
+												</td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">
+													Telephone
+												</td>
+												<td>
+													212 522 313290/91
+												</td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">
+													Email
+												</td>
+												<td>
+													wafashipping@menara.ma
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div>
+										<div class="font-weight-bold">Notes</div>
+										<div>
+											<textarea class="form-control form-control-sm" rows="2" readonly></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab-agent2" role="tabpanel">
+									<div>
+										<span class="float-right"><i class="fa fa-copy"></i></span>
+										<span class="font-weight-bold mb-1">T. Parker Host (formerly Amelia Maritime Services, Inc.) (Charterer) </span>
+									</div>
+									<div>
+										309 1/2 Centre Street Suite 205 Fernandina Beach, FL 32034 Femandina Beach Florida 32034
+									</div>
+									<div>
+										United States
+									</div>
+									<div>
+										<table class="table table-borderless py-2px-px-0px">
+											<tr>
+												<td class="font-weight-bold">
+													Fax
+												</td>
+												<td>
+													904-321-1804
+												</td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">
+													Telephone
+												</td>
+												<td>
+													904-321-1803
+												</td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">
+													Email
+												</td>
+												<td>
+													Flops@tparkerhost.com
+												</td>
+											</tr>
+											<tr>
+												<td class="font-weight-bold">
+													Mobile
+												</td>
+												<td>
+													www.tparkerhost.com
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div>
+										<div class="font-weight-bold">Notes</div>
+										<div>
+											<textarea class="form-control form-control-sm" rows="2" readonly></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section ScriptSection
+{
+	<script src="~/assets/scripts/positionlist.bundle.js"></script>
+}
+
+

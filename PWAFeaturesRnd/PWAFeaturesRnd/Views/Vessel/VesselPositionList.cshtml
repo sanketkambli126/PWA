@@ -1,0 +1,452 @@
+﻿@{
+	Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+	Vessel Position List
+}
+
+
+@section ContentSection
+{
+	<div class="app-main__outer fixed-page-header">
+		<div class="app-main__inner background-padding">
+			<div class="app-page-title header-shadow">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+						<div>
+							Vessel Position List - Sichem Amethyst
+						</div>
+					</div>
+					<div class="page-title-actions">
+						<div class="d-inline-block">
+							<button class="btn-shadow btn btn-info" id="dtrvesselpositionlist">
+								<i class="fa fa-calendar pr-1"></i>
+								<span></span>
+								<i class="fa pl-1 fa-caret-down"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="main-card content-pane card margin-bottom-custom">
+
+				<div class="card-header card-header-tab-animation">
+					<ul class="nav nav-justified">
+						<li class="nav-item"><a data-toggle="tab" href="#tab-list" class="active nav-link nav-link-teal">ACTIVITY LIST</a></li>
+						<li class="nav-item"><a data-toggle="tab" href="#tab-map" class="nav-link nav-link-teal td-w">MAP</a></li>
+					</ul>
+				</div>
+
+				<div class="card-body">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab-list" role="tabpanel">
+							<div class="card-title">ACTIVITIES(3)</div>
+							<div class="table-responsive compact-table table-scroll">
+								<table style="width: 100%;" id="dtPositionDetails" class="table table-hover table-bordered cardview row-sm nowrap">
+									<thead>
+										<tr>
+											<th colspan="1">
+												&nbsp;
+											</th>
+											<th colspan="3">
+												FROM
+											</th>
+											<th colspan="9">
+												TO
+											</th>
+										</tr>
+										<tr>
+											<th>
+												Activity
+											</th>
+											<th class="d-md-none d-lg-none d-xl-none">
+												FROM
+											</th>
+											<th>
+												Status
+											</th>
+											<th>
+												Date
+											</th>
+											<th>
+												Port
+											</th>
+											<th class="d-md-none d-lg-none d-xl-none">
+												TO
+											</th>
+											<th>
+												Status
+											</th>
+											<th>
+												Date
+											</th>
+											<th>
+												Port
+											</th>
+											<th>
+												Agents
+											</th>
+
+											<th>
+												Off-Hire
+											</th>
+											<th>
+												Delays
+											</th>
+											<th>
+												Weather
+											</th>
+											<th>
+												Charter No.
+											</th>
+											<th>
+												Charter REQ
+											</th>
+											<th>
+												Voyage No.
+											</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab-map" role="tabpanel">
+
+							<div id="positionlistMap">
+							</div>
+							@*<script src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>*@
+							<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtkdm4T14Ry_RJkMZo7LJK96Lio1I5uIw&callback=initMap"></script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section Modal
+{
+	<div class="modal fade" id="offhiremodal" tabindex="-1" role="dialog" aria-labelledby="offhiremodal" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Off - Hire</h5>
+					<button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="table-responsive compact-table">
+						<table style="width: 100%;" id="dtOffHireList" class="table table-hover table-bordered cardview row-sm">
+							<thead>
+								<tr>
+									<th>Activity</th>
+									<th>OffHire Duration</th>
+									<th>From</th>
+									<th>To</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="delaymodal" tabindex="-1" role="dialog" aria-labelledby="delaymodal" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Delay</h5>
+					<button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="table-responsive compact-table">
+						<table style="width: 100%;" id="dtdelaylist" class="table table-hover table-bordered cardview row-sm">
+							<thead>
+								<tr>
+									<th>Activity</th>
+									<th>Delay Duration</th>
+									<th>From</th>
+									<th>To</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="weathermodal" tabindex="-1" role="dialog" aria-labelledby="weathermodal" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Weather Details</h5>
+					<button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-2">
+						<div class="card-title">CHARTER DETAILS</div>
+						<div class="row">
+							<div class="col-4 col-md-4 col-lg-2 pr-mobile-0">
+								<label><b>Swell Length </b></label>
+							</div>
+							<div class="col-8 col-md-8 col-lg-2">
+								<span>Short &nbsp;&nbsp;&nbsp;0-100</span>
+							</div>
+							<div class="col-4 col-md-4 col-lg-2">
+								<label><b>Wind Force</b></label>
+							</div>
+							<div class="col-8 col-md-8 col-lg-4">
+								<span>04 Moderate breeze</span>
+							</div>
+						</div>
+					</div>
+					<div class="card-title">BAD WEATHER DETAILS</div>
+					<div class="table-responsive compact-table">
+						<table style="width: 100%;" id="dtweatherlist" class="table table-hover table-bordered cardview row-sm">
+							<thead>
+								<tr>
+									<th>Event Name</th>
+									<th>Date</th>
+									<th>Swell Length</th>
+									<th>Wind Force</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="agentmodal" tabindex="-1" role="dialog" aria-labelledby="agentmodal"
+		 aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="agentdetails">Port Call Agent Details</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-lg-12">
+							<span>ALYARMOUK</span>&nbsp;|&nbsp;<span><b>IMO 9356438</b></span>
+						</div>
+					</div>
+					<div class="main-card pt-3">
+						<div class="row">
+							<div class="col-md-12 col-lg-6">
+								<div class="card-header text-uppercase bg-secondary text-white height-30px">
+									<div class="w-100">
+										<span>AGENT 1</span>
+									</div>
+								</div>
+								<div class="card-body py-0 pb-3 border mb-3">
+									<h5 class="card-title pt-3">ISS - Vessel Service Centre Hub(Charterer)</h5>
+									Unit 101, Reliable Plaza, Plot K 10,Thane Airoli Road<br>
+									Mumbai 400708, India<br>
+									Fax: +91 22 41737789<br />
+									Mobile: +91 75063 38708<br />
+									Telephone: +91 22 41737 780<br />
+									Email: <a href="mailto:cls6@iss-Shipping.com" class="card-link">cls6@iss-Shipping.com</a>
+								</div>
+							</div>
+							<div class="col-md-12 col-lg-6">
+								<div class="card-title">Notes</div>
+								<textarea class="form-control form-control-sm" rows="8"></textarea>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="activitycharterdetails" tabindex="-1" role="dialog" aria-labelledby="activitycharterdetails" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Charter Activity</h5>
+					<button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-2">
+						<div class="card-title">CHARTER DETAILS</div>
+						<div class="row">
+							<div class="col-5 col-md-4 col-lg-2 pr-mobile-0 pr-0">
+								<label><b>Charterer Name</b></label>
+							</div>
+							<div class="col-7 col-md-8 col-lg-3">
+								<span>Mjolner Shipping LLC</span>
+							</div>
+							<div class="col-5 col-md-4 col-lg-2">
+								<label><b>Voyage No.</b></label>
+							</div>
+							<div class="col-7 col-md-8 col-lg-3">
+								<span>130</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-5 col-md-4 col-lg-2">
+								<label><b>Charter No.</b></label>
+							</div>
+							<div class="col-7 col-md-8 col-lg-3">
+								<span>2632/ALYAR/VC/129/20</span>
+							</div>
+							<div class="col-5 col-md-4 col-lg-2">
+								<label><b>Trade</b></label>
+							</div>
+							<div class="col-7 col-md-8 col-lg-3">
+								<span>TANKER</span>
+							</div>
+						</div>
+					</div>
+					<div class="card-title">CHARTER REQUIREMENTS - DAILY AVERAGE</div>
+					<div class="table-responsive compact-table">
+						<div class="row">
+							<div class="col-12 col-md-12 col-lg-8">
+								<table style="width: 100%;" id="dtcharterreqlist" class="table table-hover table-bordered cardview row-sm">
+									<thead>
+										<tr>
+											<th>Type</th>
+											<th>CHT. Ballast</th>
+											<th>Actual</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="portdetails" tabindex="-1" role="dialog" aria-labelledby="portdetails"
+		 aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="agentdetails">Port Services</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body port-service">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="card-title mb-1">San Vicente, CHL</div>
+							<div class="row">
+								<div class="col-6 col-md-6 col-lg-2 pr-0"><b>Country :</b> <div class="flag CL small inline-block"></div> Chile</div>
+								<div class="col-6 col-md-6 col-lg-3 pr-mobile-0 pl-mobile-0"><b>UN/Loc Code :</b> CLSVE</div>
+								<div class="col-6 col-md-6 col-lg-3 pr-mobile-0"><b>Latitude :</b> 36&deg;,42.00'S</div>
+								<div class="col-6 col-md-6 col-lg-3 pr-mobile-0 pl-mobile-0"><b>Longitude : </b> 73&deg;,8.00'W</div>
+								<div class="col-6 col-md-6 col-lg-2pr-mobile-0 pr-mobile-0"><b>Key Hub :</b> No</div>
+							</div>
+						</div>
+					</div>
+					<div class="main-card pt-3">
+						<div class="row">
+							<div class="col-md-12 col-lg-12">
+								<div class="card-title mb-1">ALERT (1)</div>
+								<div class="card-body py-0 px-0 pb-2 port-service-alert-popup">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+														<div class="panel panel-default">
+															<div class="panel-heading" role="tab" id="headingOne">
+																<h4 class="panel-title">
+																	<a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+																		MAR 11 Port Alert
+																	</a>
+																	<i class="fa fa-exclamation-circle text-danger float-right mr-3"></i><i class="fa fa-anchor float-right mr-2"></i>
+																</h4>
+
+															</div>
+															<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+																<div class="panel-body">
+																	<div class="card-title mb-2">DETAILS</div>
+																	<div class="mb-2"><b>Title </b> MAR 11 Port Alert</div>
+																	<div class="mb-2"><b>Description </b></div>
+																	<div class="scroller">
+																		<div class="">
+																			<p class="mb-1">
+																				We note your vesel is currently heading towards Chile.
+																			</p>
+																			<p class="mb-0">
+																				The attached MAR11 from covers potential deficiencies that frequently been raised during port state control inscpectiob and in some cases
+																				let to detention. We update this form regularly basis our latest operational trends. it is critical that you and your team to go through there items very carefully before
+																				arrival and send completed checklist to Vessel Control Group.If defective items are found then please copy to your DPA.The sooner a problem is known, the easier it is to resolve.
+																			</p>
+																		</div>
+																	</div>
+																	<hr />
+																	<div class="mb-2"><b>Attachments & Links (0)</b></div>
+																	<div class="row">
+																		<div class="col-12 col-md-12 col-lg-8">
+																			<table style="width: 100%;" id="dtportservicelist" class="table table-hover table-bordered cardview row-sm mb-0">
+																				<thead>
+																					<tr>
+																						<th>Created Date</th>
+																						<th>Title</th>
+																						<th>Description</th>
+																					</tr>
+																				</thead>
+																			</table>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+													</div>
+												</div>
+											</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section ScriptSection
+{
+	<script src="~/assets/scripts/vesselPositionList.bundle.js"></script>
+}
+

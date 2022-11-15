@@ -1,0 +1,277 @@
+﻿@model SentinelDashboardDetailViewModel
+
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+@section Title
+    {
+    Sentinel - Vessel Details
+}
+
+@section ContentSection
+    {
+<input type="hidden" value="@Model.VesselDetail.VesselId" id="hdVesselId"/>
+<div class="app-main__outer font-family-open-sans">
+    <div class="app-main__inner white-background new-background  common-border-radius sentinelpadmobile">
+        <div class="sentinel-breadcrum">
+            <a href="javascript:void(0);">
+                <span>Sentinel</span>
+                <span class="arrow">></span>
+            </a>
+            <a href="javascript:void(0);">
+                <span>ALL OFFICES</span>
+                <span class="arrow">></span>
+            </a>
+            <a href="javascript:void(0);">
+                <span>VSHIPS GLASGOW</span>
+                <span class="arrow">></span>
+            </a>
+            <a href="javascript:void(0);">
+                <span>GLASGROUP1</span>
+            </a>
+            <a href="javascript:void(0);" class="active">
+                <span class="arrow">></span>
+                @if (Model.VesselDetail != null)
+                {
+                <span>@Model.VesselDetail.VesselName</span>
+                }
+                else
+                {
+                <span>&npsp;</span>
+                }
+            </a>
+        </div>
+        <div class="sentinel-common-card">
+            <div class="detailsheader clearfix">
+                <div class="leftdetails">
+                    <div class="bottombordermargin">
+                        @if (Model.VesselDetail != null)
+                        {
+                        <div class="s-scoreicons">
+                            @if (Model.VesselDetail.VesselModelTotalValue != null)
+                            {
+                            <p class="s-scorenumber">@Model.VesselDetail.VesselModelTotalValue</p>
+                            }
+                            else
+                            {
+                            <p class="s-scorenumber">&nbsp;</p>
+                            }
+                            <img src="/images/Sentinel/@Model.VesselDetail.VesselModelTotalValueColor" width="35" height="41" />
+                        </div>
+                        <div class="s-vesselhead">
+                            <h1>@Model.VesselDetail.VesselName</h1><span><canvas id="vesselGraph" width="220" height="45"></canvas></span>
+
+                        </div>
+                        }
+                        else
+                        {
+                        <div class="s-scoreicons">
+                            <p class="s-scorenumber">&nbsp;</p>
+                            <img src="/images/Sentinel/shield-grey.svg" />
+                        </div>
+                        <div class="s-vesselhead">
+                            <h1>&npsp;</h1>
+                        </div>
+                        }
+                        <div class="mobileflagvs">
+                            @if (Model.VesselDetail != null)
+                            {
+                            <img src="~/images/Flags/@Model.VesselDetail.VesselFlag" class="d-md-none" />
+                            }
+                        </div>
+                    </div>
+                    <div class="s-vesseldetails d-none d-md-inline-block">
+                        <div class="clearfix">
+                            <div class="float-left ml-0">
+                                @if (Model.VesselDetail != null)
+                                {
+                                <img src="~/images/Flags/@Model.VesselDetail.VesselFlag" />
+                                }
+                            </div>
+                            @if (Model.VesselStaticFactorDetails != null)
+                            {
+                            @foreach (var item in Model.VesselStaticFactorDetails)
+                            {
+                            <div class="float-left">
+                                <div class="sv-title">@item.FactorName</div>
+                                <div class="sv-value">@item.FactorValue</div>
+                            </div>
+                            }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="rightdetails">
+                    <div class="sv-date">
+                        @if (Model.VesselDetail != null)
+                        {
+                        @if (!string.IsNullOrWhiteSpace(Model.VesselDetail.DrydockPeriodEndDate))
+                        {
+                        <img src="~/images/sentinelimages/vdate.svg" />
+                        <h1>PLANNED DRY DOCK</h1>
+                        <span>@Model.VesselDetail.DrydockPeriodEndDate</span>
+                        }
+                        else
+                        {
+                        <span>&nbsp;</span>
+                        }
+
+                        }
+                        else
+                        {
+                        <span>&nbsp;</span>
+                        }
+                        <img src="~/images/sentinelimages/mobilevsdetails-arrow.svg" class="d-block d-md-none float-right hideshowdetails" id="vesseldetailsshow" />
+                    </div>
+
+                    @if (@Model.VesselCurrentVoyageDetail != null)
+                    {
+                    @if (@Model.VesselCurrentVoyageDetail.Percentage != null)
+                    {
+                    <div class="sv-timeline">
+                        <div class="progress progress-bar-s">
+                            <div class="progress-bar progress-s" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: @Model.VesselCurrentVoyageDetail.Percentage%">
+                                @if (@Model.VesselCurrentVoyageDetail.ActivityName != null)
+                                {
+                                <span> <img src="~/images/sentinelimages/awaitorders.svg" /> @Model.VesselCurrentVoyageDetail.ActivityName</span>
+                                }
+                                else
+                                {
+                                <span> <img src="~/images/sentinelimages/awaitorders.svg" /> </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    else
+                    {
+                    <div class="sv-timeline">
+                        <div class="progress progress-bar-s">
+                            <div class="progress-bar progress-s" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                @if (@Model.VesselCurrentVoyageDetail.ActivityName != null)
+                                {
+                                <span> <img class="porticon" src="~/images/sentinelimages/awatitsorders.svg" /> @Model.VesselCurrentVoyageDetail.ActivityName</span>
+
+                                }
+                                else
+                                {
+                                <span> <img class="porticon" src="~/images/sentinelimages/awatitsorders.svg" /> </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    <div class="s-portinfo">
+                        <div class="row no-gutters">
+                            @if (Convert.ToBoolean(Model.VesselCurrentVoyageDetail.FromPortIsAlertAdded))
+                            {
+                            <div class="col-6 col-md-6 s-fromport stxt-red">
+                                <h2>@Model.VesselCurrentVoyageDetail.FromDateHeader @Model.VesselCurrentVoyageDetail.FromPortDate</h2>
+                                <span>@Model.VesselCurrentVoyageDetail.FromPortCountry</span>
+                                <a href='javascript: void(0);' data-url="@Model.VesselCurrentVoyageDetail.FromPortRequestURL" class="icon-hover-underline-none fromAnchorPortAlertCls" title="" data-html="true" data-toggle="tooltip" data-placement="bottom" data-original-title="High Alert Port">
+                                    <img src="~/images/sentinelimages/sport.svg" />
+                                </a>
+                            </div>
+                            }
+                            else
+                            {
+                            <div class="col-6 col-md-6 s-fromport">
+                                <h2>@Model.VesselCurrentVoyageDetail.FromDateHeader @Model.VesselCurrentVoyageDetail.FromPortDate</h2>
+                                <span>@Model.VesselCurrentVoyageDetail.FromPortCountry</span>
+                            </div>
+                            }
+                            @if (Convert.ToBoolean(Model.VesselCurrentVoyageDetail.ToPortIsAlertAdded) || Convert.ToBoolean(Model.VesselCurrentVoyageDetail.NextPortIsAlertAdded))
+                            {
+                            <div class="col-6 col-md-6 s-toport stxt-red">
+                                <h2>@Model.VesselCurrentVoyageDetail.DateHeader @Model.VesselCurrentVoyageDetail.PortDate</h2>
+                                <span>@Model.VesselCurrentVoyageDetail.ToPortCountry</span>
+                                <a href='javascript: void(0);' data-url="@Model.VesselCurrentVoyageDetail.ToPortRequestUrl" class="icon-hover-underline-none toAnchorPortAlertCls" title="" data-html="true" data-toggle="tooltip" data-placement="bottom" data-original-title="High Alert Port">
+                                    <img src="~/images/sentinelimages/sport.svg" />
+                                </a>
+                            </div>
+                            }
+                            else
+                            {
+                            <div class="col-6 col-md-6 s-toport">
+                                <h2>@Model.VesselCurrentVoyageDetail.DateHeader @Model.VesselCurrentVoyageDetail.PortDate</h2>
+                                <span>@Model.VesselCurrentVoyageDetail.ToPortCountry</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    }
+                </div>
+
+                </div>
+                <div class="s-vesseldetails d-md-none" id="mobilevsdetails">
+                    <div class="clearfix">
+                        <div class="row no-gutters">
+                            <div class="col-6">
+                                <div class="sv-title">Vessel Age</div>
+                                <div class="sv-value">18.6 yrs</div>
+                            </div>
+                            <div class="col-6 withcmpydiv">
+                                <div class="sv-title">with Company</div>
+                                <div class="sv-value">14.6 yrs</div>
+                            </div>
+                            <div class="col-12">
+                                <div class="sv-title">Vessel Type</div>
+                                <div class="sv-value"> Tanker-Crude</div>
+                            </div>
+                            <div class="col-12">
+                                <div class="sv-title">Vessel general type</div>
+                                <div class="sv-value">Tanker</div>
+                            </div>
+                            <div class="col-12">
+                                <div class="sv-title">Classification Society</div>
+                                <div class="sv-value">American Bureau of Shipping</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="expandcollaspediv">
+                <div class="accordation-s"></div>
+                <div class="sentinel-accordation sentinel-accordation-veseldetails">
+                    <div id="sentinelaccordion">
+                        @foreach (var item in Model.ModelValueDetail)
+                        {
+                            <div class="card customAccordionContainer categoryContainer">
+                                <partial name="categoryHeaderPartialView" model="item" />
+                                <div id="collapse-@item.ModelDimensionId" class="customAccordionDetail categoryDetail">
+                                    <div id="card-body-@item.ModelDimensionId" class="card-body detailsContainer cardborder-@item.ModelValueColor">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+    {
+<script src="~/assets/scripts/sentinelVesselDetail.bundle.js"></script>
+}
+
+@section Modal
+{
+<partial name="VoyageReportingModal" />
+}

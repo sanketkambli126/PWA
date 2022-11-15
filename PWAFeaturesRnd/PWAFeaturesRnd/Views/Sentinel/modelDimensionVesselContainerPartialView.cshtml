@@ -1,0 +1,17 @@
+﻿@model PagedResponse<List<FleetVesselDetailResponseViewModel>>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@if (Model != null && Model.Result != null && Model.Result.Any())
+{
+    @foreach (var item in Model.Result)
+    {
+        <partial name="sentinelModelDimensionVesselPartialView" model="item" />
+    }
+}
+else
+{
+    <div class="no-items">No Items Found</div>
+}
+<input type="hidden" id="hdnPageNumber" value ="@Model.PageNumber" />
+<input type="hidden" id="hdnTotalPages" value ="@Model.TotalPages" />

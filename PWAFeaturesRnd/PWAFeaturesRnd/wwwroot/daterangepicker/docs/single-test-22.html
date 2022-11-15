@@ -1,0 +1,105 @@
+<!DOCTYPE  html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        Caleran - Date Range Picker
+    </title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet" />
+    <link href="../build/css/caleran.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="../build/vendor/jquery.min.js"></script>
+    <script src="../build/vendor/moment.min.js"></script>
+    <script src="../build/vendor/jquery.hammer.js"></script>
+    <script src="../build/js/caleran.min.js"></script>
+    <!-- end caleran includes -->
+    <style>
+        .caleran-disabled-range {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="well well-sm">
+        <input type='text' id="caleran-start">
+    </div>
+    <script type="text/javascript">
+
+        var caleran = null, showTooltip = true, currentCell = null;
+        // start always selects start date.
+        $("#caleran-start").caleran({
+            startOnMonday: true,
+            inline: true,
+            minDate: moment(),
+            oninit: function (instance) {
+               caleran = instance;
+            },
+            ondraw: function(instance) {
+                if(instance.globals.isMobile == false){
+                    if(instance.globals.startSelected == false){
+                        $(".caleran-tooltip-content").text("Check-in")
+                    }else{
+                        $(".caleran-tooltip-content").text("Check-out")
+                    }
+                }
+            },
+            onafterselect: function(instance, start, end){
+                showTooltip = false;
+                $(".caleran-tooltip").hide();
+                setTimeout(function () {
+                    showTooltip = true;
+                    currentCell.trigger("mouseenter");
+                }, 1000);
+            }
+        });
+
+        if(caleran.globals.isMobile == false){
+            $(".caleran-day").hover(function(){
+                if(showTooltip){
+                    $(".caleran-tooltip").css({
+                        top: $(this).offset().top + $(this).outerHeight(),
+                        left: $(this).offset().left - (($(".caleran-tooltip").outerWidth() - $(this).outerWidth()) / 2)
+                    }).show();
+                }
+                currentCell = $(this);
+            }, function(){
+                $(".caleran-tooltip").hide();
+            });
+        }
+
+    </script>
+    <div class="caleran-tooltip"><div class="caleran-tooltip-arrow"></div><div class="caleran-tooltip-content">Check-in</div></div>
+    <style>
+        .caleran-tooltip {
+            display: none;
+            position: absolute;
+            pointer-events: none;
+            margin-top: 5px;
+            left: 0;
+            top: 0;
+            padding: 0px 5px 5px;
+            border-radius: 3px;
+            font-family: "Roboto";
+            font-size: 12px;
+            background: black;
+            color: white;
+        }
+        .caleran-tooltip-arrow {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 5px 5px 5px;
+            border-color: transparent transparent #000 transparent;
+            transform: translateX(-50%);
+            position: relative;
+            top: -5px;
+            left: 50%;
+        }
+    </style>
+</body>
+
+</html>

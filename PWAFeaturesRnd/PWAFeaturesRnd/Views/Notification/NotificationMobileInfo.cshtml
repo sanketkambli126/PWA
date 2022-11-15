@@ -1,0 +1,80 @@
+﻿@model NotificationMobileInfoViewModel
+@{
+
+    Layout = "~/Views/Shared/_ChatLayout.cshtml";
+}
+
+@section Title
+{
+    Notification Mobile Info
+}
+
+@section ContentSection
+{
+    @Html.HiddenFor(m => m.ChannelId)
+    @Html.HiddenFor(m => m.VesselName)
+    @Html.HiddenFor(m => m.VesselId)
+    @Html.HiddenFor(m => m.IsGeneralCat)
+    @Html.Hidden("hdnSessionStorageDetails", Model.SessionStorageDetails)
+
+    <div class="notification-mobile-info apply-loader d-block d-md-none">
+        <div class="chat-header chat-header-mobile d-block d-md-none">
+            <div class="clearfix">
+                @if (!string.IsNullOrWhiteSpace(@Model.VesselName))
+                {
+                    <img src="~/images/DashboardIcons/vessel-flag.png" class="float-right" />
+                }
+                <h2 class="float-left">
+                    @Model.VesselName
+                    <span>@Model.VesIMONumber</span>
+                </h2>
+            </div>
+        </div>
+        <div class="record-section">
+            @if (Model.IsInfoPageLoaded)
+            {
+                <div class="divInfoSection">
+                    <div id="divRecordSection" class="record-scroller scroller additionalDetails recordLevelDetails">
+
+                    </div>
+                    <div class="viewrecord additionalDetails recordLevelDetails">
+                        <a id="aViewRecord" class="btn search-btn btn-teal text-white btn-shadow my-1">
+                            <i class="fa fa-external-link-square-alt"></i><span class="open-sans-font bold-text ml-2">View Record</span>
+                        </a>
+                    </div>
+                </div>
+            }
+            else
+            {
+        <div class="divParticipantSection">
+            <h1>Participants (<span id="spanParticipantsCount">0</span>)</h1>
+            <div class="addparticipant">
+                <a id="btnAddParticipant" href="javascript:void(0)" data-toggle="modal" data-target="#searchparticipant" class="mobileInfoIcon btn search-btn btn-teal text-white btn-shadow m-0 chat-mobile-info">
+                    <span class="material-symbols-rounded personadd">
+                        person_add
+                    </span>
+                    <span class="open-sans-font bold-text">Add</span>
+                </a>
+            </div>
+            <div class="participant-list scroller p-0 participant-list-dynamic">
+                <div class="apply-loader " id="divParticipantSection">
+                    <ul id="participantSection">
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+            }
+        </div>
+
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/notificationMobileInfo.bundle.js"></script>
+}
+
+@section Modal{
+    <partial name="NotificationModel" />
+}

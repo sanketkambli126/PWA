@@ -1,0 +1,250 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    PMS Details
+}
+
+
+@section ContentSection
+{
+    <div class="app-main__outer fixed-page-header pms-details">
+        <div class="app-main__inner background-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading">
+                        <div class="multiple-heading text-left">
+                            <div class="page-title-subheading text-left head-mobile-first-border">
+                                <span>ALYARMOUK</span>
+                                <span>
+                                    <b>IMO 9356438</b><i class="fa fa-info-circle pl-1" data-html="true" title="Type: Tanker Crude <br/> Built Date: 01 Apr 2009 <br/> Age: 11 years" data-toggle="tooltip" data-placement="bottom"></i> <a class="moreless-button more d-sm-block d-md-none d-lg-none d-xl-none fsize-1 ml-3" href="javascript:void(0)">Show more</a>
+                                </span>
+                            </div>
+                            <div class="moretext d-sm-none d-md-block d-lg-block d-xl-block">
+                                <div class="page-title-subheading breadcrum-head text-left"><span>OPERATION PLANT & MACHINERY</span><span>BOILERS, STEAM, CONDENSATE & FEEDWATER SYSTEM</span><span>Feed System</span><span>Feedwater Pumps</span><span>EGE Feed Water Pump & El.Motor No.2</span></div>
+                                <div class="page-title-subheading text-left head-mobile-first-border"><div class="second-heading"><span><b>FD-FS-0507</b></span><span><b>EGE Feed Water Pump & El.Motor No.2</b></span></div><span class="mobile-head-divide">Position <label>Out</label></span><span class="mobile-head-divide mobile-right-border-0">Maker  <label>Shin Shin Machinrey Co., Ltd.</label></span><span class="mobile-head-divide">Model <label>MB 32/4S</label></span><span class="mobile-head-divide mobile-right-border-0">Warranty Date <label>01 Jan 2020</label></span><span>Alternative Number <label>0</label></span></div>
+                                <div class="page-title-subheading text-left"><span><b>Electric motor overhaul</b></span><span class="mobile-head-divide">Job Type <label>Overhaul</label></span><span class="mobile-head-divide">WO Status <label>WO</label></span><span class="mobile-head-divide mobile-right-border-0">Interval <label>20000 Hours</label></span><span class="mobile-head-divide">Current Due Date <label>02 Nov 2020</label></span><span class="mobile-head-divide mobile-right-border-d-0"> <a class="moreless-button less d-sm-block d-md-none d-lg-none d-xl-none fsize-1" href="javascript:void(0)">Show less</a></span><span class="hide-mobile-link"><a href="../Dashboard/ViewPPMList"><b><i class="fa fa-angle-double-left"></i> Back to PPM List</b></a></span></div>
+
+                            </div>
+                            <a href="../Dashboard/ViewPPMList" class="d-sm-block d-md-none d-lg-none d-xl-none fsize-1 opacity-6"><b><i class="fa fa-angle-double-left"></i> Back to PPM List</b></a>
+                        </div>
+                    </div>
+                    @*<div class="page-title-actions">
+
+                        </div>*@
+                </div>
+            </div>
+            <div class="main-card content-pane card margin-bottom-custom scheduled-task-details">
+                <div class="card-body mb-3 pb-0">
+                    <div class="widget-content px-0 py-0">
+
+                        <div class="card-title">Schedule Task Details</div>
+                        <div class="row">
+                            <div class="col-lg-7 border-right">
+                                <div class="top-row-1">
+                                    <div class="card-subtitle"><b>Electric motor overhaul</b></div>
+                                    <div class="form-row widget-content-left mb-0">
+                                        <div class="col-6 col-md-3 col-lg-3">
+                                            <label class="widget-heading opacity-1 mb-0">Responsible Dept.</label>
+                                            <div class="widget-subheading opacity-1"><span>Engg</span></div>
+                                        </div>
+                                        <div class="col-6 col-md-3 col-lg-3">
+                                            <label class="widget-heading opacity-1 mb-0">Responsibility</label>
+                                            <div class="widget-subheading opacity-1"><span>ElectOff</span></div>
+                                        </div>
+                                        <div class="col-6 col-md-3 col-lg-3">
+                                            <label class="widget-heading opacity-1 mb-0">Approver</label>
+                                            <div class="widget-subheading opacity-1"><span>No</span></div>
+                                        </div>
+                                        <div class="col-6 col-md-3 col-lg-3">
+                                            <label class="widget-heading opacity-1 mb-0">Office Approver</label>
+                                            <div class="widget-subheading opacity-1"><span>Yes</span></div>
+                                        </div>
+                                        <div class="col-6 col-md-3 col-lg-3">
+                                            <label class="widget-heading opacity-1 mb-0">Due Date</label>
+                                            <div class="widget-subheading opacity-1"><span>02 Nov 2020</span></div>
+                                        </div>
+                                        <div class="col-6 col-md-3 col-lg-3">
+                                            <label class="widget-heading opacity-1 mb-0">Left Hrs</label>
+                                            <div class="widget-subheading opacity-1 mb-0"><span>5284</span></div>
+                                        </div>
+                                        <div class="col-6 col-md-3 col-lg-3">
+                                            <label class="widget-heading opacity-1 mb-0">Rescheduled History</label>
+                                            <div class="widget-subheading opacity-1 mb-0"><span><a class="text-black" href="javascript:void(0);" data-target="#resceduledhistory" data-toggle="modal"><i class="fa fa-fw fsize-1 mt-1" aria-hidden="true" title=""></i></a></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="row-2">
+                                    <div class="card-subtitle"><b>EGE Feed Water Pump & El.Motor No.2</b></div>
+                                    <div class="row widget-content-left mb-0">
+                                        <div class="col-6 col-md-3 col-lg-6">
+                                            <label class="widget-heading opacity-1 mb-0">Maker</label>
+                                            <div class="widget-subheading opacity-1"><span>Shin Shin Machinery Co., Ltd.</span></div>
+                                        </div>
+                                        <div class="col-6 col-md-3 col-lg-6">
+                                            <label class="widget-heading opacity-1 mb-0">Model</label>
+                                            <div class="widget-subheading opacity-1"><span>MB 32/4S</span></div>
+                                        </div>
+                                        <div class="col-6 col-md-3 col-lg-6">
+                                            <label class="widget-heading opacity-1 mb-0">Designer</label>
+                                            <div class="widget-subheading opacity-1 mb-0"><span>Shin Shin Machinery Co., Ltd.</span></div>
+                                        </div>
+                                        <div class="col-6 col-md-3 col-lg-6">
+                                            <label class="widget-heading opacity-1 mb-0">Alternative No.</label>
+                                            <div class="widget-subheading opacity-1 mb-0"><span>0</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="main-card content-pane card margin-bottom-custom mt-0">
+                <div class="card-body mb-3 pb-0">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-7 border-right">
+                            <div class="card-title">Job Description</div>
+                            <div class="">
+                                <p class="mb-0">***ALL NECESSARY SAFETY PRECAUTIONS TO BE OBSERVED***</p>
+                                <p class="mb-0">***ALL NECESSARY SAFETY PRECAUTIONS TO BE OBSERVED***</p>
+                                <p class="">***ISOLATE EQUIPMENT AND POST SUITABLE WARNING NOTICES***</p>
+                                <p class="">Manufacturer's instruction/Maintenance Mannual and any relevant Service Bulletins to be referred to prior to and during maintenence.  <a class="moreless-button more" href="javascript:void(0)" id="">Show more</a></p>
+                                <div class="moretext">
+                                    <p class="mb-0">Test the insulation before starting the overhaul and note values for latest reference.</p>
+                                    <p class="">Check the motor alignment before removing om bedplate and note the position of any shims.  <a class="moreless-button less" href="javascript:void(0)" id="lss">Show less</a></p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-5">
+                            <div class="row-2">
+                                <div class="card-title">Job Ranks and hours (2)</div>
+                                <div class="table-responsive compact-table">
+                                    <table style="width: 100%;" id="dtranks" class="table table-hover table-bordered cardview row-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Rank</th>
+                                                <th>Hours</th>
+                                                <th class="">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <td><b>Total</b></td>
+                                                <td><b>6.00</b></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="main-card content-pane card margin-bottom-custom mt-0">
+                <div class="card-body mb-3 pb-0">
+                    <div class="">
+                        <div class="card-title">Required Spares (1)</div>
+                        <div class="row">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="table-responsive compact-table table-scroll-fixed-ipad">
+                                    <table style="width: 100%;" id="dtspares" class="table table-hover table-bordered cardview row-sm nowrap table-fixed-layout">
+                                        <thead>
+                                            <tr>
+                                                <th>Part Name</th>
+                                                <th class="white-space-break">Maker's REF No.</th>
+                                                <th class="white-space-break">Plate/Sheet No.</th>
+                                                <th class="white-space-break">Drawing Position</th>
+                                                <th class="white-space-break">Pending Orders</th>
+                                                <th>ROB</th>
+                                                <th class="white-space-break">Renew Spare</th>
+                                                <th class="white-space-break">QTY REQD</th>
+                                                <th class="white-space-break">Mark For Order</th>
+                                                <th class="white-space-break">Order Qty</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-card content-pane card margin-bottom-custom mt-0">
+                <div class="card-body mb-3 pb-0">
+                    <div class="">
+                        <div class="card-title">Vessel Guidelines</div>
+                        <div class="">
+                            <p class="">Manufacturer's instruction/Maintenance Mannual and any relevant Service Bulletins to be referred to prior to and during maintenence. Check the motor alignment before removing om bedplate and note the position of any shims. <a class="moreless-button more" href="javascript:void(0)">Show more</a></p>
+                            <div class="moretext">
+                                <p class="mb-0">Test the insulation before starting the overhaul and note values for latest reference.</p>
+                                <p class="">Check the motor alignment before removing om bedplate and note the position of any shims.  <a class="moreless-button less" href="javascript:void(0)">Show less</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+@section Modal
+{
+    <div class="modal fade" id="resceduledhistory" tabindex="0" role="dialog" aria-labelledby="resceduledhistory" aria-hidden="true">
+        <div class="modal-dialog modal-lg rescedule-popup" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reschedule</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-title">Reschedule History (2)</div>
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtresceduledhistory" class="table table-hover table-bordered cardview row-sm nowrap table-fixed-layout">
+                            <thead>
+                                <tr>
+                                    <th class="white-space-break">Request Type</th>
+                                    <th class="white-space-break">Original Due Date</th>
+                                    <th class="white-space-break">Requested Due Date</th>
+                                    <th class="white-space-break">Approved Due Date</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>Details</th>
+                                    <th class="white-space-break">Requester Name</th>
+                                    <th class="white-space-break">Requester Rank</th>
+                                    <th class="white-space-break">Approver Name</th>
+                                    <th class="white-space-break">Approver Rank</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/pmsDetails.bundle.js"></script>
+}
+

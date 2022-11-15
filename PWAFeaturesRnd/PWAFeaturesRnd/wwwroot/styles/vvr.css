@@ -1,0 +1,633 @@
+﻿body .vvrbtn,
+body .vvrbtn:active,
+body .vvrbtn:focus,
+body .vvrbtn:active:focus {
+    padding: 5px 15px;
+    font-size: 0.75rem;
+}
+
+
+.addinspectionfindings a,
+.addinspectionfindings a:hover,
+.addinspectionfindings a:active,
+.addinspectionfindings a:focus {
+    border: 1px solid #2DAA9D;
+    border-radius: 5px;
+    padding: 6px 25px;
+    font-weight: 600;
+    font-size: 0.813rem;
+    line-height: 21px;
+    color: #2DAA9D;
+    width: 100%;
+    background: white;
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    position: relative;
+}
+
+    .addinspectionfindings a span {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .addinspectionfindings a img {
+        position: absolute;
+        right: 25px;
+        top: 8px;
+    }
+
+.addvvrbtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+    .addvvrbtn p {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 22px;
+        color: #000000;
+        margin-bottom: 15px;
+        font-family: 'Open Sans';
+    }
+
+.btn-vvr,
+.btn-vvr:hover,
+.btn-vvr:active,
+.btn-vvr:focus {
+    background: #2DAA9D;
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 0;
+    color: #FFFFFF;
+    padding: 7px 10px;
+}
+
+    .btn-vvr svg{
+        margin-right:5px;
+    }
+
+    .btn-vvr:hover {
+        background-color: #388f8a;
+        border-color: #398580;
+    }
+
+.vvrmodal .common-sub-heading-black {
+    font-size: 1rem;
+    line-height: 20px;
+}
+
+.vvrmodal .header-padding {
+    padding: 15px 20px;
+}
+
+.vvrmodal .close {
+    opacity: 1;
+    font-weight: 300;
+    font-size: 37px;
+    text-shadow: none;
+    line-height: 12px;
+}
+
+
+.vvrmodal label {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.813rem;
+    line-height: 18px;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 4px;
+    margin-right: 0;
+}
+
+.vesseldiv {
+    margin-bottom: 15px;
+}
+
+.locationdiv {
+    margin-bottom: 15px;
+}
+
+.vvrmodal .form-control {
+    background: #FFFFFF;
+    border: 1px solid #808080;
+    border-radius: 4px;
+    height: 35px;
+    padding: 0px 11px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 19px;
+    color: #000000;
+    margin: 0px;
+}
+
+.formreq {
+    color: #FF0000;
+    font-weight: 600;
+}
+
+.vvrmodal textarea.form-control {
+    height: 70px;
+    resize: none;
+    width: 100%;
+    padding-top: 10px;
+}
+
+.vvrmodal .radio-button-design {
+    margin-left: 0px;
+}
+
+    .vvrmodal .radio-button-design .custom-control {
+        margin-right: 20px;
+    }
+
+
+
+    .vvrmodal .radio-button-design .custom-radio label {
+        color: #000000;
+        font-weight: 500;
+        margin-bottom: 0;
+        line-height: 22px
+    }
+
+.vvrmodal .common-form-design .select2-container--bootstrap4 {
+    margin-bottom: 0;
+}
+
+.vessel-drop.hidesearch .select2-results__option {
+    padding: 5px 20px 5px 5px !important;;
+    border-bottom: 1px solid #ddd;
+}
+
+.vessel-drop.hidesearch .select2-results__option:last-child {
+    border-bottom: 0;
+}
+
+.vessel-drop.hidesearch {
+    padding: 1px 0px 5px 0px;
+}
+
+.select2-container--bootstrap4 .vessel-drop.hidesearch  .select2-results__option[aria-selected=true] {
+    background-color: #2DAA9D;
+    color: #ffffff;
+}
+
+.vvrmodal .common-form-design span.select2-selection.select2-selection--single {
+    padding: 0 !important;
+    height: 35px !important;
+    border: 1px solid #808080;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 19px;
+    color: #000000;
+    padding: 7px 11px !important;
+}
+
+.vvrmodal .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+    color: #000000;
+}
+
+.vvrmodal .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b {
+    display: block !important;
+    width: 12px;
+    height: 7px;
+    border: 0;
+    background-image: url('../images/vvr/vvrselectarrow.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.vvrmodal .select2-container--bootstrap4.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    transform: rotate(180deg);
+}
+
+.vvrmodal .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow {
+    width: 16px;
+}
+
+.vesselmargin {
+    margin-right: 50px;
+}
+
+.datevvr {
+    width: 153px;
+    margin-right: 0px;
+}
+
+.sdatevvr {
+    margin-left: 30px !important;
+    margin-right: 0px;
+}
+
+.operationbmargin {
+    padding-right: 10px !important;
+}
+
+.portmargin {
+    margin-right: 50px;
+}
+
+.inspdetaildiv {
+    margin-bottom: 15px;
+}
+
+.vvrmodal .form-control::placeholder,
+.vvrmodal .select2-container--bootstrap4 .select2-selection--single .select2-selection__placeholder {
+    font-style: italic;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: 'Open Sans';
+}
+
+.vvrmodal .modal-content {
+    border: 0;
+}
+
+.vvrmodal .modal-footer {
+    padding-right: 20px;
+}
+
+.vvrmodal .dateicon input.form-control {
+    cursor: pointer;
+    background-image: url('../images/dateicon.svg');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: right 9px center;
+}
+
+.vvrlist .vvrcolumns {
+    width: 24.3%;
+    float: left;
+    margin-right: 10px;
+}
+
+    .vvrlist .vvrcolumns:nth-child(4n) {
+        margin-right: 0;
+    }
+
+.vheader {
+    margin-bottom: 20px;
+}
+
+    .vheader img {
+        vertical-align: middle;
+        display: inline-block;
+        margin-right: 4px;
+    }
+
+    .vheader h1 {
+        font-weight: 700;
+        font-size: 1rem;
+        line-height: 22px;
+        color: #2CA699;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0px;
+    }
+
+.vstatus {
+    font-weight: 700;
+    font-size: 0.688rem;
+    line-height: 0;
+    border-radius: 4px;
+    padding: 6px 9px 8px;
+}
+
+.findetails {
+    margin-bottom: 20px;
+}
+
+    .findetails .float-left {
+        margin-right: 70px;
+    }
+
+        .findetails .float-left:last-child {
+            margin-right: 0;
+        }
+
+    .findetails .fvalue {
+        font-weight: 600;
+        font-size: 0.75rem;
+        line-height: 16px;
+        color: #000000;
+    }
+
+    .findetails .fhead {
+        font-weight: 400;
+        font-size: 0.75rem;
+        line-height: 16px;
+        color: #707070;
+    }
+
+.totalfindings h2 {
+    font-weight: 600;
+    font-size: 0.625rem;
+    line-height: 14px;
+    text-transform: uppercase;
+    color: #000000;
+    margin-bottom: 2px;
+}
+
+.totalfindings .fvalue {
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 22px;
+}
+
+.totalfindings .fhead {
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 16px;
+    color: #707070;
+}
+
+.totalfindings .float-left {
+    margin-right: 40px;
+}
+
+    .totalfindings .float-left:last-child {
+        margin-right: 0;
+    }
+
+.totalfindings img {
+    margin-right: 13px;
+}
+
+.totalfindings {
+    margin-bottom: 20px;
+}
+
+.vcomments {
+    margin-right: 20px;
+}
+
+.vblack {
+    color: #000000;
+}
+
+.vred {
+    color: #E4131B;
+}
+
+.vgreen {
+    color: #0FB626;
+}
+
+.vstatus-amber {
+    color: #EB780E;
+    background: #FFE9D5;
+}
+
+.vstatus-green {
+    color: #249C46;
+    background: #D7F5DE;
+}
+
+.findingdivtop {
+    font-family: 'Open Sans' !important;
+}
+
+    .findingdivtop .float-left {
+        margin-right: 130px;
+    }
+
+        .findingdivtop .float-left:last-child {
+            margin-right: 0;
+        }
+
+.vfindingstopheader h1 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: #15ACA2;
+    margin: 0px;
+}
+
+.vfindingstopheader h2 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    color: #000000;
+}
+
+.findingdivtop img {
+    position: absolute;
+    right: 20px;
+}
+
+.findinheadervr {
+    padding: 0px 0px 10px;
+}
+
+    .findinheadervr .radio-button-design label {
+        font-weight: 400;
+        color: #000000;
+    }
+
+    .findinheadervr .radio-button-design .custom-control-inline:last-child {
+        margin-right: 0;
+    }
+
+    .findinheadervr .radio-button-design .custom-radio .custom-control-label::before {
+        border: #2DAA9D solid 1px;
+    }
+
+    .findinheadervr .custom-control-label::before {
+        left: -1.3rem;
+    }
+
+    .findinheadervr .radio-button-design .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+        left: -18px;
+    }
+
+    .findinheadervr .radio-button-design .custom-control-input:checked ~ .custom-control-label {
+        font-weight: 600;
+        color: #2DAA9D;
+    }
+
+.vfindinglist .float-left:nth-of-type(1) {
+    margin-right: 140px;
+}
+
+.vfindinglist .float-left:nth-of-type(2) {
+    margin-right: 60px;
+}
+
+.vfindinglist .float-left:nth-of-type(3) {
+    margin-right: 80px;
+}
+
+
+
+.vfindinglist .dashboard-counters {
+    margin-bottom: 30px;
+}
+
+.vfindinglist {
+    font-family: 'Open Sans' !important;
+}
+
+    .vfindinglist .vstatus {
+        font-weight: 700;
+        font-size: 0.625rem;
+        padding: 4px 9px 5px;
+        position: absolute;
+        line-height: 13px;
+        bottom: 0;
+    }
+
+    .vfindinglist textarea,
+    .vfindinglist textarea:focus,
+    .vfindinglist textarea:active {
+        height: 86px;
+        width: 350px;
+        border: 1px solid #C9C9C9;
+        border-radius: 6px;
+        padding: 10px 20px;
+        resize: none;
+        display: block;
+        margin-top: 4px;
+        font-weight: 600;
+        font-size: 0.75rem;
+        line-height: 16px;
+        color: #000000;
+        outline: 0;
+    }
+
+    .vfindinglist img {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+.addacyionslink,
+.addacyionslink:hover {
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 16px;
+    text-decoration-line: underline;
+    color: #15ACA2;
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    right: 0
+}
+
+.actionslink,
+.actionslink:hover {
+    font-weight: 700;
+    font-size: 0.75rem;
+    line-height: 16px;
+    text-decoration-line: underline;
+    color: #15ACA2;
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 0
+}
+
+
+.findingsactionsearch.search-sidebar-div .theme-settings__inner {
+    width:345px;
+}
+
+.findingsactionsearch .common-form-design{
+    padding:25px;
+}
+
+.findingsactionsearch .findingactionform h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    color: #2CA699;
+    margin-bottom: 15px;
+}
+
+.findingsactionsearch .findingactionform h2 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.findingsactionsearch .findingactionform label {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #707070;
+    margin-right:0px;
+    margin-bottom:4px;
+}
+
+.findingsactionsearch .findingactionform .form-control {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000000;
+    margin-bottom: 15px;
+    border: 1px solid #C9C9C9;
+    border-radius: 4px;
+    padding: 6px 10px;
+}
+
+.findingsactionsearch .findingactionform input[type="text"] {
+    width:85px;
+}
+
+.findingsactionsearch .findingactionform textarea {
+    height: 140px;
+    resize: none;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.findingsactionsearch .findingactionform .form-control::placeholder {
+    font-style: italic;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: 'Open Sans';
+}
+
+.findingsactionsearch .findingactionform .btn-addaction {
+    background: #2CA699;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+    color: #FFFFFF;
+    margin-top: 10px;
+    padding: 8px 20px;
+}
+
+@media only screen and (min-width:1801px) {
+    .vvrmargin .mr-common {
+        margin-right: 100px;
+    }
+
+    .findreportmargin .mr-common {
+        margin-right: 40px;
+    }
+}
+
+@media only screen and (max-width:1400px) {
+    .vvrmargin .mr-common {
+        margin-right: 100px;
+    }
+
+    .findreportmargin .mr-common {
+        margin-right: 40px;
+    }
+}

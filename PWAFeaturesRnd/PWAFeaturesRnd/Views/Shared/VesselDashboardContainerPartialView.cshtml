@@ -1,0 +1,41 @@
+﻿@model List<VesselDashboardViewModel>
+@*@Html.HiddenFor(m => m.Any() ? m.FirstOrDefault().TotalCount : 0)*@
+
+@if (Model != null && Model.Any())
+{
+    <input type="hidden" id="hdnTotalCount" value="@Model.FirstOrDefault().TotalCount" />
+    <input type="hidden" id="hdnTotalPages" value="@Model.FirstOrDefault().TotalPages" />
+    <input type="hidden" id="CanShowCertificates" value="@Model.FirstOrDefault().CanShowCertificates.ToString()" />
+    <input type="hidden" id="CanShowCommercial" value="@Model.FirstOrDefault().CanShowCommercial.ToString()" />
+    <input type="hidden" id="CanShowCrewing" value="@Model.FirstOrDefault().CanShowCrewing.ToString()" />
+    <input type="hidden" id="CanShowDefects" value="@Model.FirstOrDefault().CanShowDefects.ToString()" />
+    <input type="hidden" id="CanShowEnvironment" value="@Model.FirstOrDefault().CanShowEnvironment.ToString()" />
+    <input type="hidden" id="CanShowFinancials" value="@Model.FirstOrDefault().CanShowFinancials.ToString()" />
+    <input type="hidden" id="CanShowHazOcc" value="@Model.FirstOrDefault().CanShowHazOcc.ToString()" />
+    <input type="hidden" id="CanShowInspectionsAndRatings" value="@Model.FirstOrDefault().CanShowInspectionsAndRatings.ToString()" />
+    <input type="hidden" id="CanShowPMS" value="@Model.FirstOrDefault().CanShowPMS.ToString()" />
+    <input type="hidden" id="CanShowProcurement" value="@Model.FirstOrDefault().CanShowProcurement.ToString()" />
+}
+else
+{
+    <input type="hidden" id="hdnTotalCount" value="0" />
+    <input type="hidden" id="hdnTotalPages" value="1" />
+}
+
+@foreach (var item in Model)
+{
+    <partial name="VesselHeaderPartialView" model='item' />
+    <partial name="VesselDetailPartialView" model='new VesselDetailPartialViewModel { DropDownId = "vessel"+item.VesselId,
+                                                    CanShowCertificates = item.CanShowCertificates,
+                                                    CanShowInspectionsAndRatings = item.CanShowInspectionsAndRatings,
+                                                    CanShowProcurement = item.CanShowProcurement,
+                                                    CanShowPMS = item.CanShowPMS,
+                                                    CanShowDefects = item.CanShowDefects,
+                                                    CanShowFinancials = item.CanShowFinancials,
+                                                    CanShowEnvironment = item.CanShowEnvironment,
+                                                    CanShowCrewing = item.CanShowCrewing,
+                                                    CanShowCommercial = item.CanShowCommercial,
+                                                    CanShowHazOcc = item.CanShowHazOcc, 
+                                                    IsSeaPassage =item.IsSeaPassage,
+                                                    EncryptedVesselId = item.VesselId}' />
+}

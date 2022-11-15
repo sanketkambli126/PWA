@@ -1,0 +1,1081 @@
+﻿@model CrewDetailsViewModel
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+@section Title
+{
+    Crew Details
+}
+@section ContentSection
+{
+    @Html.Hidden("hdnCrewId", Model.CrewId)
+    @Html.HiddenFor(m => m.VesselId)
+    @Html.HiddenFor(m => m.MessageDetailsJSON)
+    @Html.HiddenFor(m => m.ActiveMobileTabClass)
+    @Html.HiddenFor(m => m.IsFromViewRecord)
+
+    <div class="app-main__outer">
+        <div class="background-padding new-background common-border-radius padding-top-20 mobile-tab-bottom-padding">
+            <div class="app-page-title header-shadow position-relative header-static-mobile">
+                <div class="">
+                    <div class="text-center txt-color-static-header font-weight-600 header-static">
+                        Personal Details are strictly personal, private information and are not to be used for any purpose other than those explicitly agreed with Seafarer
+                    </div>
+                </div>
+            </div>
+            <div class="padding-20 pb-0 pt-0">
+                <div class="row">
+                    <div class="col-12 col-md-7 col-lg-5 tab-box-1">
+                        <div class="common-custom-card height-equal two-column-layout">
+                            <div class="clearfix">
+                                <div class="float-left">
+                                    <img id="crewImage" class="mr-4" />
+                                </div>
+                                <div class="float-left">
+                                    <div class="">
+                                        <div class="counters-heading border-none">
+                                            <div class="w-100 text-uppercase">
+                                                <span id="crewName"></span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="float-left">
+                                                <div class="dashboard-counters-label">
+                                                    Status
+                                                </div>
+                                            </div>
+                                            <div class="float-left">
+                                                <div class="dashboard-counters txt-green-common-text" id="crewStatus">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="float-left">
+                                                <div class="dashboard-counters-label">
+                                                    Rank
+                                                </div>
+                                            </div>
+                                            <div class="float-left">
+                                                <div class="dashboard-counters" id="crewRank">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="float-left">
+                                                <div class="dashboard-counters-label">
+                                                    PCN
+                                                </div>
+                                            </div>
+                                            <div class="float-left">
+                                                <div class="dashboard-counters" id="crewPCN">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="float-left">
+                                                <div class="dashboard-counters-label">
+                                                    Nearest Airport
+                                                </div>
+                                            </div>
+                                            <div class="float-left">
+                                                <div class="dashboard-counters" id="crewAirport">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="float-left">
+                                                <div class="dashboard-counters-label">
+                                                    Joined Company
+                                                </div>
+                                            </div>
+                                            <div class="float-left">
+                                                <div class="dashboard-counters" id="crewJoinDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="float-left">
+                                                <div class="dashboard-counters-label">
+                                                    Rank Exp.
+                                                </div>
+                                            </div>
+                                            <div class="float-left">
+                                                <div class="dashboard-counters" id="crewRankExperience">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-5 col-lg-4 tab-box-1">
+                        <div class="common-custom-card height-equal two-column-layout current-service">
+                            <div class="">
+                                <div class="">
+                                    <div class="">
+                                        <div class="counters-heading border-none">
+                                            <div class="w-100">
+                                                <span>Current Service</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 col-md-5 col-lg-5 col-xl-4">
+                                                <div class="dashboard-counters-label mr-0 w-auto">
+                                                    Rank
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-7 col-lg-7 col-xl-8">
+                                                <div class="dashboard-counters w-auto" id="crewCurrentServiceRank">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 col-md-5 col-lg-5 col-xl-4">
+                                                <div class="dashboard-counters-label mr-0 w-auto">
+                                                    Vessel
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-7 col-lg-7 col-xl-8">
+                                                <a class="dashboard-counters txt-green-common-text w-auto" id="crewCurrentServiceVessel">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 col-md-5 col-lg-5 col-xl-4">
+                                                <div class="dashboard-counters-label mr-0 w-auto">
+                                                    Service
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-7 col-lg-7 col-xl-8">
+                                                <div class="dashboard-counters w-auto w-auto" id="crewCurrentServiceService">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 col-md-5 col-lg-5 col-xl-4">
+                                                <div class="dashboard-counters-label mr-0 w-auto">
+                                                    Client
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-7 col-lg-7 col-xl-8">
+                                                <div class="dashboard-counters w-auto" id="crewCurrentServiceClient">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 col-md-5 col-lg-5 col-xl-4">
+                                                <div class="dashboard-counters-label mr-0 w-auto">
+                                                    Days Remaining
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-7 col-lg-7 col-xl-8">
+                                                <div class="dashboard-counters w-auto" id="crewCurrentServiceDaysRem">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 col-md-5 col-lg-5 col-xl-4">
+                                                <div class="dashboard-counters-label mr-0 w-auto mb-0">
+                                                    Contract Length
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-7 col-lg-7 col-xl-8">
+                                                <div class="dashboard-counters w-auto" id="crewCurrentServiceContractLen">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-3 tab-box-1">
+                        <div class="common-custom-card height-equal">
+                            <div class="table-responsive table-common-design compact-table table-border-none">
+                                <table id="dtExperience" class="table table-hover table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Vessel Type
+                                            </th>
+                                            <th>
+                                                Experience
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tabdivhide" class="hide-mobile">
+                    <div class="card margin-bottom-custom mt-0 tab-new-design" id="">
+                        <div class="card-header card-header-tab-animation hide-mobile">
+                            <ul class="nav nav-justified width-80p" id="tabs">
+                                <li class="nav-item"><a data-toggle="tab" href="#tabsServiceHistory" id="dropdown-tab-2" class="active nav-link mobileTabClick">SERVICE HISTORY</a></li>
+                                <li class="nav-item"><a data-toggle="tab" href="#tabsCertificatesDoc" id="dropdown-tab-3" class="nav-link certificatetablink mobileTabClick">CERTIFICATES &amp; DOCUMENTS</a></li>
+                                @*<li class="nav-item"><a data-toggle="tab" href="#tab-eg115-2" class="nav-link">DOCUMENTS</a></li>*@
+                            </ul>
+                            <div class="create-cv-btn">
+                                <div class="discussionlistcrew">
+                                    <partial name="DiscussionAndNotesCountButton" />
+                                </div>
+                                <button class="btn btn-dark-grey text-white btn-shadow hover-blue btnOpenCreateCv">
+                                    <span class="open-sans-font bold-text">Create CV</span>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="tab-content">
+                                <div class="tab-pane active tab-box-2 hide-mobile" id="tabsServiceHistory" role="tabpanel">
+                                    <div class="table-common-design">
+                                        <div class="common-custom-card mobile-pad-0 mb-0">
+                                            <div class="counters-heading border-none hide-mobile">
+                                                <div class="">
+                                                    <span>SERVICE DETAILS </span>
+                                                </div>
+                                            </div>
+                                            <div class="data-grid-right">
+                                                <div class="checkbox-design">
+                                                    <div class="custom-checkbox custom-control custom-control-inline mr-4">
+                                                        <input name="IncludeShore" id="chkIncludeShore" type="checkbox" class="custom-control-input">
+                                                        <label class="custom-control-label" for="chkIncludeShore">Include Shore</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive compact-table order-details">
+                                                <table style="width: 100%;" id="dtservicehistory" class="table table-hover table-striped table-bordered cardview service-history row-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Vessel Name
+                                                            </th>
+                                                            <th>
+                                                                Status
+                                                            </th>
+                                                            <th>
+                                                                Rank
+                                                            </th>
+                                                            <th>
+                                                                Vessel Type
+                                                            </th>
+                                                            <th width="45px">
+                                                                Flag
+                                                            </th>
+                                                            <th width="60px">
+                                                                DWT
+                                                            </th>
+                                                            <th width="80px">
+                                                                Start Date
+                                                            </th>
+                                                            <th width="80px">
+                                                                End Date
+                                                            </th>
+                                                            <th width="40px">
+                                                                Days
+                                                            </th>
+                                                            <th width="110px">
+                                                                Engine
+                                                            </th>
+                                                            <th width="90px">
+                                                                Power (KW)
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane tab-box-3 hide-mobile" id="tabsCertificatesDoc" role="tabpanel">
+                                    <div class="">
+                                        <div class="table-common-design icon-padding">
+                                            <div class="common-custom-card mobile-pad-0 mb-0">
+                                                <div class="counters-heading border-none position-1024-bottom  hide-mobile">
+                                                    <div class="">
+                                                        <span>CERTIFICATES &amp; DOCUMENTS </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="data-grid-right mr-2 checkbox-768-bottom">
+                                                    <div class="export checkbox-design">
+                                                        <div class="position-relative form-group mb-0">
+                                                            <div>
+                                                                <div class="custom-checkbox custom-control custom-control-inline isGroupCheckBox">
+                                                                    <input type="checkbox" name="group" value="group-filter" id="isGrouping" class="custom-control-input">
+                                                                    <label class="custom-control-label" for="isGrouping">View by Groups</label>
+                                                                </div>
+                                                                <div class="custom-checkbox custom-control custom-control-inline">
+                                                                    <input type="checkbox" id="isValid" class="custom-control-input" checked>
+                                                                    <label class="custom-control-label" for="isValid">Valid</label>
+                                                                </div>
+                                                                <div class="custom-checkbox custom-control custom-control-inline">
+                                                                    <input type="checkbox" id="isExpiring" class="custom-control-input" checked>
+                                                                    <label class="custom-control-label" for="isExpiring">Expiring</label>
+                                                                </div>
+                                                                <div class="custom-checkbox custom-control custom-control-inline">
+                                                                    <input type="checkbox" id="isExpired" class="custom-control-input" checked>
+                                                                    <label class="custom-control-label" for="isExpired">Expired</label>
+                                                                </div>
+
+                                                                <button id="btnAdvDownload" title="Download Options" data-placement="bottom" class=" btn btn-dark-grey text-white btn-shadow hover-blue advanced-download-btn">
+                                                                    <img src="~/images/Download-doc-hover.png" class="m-0" width="15" title="Download" /><span class="open-sans-font bold-text ml-2">Download Options</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="table-responsive compact-table order-details">
+                                                    <div class="checkbox-design-card  hide-mobile isSelectAllDocument crewselectall">
+                                                        <div class="custom-checkbox custom-control custom-control-inline">
+                                                            <input type="checkbox" id="AdvDownSelectAll" class="custom-control-input">
+                                                            <label class="custom-control-label" for="AdvDownSelectAll"></label>
+                                                        </div>
+                                                    </div>
+                                                    <table style="width: 100%;" id="dtcertificates" class="table table-hover table-striped table-bordered cardview row-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="d-none">
+                                                                </th>
+                                                                <th class="table-header-icon-align">
+
+                                                                </th>
+                                                                <th class="checkbox-sort">
+                                                                    Doc
+                                                                </th>
+                                                                <th>
+                                                                    Name
+                                                                </th>
+                                                                <th>
+                                                                    REF
+                                                                </th>
+                                                                <th>
+                                                                    Number
+                                                                </th>
+                                                                <th>
+                                                                    CNT
+                                                                </th>
+                                                                <th>
+                                                                    Issued On
+                                                                </th>
+                                                                <th>
+                                                                    Expiry
+                                                                </th>
+                                                                <th>
+                                                                    Authority
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab-eg115-2" role="tabpanel">
+                                    <div class="">
+                                        <div class="clearfix">
+                                            <h1 class="float-left">DOCUMENTS (3)</h1>
+                                            <div class="export">
+                                                <div class="position-relative form-group mb-5">
+                                                    <div>
+                                                        <div class="custom-checkbox custom-control custom-control-inline">
+                                                            <input type="checkbox" id="exampleCustomInline11" class="custom-control-input">
+                                                            <label class="custom-control-label" for="exampleCustomInline11">Show Active</label>
+                                                        </div>
+                                                        <div class="custom-checkbox custom-control custom-control-inline">
+                                                            <input type="checkbox" name="group" value="group-filter-doc" id="exampleCustomInline12" class="custom-control-input">
+                                                            <label class="custom-control-label" for="exampleCustomInline12">View by Groups</label>
+                                                        </div>
+                                                        <div class="custom-checkbox custom-control custom-control-inline">
+                                                            <input type="checkbox" id="exampleCustomInline13" class="custom-control-input">
+                                                            <label class="custom-control-label" for="exampleCustomInline13">Valid</label>
+                                                        </div>
+                                                        <div class="custom-checkbox custom-control custom-control-inline">
+                                                            <input type="checkbox" id="exampleCustomInline14" class="custom-control-input">
+                                                            <label class="custom-control-label" for="exampleCustomInline14">Expiring</label>
+                                                        </div>
+                                                        <div class="custom-checkbox custom-control custom-control-inline">
+                                                            <input type="checkbox" id="exampleCustomInline15" class="custom-control-input">
+                                                            <label class="custom-control-label" for="exampleCustomInline15">Expired</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive compact-table">
+                                            <table style="width: 100%;" id="dtdocuments" class="table table-hover table-bordered cardview documents row-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="checkbox-sort">
+                                                            <a href="#" class="anchor-color"><i class="fa fa-fw" aria-hidden="true" title=""></i></a>
+                                                        </th>
+                                                        <th>
+                                                            P
+                                                        </th>
+                                                        <th>
+                                                            Name
+                                                        </th>
+                                                        <th class="text-left">
+                                                            REF
+                                                        </th>
+                                                        <th class="text-left">
+                                                            Number
+                                                        </th>
+                                                        <th class="text-left">
+                                                            CNT
+                                                        </th>
+                                                        <th class="text-center">
+                                                            Issued On
+                                                        </th>
+                                                        <th class="text-center">
+                                                            Expiry
+                                                        </th>
+                                                        <th class="text-left">
+                                                            Authority
+                                                        </th>
+                                                        <th class="text-left">
+                                                            Status
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="d-none d-sm-block"><a href="#" class="anchor-color"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                        <td class="text-center"><Label class="d-none d-sm-block"></Label><br /></td>
+                                                        <td class="tdblock"> <Label>Name</Label><br /><a href="#" class="anchor-color d-none d-block d-sm-none float-left"><i class="fa fa-fw" aria-hidden="true" title=""></i></a>&nbsp;&nbsp;<i class="fa fa-fw text-success d-none d-block d-sm-none float-left ml-2 mt-1" aria-hidden="true" title=""></i>Able Seafarer Engine</td>
+                                                        <td class="">STCW Reg ||||/5</td>
+                                                        <td class="text-left"><Label>Number</Label><br />MTA-00-004967</td>
+                                                        <td class="text-left"><Label>CNT</Label><br />GEO</td>
+                                                        <td class="text-center"><Label>Issued On</Label><br />22 Apr 2016</td>
+                                                        <td class="text-center"><Label>Expiry</Label><br />22 Apr 2021</td>
+                                                        <td class="text-left"><Label>Authority</Label><br />MTA</td>
+                                                        <td class="text-left"><Label>Status</Label><br />Held by Seafarer</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="d-none d-sm-block"><a href="#" class="anchor-color"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                        <td class="text-center"><Label class="d-none d-sm-block"></Label><br /></td>
+                                                        <td class="tdblock"> <Label>Name</Label><br /><a href="#" class="anchor-color d-none d-block d-sm-none float-left"><i class="fa fa-fw" aria-hidden="true" title=""></i></a>&nbsp;&nbsp;<i class="fa fa-fw text-success d-none d-block d-sm-none float-left ml-2 mt-1" aria-hidden="true" title=""></i>Able Seafarer Engine</td>
+                                                        <td class=" text-warning">STCW Reg V|/1</td>
+                                                        <td class="text-left text-warning"><Label>Number</Label><br />BST03-004967</td>
+                                                        <td class="text-left text-warning"><Label>CNT</Label><br />GEO</td>
+                                                        <td class="text-center text-warning"><Label>Issued On</Label><br />07 Jul 2016</td>
+                                                        <td class="text-center text-warning "><Label>Expiry</Label><br />17 Jun 2022</td>
+                                                        <td class="text-left text-warning"><Label>Authority</Label><br />MTA</td>
+                                                        <td class="text-left text-warning"><Label>Status</Label><br />Held by Seafarer</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="d-none d-sm-block"><a href="#" class="anchor-color"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                        <td class="text-center"><Label class="d-none d-sm-block"></Label><br /></td>
+                                                        <td class="tdblock"> <Label>Name</Label><br /><a href="#" class="anchor-color d-none d-block d-sm-none float-left"><i class="fa fa-fw" aria-hidden="true" title=""></i></a>&nbsp;&nbsp;<i class="fa fa-fw text-success d-none d-block d-sm-none float-left ml-2 mt-1" aria-hidden="true" title=""></i>Able Seafarer Engine</td>
+                                                        <td class=" text-danger">A-V/1-2</td>
+                                                        <td class="text-left text-danger"><Label>Number</Label><br />SFF01-004967</td>
+                                                        <td class="text-left text-danger"><Label>CNT</Label><br />GEO</td>
+                                                        <td class="text-center text-danger"><Label>Issued On</Label><br />04 Apr 2016</td>
+                                                        <td class="text-center text-danger"><Label>Expiry</Label><br />22 Jan 2022</td>
+                                                        <td class="text-left text-danger"><Label>Authority</Label><br />MTA</td>
+                                                        <td class="text-left text-danger"><Label>Status</Label><br />Held by Seafarer</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+        <div class="download-attachments-popup hide-desktop grid-action-panel">
+            <div class="position-relative form-group mb-0">
+                <span class="items-selected wp-mobile-100"><span id="AdvDocSelected"></span> Items Selected</span>
+                <button type="button" id="btnDownloadSelection" class=" btn btn-green-background text-white btn-shadow mr-3 disabled btn-green">
+                    <img src="~/images/Download-doc-hover.png" class="m-0" width="15" title="Download" />
+                    <span class="open-sans-font bold-text ml-2 align-middle">Download Selection </span>
+                </button>
+                @*Commented as per the discussion on 22nd Sept 2021 with Khyati*@
+                @*<button type="button" id="btnEmailToMe" class=" btn btn-green-background text-white btn-shadow btn-green mr-0" disabled="disabled">
+                        <img src="~/images/Email.png" class="m-0" width="15" title="" /><span class="open-sans-font bold-text ml-2 align-middle">Email to Me</span>
+                    </button>*@
+                <button type="button" id="btnAdvCancel" class="btn bold-text btn-cancel wp-mobile-100">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="mobile-tab mobile-dropdown-tab d-block d-md-none d-lg-none d-xl-none">
+        <button type="button" class="dropdown-toggle wp-mobile-100" id="dropdowntabbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a href="javascript:void(0)" class="active dropdowntabtitle">OVERVIEW</a>  <i class="fa fa-fw dropdown-rotate" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdowntablist">
+            <ul class="p-0 mb-0">
+                <li class="active">
+                    <a href="javascript:void(0)" id="dropdown-tab-1" class="dropdown-tab-1 mobileTabClick">
+                        <svg width="19" height="22" viewBox="0 0 21 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                            <path d="M20.4848 1.34377C20.4884 1.07278 20.247 0.875 19.9824 0.875H1.38007C1.11443 0.875 0.875 1.07323 0.875 1.34289V22.6571C0.875 22.9265 1.11414 23.125 1.38007 23.125H19.9799C20.2456 23.125 20.485 22.9268 20.485 22.6571L20.4848 1.34377ZM20.4848 1.34377C20.4848 1.34412 20.4848 1.34448 20.4848 1.34483L20.3598 1.34289L20.4848 1.34289V1.34377ZM19.4769 22.1892H1.88765V1.81074H19.4769V22.1892Z" fill="#000000" stroke="#000000" stroke-width="0.25" />
+                            <path d="M4.63485 18.2247C4.70813 18.1538 4.80728 18.114 4.91042 18.1145L15.5725 18.1147C15.7861 18.1155 15.959 18.2841 15.9599 18.4924C15.9602 18.5929 15.9196 18.6896 15.847 18.7609C15.7744 18.8323 15.6756 18.8726 15.5725 18.8731H4.91043C4.80676 18.8734 4.70709 18.8335 4.63381 18.762C4.56053 18.6904 4.51955 18.5934 4.5199 18.4924C4.52025 18.3918 4.56175 18.2955 4.63485 18.2247Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.63485 14.826C4.70813 14.7551 4.80728 14.7153 4.91042 14.7158L15.5725 14.716C15.7861 14.7168 15.959 14.8855 15.9599 15.0937C15.9602 15.1942 15.9196 15.2909 15.847 15.3622C15.7744 15.4336 15.6756 15.4739 15.5725 15.4744H4.91043C4.80676 15.4748 4.70709 15.4348 4.63381 15.3634C4.56053 15.2918 4.51955 15.1948 4.5199 15.0937C4.52025 14.9931 4.56175 14.8968 4.63485 14.826Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.64647 11.4274C4.72715 11.3564 4.83632 11.3166 4.94989 11.3171L11.1333 11.3173C11.3685 11.3182 11.5589 11.4868 11.5599 11.695C11.5603 11.7956 11.5155 11.8922 11.4356 11.9635C11.3557 12.0349 11.2469 12.0752 11.1333 12.0757H4.94989C4.83575 12.0761 4.726 12.0361 4.64532 11.9647C4.56464 11.8931 4.51952 11.7961 4.5199 11.695C4.52028 11.5944 4.56598 11.4981 4.64647 11.4274Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.64647 8.02892C4.72715 7.95798 4.83632 7.9182 4.94989 7.91871L11.1333 7.91888C11.3685 7.91973 11.5589 8.08834 11.5599 8.29657C11.5603 8.39713 11.5155 8.49379 11.4356 8.56507C11.3557 8.6365 11.2469 8.6768 11.1333 8.6773H4.94989C4.83575 8.67764 4.726 8.63769 4.64532 8.56625C4.56464 8.49464 4.51952 8.39763 4.5199 8.29657C4.52028 8.19601 4.56598 8.09968 4.64647 8.02892Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.64647 4.63023C4.72715 4.5593 4.83632 4.51952 4.94989 4.52002L16.4133 4.5202C16.6485 4.52105 16.8389 4.68966 16.8399 4.89789C16.8403 4.99845 16.7955 5.09511 16.7156 5.16638C16.6357 5.23782 16.5269 5.27811 16.4133 5.27862H4.94989C4.83575 5.27896 4.726 5.23901 4.64532 5.16757C4.56464 5.09595 4.51952 4.99895 4.5199 4.89788C4.52028 4.79733 4.56598 4.701 4.64647 4.63023Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                        </svg>
+                        Overview
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" id="dropdown-tab-2" class="dropdown-tab-2 mobileTabClick">
+                        <svg width="20" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                            <path d="M18.0428 22C17.9136 22 17.8075 21.9862 17.7245 21.9585C17.6415 21.9308 17.5631 21.8709 17.4893 21.7786L11.4013 15.6906V14.0025L12.8679 12.5082H14.5836L20.6717 18.6239C20.7639 18.6977 20.8239 18.7807 20.8516 18.873C20.8792 18.9652 20.8931 19.0667 20.8931 19.1774C20.8931 19.288 20.8746 19.3849 20.8377 19.4679C20.8008 19.5509 20.7455 19.6293 20.6717 19.7031L18.5686 21.7786C18.4948 21.8709 18.4164 21.9308 18.3333 21.9585C18.2503 21.9862 18.1535 22 18.0428 22ZM18.0428 20.644L19.5371 19.1497L13.8365 13.4767L12.3698 14.9711L18.0428 20.644ZM2.85031 22C2.73962 22 2.63815 21.9862 2.54591 21.9585C2.45367 21.9308 2.37065 21.8709 2.29686 21.7786L0.221384 19.7308C0.129141 19.6386 0.0691825 19.5463 0.0415096 19.4541C0.0138366 19.3618 0 19.2604 0 19.1497C0 19.0574 0.0138366 18.9606 0.0415096 18.8591C0.0691825 18.7577 0.129141 18.67 0.221384 18.5962L6.25409 12.5635H8.57862L9.60252 11.5673L4.73207 6.69686H3.15472L0.0276731 3.59748L2.46289 1.13459L5.58994 4.28931V5.86667L10.4327 10.7094L14.0302 7.13962L11.927 5.03648L13.3384 3.59748H10.488L10.1006 3.23774L13.3107 0L13.7258 0.387421V3.26541L15.1371 1.82641L19.8138 6.50314C20.0721 6.74298 20.2751 7.03354 20.4226 7.37484C20.5702 7.71614 20.644 8.0805 20.644 8.46793C20.644 8.74465 20.6025 9.02138 20.5195 9.29811C20.4365 9.57484 20.312 9.84235 20.1459 10.1006L17.8214 7.7761L16.2717 9.35346L14.8881 7.96981L9.43648 13.4491V15.7736L3.40377 21.7786C3.32998 21.8709 3.25157 21.9308 3.16855 21.9585C3.08553 21.9862 2.97945 22 2.85031 22ZM2.85031 20.6164L8.57862 14.9157L7.08428 13.4214L1.38365 19.1497L2.85031 20.6164Z" fill="black" />
+                        </svg>
+                        Services
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" id="dropdown-tab-3" class="dropdown-tab-3 mobileTabClick certificatetablink">
+                        <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                            <path d="M4.3183 17.4191H13.0133V16.1353H4.3183V17.4191ZM4.3183 12.5756H13.0133V11.2918H4.3183V12.5756ZM1.63395 22C1.18656 22 0.802388 21.8347 0.481433 21.504C0.160478 21.1733 0 20.794 0 20.366V1.63395C0 1.20601 0.160478 0.826702 0.481433 0.496021C0.802388 0.16534 1.18656 0 1.63395 0H11.7294L17.3316 5.60212V20.366C17.3316 20.794 17.1711 21.1733 16.8501 21.504C16.5292 21.8347 16.145 22 15.6976 22H1.63395ZM11.0875 6.18568V1.28382H1.63395C1.53669 1.28382 1.45402 1.32272 1.38594 1.40053C1.31786 1.47834 1.28382 1.55615 1.28382 1.63395V20.366C1.28382 20.4439 1.31786 20.5217 1.38594 20.5995C1.45402 20.6773 1.53669 20.7162 1.63395 20.7162H15.6976C15.7949 20.7162 15.8775 20.6773 15.9456 20.5995C16.0137 20.5217 16.0477 20.4439 16.0477 20.366V6.18568H11.0875ZM1.28382 1.28382V6.18568V1.28382V20.7162V1.28382Z" fill="black" />
+                        </svg>
+                        Documents
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="createcv modal-click btnOpenCreateCv">
+                        <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                            <path d="M2.63395 23C2.18656 23 1.80239 22.8347 1.48143 22.504C1.16048 22.1733 1 21.794 1 21.366V2.63395C1 2.20601 1.16048 1.8267 1.48143 1.49602C1.80239 1.16534 2.18656 1 2.63395 1H12.2918L18.3316 7.03979V11.3289H17.0477V7.88594H11.4456V2.28382H2.63395C2.53669 2.28382 2.45402 2.32272 2.38594 2.40053C2.31786 2.47834 2.28382 2.55615 2.28382 2.63395V21.366C2.28382 21.4439 2.31786 21.5217 2.38594 21.5995C2.45402 21.6773 2.53669 21.7162 2.63395 21.7162H10.1326V23H2.63395ZM2.28382 21.7162V2.28382V21.7162ZM16.931 15.3263L17.5729 15.939L12.9629 20.6074V22.0663H14.4218L19.0318 17.3979L19.6737 18.0398L14.7719 22.9708H12.0292V20.2281L16.931 15.3263ZM19.6737 18.0398L16.931 15.3263L18.5066 13.7507C18.6622 13.5951 18.8519 13.5172 19.0756 13.5172C19.2993 13.5172 19.4987 13.5951 19.6737 13.7507L21.2493 15.3554C21.405 15.5305 21.4828 15.725 21.4828 15.939C21.4828 16.153 21.405 16.3475 21.2493 16.5225L19.6737 18.0398Z" fill="black" stroke="black" stroke-width="0.1" />
+                        </svg>
+                        Create CV
+                    </a>
+                </li>
+                <li id="baseDiscussionMobile" class="d-none">
+                    <a class="discussionAnchorOnClick modal-click">
+                        <svg width="22" height="24" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                            <path d="M0 16.697V1.12121C0 0.858586 0.111111 0.606061 0.333333 0.363636C0.555555 0.121212 0.79798 0 1.06061 0H16.1515C16.4141 0 16.6616 0.116162 16.8939 0.348485C17.1263 0.580808 17.2424 0.838384 17.2424 1.12121V11.2727C17.2424 11.5354 17.1263 11.7879 16.8939 12.0303C16.6616 12.2727 16.4141 12.3939 16.1515 12.3939H4.27273L0 16.697ZM5.36364 17.7273C5.10101 17.7273 4.85354 17.6061 4.62121 17.3636C4.38889 17.1212 4.27273 16.8687 4.27273 16.6061V14.3939H18.8485L19.2121 14.7576V4.24242H21.4848C21.7475 4.24242 21.9899 4.36364 22.2121 4.60606C22.4343 4.84848 22.5455 5.11111 22.5455 5.39394V22L18.2727 17.7273H5.36364ZM15.8788 1.36364H1.36364V13.3636L3.69697 11.0303H15.8788V1.36364Z" fill="#000000" />
+                        </svg>
+                        <span>Discuss (<span class="baseDiscussionCountCommon">0</span>)</span>
+                    </a>
+                </li>
+                <li id="baseNotesMobile" class="d-none">
+                    <a class="noteAnchorOnClick modal-click">
+                        <svg width="21" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.71875 21.9344H13.7812V15.0594H20.0312V2.89062C20.0312 2.66146 19.9583 2.46667 19.8125 2.30625C19.6667 2.14583 19.4896 2.06563 19.2812 2.06563H2.71875C2.51042 2.06563 2.33333 2.14583 2.1875 2.30625C2.04167 2.46667 1.96875 2.66146 1.96875 2.89062V21.1094C1.96875 21.3385 2.04167 21.5333 2.1875 21.6937C2.33333 21.8542 2.51042 21.9344 2.71875 21.9344ZM2.71875 23C2.26042 23 1.85937 22.8109 1.51562 22.4328C1.17187 22.0547 1 21.6135 1 21.1094V2.89062C1 2.38646 1.17187 1.94531 1.51562 1.56719C1.85937 1.18906 2.26042 1 2.71875 1H19.2812C19.7396 1 20.1406 1.18906 20.4844 1.56719C20.8281 1.94531 21 2.38646 21 2.89062V15.1625L13.875 23H2.71875ZM6.15625 13.6844V12.6187H10.8438V13.6844H6.15625ZM6.15625 8.25312V7.1875H15.8438V8.25312H6.15625ZM1.96875 21.9344V2.06563V21.9344Z" fill="black" stroke="black" stroke-width="0.5" />
+                        </svg>
+                        <span>My Notes (<span class="baseNotesCountCommon">0</span>)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        @*<div class="btn-group dropup">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropup
+                </button>
+                <div class="dropdown-menu">
+                    <a href="javascript:void(0)" class="dropdown-tab-1 active">OVERVIEW</a>
+                    <a href="javascript:void(0)" class="dropdown-tab-2">SERVICE HISTORY</a>
+                    <a href="javascript:void(0)" class="dropdown-tab-3">CERTIFICATES & DOCUMENTS</a>
+                </div>
+            </div>*@
+    </div>
+}
+
+@section Modal
+{
+    <div class="modal fade p-0 create-cv" id="modalCreateCv" role="dialog" aria-labelledby="modalCreateCv" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="max-width:600px;">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding">
+                    <div class="col-md-11 pl-0">
+                        <div class="">
+                            <div class="common-heading-green">Create CV</div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background padding-20">
+                    <div class="common-custom-card background-padding mb-0">
+                        <div class="counters-heading border-none mb-2" id="divCvCrewName">
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                <div class="dashboard-counters-label mr-0 w-auto align-top">
+                                    Rank
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-9 col-lg-9 col-xl-9">
+                                <div class="dashboard-counters w-auto mb-2" id="divCvCrewRank">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                <div class="dashboard-counters-label mr-0 w-auto align-top">
+                                    Format Type
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-9 col-lg-9 col-xl-9">
+                                <div class="dashboard-counters w-auto mb-2" id="divReportFormatType"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 col-md-3 col-lg-3 col-xl-3">
+                                <div class="dashboard-counters-label mr-0 w-auto">
+                                    Report Type
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-9 col-lg-9 col-xl-9 common-form-design">
+                                <div class="row">
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="radio-button-design ml-0 mb-2">
+                                            <div class="custom-radio custom-control custom-control-inline mr-0">
+                                                <input class="custom-control-input" id="radioDefaultReport" name="reportType" type="radio" value="Default" checked>
+                                                <label class="custom-control-label" for="radioDefaultReport">Default Report</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="radio-button-design ml-0 mb-2">
+                                            <div class="custom-radio custom-control custom-control-inline  mr-0">
+                                                <input class="custom-control-input" id="radioCustomReport" name="reportType" type="radio" value="Custom">
+                                                <label class="custom-control-label" for="radioCustomReport">Custom Report</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="checkbox-design-table mb-3 mb-md-1">
+                                            <div class="custom-checkbox custom-control custom-control-inline mr-0">
+                                                <input type="checkbox" class="select-checkbox custom-control-input dt-checkboxes chkCvOption" disabled id="chkIsIncludeAddress">
+                                                <label class="custom-control-label d-block" for="chkIsIncludeAddress">&nbsp;Address</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="checkbox-design-table mb-3 mb-md-1">
+                                            <div class="custom-checkbox custom-control custom-control-inline mr-0">
+                                                <input type="checkbox" class="select-checkbox custom-control-input dt-checkboxes chkCvOption" disabled id="chkIsIncludeContact">
+                                                <label class="custom-control-label d-block" for="chkIsIncludeContact">&nbsp;Contact</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="checkbox-design-table mb-3 mb-md-1">
+                                            <div class="custom-checkbox custom-control custom-control-inline mr-0">
+                                                <input type="checkbox" class="select-checkbox custom-control-input dt-checkboxes" disabled checked id="chkIsIncludeBioData">
+                                                <label class="custom-control-label d-block" for="chkIsIncludeBioData">&nbsp;Biodata</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="checkbox-design-table mb-3 mb-md-1">
+                                            <div class="custom-checkbox custom-control custom-control-inline mr-0">
+                                                <input type="checkbox" class="select-checkbox custom-control-input dt-checkboxes chkCvOption" disabled checked id="chkIsIncludePicture">
+                                                <label class="custom-control-label d-block" for="chkIsIncludePicture">&nbsp;Picture</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="checkbox-design-table mb-3 mb-md-1">
+                                            <div class="custom-checkbox custom-control custom-control-inline mr-0">
+                                                <input type="checkbox" class="select-checkbox custom-control-input dt-checkboxes chkCvOption" disabled checked id="chkIsIncludeSummaryOfCompetence">
+                                                <label class="custom-control-label d-block" for="chkIsIncludeSummaryOfCompetence">&nbsp;Experience &nbsp;Summary</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="checkbox-design-table mb-3 mb-md-1">
+                                            <div class="custom-checkbox custom-control custom-control-inline mr-0">
+                                                <input type="checkbox" class="select-checkbox custom-control-input dt-checkboxes chkCvOption" disabled id="chkIsIncludeOnShoreHistory">
+                                                <label class="custom-control-label d-block" for="chkIsIncludeOnShoreHistory">&nbsp;OnShore History</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="checkbox-design-table mb-3 mb-md-1">
+                                            <div class="custom-checkbox custom-control custom-control-inline mr-0">
+                                                <input type="checkbox" class="select-checkbox custom-control-input dt-checkboxes chkCvOption" disabled checked id="chkIsIncludeServiceDetails">
+                                                <label class="custom-control-label d-block" for="chkIsIncludeServiceDetails">&nbsp;Service History</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="checkbox-design-table mb-3 mb-md-1">
+                                            <div class="custom-checkbox custom-control custom-control-inline mr-0">
+                                                <input type="checkbox" class="select-checkbox custom-control-input dt-checkboxes chkCvOption" disabled checked id="chkIsIncludeDocuments">
+                                                <label class="custom-control-label d-block" for="chkIsIncludeDocuments">&nbsp;Documents, &nbsp;Training, &nbsp;Certificates</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="checkbox-design-table mb-3 mb-md-1">
+                                            <div class="custom-checkbox custom-control custom-control-inline mr-0">
+                                                <input type="checkbox" class="select-checkbox custom-control-input dt-checkboxes chkCvOption" disabled id="chkIsIncludeNotes">
+                                                <label class="custom-control-label d-block" for="chkIsIncludeNotes">&nbsp;CV Notes</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="checkbox-design-table mb-3 mb-md-2">
+                                            <div class="custom-checkbox custom-control custom-control-inline mr-0">
+                                                <input type="checkbox" class="select-checkbox custom-control-input dt-checkboxes chkCvOption" disabled id="chkIsIncludeMedicalRecords">
+                                                <label class="custom-control-label d-block" for="chkIsIncludeMedicalRecords">&nbsp;Medical Details</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                <div class="dashboard-counters-label mr-0 w-auto align-top">
+                                    Format
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-8 col-lg-8 col-xl-8 common-form-design">
+                                <div class="dashboard-counters w-auto" id="">
+                                    <select id="selFormat" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer common-form-design">
+                    <button type="button" id="btnCreateCv" class="btn search-btn" aria-disabled="true">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="experiencemonths" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Vessel General Types in Use</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body order-details">
+                    <div class="scroll-area-xs" style="height:450px;">
+                        <div class="scrollbar-container ps ps--active-y">
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">D</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Dry Cargo Vessel</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">DB</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Mini Bulk Carrier</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">DC</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Container Vessel</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">DM</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Multipurpose Vessel</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">DO</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Offshore</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">DS</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Self Unloading Bulk</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">DU</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Other Vessels</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">DW</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Work Vessels</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">P</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Passenger</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">T</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Tanker</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">TC</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Chemical Tankers</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">TG</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Gas Carrier</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">TV</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">VLCC/ULCC</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1 col-md-1 col-lg-1">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">W</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-md-5 col-lg-5">
+                                    <div class="widget-content">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-subheading">Wet Vessels</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/crewDetails.bundle.js"></script>
+}

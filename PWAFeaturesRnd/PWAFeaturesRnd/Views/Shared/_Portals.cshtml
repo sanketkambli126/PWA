@@ -1,0 +1,40 @@
+﻿@{
+    var portalsList = new List<OmniClaimPortal>();
+    if (User.Claims.Any(x => x.Type == "PortalsAccess"))
+    {
+        var portals = User.Claims.FirstOrDefault(x => x.Type == "PortalsAccess").Value;
+        if (!string.IsNullOrWhiteSpace(portals))
+        {
+            portalsList = JsonConvert.DeserializeObject<List<OmniClaimPortal>>(portals);
+        }
+    }
+}
+
+<div class="dropdown contentsheader">
+    <button type="button" class="p-0 mr-3 btn dropdown-toggle" data-toggle="dropdown">
+        <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+            <span class="apps-icon flag large DE"></span>
+            <span class="headericonnames">V.Apps</span>
+        </span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
+        <div class="scroller">
+            <div class="row">
+                @if (portalsList != null && portalsList.Any())
+                {
+                    foreach (var nav in portalsList)
+                    {
+                        <div class="col-6 col-md-6 col-lg-6">
+                            <a href="@nav.NavigationURL" target="_blank">
+                                <img src="@nav.PortalLogoUrl" />
+                                <span>
+                                    @nav.Name
+                                </span>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </ul>
+</div>

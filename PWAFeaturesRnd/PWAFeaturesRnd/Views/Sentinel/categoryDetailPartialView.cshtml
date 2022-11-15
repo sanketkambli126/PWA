@@ -1,0 +1,307 @@
+﻿@model List<VesselModelChildValueDetailResponseViewModel>
+@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@if (Model.Count == 0)
+{
+	<div class="pvalue no-items-vs">No Items Found</div>
+}
+else
+{
+	@foreach (var item in Model)
+	{
+		<div class="sentinel-portinformation customAccordionContainer subCategoryContainer">
+			<div class="topinfo">
+				<button class="btn btn-link customAccordionHeader subCategoryHeader expandCollapseArrow collapsed">
+
+					<div class="clearfix">
+						<div class="float-left">
+							<div class="portmax-width">
+								@if (item.ModelOverrideDimensionValue.HasValue)
+								{
+									<h1 class="stxt-red">@item.ModelDimensionName</h1>
+								}
+								else
+								{
+									<h1 class="stxt-@item.ModelCurrentValueColor">@item.ModelDimensionName</h1>
+								}
+
+                            @if (item.ModelType.Equals(EnumsHelper.GetKeyValue(ModelTypes.Expert)))
+                            {
+                                <img src="~/images/sentinelimages/portstate.svg" class="porticon" />
+
+                                <div class="position-relative d-inline-block">
+                                    <span class="ptitle ml-0"> Expert Model</span>
+                                </div>
+                            }
+                            @if (item.ModelType.Equals(EnumsHelper.GetKeyValue(ModelTypes.Machine)))
+                            {
+                                <img src="~/images/sentinelimages/oilmajotvetting.svg" class="porticon" />
+
+                                <div class="position-relative d-inline-block">
+                                    <span class="ptitle ml-0"> Machine Model</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="groupingportinfo">
+                            <div class="current">
+                                <div class="ptitle ml-0 d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="Current Score">Curr.</div>
+                                <div class="ptitle ml-0 d-inline-block d-md-none">Current Score</div>
+                                <div class="pvalue">
+                                    @if (item.ModelCurrentValue.HasValue)
+                                    {
+                                        @item.ModelCurrentValue.Value
+                                    }
+                                </div>
+                            </div>
+                            <div class="residual">
+                                <div class="ptitle">Residual Score</div>
+                                <div class="pvalue">
+                                    @if (item.ModelLaggingValue.HasValue)
+                                    {
+                                        @item.ModelLaggingValue.Value
+                                    }
+                                </div>
+                            </div>
+
+								<div>
+									<div class="ptitle">Override Score</div>
+									@if (item.ModelOverrideDimensionValue.HasValue)
+									{
+										<div class="pvalue stxt-red"> @item.ModelOverrideDimensionValue.Value</div>
+									}
+									else
+									{
+										<div class="pvalue"> None</div>
+									}
+								</div>
+
+                        </div>
+                    </div>
+                    <div class="float-right portguide">
+                        @if (item.ModelOverrideDimensionValue.HasValue)
+                        {
+                            <img src="/images/sentinelimages/s-cycle.svg" width="16" class="subcategoryicon d-none d-md-inline-block"/>
+                        }
+
+                        <a href="javascript:void(0);">
+                            <img src="~/images/sentinelimages/guide.svg" /><span>Guide</span>
+                        </a>
+                        <a href="javascript:void(0);">
+                            <span>Overview</span><img src="~/images/sentinelimages/inspectionoverview.svg" />
+                        </a>
+                    </div>
+                </div>
+                    
+				</button>
+            </div>
+            @if (item.ModelExpertFactorDetail != null && item.ModelExpertFactorDetail.Any())
+            {
+                <div class="tablesinfo clearfix customAccordionDetail subCategoryDetail">
+                    <div class="lefttabledetails">
+                        <div class="sentinel-table-design">
+                            <h1 class="d-md-none">INDICATORS</h1>
+                            <table id="dtindicators" class="table table-striped cardview row-sm indicatorsmobile">
+                                <thead>
+                                    <tr>
+                                        <th>INDICATORS</th>
+                                        <th>VALUE</th>
+                                        <th>THRESHOLD</th>
+                                        <th>WEIGHT</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var row in item.ModelExpertFactorDetail)
+                                {
+                                    <tr>
+                                        <td>
+                                            <span class="trimcharacter">@row.Indicator</span>
+                                            @if (!String.IsNullOrWhiteSpace(row.AdditionalInfo))
+                                            {
+                                                <img src="~/images/outline-i.svg" width="15" class="ml-2" data-toggle="tooltip" data-placement="bottom" title="@row.AdditionalInfo.Replace(Environment.NewLine, "<br />")" />
+                                            }
+                                        </td>
+                                        @if (row.IndicatorValue.HasValue)
+                                        {
+                                            <td class="stxt-@row.IndicatorColor">
+                                                <div class="mobilehead d-md-none">
+                                                    Value
+                                                </div>
+                                                @row.IndicatorValue
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>-</td>
+                                        }
+                                        @if (row.ThresholdValue.HasValue)
+                                        {
+                                            <td>
+                                                <div class="mobilehead d-md-none">
+                                                    Threshold
+                                                </div>
+                                                @row.ThresholdValue
+
+											</td>
+										}
+										else
+										{
+											<td>-</td>
+										}
+										@if (row.Weight.HasValue)
+										{
+											<td>
+												<div class="mobilehead d-md-none">
+													Weight
+												</div>
+												@row.Weight
+											</td>
+										}
+										else
+										{
+											<td>-</td>
+										}
+									</tr>
+								}
+							</table>
+						</div>
+					</div>
+					<div class="righttabledetails">
+						@if (item.ModelOverrideDetail != null && item.ModelOverrideDetail.Any())
+						{
+
+                            <div class="sentinel-table-design">
+                                <h1 class="d-md-none stxt-red actionoverride"><img src="/images/sentinelimages/s-cycle.svg" width="16" class="">  <span class="align-middle">ACTIVE OVERRIDE</span></h1>
+                                <table id="dtoverridename" class="table table-striped cardview row-sm actionable overridecolor">
+                                    <thead>
+                                        <tr>
+                                            <th><img src="/images/sentinelimages/s-cycle.svg" width="16" class=""> <span class="align-middle">OVERRIDE NAME</span></th>
+                                            <th>SCORE</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var row in item.ModelOverrideDetail)
+                                    {
+                                        <tr>
+                                            <td>@row.OverrideDimensionName</td>
+                                            @if (row.OverrideDimensionCurrentValue.HasValue)
+                                            {
+                                                <td>
+                                                    <div class="mobilehead d-md-none">Value</div>
+                                                    @row.OverrideDimensionCurrentValue
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>-</td>
+                                            }
+                                            <td class="d-none"></td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        }
+                        @if (!String.IsNullOrWhiteSpace(@item.AdditionalInfo))
+                        {
+                            <div class="scorecombinediv">
+                                <textarea class="form-control scroller">@item.AdditionalInfo.Replace(Environment.NewLine, "<br />")</textarea>
+                            </div>
+                        }
+
+					</div>
+
+
+                </div>
+            }
+            @if (item.ModelMachineFactorDetail != null && item.ModelMachineFactorDetail.Any())
+            {
+                <div class="tablesinfo clearfix customAccordionDetail subCategoryDetail">
+                    <div class="lefttabledetails">
+                        <div class="sentinel-table-design">
+                            <h1 class="d-md-none">ACTIONABLE FACTORS</h1>
+                            <table id="dtindicators" class="table table-striped cardview row-sm actionable">
+                                <thead>
+                                    <tr>
+                                        <th>ACTIONABLE FACTORS</th>
+                                        <th>VALUE</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                @foreach (var row in item.ModelMachineFactorDetail)
+                                {
+                                    <tr>
+                                        <td>
+                                            @row.FactorName
+                                            @if (!String.IsNullOrWhiteSpace(row.AdditionalInfo))
+                                            {
+                                                <img src="~/images/outline-i.svg" width="15" class="ml-2" data-toggle="tooltip" data-placement="bottom" title="@row.AdditionalInfo.Replace(Environment.NewLine, "<br />")" />
+                                            }
+                                        </td>
+                                        @if (row.FactorValueNumeric.HasValue)
+                                        {
+
+
+											<td>
+												<div class="mobilehead d-md-none">Value</div>
+												@row.FactorValueNumeric
+											</td>
+										}
+										else
+										{
+											<td>-</td>
+										}
+										<td>
+											@if (!String.IsNullOrWhiteSpace(row.NavigationLinkName))
+											{
+												<img src="~/images/sentinelimages/inspectionoverview.svg" />
+											}
+										</td>
+									</tr>
+								}
+							</table>
+						</div>
+					</div>
+					<div class="righttabledetails">
+						@if (item.ModelOverrideDetail != null && item.ModelOverrideDetail.Any())
+						{
+
+                            <div class="sentinel-table-design">
+                                <h1 class="d-md-none stxt-red actionoverride"> <img src="/images/sentinelimages/s-cycle.svg" width="16" class="">  <span class="align-middle">ACTIVE OVERRIDE</span></h1>
+                                <table id="dtoverridename" class="table table-striped cardview row-sm actionable overridecolor">
+                                    <thead>
+                                        <tr>
+                                            <th><img src="/images/sentinelimages/s-cycle.svg" width="16" class=""> <span class="align-middle">OVERRIDE NAME</span></th>
+                                            <th>SCORE</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var row in item.ModelOverrideDetail)
+                                    {
+                                        <tr>
+                                            <td>@row.OverrideDimensionName</td>
+                                            @if (row.OverrideDimensionCurrentValue.HasValue)
+                                            {
+                                                <td>
+                                                    <div class="mobilehead d-md-none">Value</div>
+                                                    @row.OverrideDimensionCurrentValue
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>-</td>
+                                            }
+                                            <td class="d-none"></td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        }
+                        @if (!String.IsNullOrWhiteSpace(@item.AdditionalInfo))
+                        {
+                            <div class="scorecombinediv">
+                                <textarea class="form-control scroller">@item.AdditionalInfo.Replace(Environment.NewLine, "<br />")</textarea>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}

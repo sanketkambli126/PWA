@@ -1,0 +1,409 @@
+﻿
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Create Requisition - Sichem Amethyst
+}
+
+@section ContentSection
+{
+
+    <div class="app-main__outer fixed-page-header requisition-details ">
+        <div class="app-main__inner background-padding new-background common-border-radius">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="margin-left-35">
+                        <div class="module-vesel-name">
+                            Create Requisition
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card content-pane margin-bottom-custom mb-0 mt-14-top">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Requisition Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="no-gutters">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="vessel">Vessel</label>
+                                    <select class="form-control form-control-sm">
+                                        <option value="3480 - Phonex Beauty">3480 - Phonex Beauty</option>
+                                        <option value="3485 - Sichem">3485 - Sichem</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="">Account Code</label>
+                                    <select class="form-control form-control-sm">
+                                        <option value="AO0057 - Oil & Marine Agencies (OMT) To">AO0057 - Oil & Marine Agencies (OMT) To</option>
+                                        <option value="AO0065 - Marine Agencies (OMT) To">AO0065 - Marine Agencies (OMT) To</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="ordertitle">Order Title</label>
+                                    <input name="email" id="" placeholder="" class="form-control form-control-sm" value="Oil & Marine Agencies (OMT) To">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="">Project</label>
+                                    <select class="form-control form-control-sm">
+                                        <option value="Winter Work">Winter Work</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <div class="position-relative form-group">
+                                    <label for="ordertitle">Priority</label>
+                                    <select name="select" id="exampleSelect" class="form-control form-control-sm">
+                                        <option value="">Normal</option>
+                                        <option value="">Low</option>
+                                        <option value="">Medium</option>
+                                        <option value="">High</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card margin-bottom-custom mb-0 mt-14-top">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Other Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="no-gutters">
+                        <div class="form-row">
+                            <div class="col-md-3">
+                                <div class="position-relative form-group">
+                                    <label for="ordertitle">Order Type</label>
+                                    <select name="select" id="exampleSelect" class="form-control form-control-sm">
+                                        <option value="">Consumables</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="position-relative form-group">
+                                    <label for="ordertitle">Spare Part Type</label>
+                                    <select name="select" id="exampleSelect" class="form-control form-control-sm">
+                                        <option value="">OEM - Original Equipment Manufacturer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="position-relative form-group">
+                                    <label for="">Department</label>
+                                    <select name="select" id="exampleSelect" class="form-control form-control-sm">
+                                        <option value="">Engineering</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="position-relative form-check checkbox-top">
+                                    <div class="pt-4 mt-2 d-none d-sm-block"></div>
+                                    <input name="check" id="exampleCheck" type="checkbox" class="form-check-input pt-2">
+                                    <label for="exampleCheck" class="form-check-label">Hazardous Materials Requested</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card margin-bottom-custom mb-0 mt-14-top">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Requested Delivery Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-row">
+                                <div class="col-6 col-md-3 col-lg-2">
+                                    <div class="position-relative form-group">
+                                        <label for="">Delivery Date</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend datepicker-trigger">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-calendar-alt"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control form-control-sm" data-toggle="datepicker-icon" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-3 requested-border">
+                            <div class="position-relative form-check form-check-inline mb-3">
+                                <label class="form-check-label">
+                                    <input name="radio-position" type="radio" value="1" class="form-check-input">
+                                    Position List
+                                </label>
+                            </div>
+                            <div class="position-relative form-group descrip" id="radio-position2">
+                                <select name="select" id="list" class="form-control form-control-sm" disabled>
+                                    <option value="">List</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-block d-sm-none">
+                            <div class="form-group">OR</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="position-relative form-check form-check-inline mb-3">
+                                <label class="form-check-label">
+                                    <input name="radio-position" type="radio" value="2" class="form-check-input">
+                                    New Port
+                                </label>
+                            </div>
+                            <div class="position-relative form-group descrip" id="radio-position3">
+                                <select name="select" id="port" class="form-control form-control-sm" disabled>
+                                    <option value="">Port 1</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card margin-bottom-custom mb-0 mt-14-top">
+                <div class="card-header">
+                    <div class="d-block w-100">
+                        <h5 class="card-title mb-0 float-left" id="OrderLineHeader">Order Lines(0)</h5>
+                        <div class="float-right">
+                            <a class="nav-link float-right active px-0 py-0" data-toggle="modal" data-target="#modalAddOrderLine">
+                                <i class="nav-link-icon  fa fa-fw" aria-hidden="true" title=""></i> <span class="text-primary">Add</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="tablewrapper" class="table-responsive compact-table">
+                                <table id="summary" style="width: 100%;" class="table table-hover table-bordered cardview layout-new row-sm">
+                                    @*layout-new*@
+                                    <thead>
+                                        <tr>
+                                            @*1*@
+                                            <th>
+                                                <div class="position-relative form-check">
+                                                    <input name="check" id="exampleCheck" type="checkbox" class="form-check-input" style="margin-left: -15px;">
+                                                    <label for="exampleCheck" class="form-check-label"></label>
+                                                </div>
+                                            </th>
+                                            @*2*@
+                                            <th>Notes</th>
+                                            @*3*@
+                                            <th>Component Name</th>
+                                            @*4*@
+                                            <th>Part Name</th>
+                                            @*5*@
+                                            <th>Drawing Position</th>
+                                            @*6*@
+                                            <th>UOM</th>
+                                            @*7*@
+                                            <th>REC</th>
+                                            @*8*@
+                                            <th>ROB</th>
+                                            @*9*@
+                                            <th>REQ</th>
+                                            @*0*@
+                                            <th>Pending Orders</th>
+                                            @*1*@
+                                            <th>QTY</th>
+                                            @*2*@
+                                            <th>Last Purchase Cost (USD)</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card margin-bottom-custom mt-14-top">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Notes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="position-relative form-group">
+                                <textarea name="text" rows="5" id="exampleText" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group pull-right">
+                                <button type="button" class="btn btn-cancelsecondarybtn no-btn btn-no">Cancel</button>
+                                <button type="button" id="btnSaveRequisition" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Modal
+{
+    <div class="modal fade" id="modalAddOrderLine" tabindex="-1" role="dialog" aria-labelledby="modalLabelAddOrderLine" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabelAddOrderLine">Add To Order Lines</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="no-gutters">
+                        <div class="form-row mt-3">
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label for="">Component</label>
+                                    <select class="form-control form-control-sm">
+                                        <optgroup label="Options">
+                                            <option value="Main Engine">Main Engine</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label for="ordertitle">Part Name</label>
+                                    <input name="" id="" placeholder="" class="form-control form-control-sm" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label for="ordertitle">Maker Reference Number</label>
+                                    <input name="" id="" placeholder="" class="form-control form-control-sm" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="position-relative form-check text-right">
+                            <button class="btn btn-cancelsecondarybtn no-btn btn-no">Clear</button>
+                            <button class="mr-2 btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-6 col-md-6 text-left"><h1 class="mt-2 requisition-header-msg">Spare Parts (3)</h1></div>
+                                </div>
+                                <b class="text-danger">Note :</b> <b>Search Results reflect top 500 parts, for more specific results please use further filters.</b><br /><br />
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="table-responsive compact-table">
+                                            <table id="dtAddOrderLine" class="table table-hover table-bordered cardview layout-new row-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-left checkbox-sort" width="20px">
+                                                            <div class="position-relative form-check"><input name="check" id="exampleCheck" type="checkbox" class="form-check-input" style="margin-left: -15px;"><label for="exampleCheck" class="form-check-label"></label></div>
+                                                        </th>
+                                                        <th>Notes</th>
+                                                        <th>Component Name</th>
+                                                        <th>Part Name</th>
+                                                        <th>Drawing Position</th>
+                                                        <th>UOM</th>
+                                                        <th>REC</th>
+                                                        <th>ROB</th>
+                                                        <th>REQ</th>
+                                                        <th>Pending Orders</th>
+                                                        <th>QTY</th>
+                                                        <th>Last Purchase Cost (USD)</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancelsecondarybtn no-btn btn-no" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnAddOrderLine" class="btn btn-primary" data-dismiss="modal">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="component" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Main Engine</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0 compact-table">
+                        <table id="" class="table table-hover table-bordered cardview modal-table row-sm">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Maker</th>
+                                    <th class="text-center">Type</th>
+                                    <th class="text-center">Serial</th>
+                                    <th class="text-center">Warranty End Date</th>
+                                    <th class="text-center">Designer</th>
+                                    <th class="text-center">Critical Component</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center"><Label>Maker</Label><br />MAN B&W</td>
+                                    <td class="text-center"><Label>Type</Label><br />7G80ME</td>
+                                    <td class="text-center"><Label>Serial</Label><br />AA283</td>
+                                    <td class="text-center"><Label>Warranty End Date</Label><br />20 Apr 2021</td>
+                                    <td class="text-center"><Label>Designer</Label><br />Yes</td>
+                                    <td class="text-center"><Label>Critical Component</Label><br />Yes</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center"><Label>Maker</Label><br />MAN B&W</td>
+                                    <td class="text-center"><Label>Type</Label><br />7G80ME</td>
+                                    <td class="text-center"><Label>Serial</Label><br />AA283</td>
+                                    <td class="text-center"><Label>Warranty End Date</Label><br />20 Apr 2021</td>
+                                    <td class="text-center"><Label>Designer</Label><br />Yes</td>
+                                    <td class="text-center"><Label>Critical Component</Label><br />Yes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+		{
+    <script src="~/assets/scripts/requisitionDetails.bundle.js"></script>
+}

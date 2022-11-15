@@ -1,0 +1,1329 @@
+﻿@model PWAFeaturesRnd.ViewModels.PlannedMaintenance.PlannedMaintenanceDetailViewModel
+
+@{
+	Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+	PMS Details - @Model.VesselName
+}
+
+@section ContentSection
+{
+	@Html.HiddenFor(m => m.EncryptedVesselId)
+	@Html.HiddenFor(m => m.ComponentId)
+	@Html.HiddenFor(m => m.PlannedMaintenanceRequestDetailsURL)
+	@Html.HiddenFor(m => m.PlannedMaintainanceListUrl)
+	@Html.HiddenFor(m => m.IsNavigatedFromDone)
+	@Html.HiddenFor(m => m.IsSWO)
+	@Html.HiddenFor(m => m.MessageDetailsJSON)
+	@Html.HiddenFor(m => m.IsFromViewRecord)
+
+	<div class="app-main__outer fixed-page-header pms-details">
+		<div class="app-main__inner background-padding new-background common-border-radius">
+			<div class="app-page-title header-shadow">
+				<div class="page-title-wrapper">
+					<div class="margin-left-35 width-70">
+						<div class="common-sub-heading-black headershowmorewrapper">
+							<span class="header">
+								@if (Model.IsFromViewRecord == true)
+								{
+									<span class="common-small-heading">
+										@Model.VesselName
+									</span>
+								}
+								else
+								{
+									<a id="spanVesselName" class="common-heading-green"
+									   href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.EncryptedVesselId)">@Model.VesselName</a>
+								}
+							</span>
+							<div class="common-small-heading">
+								<span id="spanJobName" class="common-sub-heading-black">- </span>
+								<span class="d-none d-md-inline-block">|</span>
+								<span class="common-small-heading"><div>Job Type: <span id="spanJobTypeDescription">-  </span></div></span>
+								<span class="d-none d-md-inline-block">|</span>
+								<span class="common-small-heading"><div>WO Status:  <span id="spanWorkOrderStatusCode">-</span></div></span>
+								<span class="d-none d-md-inline-block">|</span>
+								<span class="common-small-heading"><div>Next Due:  <span id="spanCurrentDueDate" class="common-small-heading">- </span><i class=' fa fa-clock ml-1' aria-hidden='true' id="clockIcon"></i></div></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="page-title-actions mobile-padding-0 left-fixed-ipad">
+						<partial name="DiscussionAndNotesCountButton" />
+						<button class="btn btn-dark-grey text-white btn-shadow hover-blue mr-1 hide-mobile btnPmsCloseAction btnPmsCloseActionDesktop d-none">
+							<img src="~/images/ClosePMSWhite.png" width="16" class="m-0 align-top" /><span class="open-sans-font bold-text ml-2">Close WO</span>
+						</button>
+						<button class="btn btn-dark-grey text-white btn-shadow hover-blue mr-1 hide-mobile btnPmsProcessRescheduleWOAction btnPmsProcessRescheduleWODesktop d-none">
+							<i class="fa fa-check-circle"></i> <span class="open-sans-font bold-text ml-1">Process Reschedule WO</span>
+						</button>
+					</div>
+
+					<div class="dropdown mobile-dropdown-title d-block d-md-none d-lg-none d-xl-none">
+						<button type="button" id="mobileactiontoggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-dark-grey text-white btn-export btn-shadow">
+							<span class="btn-icon-wrapper">
+								<i class="fa fa-ellipsis-v fa-w-6"></i>
+							</span>
+						</button>
+						<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="mobileActiondropdown">
+							<ul class="nav flex-column">
+								<li id="baseDiscussionMobile" class="d-none">
+									<a class="nav-link discussionAnchorOnClick">
+										<i class="fa fa-fw" aria-hidden="true" title=""></i><span>Discussions (<span class="baseDiscussionCountCommon">0</span>)</span>
+									</a>
+								</li>
+								<li id="baseNotesMobile" class="d-none">
+									<a class="nav-link noteAnchorOnClick">
+										<i class="fa fa-fw" aria-hidden="true" title=""></i><span>My Notes (<span class="baseNotesCountCommon">0</span>)</span>
+									</a>
+								</li>
+								<li class="btnPmsCloseAction btnPmsCloseActionMobile d-none">
+									<a class="nav-link">
+										<img src="~/images/ClosePMSGrey.png" /> <span>Close WO</span>
+									</a>
+								</li>
+								<li class="btnPmsProcessRescheduleWOAction btnPmsProcessRescheduleWOMobile d-none">
+									<a class="nav-link">
+										<i class="fa fa-check-circle"></i> <span>Process Reschedule WO</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content-pane budget-summary">
+
+				<div class="row">
+					<div id="leftColumn" class="col-12 col-md-7 col-lg-7 col-xl-6 height-equal">
+						<div class="">
+							<div class="common-custom-card" id="divScheuleTask">
+								<div class="counters-heading border-none">
+									<div>
+										<span>Scheduled Task Details</span>
+									</div>
+								</div>
+								<div class="clearfix">
+									<div class="row">
+										<div class="col-12 col-md-6 col-lg-4 col-xl-4">
+											<div class="row">
+												<div class="col-6 col-md-8 col-lg-8 col-xl-8">
+													<div class="dashboard-counters-label mr-0">
+														Responsible Dept.
+													</div>
+												</div>
+												<div class="col-6 col-md-4 col-lg-4 col-xl-4">
+													<div class="dashboard-counters">
+														<span id="spanSchedulesTaskResponsibleDepartment">-</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-6 col-md-8 col-lg-8 col-xl-8">
+													<div class="dashboard-counters-label mr-0">
+														Responsibility
+
+													</div>
+												</div>
+												<div class="col-6 col-md-4 col-lg-4 col-xl-4">
+													<div class="dashboard-counters">
+														<span id="spanSchedulesTaskResponsibility">-</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-6 col-md-8 col-lg-8 col-xl-8">
+													<div class="dashboard-counters-label mr-0">
+														Approver
+													</div>
+												</div>
+												<div class="col-6 col-md-4 col-lg-4 col-xl-4">
+													<div class="dashboard-counters">
+														<span id="spanSchedulesTaskApprover">-</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 col-md-6 col-lg-4 col-xl-4">
+											<div class="row">
+												<div class="col-6 col-md-8 col-lg-6 col-xl-7">
+													<div class="dashboard-counters-label mr-0">
+														Office Approver
+													</div>
+												</div>
+												<div class="col-6 col-md-4 col-lg-6 col-xl-5">
+													<div class="dashboard-counters">
+														<span id="spanSchedulesTaskOfficeApprover">-</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-6 col-md-8 col-lg-6 col-xl-7">
+													<div class="dashboard-counters-label mr-0">
+														Interval
+													</div>
+												</div>
+												<div class="col-6 col-md-4 col-lg-6 col-xl-5">
+													<div class="dashboard-counters">
+														<span id="spanInterval">-</span>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-6 col-md-8 col-lg-6 col-xl-7">
+													<div class="dashboard-counters-label mr-0">
+														Hours Left
+													</div>
+												</div>
+												<div class="col-6 col-md-4 col-lg-6 col-xl-5">
+													<div class="dashboard-counters">
+														<span id="spanSchedulesTaskLeftHrs">-</span>
+													</div>
+												</div>
+											</div>
+
+
+										</div>
+										<div class="col-12 col-md-12 col-lg-4 col-xl-4">
+											<div class="row">
+												<div class="col-12 col-md-6 col-lg-12 col-xl-12">
+													<div class="row">
+														<div class="col-6 col-md-8 col-lg-6 col-xl-8">
+															<div class="dashboard-counters-label mr-0">
+																JSA Required
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-6 col-xl-4">
+															<div class="dashboard-counters">
+																<span id="spanJSARequired">-</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-12 col-md-6 col-lg-12 col-xl-12">
+													<div class="row">
+														<div class="col-6 col-md-8 col-lg-6 col-xl-8">
+															<div class="dashboard-counters-label mr-0">
+																Permit Required
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-6 col-xl-4">
+															<div class="dashboard-counters">
+																<span id="spanPermitRequired">-</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-12 col-md-6 col-lg-12 col-xl-12">
+													<div class="row">
+														<div class="col-6 col-md-8 col-lg-6 col-xl-8">
+															<div class="dashboard-counters-label mr-0 mb-0">
+																Critical
+															</div>
+														</div>
+														<div class="col-6 col-md-4 col-lg-6 col-xl-4">
+															<div class="dashboard-counters">
+																<span id="spanCritical">-</span>
+															</div>
+														</div>
+													</div>
+												</div>
+
+
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="common-custom-card" id="divShipsWorkOrderDetails">
+								<div class="counters-heading border-none">
+									<div>
+										<span>Details</span>
+									</div>
+								</div>
+								<div class="clearfix">
+									<div class="row">
+										<div class="col-12 col-md-6 col-lg-4 col-xl-4">
+											<div class="row">
+												<div class="col-6 col-md-6 col-lg-6 col-xl-6">
+													<div class="dashboard-counters-label mr-0">
+														Responsible Dept.
+													</div>
+												</div>
+												<div class="col-6 col-md-6 col-lg-6 col-xl-6">
+													<div class="dashboard-counters">
+														<span id="spanSWOResponsibleDepartment">-</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-6 col-md-6 col-lg-6 col-xl-6">
+													<div class="dashboard-counters-label mr-0">
+														Responsibility
+
+													</div>
+												</div>
+												<div class="col-6 col-md-6 col-lg-6 col-xl-6">
+													<div class="dashboard-counters">
+														<span id="spanSWOResponsibility">-</span>
+													</div>
+												</div>
+											</div>
+
+										</div>
+										<div class="col-12 col-md-6 col-lg-4 col-xl-4">
+											<div class="row">
+												<div class="col-6 col-md-6 col-lg-6 col-xl-6">
+													<div class="dashboard-counters-label mr-0">
+														HOD Approval
+													</div>
+												</div>
+												<div class="col-6 col-md-6 col-lg-6 col-xl-6">
+													<div class="dashboard-counters">
+														<span id="spanSWOHodApproval">-</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-6 col-md-6 col-lg-6 col-xl-6">
+													<div class="dashboard-counters-label mr-0">
+														Approver
+													</div>
+												</div>
+												<div class="col-6 col-md-6 col-lg-6 col-xl-6">
+													<div class="dashboard-counters">
+														<span id="spanSWOApprover">-</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 col-md-6 col-lg-4 col-xl-4">
+											<div class="row">
+												<div class="col-6 col-md-6 col-lg-8 col-xl-8">
+													<div class="dashboard-counters-label mr-0">
+														Shore Contractor Involved
+													</div>
+												</div>
+												<div class="col-6 col-md-6 col-lg-4 col-xl-4">
+													<div class="dashboard-counters">
+														<span id="spanSWOShoreContractor">-</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="common-custom-card">
+								<div class="counters-heading border-none">
+									<div>
+										<span>Component Details</span>
+									</div>
+								</div>
+								<p class="open-sans-font details-common-header"><b id="spanSchedulesTaskComponentName">-</b></p>
+								<div class="multiple-heading">
+									<p class="dashboard-counters-label  page-title-subheading breadcrum-head componentHeirarchy open-sans-font details-common"></p>
+								</div>
+
+								<div class="clearfix mt-2">
+									<div class="row justify-content-left align-items-center">
+										<div class="col-xl-12">
+											<div class="row">
+												<div class="col-5 col-md-4 col-lg-2 col-xl-2">
+													<div class="dashboard-counters-label mr-0">
+														Maker
+													</div>
+												</div>
+												<div class="col-7 col-md-8 col-lg-5 col-xl-4">
+													<div class="dashboard-counters">
+														<span id="spanSchedulesTaskMakerName">-</span>
+													</div>
+												</div>
+
+												<div class="col-5 col-md-4 col-lg-3 col-xl-2">
+													<div class="dashboard-counters-label mr-0">
+														Model
+													</div>
+												</div>
+												<div class="col-7 col-md-8 col-lg-2 col-xl-3">
+													<div class="dashboard-counters">
+														<span id="spanSchedulesTaskModel">-</span>
+													</div>
+												</div>
+											</div>
+
+										</div>
+										<div class="col-xl-12">
+											<div class="row">
+												<div class="col-5 col-md-4 col-lg-2 col-xl-2">
+													<div class="dashboard-counters-label mr-0">
+														Designer
+													</div>
+												</div>
+												<div class="col-7 col-md-8 col-lg-5 col-xl-4">
+													<div class="dashboard-counters">
+														<span id="spanSchedulesTaskDesigner">-</span>
+													</div>
+												</div>
+												<div class="col-5 col-md-4 col-lg-3 col-xl-2 pr-0">
+													<div class="dashboard-counters-label mr-0">
+														Alternative No.
+													</div>
+												</div>
+												<div class="col-7 col-md-8 col-lg-2 col-xl-3">
+													<div class="dashboard-counters">
+														<span id="spanSchedulesTaskAlternateNumber">-</span>
+														<span id="spanAlternateType"></span>
+													</div>
+												</div>
+											</div>
+										</div>
+										@*<div class="col-xl-12 d-none">
+												<div class="row">
+													<div class="col-5 col-md-4 col-lg-2 col-xl-2">
+														<div class="dashboard-counters-label mr-0">
+															Position
+														</div>
+													</div>
+													<div class="col-7 col-md-8 col-lg-5 col-xl-4">
+														<div class="dashboard-counters">
+															<span id="spanPosition">-</span>
+														</div>
+													</div>
+													<div class="col-5 col-md-4 col-lg-3 col-xl-2 pr-0">
+														<div class="dashboard-counters-label mr-0">
+															Warranty
+														</div>
+													</div>
+													<div class="col-7 col-md-8 col-lg-2 col-xl-3">
+														<div class="dashboard-counters">
+															<span id="spanWarrantyDate">-</span>
+														</div>
+													</div>
+												</div>
+											</div>*@
+									</div>
+								</div>
+							</div>
+
+
+
+							<div class="table-common-design" id="divJobRankAndHour">
+								<div class="common-custom-card  mobile-pad-0">
+									<div class="counters-heading border-none">Ranks and hours</div>
+									<div class="table-responsive compact-table">
+										<table style="width: 100%;" id="dtranks" class="table table-hover table-striped table-bordered cardview row-sm table-footer-design">
+											<thead>
+												<tr>
+													<th>Rank</th>
+													<th>Hours</th>
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+													<td>Total</td>
+													<td></td>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+					</div>
+					<div id="rightColumn" class="col-12 col-md-5  col-lg-5 col-xl-6 height-equal">
+						<div class="">
+
+							<div class="common-custom-card">
+
+								<div class="row">
+									<div class="col-12 col-md-12 col-lg-12" id="divJobDescription">
+										<div class="counters-heading border-none">Job Description</div>
+										<div id="divSingleJobDescription" class="scroller px-0">
+											<span class="open-sans-font details-common" id="spanWholeJobDescription">
+
+											</span>
+										</div>
+									</div>
+									<div class="col-12 col-md-12 col-lg-7" id="divDoneOtherJobDescription">
+										<div class="counters-heading border-none">Job Description</div>
+										<iframe class="open-sans-font details-common" id="iframeDoneOtherJobDescription" style="width:100%;" frameborder="0"></iframe>
+									</div>
+								</div>
+							</div>
+
+							<div class="common-custom-card" id="divVesselGuideLines">
+								<div>
+									<div class="counters-heading border-none">
+										Vessel Guidelines
+									</div>
+									<iframe class="open-sans-font details-common" id="iframe" style="width:100%;" frameborder="0"></iframe>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="common-custom-card" id="divDoneRoundStatus">
+						<div class="counters-heading">Job Details</div>
+						<div class="row">
+
+							<div class="col-6 col-md-3 col-lg-3 py-1">
+								<label class="dashboard-counters-label">
+									Work Done Date
+								</label>
+								<div class="d-inline-block dashboard-counters">
+									<span id="spanDoneRoundReportWorkDoneDate"></span>
+								</div>
+							</div>
+							<div class="col-6 col-md-3 col-lg-3 py-1">
+								<label class="dashboard-counters-label">
+									Next Due Date
+								</label>
+								<div class="d-inline-block dashboard-counters">
+									<span id="spanDoneRoundRWDDueDate"></span>
+								</div>
+							</div>
+							<div class="col-6 col-md-3 col-lg-3 py-1">
+								<label class="dashboard-counters-label">
+									Resposible Rank
+								</label>
+								<div class="d-inline-block dashboard-counters">
+									<span id="spanDoneRoundResponsibilityRank"></span>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="common-custom-card" id="divDoneCertificateStatus">
+						<div class="counters-heading">Job Details</div>
+						<div class="row">
+							<div class="col-lg-12">
+
+								<div class="col-6 col-md-3 col-lg-3 py-1">
+									<label class="dashboard-counters-label">
+										Issue Date
+									</label>
+									<div class="d-inline-block dashboard-counters">
+										<span id="spanDoneCertificateWorkDoneDate"></span>
+									</div>
+								</div>
+								<div class="col-6 col-md-3 col-lg-3 py-1">
+									<label class="dashboard-counters-label">
+										Next Due Date
+									</label>
+									<div class="d-inline-block dashboard-counters">
+										<span id="spanDoneCertificateOriginalDueDate"></span>
+									</div>
+								</div>
+								<div class="col-6 col-md-3 col-lg-3 py-1">
+									<label class="dashboard-counters-label">
+										Resposible Rank
+									</label>
+									<div class="d-inline-block dashboard-counters">
+										<span id="spanDoneCertificateResponsibleRank"></span>
+									</div>
+								</div>
+								<div class="col-6 col-md-3 col-lg-3 py-1">
+									<label class="dashboard-counters-label">
+										Rescheduled History
+									</label>
+									<div class="d-inline-block dashboard-counters">
+										<span id="spanRescheduleHistoryCertificate">
+											<a class="text-black" href="javascript:void(0);" data-target="#resceduledhistory" data- toggle="modal"><i class="fa fa-fw fsize-1 mt-1" aria-hidden="true" title=""></i></a>
+										</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="">
+					<div class="common-custom-card" id="divDoneOther">
+						<div class="counters-heading">Job Details</div>
+						<div class="row">
+							<div class="col-lg-7">
+
+								<div class="">
+									<div class="col-6 col-md-3 col-lg-3 py-1">
+										<label class="dashboard-counters-label">
+											Work Done Date
+										</label>
+										<div class="d-inline-block dashboard-counters">
+											<span id="spanDoneOtherReportWorkDoneDate"></span>
+										</div>
+
+									</div>
+									<div class="col-6 col-md-3 col-lg-3 py-1">
+										<label class="dashboard-counters-label">
+											Next Due Date
+										</label>
+										<div class="d-inline-block dashboard-counters">
+											<span id="spanDoneOtherRWDDueDate"></span>
+										</div>
+									</div>
+									<div class="col-6 col-md-3 col-lg-3 py-1" id="divDoneOtherBeforeCondition">
+										<label class="dashboard-counters-label">
+											Condition before work done
+										</label>
+										<div class="d-inline-block dashboard-counters">
+											<span id="spanDoneOtherBeforeCondition"></span>
+										</div>
+									</div>
+									<div class="col-6 col-md-3 col-lg-3 py-1" id="divDoneOtherAfterCondition">
+										<label class="dashboard-counters-label">
+											Condition after work done
+										</label>
+										<div class="d-inline-block dashboard-counters">
+											<span id="spanDoneOtherAfterCondition"></span>
+										</div>
+									</div>
+									<div class="col-6 col-md-3 col-lg-3 py-1" id="divDoneOtherCounterReading">
+										<label class="dashboard-counters-label">
+											Component Reading
+										</label>
+										<div class="d-inline-block dashboard-counters">
+											<span id="spanDoneOtherCounterReading"></span>
+										</div>
+									</div>
+									<div class="col-6 col-md-3 col-lg-3 py-1" id="divDoneOtherCounterRevolutionsReading">
+										<label class="dashboard-counters-label">
+											Component Reading
+										</label>
+										<div class="d-inline-block dashboard-counters">
+											<span id="spanDoneOtherCounterRevolutionsReading"></span>
+										</div>
+									</div>
+									<div class="col-6 col-md-3 col-lg-3 py-1" id="divDoneOtherCounterEventsReading">
+										<label class="dashboard-counters-label">
+											Component Reading
+										</label>
+										<div class="d-inline-block dashboard-counters">
+											<span id="spanDoneOtherCounterEventsReading"></span>
+										</div>
+									</div>
+									<div class="col-6 col-md-3 col-lg-3 py-1" id="divDoneOtherReason">
+										<label class="dashboard-counters-label">
+											Reason for change in Timeline
+										</label>
+										<div class="d-inline-block dashboard-counters">
+											<span id="spanDoneOtherReason" style="float:left"></span>
+											<i id="spanReasonForChangeInTimeLine" class="fa fa-info-circle pl-1" data-html="true" data-toggle="tooltip" data-placement="bottom"></i>
+										</div>
+									</div>
+
+									<div class="col-6 col-md-3 col-lg-3 py-1" id="divDoneOtherSymptomsObserved">
+										<label class="dashboard-counters-label">
+											Symptoms observed
+										</label>
+										<div class="d-inline-block dashboard-counters">
+											<span id="spanDoneOtherSymptomsObserved"></span>
+										</div>
+									</div>
+									<div class="col-6 col-md-3 col-lg-3 py-1" id="divDoneOtherOtherSymptoms">
+										<label class="dashboard-counters-label">
+											Other Symptoms observed
+										</label>
+										<div class="d-inline-block dashboard-counters">
+											<span id="spanDoneOtherOtherSymptoms"></span>
+										</div>
+									</div>
+
+									<div class="col-6 col-md-3 col-lg-3 py-1">
+										<label class="dashboard-counters-label">
+											Reschedule History
+										</label>
+										<div class="d-inline-block dashboard-counters">
+											<span id="spanRescheduleHistoryOther">
+												<a class="text-black" href="javascript:void(0);" data-target="#resceduledhistory" data- toggle="modal"><i class="fa fa-fw fsize-1 mt-1" aria-hidden="true" title=""></i></a>
+											</span>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				@*
+					need to discuss this with karan table-scroll-width*@
+				<div class="table-common-design" id="divSWOCurrentRWDSparePart">
+					<div class="common-custom-card mobile-pad-0">
+						<div class="counters-heading border-none">
+							<div>
+								<span>Spare Parts Usage</span>
+							</div>
+						</div>
+						<div class="">
+							<div class="table-responsive compact-table">
+								<table style="width: 100%;" id="SWOCurrentRWDSparePartDt" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+									<thead>
+										<tr>
+											<th>Part Name</th>
+											<th>Maker's REF No.</th>
+											<th>Plate/Sheet No.</th>
+											<th>Drawing Position</th>
+											<th>Location</th>
+											<th>Condition</th>
+											<th>Qty Used</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				@*table-scroll-width*@
+				<div class="table-common-design">
+					<div class="common-custom-card mobile-pad-0" id="divSparePart">
+						<div class="counters-heading border-none">
+							<div>
+								<span>Required Spares</span>
+							</div>
+						</div>
+						<div class="">
+							<div class="table-responsive compact-table">
+								<table style="width: 100%;" id="dtspares" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+									<thead>
+										<tr>
+											<th>Part Name</th>
+											<th>Maker's REF No.</th>
+											<th>Plate/Sheet No.</th>
+											<th>Drawing Position</th>
+											<th>Pending Orders</th>
+											<th>ROB</th>
+											<th>Renew Spare</th>
+											<th>QTY REQD</th>
+											<th>Mark For Order</th>
+											<th>Order Qty</th>
+											<th>Remarks</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="margin-bottom-custom table-common-design" id="divRescheduledHistory">
+					<div class="common-custom-card mobile-pad-0 mb-0">
+						<div class="counters-heading border-none">
+							<div>
+								<span>Reschedule History</span>
+							</div>
+						</div>
+						<div class="table-scroll-width">
+							<div class="table-responsive  compact-table">
+								<table style="width: 100%;" id="dtresceduledhistory" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+									<thead>
+										<tr>
+											<th>Request Type</th>
+											<th>Original Due Date</th>
+											<th>Requested Due Date</th>
+											<th>Approved Due Date</th>
+											<th>Reason</th>
+											<th>Status</th>
+											<th>Details</th>
+											<th>Requester Name</th>
+											<th>Requester Rank</th>
+											<th>Approver Name</th>
+											<th>Approver Rank</th>
+											<th>Original Interval</th>
+											<th>Requested Interval</th>
+											<th>Approved Interval</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="common-custom-card" id="divDoneRoundVesselJobDescription">
+
+					<div id="divVesselGuidelines">
+						<div class="counters-heading">
+							Description
+						</div>
+						<iframe id="iframeJobDescription" style="width:100%;" frameborder="0"></iframe>
+					</div>
+
+				</div>
+
+
+
+			</div>
+		</div>
+		<div class="loading-indicator d-none">
+			<div class="loader bg-transparent no-shadow p-0">
+				<div class="ball-spin-fade-loader">
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+
+@section Modal
+{
+	<div class="modal fade" id="resceduledhistory" tabindex="0" role="dialog" aria-labelledby="resceduledhistory" aria-hidden="true">
+		<div class="modal-dialog modal-lg rescedule-popup" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Reschedule</h5>
+					<button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="card-title">Reschedule History</div>
+					<div class=" compact-table">
+						<table style="width: 100%;" class="table table-hover table-bordered cardview row-sm">
+							<thead>
+								<tr>
+									<th class="white-space-break">Request Type</th>
+									<th class="white-space-break">Original Due Date</th>
+									<th class="white-space-break">Requested Due Date</th>
+									<th class="white-space-break">Approved Due Date</th>
+									<th>Reason</th>
+									<th>Status</th>
+									<th>Details</th>
+									<th class="white-space-break">Requester Name</th>
+									<th class="white-space-break">Requester Rank</th>
+									<th class="white-space-break">Approver Name</th>
+									<th class="white-space-break">Approver Rank</th>
+									<th class="white-space-break">Original Interval</th>
+									<th class="white-space-break">Requested Interval</th>
+									<th class="white-space-break">Approved Interval</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade open-sans-font successpopup warningpopup" id="pmsClosureActionModal" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="pmsClosureActionModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="modal-body">
+					<i class="fa fa-fw" aria-hidden="true" title=""></i>
+					<h2>Confirmation</h2>
+					<h1>Do you want to close work order?</h1>
+					<button class="btn btn-cancelsecondarybtn no-btn clickEventDisable btn-no" data-dismiss="modal" id="noPmsClosureAction">Cancel</button>
+					<button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="yesPmsClosureAction">Yes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade open-sans-font successpopup" id="pmsCloseWOSuccessModal" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="pmsClosureActionModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<i class="fa fa-fw" aria-hidden="true" title=""></i>
+					<h1>Work order closed successfully</h1>
+					<button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="btnCloseWOSuccessYes">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade p-0 resceduledreq scrollerheightmodal modal-events" id="resceduledrequest" role="dialog" data-backdrop="static" aria-labelledby="resceduledrequest" aria-hidden="true">
+		<div class="modal-dialog modal-lg box-shadow-none" role="document" style="" id="">
+			<div class="modal-content">
+				<div class="modal-header header-background header-padding resceduledesign">
+					<div class="common-sub-heading-black">
+						<span class="">
+							<div class="counters-heading" id="">Process Reschedule WO</div>
+						</span>
+						<div class="common-sub-heading-black sectiontopmargin">
+							<div class="common-small-heading">
+								<span class="common-small-heading"><div><span id="spanPRWJobName">&nbsp;</span></div></span>
+								<span class="d-none d-md-inline-block dividerline">|</span>
+								<span class="common-small-heading">
+									<span @*class="head"*@>Reschedule Status:  </span>
+									<span id="spanPRWRescheduleRequest" class="">&nbsp;</span>
+								</span>
+
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<button type="button" class="close pull-right p-0 mr-0 mt-0" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-body new-background scrollerpadingmodal background-padding">
+					<div class="scroller h-auto">
+						<div class="titledash">
+							Request Details
+						</div>
+						<div class="common-custom-card rescehulerheight" id="">
+							<div class="rightheaderdetails clearfix">
+								<div class="leftcolumn">
+									<div class="clearfix">
+										<div class="float-left mr-common">
+											<div class="clearfix rdiv">
+												<div class="rhead">
+													Reason
+												</div>
+												<div class="rvalue" id="spanPRWreason">
+													&nbsp;
+												</div>
+											</div>
+											<div class="clearfix rdiv">
+												<div class="rhead">
+													<span class="spanExtendBy"></span>
+												</div>
+												<div class="rvalue" id="spanPRWExtendBy">
+													&nbsp;
+												</div>
+											</div>
+										</div>
+										<div class="float-left mr-common">
+											<div class="clearfix rdiv">
+												<div class="rhead">
+													Max Risk
+												</div>
+												<div class="rvalue">
+													<span class="txt-orange">3. Medium Risk</span>
+												</div>
+											</div>
+											<div class="clearfix rdiv mb-0">
+												<div class="rhead">
+													Requested By
+												</div>
+												<div class="rvalue">
+													<span id="spanPRWrequestedBy" class="requestedwidth"></span>
+													<img id="imgRequesterInfo" src="~/images/infores.svg" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+												</div>
+											</div>
+										</div>
+										<div class="float-left rightcolumn">
+											<div class="clearfix rdiv">
+												<div class="rhead float-left">
+													Reason for Reschedule
+												</div>
+												<div class="rvalue float-left" id="spanPRWreasonForReschedule">
+													&nbsp;
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+
+
+								</div>
+
+							</div>
+						</div>
+						<div class="titledash">
+							Job Details
+						</div>
+						<div class="common-custom-card mobile-pad-0" id="">
+							<div class="counters-heading border-none ml-3 ml-md-0">
+								<div>
+									<span>Associated Jobs (<span id="spanPRWassociatedJobCount">0</span>)</span>
+								</div>
+							</div>
+							<div class="table-common-design">
+								<div class="table-responsive compact-table">
+									<table style="width: 100%;" id="dtAssociatedJobs" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+										<thead>
+											<tr>
+												<th>Type</th>
+												<th>Due Date</th>
+												<th>Component Name</th>
+												<th>Job Name</th>
+												<th>Status</th>
+												<th>Interval</th>
+												<th>Responsibility</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="titledash">
+							Supporting Info
+						</div>
+						<div class="common-custom-card mobile-pad-0" id="">
+							<div class="counters-heading border-none ml-3 ml-md-0">
+								<div>
+									<span>Supporting Jobs History (<span id="spanPRWsupportingJobsHistory">0</span>)</span>
+								</div>
+							</div>
+							<div class="importnote clearfix">
+								<span class="importtext">IMPORTANT</span>
+								<div>Identify previous jobs in the supporting job history to support this request (e.g. inspections)</div>
+							</div>
+							<div class="table-common-design">
+								<div class="table-responsive compact-table">
+									<table style="width: 100%;" id="dtSupportingJobsHistory" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+										<thead>
+											<tr>
+												<th>Done Date</th>
+												<th>Closed Date</th>
+												<th>Component Name</th>
+												<th>Name</th>
+												<th>Type</th>
+												<th>Interval</th>
+												<th>Department</th>
+												<th>Responsibility</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="common-custom-card mobile-pad-0" id="">
+							<div class="counters-heading border-none ml-3 ml-md-0">
+								<div>
+									<span>Supporting Work Orders (<span id="spanPRWsupportingWorkOrders"></span>)</span>
+								</div>
+							</div>
+							<div class="importnote clearfix">
+								<span class="importtext">IMPORTANT</span>
+								<div>Supporting WO’s to ensure that the equipment is in good working condition (e.g. Piston ring inspections, Performance reviews, etc.). If a supporting work order is required please access ShipSure.</div>
+							</div>
+							<div class="table-common-design">
+								<div class="table-responsive compact-table">
+									<table style="width: 100%;" id="dtSupportWorkOrders" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+										<thead>
+											<tr>
+												<th>Job Name</th>
+												<th>Type</th>
+												<th>Due Date</th>
+												<th>Responsibility</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="common-custom-card mobile-pad-0" id="">
+							<div class="counters-heading border-none ml-3 ml-md-0">
+								<div>
+									<span>Hazards  (<span id="spanPRWhazardsCount">0</span>)</span>
+								</div>
+							</div>
+							<div class="importnote clearfix">
+								<span class="importtext">IMPORTANT</span>
+								<div>
+									Evidence that a Risk Assessment has been carried out and mitigating actions are in place. If there are hazards with risk factor 3 and above, reducing the risk factor is recommended.
+									If further control measures are required please access ShipSure.
+								</div>
+							</div>
+							<div class="table-common-design">
+								<div class="table-responsive compact-table">
+									<table style="width: 100%;" id="dthazards" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+										<thead>
+											<tr>
+												<th>No</th>
+												<th>Risk Area</th>
+												<th class="d-table-cell d-sm-none">Hazards Description</th>
+												<th>Hazards Description</th>
+												<th>Likelihood</th>
+												<th>Severity</th>
+												<th>Risk Factor</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="common-custom-card mobile-pad-0" id="">
+							<div class="counters-heading border-none ml-3 ml-md-0">
+								<div>
+									<span>Attachments (<span id="spanPRWattachmentsCount">0</span>)</span>
+								</div>
+							</div>
+							<div class="importnote clearfix">
+								<span>IMPORTANT</span>
+								<div>Attach any supporting documents (e.g. photographs, statements, etc.)</div>
+							</div>
+							<div class="table-common-design">
+								<div class="table-responsive compact-table">
+									<table style="width: 100%;" id="dtPWAattachments" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+										<thead>
+											<tr>
+												<th></th>
+												<th>Title</th>
+												<th>Created On</th>
+												<th>Description</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="titledash">
+							Review Details
+						</div>
+						<div class="row">
+							<div class="col-12 col-md-12 col-lg-4 col-xl-4">
+								<div class="common-custom-card rescehulerheightreview" id="">
+									<div class="counters-heading border-none">
+										<div>
+											<span>Risk Assessment</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 col-md-12 col-lg-8 col-xl-8">
+											<div class="commentshead commheads">
+												Have you assessed the risks involved in rescheduling
+												this work order?
+											</div>
+										</div>
+										<div class="col-12 col-md-4 col-lg-4 col-xl-4 text-left text-lg-right">
+											<div class="radio-button-design ml-0" id="">
+												<div class="form-group" id="divRadioriskAssessment">
+													<div class="custom-radio custom-control d-inline-block">
+														<input class="custom-control-input" id="riskAssessmentYes" name="riskAssessment" type="radio" value="Yes" data-description="Yes">
+														<label class="custom-control-label" for="riskAssessmentYes">Yes</label>
+													</div>
+													<div class="custom-radio custom-control d-inline-block ml-2">
+														<input class="custom-control-input" id="riskAssessmentNo" checked name="riskAssessment" type="radio" value="No" data-description="No">
+														<label class="custom-control-label" for="riskAssessmentNo">No</label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="commentshead">
+										Comments <span class="txt-red font-weight-bold" id="spanRiskAssessmentMandatory">*</span>
+									</div>
+									<textarea id="txtareaRiskAssessment" rows="2" class="form-control scroller"></textarea>
+
+								</div>
+							</div>
+							<div class="col-12 col-md-12 col-lg-4 col-xl-4">
+								<div class="common-custom-card  rescehulerheightreview" id="">
+									<div class="counters-heading border-none ">
+										<div>
+											<span>Current Conditions</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 col-md-12 col-lg-8 col-xl-8">
+											<div class="commentshead  commheads">
+												Have you assessed the current condition of the
+												equipment by referring to maintenance history?
+											</div>
+										</div>
+										<div class="col-12 col-md-4 col-lg-4 col-xl-4 text-left text-lg-right">
+											<div class="radio-button-design ml-0" id="">
+												<div class="form-group" id="divRadioCurrentCondition">
+													<div class="custom-radio custom-control d-inline-block">
+														<input class="custom-control-input" id="currentConditionYes" name="currentCondition" type="radio" value="Yes" data-description="Yes">
+														<label class="custom-control-label" for="currentConditionYes">Yes</label>
+													</div>
+													<div class="custom-radio custom-control  d-inline-block ml-2">
+														<input class="custom-control-input" id="currentConditionNo" checked name="currentCondition" type="radio" value="No" data-description="No">
+														<label class="custom-control-label" for="currentConditionNo">No</label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="commentshead">
+										Comments <span class="txt-red font-weight-bold" id="spanCurrentConditionMandatory">*</span>
+									</div>
+									<textarea rows="2" id="txtareaCurrentConditions" class="form-control scroller"></textarea>
+
+								</div>
+							</div>
+							<div class="col-12 col-md-12 col-lg-4 col-xl-4">
+								<div class="common-custom-card  rescehulerheightreview" id="">
+									<div class="counters-heading border-none">
+										<div>
+											<span>Additional Control Measures</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 col-md-12 col-lg-8 col-xl-8">
+											<div class="commentshead commheads">
+												Have you considered creating work orders to monitor
+												the condition of the equipment till the next reschedule?
+											</div>
+										</div>
+										<div class="col-12 col-md-4 col-lg-4 col-xl-4 text-left text-lg-right">
+											<div class="radio-button-design ml-0" id="">
+												<div class="form-group" id="divRadioAdditionalControlMeasures">
+													<div class="custom-radio custom-control d-inline-block">
+														<input class="custom-control-input" id="additionalControlMeasuresYes" name="additionalControlMeasures" type="radio" value="Yes" data-description="Yes">
+														<label class="custom-control-label" for="additionalControlMeasuresYes">Yes</label>
+													</div>
+													<div class="custom-radio custom-control  d-inline-block ml-2">
+														<input class="custom-control-input" id="additionalControlMeasuresNo" checked name="additionalControlMeasures" type="radio" value="No" data-description="No">
+														<label class="custom-control-label" for="additionalControlMeasuresNo">No</label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="commentshead">
+										Comments <span class="txt-red font-weight-bold" id="spanAdditionalControlMeasuresMandatory">*</span>
+									</div>
+									<textarea id="txtareaAdditionalControlMeasuress" rows="2" class="form-control scroller"></textarea>
+
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-md-12 col-lg-12 col-xl-6">
+								<div class="common-custom-card rescehulerheightreview2" id="">
+									<div class="counters-heading border-none">
+										<div>
+											<span>Approve/Reject Reschedule Request</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 col-md-12 col-lg-12 col-xl-12 text-left">
+											<div class="radio-button-design ml-0" id="">
+												<div class="form-group" id="">
+													<div class="custom-radio custom-control d-inline-block">
+														<input class="custom-control-input requestext" id="processTypeApprove" name="processType" type="radio" value="Approve" data-description="Approve">
+														<label class="custom-control-label" for="processTypeApprove">Approve</label>
+													</div>
+													<div class="custom-radio custom-control d-inline-block ml-2">
+														<input class="custom-control-input requestext" id="processTypeRevise" name="processType" type="radio" value="Revise" data-description="Revise">
+														<label class="custom-control-label" for="processTypeRevise">Revise</label>
+													</div>
+													<div class="custom-radio custom-control d-inline-block ml-2">
+														<input class="custom-control-input requestext" id="processTypeReject" name="processType" type="radio" value="Reject" data-description="Reject">
+														<label class="custom-control-label" for="processTypeReject">Reject</label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="commentshead">
+										Comments <span class="txt-red font-weight-bold">*</span>
+									</div>
+									<textarea rows="2" id="txtareaApproverComments" class="form-control scroller"></textarea>
+
+								</div>
+							</div>
+							<div class="col-12 col-md-12 col-lg-12 col-xl-6">
+								<div class="common-custom-card  rescehulerheightreview2" id="">
+									<div class="counters-heading border-none ">
+										<div>
+											<span>Extension Length</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-8 col-md-2 col-lg-2 col-xl-3">
+											<div class="dashboard-counters-label mr-0">
+												Current Interval
+											</div>
+										</div>
+										<div class="col-4 col-md-2 col-lg-1 col-xl-2">
+											<div class="dashboard-counters">
+												<span id="spanPRWCurrentInterval">
+												</span>
+											</div>
+										</div>
+
+										<div class="col-8 col-md-4 col-lg-3 col-xl-4">
+											<div class="dashboard-counters-label mr-0">
+												<span class="spanRequestExtensionType"></span>
+											</div>
+										</div>
+										<div class="col-4 col-md-4 col-lg-2 col-xl-2">
+											<div class="dashboard-counters ml-0">
+												<span id="spanPRWRequestedExtension">
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-8 col-md-3 col-lg-2 col-xl-3 my-auto">
+											<div class="dashboard-counters-label mr-0">
+												<span class="spanExtendBy"> </span> <span class="txt-red font-weight-bold">*</span>
+											</div>
+										</div>
+										<div class="col-4 col-md-2 col-lg-1 col-xl-2 my-auto p-0">
+											<div class="form-group mb-0 common-form-design">
+												<input type="number" id="txtExtendedBy" class="form-control inputdesignthree actualTimeInput" value="" min="0" />
+											</div>
+										</div>
+									</div>
+									<div class="commentshead" id="spanExtendedDaysNote">
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer common-form-design">
+							<button class="btn btn-cancelsecondarybtn close-link reschedulecancelbtn" data-dismiss="modal" id="">Cancel</button>
+							<button class="btn btn search-btn search-btn-font" id="btnProcessWO">Approve</button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade open-sans-font successpopup" id="pmsProcessRescheduleSuccessModal" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="pmsClosureActionModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<i class="fa fa-fw" aria-hidden="true" title=""></i>
+					<h1 id="h1ProcessReschduleWoMessage">Work order closed successfully</h1>
+					<button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="btnProcessRescheduleWOSuccessOK">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+}
+
+@section ScriptSection
+{
+	<script src="~/assets/scripts/pmsDetails.bundle.js"></script>
+}

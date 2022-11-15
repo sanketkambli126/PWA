@@ -1,0 +1,236 @@
+﻿@model FleetVesselDetailResponseViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="vstemplate">
+    @if (Model != null)
+    {
+        <div class="panelicon-width">
+            <div class="s-scoreicons">
+                @if (String.IsNullOrWhiteSpace(Model.ModelCombinedColor))
+                {
+                    @if (Model.VesselModelCombinedValue != null)
+                    {
+                        <p class="s-scorenumber">@Model.VesselModelCombinedValue</p>
+                    }
+                    else
+                    {
+                        <p class="s-scorenumber">&nbsp;</p>
+                    }
+                    <img src="/images/Sentinel/@Model.VesselModelCombinedColor" />
+                }
+                else
+                {
+                    <a href="/Sentinel/VesselDetail/?VesselId=@Model.EncryptedVesselId">
+                        @if (Model.VesselModelCombinedValue != null)
+                        {
+                            <p class="s-scorenumber">@Model.VesselModelCombinedValue</p>
+                        }
+                        else
+                        {
+                            <p class="s-scorenumber">&nbsp;</p>
+                        }
+                        <img src="/images/Sentinel/@Model.VesselModelCombinedColor" />
+                    </a>
+                }
+            </div>
+        </div>
+        <div class="vesselintro">
+            @if (Model.VesselModelCombinedValue != null)
+            {
+                <a href="/Sentinel/VesselDetail/?VesselId=@Model.EncryptedVesselId">
+                    <h1 data-toggle="tooltip" data-placement="bottom" data-original-title="@Model.VesselName">@Model.VesselName</h1>
+                </a>
+            }
+            else
+            {
+                <h1 data-toggle="tooltip" data-placement="bottom" data-original-title="@Model.VesselName">@Model.VesselName</h1>
+            }
+            <span data-toggle="tooltip" data-placement="bottom" data-original-title="@Model.OfficeName">@Model.OfficeName</span>
+
+        </div>
+        @if (Model.HasActiveOverride)
+        {
+            <img src="/images/sentinelimages/s-cycle.svg" class="scycle" data-original-title="Active Override(s)" title="" data-toggle="tooltip" data-placement="bottom">
+        }
+        else
+        {
+            <div class="scycle"></div>
+        }
+        <div class="scoresoverdue">
+            @{
+                var day = Model.LatestHistoryDate.GetValueOrDefault().Day;
+                var month = Model.LatestHistoryDate.GetValueOrDefault().ToString("MMMM");
+                string ordinal;
+
+                switch (Model.LatestHistoryDate.GetValueOrDefault().Day)
+                {
+                    case 1:
+                    case 21:
+                    case 31:
+                        ordinal = "st";
+                        break;
+                    case 2:
+                    case 22:
+                        ordinal = "nd";
+                        break;
+                    case 3:
+                    case 23:
+                        ordinal = "rd";
+                        break;
+                    default:
+                        ordinal = "th";
+                        break;
+                }
+            }
+
+            <div syle="line-height:0;">
+                @if (Model.ModelCombinedValue.HasValue)
+                {
+                    <div class="scorevessel stxt-@Model.ModelCombinedColor">@Model.ModelCombinedValue</div>
+                }
+                else
+                {
+                    <div class="text-center dashcolor">
+                        -
+                    </div>
+                }
+
+                @if (Model.ModelDimensionValueDifference < 0)
+                {
+                    <img src="/images/sentinelimages/score-down.svg">
+                    <h2 class="stxt-red"><span class="num">@Math.Abs(Model.ModelDimensionValueDifference.Value)</span> <span>from @day<sup>@ordinal</sup> @month</span></h2>
+                }
+                else if (Model.ModelDimensionValueDifference > 0)
+                {
+                    <img src="/images/sentinelimages/score-up.svg">
+                    <h2 class="stxt-green"><span class="num">@Model.ModelDimensionValueDifference</span> <span>from @day<sup>@ordinal</sup> @month</span></h2>
+                }
+                else
+                {
+                    <div class="text-center dashcolor">
+                        -
+                    </div>
+                }
+            </div>
+
+            @if (Model.ModelCombinedValue.HasValue)
+            {
+
+                if (Model.ModelCategoryName.Equals(Constants.OverallScore))
+                {
+                    <span class="overallscore">@Model.ModelCategoryName</span>
+                }
+                else
+                {
+                    <span class="overallscore stxt-@Model.ModelCombinedColor">@Model.ModelCategoryName</span>
+                }
+            }
+            else
+            {
+                <div class="scorevessel dashcolor">-</div>
+            }
+
+        </div>
+    }
+    else
+    {
+        <div class="panelicon-width">
+            <div class="s-scoreicons">
+                <p class="s-scorenumber">&nbsp;</p>
+                <img src="/images/Sentinel/shield-grey.svg" />
+            </div>
+        </div>
+
+    }
+
+    <img src="~/images/sentinelimages/vesselgreen.svg" class="vesselflow" /> <span class="d-inline-block d-md-none fleetvsdate">03 -08-2022</span>
+    @if (Model.VesselCurrentVoyageDetail != null)
+    {
+        <div class="listtimeline">
+            <div class="s-portinfo">
+                <div class="s-fromport">
+                    <h2>@Model.VesselCurrentVoyageDetail.FromDateHeader @Model.VesselCurrentVoyageDetail.FromPortDate</h2>
+                </div>
+                @if (@Model.VesselCurrentVoyageDetail.Percentage != null)
+                {
+                    <div class="sv-timeline">
+                        <div class="progress progress-bar-s">
+                            <div class="progress-bar progress-s" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: @Model.VesselCurrentVoyageDetail.Percentage%">
+                                @if (@Model.VesselCurrentVoyageDetail.ActivityName != null)
+                                {
+                                    <span> @Model.VesselCurrentVoyageDetail.ActivityName</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="sv-timeline">
+                        <div class="progress progress-bar-s">
+                            <div class="progress-bar progress-s" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                @if (@Model.VesselCurrentVoyageDetail.ActivityName != null)
+                                {
+                                    <span> @Model.VesselCurrentVoyageDetail.ActivityName</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="s-toport">
+                    <h2>@Model.VesselCurrentVoyageDetail.DateHeader @Model.VesselCurrentVoyageDetail.PortDate</h2>
+                </div>
+            </div>
+            <div class="d-block d-md-none s-portinfo s-mobileportinfo">
+                <div class="row no-gutters">
+                    <div class="col-6">
+                        <div class="s-fromport">
+                            <h2>@Model.VesselCurrentVoyageDetail.FromDateHeader @Model.VesselCurrentVoyageDetail.FromPortDate</h2>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="s-toport">
+                            <h2>@Model.VesselCurrentVoyageDetail.DateHeader @Model.VesselCurrentVoyageDetail.PortDate</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="s-portinfo mt-0">
+                <div class="row no-gutters">
+
+                    @if (Convert.ToBoolean(Model.VesselCurrentVoyageDetail.FromPortIsAlertAdded))
+                    {
+                    <div class="col-6 col-md-6 text-left">
+                        <span class="stxt-red">@Model.VesselCurrentVoyageDetail.FromPortCountry</span>
+                        <a href='javascript: void(0);' data-url="@Model.VesselCurrentVoyageDetail.FromPortRequestURL" class="icon-hover-underline-none fromAnchorPortAlertCls" title="" data-html="true" data-toggle="tooltip" data-placement="bottom" data-original-title="High Alert Port">
+                            <img src="/images/sentinelimages/sport.svg">
+                            </a>
+                    </div>
+                    }
+                    else
+                    {
+                        <div class="col-6 col-md-6 text-left">
+                            <span class="stxt-black">@Model.VesselCurrentVoyageDetail.FromPortCountry</span>
+                        </div>
+                    }
+                    @if (Convert.ToBoolean(Model.VesselCurrentVoyageDetail.ToPortIsAlertAdded) || Convert.ToBoolean(Model.VesselCurrentVoyageDetail.NextPortIsAlertAdded))
+                    {
+                <div class="col-6 col-md-6 text-right">
+                    <span class="stxt-red">@Model.VesselCurrentVoyageDetail.ToPortCountry</span>
+                    <a href='javascript: void(0);' data-url="@Model.VesselCurrentVoyageDetail.ToPortRequestUrl" class="icon-hover-underline-none toAnchorPortAlertCls" title="" data-html="true" data-toggle="tooltip" data-placement="bottom" data-original-title="High Alert Port">
+                        <img src="/images/sentinelimages/sport.svg">
+                    </a>
+                </div>
+                    }
+                    else
+                    {
+                        <div class="col-6 col-md-6 text-right">
+                            <span class="stxt-black">@Model.VesselCurrentVoyageDetail.ToPortCountry</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

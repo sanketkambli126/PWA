@@ -1,0 +1,308 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model VesselDashboardViewModel
+
+
+<div class="vessel-name-list">
+	<div class="row">
+		<div class="col-12 col-md-3 col-lg-3 col-xl-3 d-flex align-items-center justify-content-left">
+			<div class="top-section d-none d-md-block">
+				<div class="s-scoreicons">
+					<a class="aSentinelValue" href="/Sentinel/VesselDetail/?VesselId=@Model.VesselId" >
+						@if (Model.SentinelTotalValue != null)
+						{
+							<p class="s-scorenumber">@Model.SentinelTotalValue</p>
+						}
+						else
+						{
+							<p class="s-scorenumber">&nbsp;</p>
+						}
+						<img class="d-inline-block" src="/images/Sentinel/@Model.SentinelTotalValueColor" width="23" height="26" />
+					</a>
+					
+				</div>
+				<a id="@Model.VesselIdentifier" href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" class="expandIcon customCollapseBtn">@Model.VesselName</a>
+				<a id="@Model.VesselIdentifier" href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" class="ml-2 expandcollapse collapsed expandIcon customCollapseBtn"></a>
+				<div class="d-none">
+					<span><img src="~/images/DashboardIcons/comment-red-vessel.svg" class="commentsvg" /></span>
+					<span><img src="~/images/DashboardIcons/alert-red-vessel.svg" class="alertsvg" /></span>
+					<span><img src="~/images/DashboardIcons/tick-grey-vessel.svg" class="tickgreysvg" /></span>
+				</div>
+			</div>
+			<div class="top-section d-block d-md-none w-100">
+				<div class="row no-gutters mx-auto">
+					
+					<div class="col-12">
+						<div class="s-scoreicons">
+							<a class="aSentinelValue" href="/Sentinel/VesselDetail/?VesselId=@Model.VesselId">
+								@if (Model.SentinelTotalValue != null)
+								{
+									<p class="s-scorenumber">@Model.SentinelTotalValue</p>
+								}
+								else
+								{
+									<p class="s-scorenumber">&nbsp;</p>
+								}
+								<img class="d-inline-block" src="/images/Sentinel/@Model.SentinelTotalValueColor" width="23" height="26" />
+							</a>
+						</div>
+						<a id="Mobile_@Model.VesselIdentifier" href=@Model.VesselMobileUrl>@Model.VesselName</a>
+					</div>
+					<div class="col-0 text-right">
+						<div class="d-none">
+							<span><img src="~/images/DashboardIcons/comment-red-vessel.svg" class="commentsvg" /></span>
+							<span><img src="~/images/DashboardIcons/alert-red-vessel.svg" class="alertsvg" /></span>
+							<span><img src="~/images/DashboardIcons/tick-grey-vessel.svg" class="tickgreysvg" /></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 d-block d-md-none w-100">
+			<div class="mobile-voyage-vessel" data-id="@Model.VesselId">
+				<div class="row no-gutters mx-auto">
+					@if (Model.IsSeaPassage)
+					{
+						<div class="col-6">
+							@if (!string.IsNullOrWhiteSpace(Model.Location))
+							{
+								<div class="fromtoport">
+									<h1><span class="">@Model.Location</span>,<span class=""> @Model.FromCountryCode</span></h1>
+									<span class="travelled d-block"><span class="spanSPDistanceCovered">-</span></span>
+								</div>
+							}
+						</div>
+						<div class="col-6">
+							@if (!string.IsNullOrWhiteSpace(Model.DestinationPortAddress))
+							{
+								<div class="fromtoport to-port">
+									<h1><span class="">@Model.DestinationPortAddress</span>,<span class=""> @Model.ToCountryCode</span></h1>
+									<span class="travelled d-block">
+										<span class="">
+											ETA:
+											@if (!string.IsNullOrWhiteSpace(Model.EstimatedDate))
+											{
+												DateTime.ParseExact(Model.EstimatedDate, Constants.DateTime24HrFormat, System.Globalization.CultureInfo.InvariantCulture).ToString(Constants.MobileVesselListPortActivityDateTimeFormat, System.Globalization.CultureInfo.InvariantCulture);
+											}
+										</span>
+									</span>
+								</div>
+							}
+						</div>
+					}
+					else
+					{
+						<div class="col-6">
+							@if (!string.IsNullOrWhiteSpace(Model.Location))
+							{
+								<div class="fromtoport">
+									<h1><span class="">@Model.Location</span>,<span class=""> @Model.FromCountryCode</span></h1>
+									<span class="travelled d-block">
+										<span class="">
+											ETD:
+											@if (!string.IsNullOrWhiteSpace(Model.PortFromDate))
+											{
+												DateTime.ParseExact(Model.PortFromDate, Constants.DateTime24HrFormat, System.Globalization.CultureInfo.InvariantCulture).ToString(Constants.MobileVesselListPortActivityDateTimeFormat, System.Globalization.CultureInfo.InvariantCulture);
+											}
+										</span>
+									</span>
+								</div>
+							}
+						</div>
+					}
+
+					<div class="col-12 route-graph-loader">
+						<div class="graph-bar">
+							<div class="progress-bar-animated-alt progress divProgressBar">
+								<div class="progress-bar bg-bar divProgressBarFlow" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+								</div>
+								<div class="graph-position-default at-location graphtooltip" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+									 style="left:0%" data-toggle="tooltip" data-placement="bottom" data-html="true">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-2 my-auto d-none d-md-none d-lg-none d-xl-block">
+			<div class="v-info p-0">
+				<div class="row mx-auto">
+					<div class="col-md-4 col-lg-4 col-xl-4 p-0"><div class="v-label">Type</div></div>
+					<div class="col-md-8 col-lg-8 col-xl-8 p-0"><div class="v-text spanVesselType">@Model.VesselType</div></div>
+				</div>
+				<div class="officer-details">
+					<div class="row mx-auto">
+						<div class="col-md-4 col-lg-4 col-xl-4 p-0"><div class="v-label">Master</div></div>
+						<div class="col-md-4 col-lg-8 col-xl-8 p-0"><div class="v-text spanVesselMaster">@Model.VesselMasterName</div></div>
+					</div>
+					<div class="row mx-auto">
+						<div class="col-md-4 -lg-4 col-xl-4 p-0"><div class="v-label">Chief Eng</div></div>
+						<div class="col-lg-8 col-xl-8 p-0"><div class="v-text spanVesselChiefEngg">@Model.VesselChiefEnggName</div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-md-6 col-lg-6 col-xl-5 d-flex align-items-center justify-content-center border-top-mobile">
+			<div class="middle-section d-none d-md-inline-block desktopicons">
+				<div class="d-inline-block vessel-icons">
+					@if (Model.CanShowCommercial)
+					{
+						<span data-toggle="tooltip" data-placement="top" title="Commercial"><a href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" data-toggle="collapse" class="expandIcon customCollapseBtn"><img src=@Model.CommercialColor class="commercialsvg" /></a></span>
+					}
+					@if (Model.CanShowHazOcc)
+					{
+						<span data-toggle="tooltip" data-placement="top" title="HazOcc"><a href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" data-toggle="collapse" class="expandIcon customCollapseBtn"><img src=@Model.HazOccColor class="hazoccsvg" /></a></span>
+					}
+					@if (Model.CanShowCrewing)
+					{
+						<span data-toggle="tooltip" data-placement="top" title="Crewing"><a href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" data-toggle="collapse" class="expandIcon customCollapseBtn"><img src=@Model.CrewColor class="crewsvg" /></a></span>
+					}
+					@if (Model.CanShowProcurement)
+					{
+						<span data-toggle="tooltip" data-placement="top" title="Procurement"><a href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" data-toggle="collapse" class="expandIcon customCollapseBtn"><img src=@Model.PurchaseOrderColor class="orderssvg" /></a></span>
+					}
+					@if (Model.CanShowEnvironment)
+					{
+
+						<span data-toggle="tooltip" data-placement="top" title="Environment"><a href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" data-toggle="collapse" class="expandIcon customCollapseBtn"><img src=@Model.EnvironmentColor class="environmentsvg" /></a></span>
+					}
+					@*</div>
+						<div class="d-inline-block">*@
+					@if (Model.CanShowFinancials)
+					{
+						<span data-toggle="tooltip" data-placement="top" title="Financials"><a href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" data-toggle="collapse" class="expandIcon customCollapseBtn"><span class=@Model.OpexColor>@Model.OpexOverSpend</span></a></span>
+					}
+					@if (Model.CanShowCertificates)
+					{
+						<span data-toggle="tooltip" data-placement="top" title="Certificates"><a href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" data-toggle="collapse" class="expandIcon customCollapseBtn"><img src=@Model.CertificateColor class="certificatesvg" /></a></span>
+					}
+					@if (Model.CanShowDefects)
+					{
+						<span data-toggle="tooltip" data-placement="top" title="Defects"><a href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" data-toggle="collapse" class="expandIcon customCollapseBtn"><img src=@Model.DefectsColor class="defectsvg" /></a></span>
+					}
+					@if (Model.CanShowPMS)
+					{
+						<span data-toggle="tooltip" data-placement="top" title="PMS"><a href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" data-toggle="collapse" class="expandIcon customCollapseBtn"><img src=@Model.PMSColor class="pmssvg" /></a></span>
+					}
+					@if (Model.CanShowJSA)
+					{
+						<span data-toggle="tooltip" data-placement="top" title="JSA"><a href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" data-toggle="collapse" class="expandIcon customCollapseBtn"><img src=@Model.JsaColor class="jsasavg" /></a></span>
+					}
+
+					@if (Model.CanShowInspectionsAndRatings)
+					{
+						<span class="mr-0" data-toggle="tooltip" data-placement="top" title="Inspections & Ratings"><a href=@Model.DropDownId data-url=@Model.VesselUrl aria-expanded="true" aria-controls="vessel-panel-accordation-1" data-toggle="collapse" class="expandIcon customCollapseBtn"><img src=@Model.InspectionColor class="inspectionsvg" /></a></span>
+					}
+
+				</div>
+			</div>
+			<div class="middle-section d-block d-md-none">
+				<div class="d-inline-block vessel-icons">
+					@if (Model.CanShowCommercial)
+					{
+						<span><a href=@Model.VesselMobileUrl #commercial class=""><img src=@Model.CommercialColor class="commercialsvg" /></a></span>
+					}
+					@if (Model.CanShowHazOcc)
+					{
+						<span><a href=@Model.VesselMobileUrl #hazoc class=""><img src=@Model.HazOccColor class="hazoccsvg" /></a></span>
+					}
+					@if (Model.CanShowCrewing)
+					{
+						<span><a href=@Model.VesselMobileUrl #crew class=""><img src=@Model.CrewColor class="crewsvg" /></a></span>
+					}
+					@if (Model.CanShowProcurement)
+					{
+						<span><a href=@Model.VesselMobileUrl #orders class=""><img src=@Model.PurchaseOrderColor class="orderssvg" /></a></span>
+					}
+					@if (Model.CanShowEnvironment)
+					{
+						<span><a href=@Model.VesselMobileUrl #environment class=""><img src=@Model.EnvironmentColor class="environmentsvg" /></a></span>
+					}
+
+					@*</div>*@
+					@*<div class="d-inline-block">*@
+					@if (Model.CanShowFinancials)
+					{
+						<span><a href=@Model.VesselMobileUrl #opex class=""><span class=@Model.OpexColor>@Model.OpexOverSpend</span></a></span>
+					}
+					@if (Model.CanShowCertificates)
+					{
+						<span><a href=@Model.VesselMobileUrl #certificate class=""><img src=@Model.CertificateColor class="certificatesvg" /></a></span>
+					}
+					@if (Model.CanShowDefects)
+					{
+						<span><a href=@Model.VesselMobileUrl #defects class=""><img src=@Model.DefectsColor class="defectsvg" /></a></span>
+					}
+					@if (Model.CanShowPMS)
+					{
+						<span><a href=@Model.VesselMobileUrl #pms class=""><img src=@Model.PMSColor class="pmssvg" /></a></span>
+					}
+					@if (Model.CanShowJSA)
+					{
+						<span><a href=@Model.VesselMobileUrl #jsa class=""><img src=@Model.JsaColor class="jsasavg" /></a></span>
+					}
+					@if (Model.CanShowInspectionsAndRatings)
+					{
+						<span><a href=@Model.VesselMobileUrl #inspection class=""><img src=@Model.InspectionColor class="inspectionsvg" /></a></span>
+					}
+
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-md-3 col-lg-3 col-xl-2 d-none d-md-block">
+			<div class="bottom-section text-right">
+
+				@if (!string.IsNullOrWhiteSpace(@Model.Lattitude) || !string.IsNullOrWhiteSpace(@Model.Longitude))
+				{
+					<span class="mr-0"><a href=@Model.CommercialURL><img src="~/images/DashboardIcons/location-green-vessel.svg" class="locationgreen" /></a></span>
+					<span class="latlong"><a href=@Model.CommercialURL class="location-number">@Model.Lattitude, @Model.Longitude</a></span><br />
+				}
+
+
+				@if (Model.IsSeaPassage)
+				{
+
+					@if (Model.FromPortIsAlertAdded)
+					{
+						<span>
+							<a href='javascript: void(0);' data-url="@Model.FromPortRequestURL" class="icon-hover-underline-none fromAnchorPortAlertCls" title="" data-html="true" data-toggle="tooltip" data-placement="bottom" data-original-title="High Alert Port">
+								<i class='fa fa-anchor icon-red ml-1'></i>
+								<sup class='icon-red'>&#9733;</sup>
+							</a>
+						</span>
+					}
+
+					<span class="port">@Model.Location, @Model.FromCountryCode</span>
+					<span><img src="~/images/DashboardIcons/port-arrow-vessel.svg" class="portsvg" /></span>
+					<span class="location">@Model.DestinationPortAddress, @Model.ToCountryCode</span><br />
+					<span class="time">ETA: @Model.EstimatedDate</span><br />
+				}
+				else
+				{
+
+					@if (Model.FromPortIsAlertAdded)
+					{
+						<span>
+							<a href='javascript: void(0);' data-url="@Model.FromPortRequestURL" class="icon-hover-underline-none fromAnchorPortAlertCls" title="" data-html="true" data-toggle="tooltip" data-placement="bottom" data-original-title="High Alert Port">
+								<i class='fa fa-anchor icon-red ml-1'></i>
+								<sup class='icon-red'>&#9733;</sup>
+							</a>
+						</span>
+					}
+
+					@if (!string.IsNullOrWhiteSpace(Model.Location))
+					{
+						<span class="location">In Port: </span><span class="port">@Model.Location, @Model.FromCountryCode</span><br />
+					}
+					if (!string.IsNullOrWhiteSpace(@Model.PortFromDate))
+					{
+						<span class="time">ETD: @Model.PortFromDate</span><br />
+					}
+				}
+
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,1226 @@
+﻿@model PWAFeaturesRnd.ViewModels.JSA.JSADetailsViewModel;
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+
+
+@section Title
+    {
+    JSA Details
+}
+
+
+@section ContentSection
+    {
+
+
+    @Html.HiddenFor(m => m.EncryptedJobId)
+    @Html.HiddenFor(m => m.VesselId)
+    @Html.HiddenFor(m => m.MessageDetailsJSON)
+    @Html.HiddenFor(m => m.IsFromViewRecord)
+    @Html.HiddenFor(m => m.ActiveMobileTabClass)
+    @Html.HiddenFor(m => m.MaxRisk)
+    @Html.HiddenFor(m => m.IsApproved)
+    @Html.HiddenFor(m => m.IsRejected)
+    @Html.HiddenFor(m => m.IsReopened)
+
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding new-background common-border-radius mobile-tab-bottom-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="margin-left-35 width-70">
+                        <div class="common-sub-heading-black headershowmorewrapper">
+                            <span class="header">
+                                @if (Model.IsFromViewRecord == true)
+                                {
+                                    <span class="common-small-heading">
+                                        @Model.VesselName
+                                    </span>
+                                }
+                                else
+                                {
+                                    <a class="common-heading-green"
+                                       href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.EncryptedVesselId)">@Model.VesselName</a>
+                                }
+                            </span>
+
+                            <div class="common-small-heading">
+                                <span class="common-small-heading"><div><span id="spanHeaderJobName">&nbsp;</span></div></span>
+                                <span class="d-none d-md-inline-block">|</span>
+                                <span class="common-small-heading"><div><span id="spanHeaderStatus">&nbsp;</span></div></span>
+
+                                <span class="d-none d-md-inline-block">|</span>
+                                <span class="common-small-heading"><div><span id="spanHeaderMaxRisk">&nbsp;</span></div></span>
+                                <span class="d-none d-md-inline-block">|</span>
+                                <div><a id="btnSimultaneousJobsHeader" href="" data-target="#operationmodal" data-toggle="modal" class="d-none"><img src="~/images/operation-teal.png" /></a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page-title-actions mobile-padding-0 left-fixed-ipad">
+                        <partial name="DiscussionAndNotesCountButton" />
+                    </div>
+
+                    <div class="dropdown mobile-dropdown-title d-block d-md-none d-lg-none d-xl-none">
+                        <button type="button" id="mobileactiontoggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-dark-grey text-white btn-export btn-shadow">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="mobileActiondropdown">
+                            <ul class="nav flex-column">
+                                <li id="baseDiscussionMobile" class="d-none">
+                                    <a class="nav-link discussionAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>Discussions (<span class="baseDiscussionCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                                <li id="baseNotesMobile" class="d-none">
+                                    <a class="nav-link noteAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>My Notes (<span class="baseNotesCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="content-pane">
+                <div class="common-custom-card">
+                    <div class="row no-gutters">
+                        <div class="col-xl-11 p-0">
+                            <div class="jsatimeline d-none">
+                                <div class="">
+                                    <div class="steps steps1 activestep">
+                                        <div class="clearfix textposition">
+                                            <img src="~/images/jsavessel-active.svg" class="float-left" />
+                                            <div class="lefttext float-left">
+                                                <div class="stepstitle">Planned</div>
+                                                <div class="stepssubtitle">Chief Officer</div>
+                                                <div class="stepscategory">Tornike Karalashivili</div>
+                                                <div class="stepsdatetime">22.12.22 + 16:20</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="steps steps2 nextstep">
+                                        <div class="clearfix textposition">
+                                            <img src="~/images/jsavessel-active.svg" class="float-left" />
+                                            <div class="lefttext float-left">
+                                                <div class="stepstitle">Submitted for Approval</div>
+                                                <div class="stepssubtitle">Chief Officer</div>
+                                                <div class="stepscategory">Tornike Karalashivili</div>
+                                                <div class="stepsdatetime">22.12.22 + 16:20</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="steps steps3 inactivestep">
+                                        <div class="clearfix textposition">
+                                            <img src="~/images/jsavessel-inactive.svg" class="float-left" />
+                                            <div class="lefttext float-left">
+                                                <div class="stepstitle">Sent to Office</div>
+                                                <div class="stepssubtitle">Master</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="steps steps4 inactivestep">
+                                        <div class="clearfix textposition">
+                                            <img src="~/images/jsaoffice-inactive.svg" class="float-left offc" />
+                                            <div class="lefttext float-left">
+                                                <div class="stepstitle">Approved by Office</div>
+                                                <div class="stepssubtitle">Technical Superintendent</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="steps steps5 inactivestep laststep">
+                                        <div class="clearfix textpositionlast">
+                                            <img src="~/images/jsavessel-inactive.svg" class="float-left" />
+                                            <div class="lefttext float-left">
+                                                <div class="stepstitle">Closed</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jsatimeline">
+                                <div id="divWorkFlow">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-1 p-0">
+                            <div id="authorizejsasection" class="authorizejsadropdown text-right">
+                                <div class="dropdown d-inline-block">
+                                    <button type="button" id="authorizetoggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn">
+                                        <span class="align-middle">Actions</span>
+                                        <img src="~/images/authorizearrow.svg" />
+                                    </button>
+                                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" id="authorizedrop">
+                                        <ul class="nav flex-column">
+                                            <li>
+                                                <a id="lnkapprovejsa" href="javscript:void(0);" data-toggle="modal" data-target="#approvejsa">
+                                                    <img src="~/images/approdrop.svg" />
+                                                    <span>Approve</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a id="lnkrejectjsa" href="javscript:void(0;)" data-toggle="modal" data-target="#rejectjsa">
+                                                    <img src="~/images/rejectdrop.svg" />
+                                                    <span class="align-middle">Reject</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a id="lnkreopenjsa" href="javscript:void(0);" data-toggle="modal" data-target="#reopenjsa">
+                                                    <img src="~/images/reopendrop.svg" />
+                                                    <span class="align-middle">Reopen</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="scenarioSection" class="d-none">
+                        <button id="btnscenario" data-toggle="modal" data-target="#scenarioModal" class="btn jsascenariobutton">
+                            <i class="fas fa-th-large" aria-hidden="true"></i>
+                            <span>Scenario</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="common-custom-card d-none">
+                    <div class="row no-gutters">
+                        <div class="col-xl-10 p-0">
+                            <div class="jsatimeline threestepswidth">
+                                <div class="">
+                                    <div class="steps steps1 activestep">
+                                        <div class="clearfix textposition">
+                                            <img src="~/images/jsavessel-active.svg" class="float-left" />
+                                            <div class="lefttext float-left">
+                                                <div class="stepstitle">Create</div>
+                                                <div class="stepssubtitle">Master</div>
+                                                <div class="stepscategory">Tornike Karalashivili</div>
+                                                <div class="stepsdatetime">22.12.22 + 16:20</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="steps steps2 activestep laststepactive">
+                                        <div class="clearfix textposition">
+                                            <img src="~/images/jsavessel-active.svg" class="float-left" />
+                                            <div class="lefttext float-left">
+                                                <div class="stepstitle">Approved</div>
+                                                <div class="stepssubtitle">Master</div>
+                                                <div class="stepscategory">Tornike Karalashivili</div>
+                                                <div class="stepsdatetime">22.12.22 + 16:20</div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix textpositionlast">
+                                            <img src="~/images/jsavessel-active.svg" class="float-left" />
+                                            <div class="lefttext float-left">
+                                                <div class="stepstitle">Closed</div>
+                                                <div class="stepssubtitle">Master</div>
+                                                <div class="stepscategory">Teimuraz Dolidze</div>
+                                                <div class="stepsdatetime">22.12.22 + 16:20</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="common-custom-card d-none">
+                    <div class="row no-gutters">
+                        <div class="col-xl-10 p-0">
+                            <div class="jsatimeline twostepswidth">
+                                <div class="">
+                                    <div class="steps steps1 activestep laststepactive">
+                                        <div class="clearfix textposition">
+                                            <img src="~/images/jsavessel-active.svg" class="float-left" />
+                                            <div class="lefttext float-left">
+                                                <div class="stepstitle">Created</div>
+                                                <div class="stepssubtitle">Master</div>
+                                                <div class="stepscategory">Tornike Karalashivili</div>
+                                                <div class="stepsdatetime">22.12.22 + 16:20</div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix textpositionlast">
+                                            <img src="~/images/jsaoffice-active.svg" class="float-left offc" />
+                                            <div class="lefttext float-left">
+                                                <div class="stepstitle">Cancel</div>
+                                                <div class="stepssubtitle">Master</div>
+                                                <div class="stepscategory">Teimuraz Dolidze</div>
+                                                <div class="stepsdatetime">22.12.22 + 16:20</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabdivhide">
+                    <div class="margin-bottom-custom mt-0 tab-new-design tab-new-design-2 tabdesign-highlightsmall position-relative" id="">
+                        <div class="card-header card-header-tab-animation hide-mobile">
+                            <ul class="nav nav-justified">
+                                <li class="nav-item tab-sm"><a data-toggle="tab" href="#Summary" id="dropdown-tab-1" class="dropdown-tab-1 active nav-link summary mobileTabClick">Summary</a></li>
+                                <li class="nav-item tab-sm"><a data-toggle="tab" href="#Riskassesments" id="dropdown-tab-2" class="dropdown-tab-2 nav-link Riskassesments mobileTabClick">Risk Assessment</a></li>
+                                <li class="nav-item tab-sm"><a data-toggle="tab" href="#Attachments" id="dropdown-tab-3" class="dropdown-tab-3 nav-link attachmentTab mobileTabClick">Attachments</a></li>
+                            </ul>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="tab-content mb-0 p-0">
+                                <div class="tab-pane active tab-box-1" id="Summary" role="tabpanel">
+                                    <div class="row">
+
+                                        <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                                            <div id="leftcolumn" class="">
+                                                <div id="divJsaDetails" class="common-custom-card">
+                                                    <div class="counters-heading border-none">
+                                                        <div>
+                                                            <span>JSA Details</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix hazoc-list-margin">
+                                                        <div class="row">
+                                                            <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                                <div class="dashboard-counters-label mr-0">
+                                                                    JSA Name
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 col-md-9 col-lg-9 col-xl-9">
+                                                                <div class="dashboard-counters mb-2 mb-md-0 left-margin">
+                                                                    <span id="spanJsaName">
+                                                                        -
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-5">
+                                                                        <div class="dashboard-counters-label mr-0">
+                                                                            Responsibility
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-7">
+                                                                        <div class="dashboard-counters">
+                                                                            <span id="spanResponsibility" class="txt-blue">-</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-5">
+                                                                        <div class="dashboard-counters-label mr-0">
+                                                                            Syestem Area
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-7">
+                                                                        <div class="dashboard-counters">
+                                                                            <span id="spanSystemArea">-</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-5">
+                                                                        <div class="dashboard-counters-label mr-0">
+                                                                            Created By
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-7">
+                                                                        <div class="dashboard-counters">
+                                                                            <span id="spanCreatedBy" class="txt-blue">-</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-5">
+                                                                        <div class="dashboard-counters-label mr-0">
+                                                                            Emergency Communication Protocol
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-7">
+                                                                        <div class="dashboard-counters d-inline">
+                                                                            <span id="spanEmergencyCommunicationProtocpol">-</span>
+                                                                        </div>
+                                                                        <img src="~/images/outline-i.png" class="i-outline-icon" id="emergencyProtocol" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                                        <div class="dashboard-counters-label mr-0">Crew Meeting Date</div>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                                        <div class="dashboard-counters">
+                                                                            <span id="spanMeetingDate">-</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                                        <div class="dashboard-counters-label mr-0">
+                                                                            Proposed Start Date
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                                        <div class="dashboard-counters">
+                                                                            <span id="spanProposedStartDate">-</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                                        <div class="dashboard-counters-label mr-0">Estimated End Date</div>
+                                                                    </div>
+                                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                                        <div class="dashboard-counters">
+                                                                            <span id="spanEstimatedEndDate">-</span>
+                                                                            <a id="btnSimultaneousJobs" href="" data-target="#operationmodal" data-toggle="modal" class="d-none">&nbsp;<img src="~/images/operation.png" /></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="divJsaReason" class="common-custom-card">
+                                                    <div class="mb-4">
+                                                        <div class="counters-heading border-none">
+                                                            <div>
+                                                                <span>Reason</span>
+                                                            </div>
+                                                        </div>
+                                                        <p id="spanReason" class="open-sans-font details-common">-</p>
+                                                    </div>
+                                                    @*<div class="mb-4">
+                                                            <div class="counters-heading border-none">
+                                                                <div>
+                                                                    <span>Details</span>
+                                                                </div>
+                                                            </div>
+                                                            <p id="spanSummaryDetails" class="open-sans-font details-common">-</p>
+                                                        </div>*@
+                                                    @*<div class="mb-3">
+                                                            <div class="counters-heading border-none">
+                                                                <div>
+                                                                    <span>Office Comments</span>
+                                                                </div>
+                                                            </div>
+                                                            <p id="spanOfficeComments" class="open-sans-font details-common">-</p>
+                                                        </div>*@
+                                                </div>
+                                                <div id="divJsaReason" class="common-custom-card">
+                                                    <div class="">
+                                                        <div class="counters-heading border-none">
+                                                            <div>
+                                                                <span>Details</span>
+                                                            </div>
+                                                        </div>
+                                                        <p id="spanSummaryDetails" class="open-sans-font details-common">-</p>
+                                                    </div>
+                                                </div>
+                                                <div id="" class="common-custom-card">
+                                                    <div class="jsaoffcomments">
+                                                        <div class="counters-heading border-none">
+                                                            <div class="row no-gutters">
+                                                                <div class="col-6 col-md-6 col-lg-6">
+                                                                    <div>
+                                                                        <span>Office Comments</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-6 col-md-6 col-lg-6 text-right">
+                                                                    <a href="javscript:void(0);" id="offceditlinkjsa"><img src="~/images/jsaedit.svg" id="offceditjsa"/></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="open-sans-font position-relative">
+                                                            <p id="spanOfficeComments" class="open-sans-font details-common offccommentstext mt-1">-</p>
+                                                            <div id="commentssectionjsa" style="display:none;">
+                                                                <textarea class="scroller" id="spanOfficeCommentstextarea" placeholder="add comments here"></textarea>
+                                                                <div class="footerbottombtnjsa">
+                                                                    <button class="btn offjsaclear">Cancel</button>
+                                                                    <button class="btn offjsasave" id="btnoffcsave">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*<p id="spanOfficeComments" class="open-sans-font details-common">-</p>*@
+                                                    </div>
+                                                </div>
+                                                <div id="divJsaHazards" class="common-custom-card mobile-pad-0">
+                                                    <div class="counters-heading border-none ml-3 ml-md-0">
+                                                        <div>
+                                                            <span>Hazards (<span id="spanHazardCount">0</span>)</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table-common-design">
+                                                        <div class="table-responsive compact-table">
+                                                            <table style="width: 100%;" id="dtHazards" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="d-none"></th>
+                                                                        <th>No.</th>
+                                                                        <th>Hazards Description</th>
+                                                                        <th>Likelihood</th>
+                                                                        <th>Severity</th>
+                                                                        <th>Risk Factor</th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                                            <div id="rightcolumn" class="">
+                                                <div class="common-custom-card" id="rightcolumnDescription">
+                                                    <div class="counters-heading border-none">
+                                                        <div class="jsacolumnshideshow">
+                                                            <a href="javascript:void(0)" class="active " id="safetyclick"><span>Safety Precautions</span> (<span id="spanSafetyPrecautionCount">0</span>)</a>
+                                                            <span class="divide-jsa"></span>
+                                                            <a href="javascript:void(0)" id="componentsclick"><span>Components</span> (<span id="spanComponentCount">0</span>)</a>
+                                                        </div>
+                                                    </div>
+                                                    <div id="safetyprecautiondiv">
+                                                        <div class="clearfix hazoc-list-margin jsadetails-margin">
+                                                            <div class="row jsaSafetyPrecautionSection">
+                                                            </div>
+                                                        </div>
+                                                        <div class="dashboard-counters border-none d-none mt-2" id="divOtherSafetyPrecautionAvailable">
+                                                            <div>
+                                                                <span id="spanOtherSafetyPrecautionAvailable">
+
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="componentsdiv">
+                                                        <div class="table-common-design">
+                                                            <div class="compact-table">
+                                                                <table style="width: 100%;" id="dtcomponents" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Name</th>
+                                                                            <th>Job Name</th>
+                                                                            <th>Status</th>
+                                                                            <th>Work done date</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="common-custom-card mobile-pad-0" id="rightcolumnComments">
+                                                    <div class="counters-heading border-none ml-3 ml-md-0">
+                                                        <div>
+                                                            <span>Permits (<span id="spanPermitCount">0</span>)</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table-common-design">
+                                                        <div class="table-responsive compact-table">
+                                                            <table style="width: 100%;" id="dtpermit" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Type</th>
+                                                                        <th>Description</th>
+                                                                        <th>Permit No.</th>
+                                                                        <th>Permit Request<br /> Date & Time</th>
+                                                                        <th>Validity From<br /> Date & Time</th>
+                                                                        <th>Validity To<br /> Date & Time</th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="common-custom-card mobile-pad-0 table-scroll-width" id="rightcolumnManager">
+                                                    <div class="counters-heading border-none ml-3 ml-md-0">
+                                                        <div>
+                                                            <span>Task Breakdown (<span id="spanTaskBreakDownCount">0</span>)</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table-common-design">
+                                                        <div class="table-responsive compact-table">
+                                                            <table style="width: 100%;" id="dtTaskBreakDown" class="table table-hover table-striped table-bordered cardview row-sm">
+                                                                <thead>
+                                                                    <tr class="table-sub-heading">
+                                                                        <th colspan="4">&nbsp;</th>
+                                                                        <th colspan="2">Responsibility</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th>Seq. No.</th>
+                                                                        <th>Steps</th>
+                                                                        <th>Task Description</th>
+                                                                        <th>Est. Completion<br />Date & Time</th>
+                                                                        <th>Name</th>
+                                                                        <th>Rank</th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="common-custom-card mobile-pad-0 mb-0">
+                                                    <div class="counters-heading border-none ml-3 ml-md-0 mr-3 mr-md-0">
+                                                        <div class="jsacolumnshideshow">
+                                                            <a href="javascript:void(0)" class="active " id="crewlist"><span>Crew List </span>(<span id="spanCrewListCount">0</span>)</a>
+                                                            <span class="divide-jsa"></span>
+                                                            <a href="javascript:void(0)" id="otherclick"><span>Other Meeting Attendees</span> (<span id="spanOtherMembersListCount">0</span>)</a>
+                                                            <span class="divide-jsa"></span>
+                                                            <a href="javascript:void(0)" id="guideclick"><span>Meeting Guidelines</span> </a>
+                                                        </div>
+                                                    </div>
+                                                    <div id="crewlistdiv">
+                                                        <div class="table-common-design">
+                                                            <div class="table-responsive compact-table">
+                                                                <table style="width: 100%;" id="dtcrewlist" class="table table-hover table-striped table-bordered cardview row-sm ">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Crew Name
+                                                                            </th>
+                                                                            <th>Rank</th>
+                                                                            <th>Dept</th>
+                                                                            <th>
+                                                                                Meeting<br />
+                                                                                Attended
+                                                                            </th>
+                                                                            <th>
+                                                                                Work<br />
+                                                                                Instruction<br />
+                                                                                Understood
+                                                                            </th>
+                                                                            <th>
+                                                                                Satisfied<br />
+                                                                                With<br />
+                                                                                Precautions
+                                                                            </th>
+                                                                            <th>Notes</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="othermeetingdiv">
+                                                        <div class="table-common-design">
+                                                            <div class="table-responsive compact-table">
+                                                                <table style="width: 100%;" id="dtothermeeting" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Identity No
+                                                                            </th>
+                                                                            <th>Name</th>
+                                                                            <th>Position</th>
+                                                                            <th>
+                                                                                Company
+                                                                            </th>
+                                                                            <th>
+                                                                                Meeting Attended
+                                                                            </th>
+                                                                            <th>
+                                                                                Work<br />
+                                                                                Instruction<br />
+                                                                                Understood
+                                                                            </th>
+                                                                            <th>
+                                                                                Satisfied<br />
+                                                                                With<br />
+                                                                                Precautions
+                                                                            </th>
+                                                                            <th>
+                                                                                Notes
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="guidelinesdiv">
+                                                        <p id="meetingGuidelines" class="open-sans-font details-common ml-3 ml-md-0 scroller pl-0">
+                                                            <span class="text-red d-block semibold mb-1 counters-heading border-none">Crew Metting Guideliness</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane tab-box-2 hide-mobile" id="Riskassesments" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                                            <div class="table-common-design">
+                                                <div class="common-custom-card mobile-pad-0">
+                                                    <div class="counters-heading border-none position-relative ml-3 ml-md-0">
+                                                        <div>
+                                                            <span>Hazards (<span id="spanHazardCountRiskTab">0</span>)</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table-common-design">
+                                                        <div class="table-responsive compact-table">
+                                                            <table style="width: 100%;" id="dthazardsRiskTab" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="d-none"></th>
+                                                                        <th>No.</th>
+                                                                        <th>Hazards Description</th>
+                                                                        <th>Likelihood</th>
+                                                                        <th>Severity</th>
+                                                                        <th>Risk Factor</th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="common-custom-card mb-0">
+                                                <div class="hazardmargin hazoc-list-margin">
+                                                    <div class="counters-heading border-none">
+                                                        <div>
+                                                            <span>Hazard Description</span>
+                                                        </div>
+                                                    </div>
+                                                    <p id="hazardDescription" class="open-sans-font details-common mb-3">
+                                                        -
+                                                    </p>
+                                                    <div class="row">
+                                                        <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Likelihood
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="likelihoodDescription" class="">
+                                                                    -
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2">
+                                                            <div class="dashboard-counters">
+                                                                <span id="likelihoodDefinition" class="" data-html="true" data-toggle="tooltip" data-placement="bottom">
+                                                                    <img src="~/images/outline-i.png" class="ml-2">
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Severity
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="severityDescription" class="">
+                                                                    -
+
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2">
+                                                            <div class="dashboard-counters">
+                                                                <span id="severityDefinition" class="" data-html="true" data-toggle="tooltip" data-placement="bottom">
+                                                                    <img src="~/images/outline-i.png" class="ml-2">
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Risk Factor
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="riskFactorDescription" class="">
+                                                                    -
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2">
+                                                            <div class="dashboard-counters">
+                                                                <span id="riskFactorDefinition" class="" data-html="true" data-toggle="tooltip" data-placement="bottom">
+                                                                    <img src="~/images/outline-i.png" class="ml-2">
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Reported Date
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="reportedDate" class="txt-green semibold">
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2">
+                                                            <div class="dashboard-counters">
+                                                                <span id="" class="txt-green">
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="hazardmargin">
+                                                    <div class="counters-heading border-none">
+                                                        <div>
+                                                            <span>Consequences</span>
+                                                        </div>
+                                                    </div>
+                                                    <p id="hazardConsequences" class="open-sans-font details-common h-80 scroller pl-0">
+
+                                                    </p>
+                                                </div>
+                                                <div class="hazardmargin">
+                                                    <div class="counters-heading border-none">
+                                                        <div>
+                                                            <span>Existing Control Measures</span>
+                                                        </div>
+                                                    </div>
+                                                    <p id="hazardExistingControlMeasures" class="open-sans-font details-common h-80 scroller pl-0">
+
+                                                    </p>
+                                                </div>
+                                                <div class="hazardmargin">
+                                                    <div class="counters-heading border-none">
+                                                        <div>
+                                                            <span>Further Control Measures (<span id="spanFurtherControlMeasuresCount">0</span>)</span>
+                                                        </div>
+                                                    </div>
+                                                    <p id="hazardFurtherControlMeasures" class="open-sans-font details-common h-80 scroller pl-0">
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane tab-box-3 hide-mobile" id="Attachments" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                            <div class="table-common-design">
+                                                <div class="common-custom-card height-equal-jsa mobile-pad-0">
+                                                    <div class="counters-heading border-none position-relative mb-3 mb-md-0">
+                                                        <div>
+                                                            <span>Attachments & Links (<span id="attachmentsCount">0</span>) </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table-common-design icon-padding">
+                                                        <div class="table-responsive compact-table">
+                                                            <table style="width: 100%;" id="dtattachments" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th>Title</th>
+                                                                        <th>Created Date</th>
+                                                                        <th>Type</th>
+                                                                        <th>Description</th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loading-indicator d-none">
+        <div class="loader bg-transparent no-shadow p-0">
+            <div class="ball-spin-fade-loader">
+                <div class="bg-teal"></div>
+                <div class="bg-teal"></div>
+                <div class="bg-teal"></div>
+                <div class="bg-teal"></div>
+                <div class="bg-teal"></div>
+                <div class="bg-teal"></div>
+                <div class="bg-teal"></div>
+                <div class="bg-teal"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-tab mobile-dropdown-tab mobile-dropdown-threedefault d-block d-md-none d-lg-none d-xl-none">
+        <button type="button" class="dropdown-toggle wp-mobile-100" data-flip="false" id="dropdowntabbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a href="" class="active dropdowntabtitle">SUMMARY</a>  <i class="fa fa-fw dropdown-rotate" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdowntablist">
+            <ul class="p-0 mb-0">
+                <li class="active">
+                    <a href="" id="dropdown-tab-1" class="dropdown-tab-1 summary mobileTabClick">
+                        <svg width="19" height="22" viewBox="0 0 21 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                            <path d="M20.4848 1.34377C20.4884 1.07278 20.247 0.875 19.9824 0.875H1.38007C1.11443 0.875 0.875 1.07323 0.875 1.34289V22.6571C0.875 22.9265 1.11414 23.125 1.38007 23.125H19.9799C20.2456 23.125 20.485 22.9268 20.485 22.6571L20.4848 1.34377ZM20.4848 1.34377C20.4848 1.34412 20.4848 1.34448 20.4848 1.34483L20.3598 1.34289L20.4848 1.34289V1.34377ZM19.4769 22.1892H1.88765V1.81074H19.4769V22.1892Z" fill="#000000" stroke="#000000" stroke-width="0.25" />
+                            <path d="M4.63485 18.2247C4.70813 18.1538 4.80728 18.114 4.91042 18.1145L15.5725 18.1147C15.7861 18.1155 15.959 18.2841 15.9599 18.4924C15.9602 18.5929 15.9196 18.6896 15.847 18.7609C15.7744 18.8323 15.6756 18.8726 15.5725 18.8731H4.91043C4.80676 18.8734 4.70709 18.8335 4.63381 18.762C4.56053 18.6904 4.51955 18.5934 4.5199 18.4924C4.52025 18.3918 4.56175 18.2955 4.63485 18.2247Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.63485 14.826C4.70813 14.7551 4.80728 14.7153 4.91042 14.7158L15.5725 14.716C15.7861 14.7168 15.959 14.8855 15.9599 15.0937C15.9602 15.1942 15.9196 15.2909 15.847 15.3622C15.7744 15.4336 15.6756 15.4739 15.5725 15.4744H4.91043C4.80676 15.4748 4.70709 15.4348 4.63381 15.3634C4.56053 15.2918 4.51955 15.1948 4.5199 15.0937C4.52025 14.9931 4.56175 14.8968 4.63485 14.826Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.64647 11.4274C4.72715 11.3564 4.83632 11.3166 4.94989 11.3171L11.1333 11.3173C11.3685 11.3182 11.5589 11.4868 11.5599 11.695C11.5603 11.7956 11.5155 11.8922 11.4356 11.9635C11.3557 12.0349 11.2469 12.0752 11.1333 12.0757H4.94989C4.83575 12.0761 4.726 12.0361 4.64532 11.9647C4.56464 11.8931 4.51952 11.7961 4.5199 11.695C4.52028 11.5944 4.56598 11.4981 4.64647 11.4274Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.64647 8.02892C4.72715 7.95798 4.83632 7.9182 4.94989 7.91871L11.1333 7.91888C11.3685 7.91973 11.5589 8.08834 11.5599 8.29657C11.5603 8.39713 11.5155 8.49379 11.4356 8.56507C11.3557 8.6365 11.2469 8.6768 11.1333 8.6773H4.94989C4.83575 8.67764 4.726 8.63769 4.64532 8.56625C4.56464 8.49464 4.51952 8.39763 4.5199 8.29657C4.52028 8.19601 4.56598 8.09968 4.64647 8.02892Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.64647 4.63023C4.72715 4.5593 4.83632 4.51952 4.94989 4.52002L16.4133 4.5202C16.6485 4.52105 16.8389 4.68966 16.8399 4.89789C16.8403 4.99845 16.7955 5.09511 16.7156 5.16638C16.6357 5.23782 16.5269 5.27811 16.4133 5.27862H4.94989C4.83575 5.27896 4.726 5.23901 4.64532 5.16757C4.56464 5.09595 4.51952 4.99895 4.5199 4.89788C4.52028 4.79733 4.56598 4.701 4.64647 4.63023Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                        </svg>
+                        Summary
+                    </a>
+                </li>
+                <li>
+                    <a href="" id="dropdown-tab-2" class="dropdown-tab-2 Riskassesments mobileTabClick">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                            <path d="M11 22C10.806 22 10.6071 21.9612 10.4034 21.8836C10.1997 21.806 10.0203 21.6896 9.86508 21.5344L0.465609 12.1349C0.310406 11.9797 0.194004 11.8003 0.116402 11.5966C0.0388009 11.3929 0 11.194 0 11C0 10.806 0.0388009 10.6071 0.116402 10.4034C0.194004 10.1997 0.310406 10.0203 0.465609 9.86508L9.86508 0.465609C10.0203 0.310406 10.1997 0.194004 10.4034 0.116402C10.6071 0.0388009 10.806 0 11 0C11.194 0 11.3929 0.0388009 11.5966 0.116402C11.8003 0.194004 11.9797 0.310406 12.1349 0.465609L21.5344 9.86508C21.6896 10.0203 21.806 10.1997 21.8836 10.4034C21.9612 10.6071 22 10.806 22 11C22 11.194 21.9612 11.3929 21.8836 11.5966C21.806 11.8003 21.6896 11.9797 21.5344 12.1349L12.1349 21.5344C11.9797 21.6896 11.8003 21.806 11.5966 21.8836C11.3929 21.9612 11.194 22 11 22ZM11.2619 20.6032L20.6323 11.2619C20.7099 11.2037 20.7487 11.1164 20.7487 11C20.7487 10.8836 20.7099 10.7963 20.6323 10.7381L11.2619 1.36772C11.2037 1.29012 11.1164 1.25132 11 1.25132C10.8836 1.25132 10.7963 1.29012 10.7381 1.36772L1.39683 10.7381C1.31922 10.7963 1.28042 10.8836 1.28042 11C1.28042 11.1164 1.31922 11.2037 1.39683 11.2619L10.7381 20.6032C10.7963 20.6808 10.8836 20.7196 11 20.7196C11.1164 20.7196 11.2037 20.6808 11.2619 20.6032ZM10.3598 12.2513H11.6402V5.7328H10.3598V12.2513ZM11 15.0741C11.194 15.0741 11.3638 15.0062 11.5093 14.8704C11.6548 14.7346 11.7275 14.5697 11.7275 14.3757C11.7275 14.1817 11.6548 14.0119 11.5093 13.8664C11.3638 13.7209 11.194 13.6481 11 13.6481C10.806 13.6481 10.6411 13.7209 10.5053 13.8664C10.3695 14.0119 10.3016 14.1817 10.3016 14.3757C10.3016 14.5697 10.3695 14.7346 10.5053 14.8704C10.6411 15.0062 10.806 15.0741 11 15.0741Z" fill="black" />
+                        </svg>
+                        Risk Assessment
+                    </a>
+                </li>
+                <li>
+                    <a href="" id="dropdown-tab-3" class="dropdown-tab-3 attachmentTab mobileTabClick">
+                        <svg width="20" height="22" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                            <path d="M2.6591 19.1096C1.41614 17.9704 0.745863 16.5753 0.648275 14.9243C0.550687 13.2732 1.07149 11.8263 2.21068 10.5833L10.1482 1.92265C10.9567 1.04055 11.947 0.577171 13.1191 0.532524C14.2913 0.487877 15.3184 0.869782 16.2005 1.67824C17.0826 2.48669 17.5493 3.48005 17.6007 4.65832C17.652 5.83659 17.2734 6.86678 16.465 7.74888L9.20724 15.6677C8.74176 16.1756 8.16017 16.448 7.46245 16.4848C6.76474 16.5216 6.16194 16.3073 5.65406 15.8418C5.13282 15.3641 4.87273 14.7691 4.87378 14.0569C4.87483 13.3447 5.12034 12.7213 5.61032 12.1867L12.8313 4.30792L13.6934 5.098L6.41725 13.0369C6.14776 13.331 6.01471 13.664 6.01808 14.0359C6.02145 14.4079 6.16347 14.7225 6.44414 14.9797C6.72481 15.237 7.04751 15.3544 7.41224 15.3321C7.77697 15.3098 8.08795 15.1583 8.34518 14.8777L15.6213 6.93875C16.2093 6.29722 16.4815 5.55075 16.438 4.69935C16.3945 3.84795 16.052 3.12826 15.4104 2.54029C14.7689 1.95232 14.0222 1.67369 13.1702 1.70439C12.3182 1.73509 11.5983 2.0712 11.0103 2.71273L3.01761 11.4335C2.12341 12.4092 1.72453 13.5621 1.82098 14.8924C1.91742 16.2227 2.46016 17.3411 3.44918 18.2475C4.45157 19.1662 5.6193 19.6094 6.95237 19.577C8.28544 19.5445 9.41133 19.0271 10.33 18.0248L18.3043 9.32402L19.1664 10.1141L11.2105 18.7948C10.0713 20.0378 8.67198 20.6858 7.01261 20.7388C5.35323 20.7918 3.90206 20.2488 2.6591 19.1096Z" fill="black" />
+                        </svg>
+                        Attachments
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+}
+@section Modal
+    {
+    <div class="modal fade page-popup-design-2 allvesselmodal apply-loader" id="operationmodal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-width-ipad modal-margin" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>
+                                    Simultaneous Operation  (<span id="spanSimultaneousOpsCount">0</span>)
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="subtitle-heading">
+                            <label>@Model.VesselName</label>
+                            @*<label class="hide-mobile mr-0">|</label>
+                                <label class="ml-0 ml-sm-1 d-block d-md-inline-block">IMO 9258478</label>*@
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtoperation" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                <thead>
+                                    <tr>
+                                        <th>JSA No.</th>
+                                        <th>Job Name</th>
+                                        <th>System Area</th>
+                                        <th>Responsibility</th>
+                                        <th>Proposed <br />Start Date</th>
+                                        <th>Estimated<br /> End Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div class="modal fade jsaauthorizepopup" id="confirmjsa" tabindex="-1" role="dialog" aria-labelledby="confirmjsa" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>
+                        <img src="~/images/approvetick.svg" />
+                        <span class="align-middle">Approve Job</span>
+                    </h1>
+                    @*<button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <img src="~/images/canceljsa.svg" />
+                        </button>*@
+                    <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="jsacontent">
+                        <h1>Are you sure you want to approve this job?</h1>
+                        <p>
+                            There are one or more hazards with the risk factor of 3 and above.<br />
+                            Reducing the risk factor is recommended.
+                        </p>
+                        <h6>Select one of the following actions:</h6>
+                        <div class="radio-button-design ml-0">
+                            <div id="" rad="">
+                                <div class="custom-radio custom-control">
+                                    <input class="custom-control-input" id="reopenjsabutton" name="approveradio" type="radio" value="" data-description="">
+                                    <label class="custom-control-label" for="reopenjsabutton">Reopen the JSA and send it back to the originator for reassessment </label>
+                                </div>
+                                <div class="custom-radio custom-control">
+                                    <input class="custom-control-input" id="continuejsabutton" name="approveradio" type="radio" value="" data-description="">
+                                    <label for="continuejsabutton" class="custom-control-label">Continue to Approve this JSA with risk factor 3 and above</label>
+                                </div>
+                            </div>
+                        </div>
+                        <small><b>Note:</b> Access the Shipsure Desktop app to add further control measures and reduce the risk.</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-jsacancel" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="confirmApproveJsa" data-toggle="modal" disabled="disabled" data-dismiss="modal" class="btn btn-jsaproceed">Proceed</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Approve Modal -->
+    <div class="modal jsaauthorizepopup" id="approvejsa" tabindex="-1" role="dialog" aria-labelledby="approvejsa" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>
+                        <img src="~/images/approvetick.svg" />
+                        <span class="align-middle">Approve Job</span>
+                    </h1>
+                    <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="jsacontent">
+                        <h1>Job Safety Analysis</h1>
+                        <div class="clearfix jobdetailssection">
+                            <div class="float-left">
+                                <div class="jobname"><span id="spanApproveJobName"></span></div>
+                            </div>
+                            <div class="float-right">
+                                <div class="jobrisk">@Model.MaxRisk</div>
+                            </div>
+                        </div>
+                        <div class="jobdate clearfix">
+                            <div class="float-left">
+                                <p>Est. End Date/Time<b><span id="spanApproveEstEndDate"></span></b></p>
+                            </div>
+                            <div class="float-left last">
+                                <p>Start Date/Time<b><span id="spanApproveStartDate"></span></b></p>
+                            </div>
+                        </div>
+                        <div class="remarkjsa">
+                            <label>Remarks <span>*</span></label>
+                            <textarea class="form-control scroller" required id="remarkapprovejsa" placeholder="enter remarks here"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-jsacancel" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="btnApproveSave" class="btn btn-jsaproceed">Save</button>
+                        <input type="hidden" id="hdnApproveStatus" value="@JSAStatus.Approved" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Reopen Modal -->
+    <div class="modal fade jsaauthorizepopup" id="reopenjsa" tabindex="-1" role="dialog" aria-labelledby="reopenjsa" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>
+                        <span class="material-symbols-rounded reopen align-middle">
+                            refresh
+                        </span>
+                        <span class="align-middle">Reopen Job</span>
+                    </h1>
+                    @*<button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <img src="~/images/canceljsa.svg" />
+                        </button>*@
+                    <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="jsacontent">
+                        <h1>Job Safety Analysis</h1>
+                        <div class="clearfix jobdetailssection">
+                            <div class="float-left">
+                                <div class="jobname"><span id="spanReopenJobName"></span></div>
+                            </div>
+                            <div class="float-right">
+                                <div class="jobrisk">@Model.MaxRisk</div>
+                            </div>
+                        </div>
+                        <div class="jobdate clearfix">
+                            <div class="float-left">
+                                <p>Est. End Date/Time<b><span id="spanReopenEstEndDate"></span></b></p>
+                            </div>
+                            <div class="float-left last">
+                                <p>Start Date/Time<b><span id="spanReopenStartDate"></span></b></p>
+                            </div>
+                        </div>
+                        <div class="remarkjsa">
+                            <label>Remarks <span>*</span></label>
+                            <textarea class="form-control scroller" id="remarkreopenjsa" placeholder="enter remarks here"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-jsacancel" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="btnReopenSave" class="btn btn-jsaproceed">Save</button>
+                        <input type="hidden" id="hdnReopenStatus" value="@JSAStatus.Reopened" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Modal -->
+    <div class="modal fade jsaauthorizepopup" id="rejectjsa" tabindex="-1" role="dialog" aria-labelledby="rejectjsa" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="reject">
+                        <img src="~/images/rejectjsa.svg" />
+                        <span class="align-middle">Reject Job</span>
+                    </h1>
+                    @*<button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <img src="~/images/canceljsa.svg" />
+                        </button>*@
+                    <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="jsacontent">
+                        <h1>Job Safety Analysis</h1>
+                        <div class="clearfix jobdetailssection">
+                            <div class="float-left">
+                                <div class="jobname"><span id="spanRejectJobName"></span></div>
+                            </div>
+                            <div class="float-right">
+                                <div class="jobrisk">@Model.MaxRisk</div>
+                            </div>
+                        </div>
+                        <div class="jobdate clearfix">
+                            <div class="float-left">
+                                <p>Est. End Date/Time<b><span id="spanRejectEstEndDate"></span></b></p>
+                            </div>
+                            <div class="float-left last">
+                                <p>Start Date/Time<b><span id="spanRejectStartDate"></span></b></p>
+                            </div>
+                        </div>
+                        <div class="remarkjsa">
+                            <label>Remarks <span>*</span></label>
+                            <textarea class="form-control scroller" id="remarkrejectjsa" placeholder="enter remarks here"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-jsacancel" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="btnRejectSave" class="btn btn-jsaproceed">Save</button>
+                        <input type="hidden" id="hdnRejectStatus" value="@JSAStatus.Rejected" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @*Success Modal*@
+    <div class="modal fade open-sans-font successpopup" id="authorizeActionSuccessModal" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="authorizeActionSuccessModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                    <h2>Success</h2>
+                    <h1 id="successModalMsg"></h1>
+                    <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="btnSuccessOk">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*scenario Modal*@
+    <div class="modal jsaauthorizepopup" id="scenarioModal" tabindex="-1" role="dialog" aria-labelledby="scenarioModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 1024px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>
+                        <span class="align-middle">Possible Scenario</span>
+                    </h1>
+                    <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="jsacontent">
+                        <div class="common-sub-heading-black headershowmorewrapper mb-3">
+                            <div class="common-small-heading">
+                                <span class="common-small-heading"><div><span id="spanScenarioHeaderJobName">&nbsp;</span></div></span>
+                                <span class="d-none d-md-inline-block">|</span>
+                                <span class="common-small-heading"><div><span id="spanScenarioHeaderStatus">&nbsp;</span></div></span>
+                            </div>
+                        </div>
+                        <div class="clearfix jobdetailssection jsatabledsign">
+                            <div class="table-common-design">
+                                <div class="table-responsive compact-table">
+                                    <table style="width: 100%;" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                        <thead id="tblWorkflowDetailsThead">
+                                        </thead>
+                                        <tbody id="tblWorkflowDetailsTbody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-jsaproceed" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+    {
+    <script src="~/assets/scripts/jsaDetails.bundle.js"></script>
+}

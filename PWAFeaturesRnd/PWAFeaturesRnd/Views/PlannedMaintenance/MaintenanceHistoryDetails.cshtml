@@ -1,0 +1,404 @@
+﻿@model PWAFeaturesRnd.ViewModels.PlannedMaintenance.PlannedMaintenanceDetailViewModel
+
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Maintenance History Details - @*@Model.VesselName*@
+}
+
+@section ContentSection
+{
+    @Html.HiddenFor(m => m.EncryptedVesselId)
+    @Html.HiddenFor(m => m.ComponentId)
+    @Html.HiddenFor(m => m.PlannedMaintenanceRequestDetailsURL)
+    @Html.HiddenFor(m => m.PlannedMaintainanceListUrl)
+    @Html.HiddenFor(m => m.IsNavigatedFromDone)
+
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding new-background common-border-radius">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="margin-left-35">
+                        <div class="common-sub-heading-black headershowmorewrapper">
+                            <span class="header">
+                                <a class="common-heading-green" 
+                                   href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.EncryptedVesselId)">@Model.VesselName</a>
+                            </span>
+                            <div class="common-small-heading">
+                                <span id="spanJobName" class="common-sub-heading-black">- </span>
+                                <span class="d-none d-md-inline-block">|</span>
+                                <span class="common-small-heading"><div>Job Type: <span id="spanJobTypeDescription">-  </span></div></span>
+                                <span class="d-none d-md-inline-block">|</span>
+                                <span class="common-small-heading"><div>WO Status:  <span id="spanWorkOrderStatusCode">-</span></div></span>
+                                <span class="d-none d-md-inline-block">|</span>
+                                <span class="common-small-heading"><div>Due:  <span id="spanCurrentDueDate" class="common-sub-heading-black">- </span><i class='fa fa-clock ml-1' aria-hidden='true'></i></div></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="content-pane">
+                <div class="common-custom-card">
+                    <div class="counters-heading border-none">
+                        <div>
+                            <span>Job Details</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <div class="col-8 col-md-5 col-lg-7 col-xl-6">
+                                        <div class="dashboard-counters-label mr-0">
+                                            Work Done Date
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-7 col-lg-5 col-xl-6">
+                                        <div class="dashboard-counters">
+                                            <span id="spanWorkDoneDate">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-8 col-md-5 col-lg-7 col-xl-6">
+                                        <div class="dashboard-counters-label mr-0">
+                                            Next Due Date
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-7 col-lg-5 col-xl-6">
+                                        <div class="dashboard-counters">
+                                            <span id="spanWorkDueDate">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-8 col-md-5 col-lg-7 col-xl-6">
+                                        <div class="dashboard-counters-label mr-0">
+                                            Symptons observed
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-7 col-lg-5 col-xl-6">
+                                        <div class="dashboard-counters">
+                                            <span id="spanSymptonsObserved"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-5 col-xl-3">
+                                <div class="row">
+                                    <div class="col-8 col-md-8 col-lg-8 col-xl-7">
+                                        <div class="dashboard-counters-label mr-0">
+                                            Condition after work done
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-4 col-lg-4 col-xl-5">
+                                        <div class="dashboard-counters">
+                                            <span id="spanConditionAfterWorkDone"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="divDoneOtherReason">
+                                    <div class="col-8 col-md-8 col-lg-8 col-xl-7">
+                                        <div class="dashboard-counters-label mr-0">
+                                            Reason for change in Timeline
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-4 col-lg-4 col-xl-5">
+                                        <div class="dashboard-counters">
+                                            <span id="spanReason"> </span>
+                                            <a class="color-black" data-toggle="tooltip" id="aReasonTooltip" data-placement="bottom">
+                                                <i class="fa fa-fw"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-8 col-md-8 col-lg-8 col-xl-7">
+                                        <div class="dashboard-counters-label mr-0">
+                                            Condition before work done
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-4 col-lg-4 col-xl-5">
+                                        <div class="dashboard-counters">
+                                            <span id="spanConditionBeforeWorkDone"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-4 col-xl-3">
+                                <div class="row">
+                                    <div class="col-8 col-md-3 col-lg-6 col-xl-5">
+                                        <div class="dashboard-counters-label mr-0">
+                                            Reschedule History
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-2 col-lg-2 col-xl-2">
+                                        <div class="dashboard-counters">
+                                            <a class="" id="aResceduledHistory" data-toggle="modal" data-target="#resceduledhistory" title="">
+                                                <img src="~/images/resceduled-history.png" style="width:auto;" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                        <div class="common-custom-card two-column-layout height-equal">
+                            <div class="counters-heading border-none">
+                                <div>
+                                    <span>Component Details</span>
+                                </div>
+                            </div>
+                            <p class="open-sans-font details-common-header"><b id="spanSchedulesTaskComponentName"></b></p>
+                            <div class="multiple-heading">
+                                <p class="page-title-subheading breadcrum-head componentHeirarchy open-sans-font details-common"></p>
+                            </div>
+                            <div class="clearfix mt-2">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="row">
+                                            <div class="col-5 col-md-2 col-lg-3 col-xl-2">
+                                                <div class="dashboard-counters-label mr-0">
+                                                    Maker
+                                                </div>
+                                            </div>
+                                            <div class="col-7 col-md-5 col-lg-5 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="spanSchedulesTaskMakerName">-</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-5 col-md-2 col-lg-2 col-xl-2">
+                                                <div class="dashboard-counters-label mr-0">
+                                                    Model
+                                                </div>
+                                            </div>
+                                            <div class="col-7 col-md-3 col-lg-2 col-xl-3">
+                                                <div class="dashboard-counters">
+                                                    <span id="spanSchedulesTaskModel">-</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="row">
+                                            <div class="col-5 col-md-2 col-lg-3 col-xl-2">
+                                                <div class="dashboard-counters-label mr-0">
+                                                    Position
+                                                </div>
+                                            </div>
+                                            <div class="col-7 col-md-5 col-lg-5 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="spanSchedulesTaskPosition"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-5 col-md-2 col-lg-3 col-xl-2">
+                                                <div class="dashboard-counters-label mr-0">
+                                                    Alternative No.
+                                                </div>
+                                            </div>
+                                            <div class="col-7 col-md-3 col-lg-1 col-xl-3">
+                                                <div class="dashboard-counters">
+                                                    <span id="spanSchedulesTaskAlternateNumber"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <div class="row">
+                                            <div class="col-5 col-md-2 col-lg-3 col-xl-2">
+                                                <div class="dashboard-counters-label mr-0">
+                                                    Warranty Date
+                                                </div>
+                                            </div>
+                                            <div class="col-7 col-md-5 col-lg-3 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="spanSchedulesTaskWarantyDate"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                        <div class="common-custom-card height-equal">
+                            <div class="counters-heading border-none">
+                                <div>
+                                    <span>Remarks & Findings</span>
+                                </div>
+                            </div>
+                            <p id="spanRemarksFindings" class="open-sans-font details-common">
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-5 col-lg-4 col-xl-3">
+                        <div class="common-custom-card mobile-pad-0 table-common-design height-equal" id="">
+                            <div class="counters-heading border-none  position-relative w-100">
+                                <div>
+                                    <span>Job Rank(s) and Hour(s)</span>
+                                </div>
+                            </div>
+                            <div id="" class="row">
+                                <div class="col-xl-12">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtranksjobs" class="table table-hover table-striped table-bordered cardview row-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rank</th>
+                                                    <th>Hours</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <td>Total</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-7 col-lg-8 col-xl-9">
+                        <div class="common-custom-card mobile-pad-0 table-common-design height-equal">
+                            <div class="counters-heading border-none">
+                                <div>
+                                    <span>Attachments</span>
+                                </div>
+                            </div>
+                            <div class="table-scroll-width">
+                                <div class="table-responsive compact-table">
+                                    <table style="width: 100%;" id="dtattachments" class="table table-hover table-striped table-bordered cardview row-sm">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Title</th>
+                                                <th>Description</th>
+                                                <th>Created Date</th>
+                                                <th>Type</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="common-custom-card mobile-pad-0 table-common-design ">
+                    <div class="counters-heading border-none">
+                        <div>
+                            <span>Spare Parts Usage Details</span>
+                        </div>
+                    </div>
+                    <div class="table-scroll-width">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtspareparts" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Part Name</th>
+                                        <th>Maker's Ref No.</th>
+                                        <th>Plate/Sheet No.</th>
+                                        <th>Drawing Position</th>
+                                        <th>Location</th>
+                                        <th>Condition</th>
+                                        <th>Qty Used</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Modal
+{
+    <div class="modal fade p-0" id="resceduledhistory" role="dialog" aria-labelledby="resceduledhistory" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" style="max-width:1150px;">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding">
+                    <div class="col-md-11 pl-0">
+                        <div class="common-sub-heading-black">
+                            Reschedule
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background padding-20">
+                    <div class="table-common-design">
+                        <div class="common-custom-card mb-0  mobile-pad-0">
+                            <div class="counters-heading border-none">
+                                <div class="">
+                                    <span>Reschedule History</span>
+                                </div>
+                            </div>
+                            <div class="table-responsive compact-table">
+                                <table style="width: 100%;" id="dtresceduledhistory" class="table table-hover table-striped table-bordered cardview row-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="white-space-break">Request Type</th>
+                                            <th class="white-space-break">Original Due Date</th>
+                                            <th class="white-space-break">Requested Due Date</th>
+                                            <th class="white-space-break">Approved Due Date</th>
+                                            <th>Reason</th>
+                                            <th class="white-space-break">Requester Name</th>
+                                            <th class="white-space-break">Requester Rank</th>
+                                            <th class="white-space-break">Approver Name</th>
+                                            <th class="white-space-break">Approver Rank</th>
+                                            <th>Status</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection
+{
+    <script src="~/assets/scripts/maintenanceHistoryDetails.bundle.js"></script>
+}
+

@@ -1,0 +1,265 @@
+﻿
+@{
+    ViewData["Title"] = "PortCallLocation";
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Port Call Location
+}
+
+
+@section ContentSection
+{
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading">
+                        <div class="multiple-heading text-left">
+                            Port Call Location - STS LIGHTERING Fujairah
+                            <div class="page-title-subheading text-left head-mobile-first-border"><span>ADAFERA</span><span><b>IMO 9258478</b></span><span> Charter No. 2363/ADAFE/TC/2020/2</span></div>
+                            <div class="page-title-subheading text-left"><span>Charter Name : Trafigura Marinetime Logistic Pte Singapore</span><span>Last Reported Event : 27 Apr 2020 11:00</span><span><a href="#" data-toggle="modal" data-target="#agentdetails"><b>Agent Details</b></a></span><span><a href="/Vessel/VesselPositionList"><b><i class="fa fa-angle-double-left"></i> Back to Vessel Position List</b></a></span></div>
+                        </div>
+                    </div>
+                    <div class="page-title-actions action-right-m">
+                        <button data-toggle="tooltip" title="Export to excel" data-placement="bottom" class="btn btn-dark btn-shadow font-size-lg p-1 hover-blue mr-1">
+                            <i class="fa fa-fw" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="main-card content-pane margin-bottom-custom port-voyage-box">
+                <div class="row">
+                    <div class="col-md-12 col-lg-7 row-1">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">PORT</div>
+                                <div class="row">
+                                    <div class="col-6 col-md-3 col-lg-3">
+                                        <label><b>Cargo Operation Time</b></label>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-3">
+                                        <span>03 days 22hrs 22min</span>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-3">
+                                        <label><b>Time on berth</b></label>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-3">
+                                        <span>00 days 00hrs 00min</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-3 col-lg-3">
+                                        <label><b>Off Hire</b></label>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-3">
+                                        <span>00 days 00hrs 00min</span>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-3">
+                                        <label><b>Time in Port</b></label>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-3">
+                                        <span>28 days 16hrs 30min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-5 row-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">Voyage Status</div>
+                                <div class="row">
+                                    <div class="col-6 col-md-3 col-lg-2">
+                                        <label><b>E.O.S.P</b></label>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-4">
+                                        <span>25 March 2020 15:30</span>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-2">
+                                        <label><b>ETD Birth</b></label>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-4">
+                                        <span>25 March 2020 15:30</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-3 col-lg-2">
+                                        <label><b>ETB</b></label>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-4">
+                                        <span>25 March 2020 15:30</span>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-2">
+                                        <label><b>F.A.O.P</b></label>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-4">
+                                        <span>24 March 2020 08:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-card content-pane card mt-3">
+
+                    <div class="card-body">
+                        <div class="card-title">EVENTS (3)</div>
+                        <div class="table-responsive compact-table table-scroll">
+                            <table style="width: 100%;" id="dtportcalllocation" class="table table-hover table-bordered cardview row-sm nowrap">
+                                <thead>
+                                    <tr>
+                                        <th colspan="6">
+                                            &nbsp;
+                                        </th>
+                                        <th colspan="7">
+                                            Consumption (mt)
+                                        </th>
+                                        <th colspan="2">
+                                            &nbsp;
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="d-none d-sm-table-cell">Event</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Elapsed Time</th>
+                                        <th>Specifics</th>
+                                        <th>Distance</th>
+                                        <th>FO</th>
+                                        <th>LSFO</th>
+                                        <th>DO</th>
+                                        <th>GO</th>
+                                        <th>LNG</th>
+                                        <th>FW DOM</th>
+                                        <th>FW TECH</th>
+                                        <th>DOCS</th>
+                                        <th>Comments</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Modal{
+    <!-- Agent Details Modal -->
+    <div class="modal fade" id="agentdetails" tabindex="-1" role="dialog" aria-labelledby="agentdetails"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agentdetails">Port Call Agent Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <span>ADAFERA</span>&nbsp;|&nbsp;<span><b>IMO 9258478</b></span>
+                        </div>
+                    </div>
+                    <div class="main-card pt-3">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-6">
+                                <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                                    <div class="w-100">
+                                        <span>AGENT 1</span>
+                                    </div>
+                                </div>
+                                <div class="card-body py-0 pb-3 border mb-3">
+                                    <h5 class="card-title pt-3">ISS - ABERTEEN(Charter)</h5>
+                                    Unit 5 B;Earls Gate Business Park, Grangemouth,Scotland FK3<br>
+                                    8ZE, United Kingdom<br>
+                                    Aberden,United Kingdom<br>
+                                    Telephone: 01324 466 740<br />
+                                    Email: <a href="mailto:GBGRC@ISS-Shipping.com" class="card-link">GBGRC@ISS-Shipping.com</a>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <div class="card-title">Notes</div>
+                                <textarea class="form-control form-control-sm" rows="8"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Events Docs Modal -->
+    <div class="modal fade" id="eventsdoc" tabindex="-1" role="dialog" aria-labelledby="eventsdoc"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" style="max-width:900px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agentdetails">Port/Call Documents</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <div class="card-title">PORTCALL DETAILS</div>
+                        <div class="row">
+                            <div class="col-4 col-md-3 col-lg-2 pr-mobile-0">
+                                <label><b>Event Name</b></label>
+                            </div>
+                            <div class="col-8 col-md-3 col-lg-2">
+                                <span>NOR Tendered</span>
+                            </div>
+                            <div class="col-4 col-md-3 col-lg-2">
+                                <label><b>From Date</b></label>
+                            </div>
+                            <div class="col-8 col-md-3 col-lg-2">
+                                <span>23 Apr 2020 02:30</span>
+                            </div>
+                            <div class="col-4 col-md-3 col-lg-2">
+                                <label><b>To Date</b></label>
+                            </div>
+                            <div class="col-8 col-md-3 col-lg-2">
+                                <span>23 Apr 2020 04:42</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-title">ATTACHMENTS (1)</div>
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtdocs" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th>Docs</th>
+                                    <th>Created Date</th>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/portCalllocation.bundle.js"></script>
+}

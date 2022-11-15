@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>
+      Caleran - Date Range Picker
+    </title>
+
+    <link href="../build/css/caleran.min.css" rel="stylesheet" />
+
+    <script src="../build/vendor/jquery.min.js"></script>
+    <script src="../build/vendor/moment.min.js"></script>
+    <script src="../build/vendor/jquery.hammer.js"></script>
+    <script src="../build/js/caleran.min.js"></script>
+
+    <script>
+      var userLanguage = "it";
+
+      var startDate, endDate, startInstance, endInstance;
+      var fillInputs = function(attr) {
+        startInstance.$elem.val(
+          startDate
+            ? startDate
+                .locale(startInstance.config.format)
+                .format(startInstance.config.format)
+            : ""
+        );
+        endInstance.$elem.val(
+          endDate
+            ? endDate
+                .locale(endInstance.config.format)
+                .format(endInstance.config.format)
+            : ""
+        );
+      };
+
+      function impostaDateCheckinCheckout(
+        sDate,
+        eDate,
+        instance = "calendarioHP"
+      ) {
+        moment.locale(userLanguage);
+
+        if ($("#" + instance + "1").length > 0) {
+          startInstance = $("#" + instance + "1").data("caleran");
+          endInstance = $("#" + instance + "2").data("caleran");
+
+          if (startInstance === undefined || endInstance === undefined)
+            return false;
+        } else return false;
+
+        startDate = sDate != null ? moment(sDate) : startDate ? startDate : "";
+        endDate = eDate != null ? moment(eDate) : endDate ? endDate : "";
+
+        if (
+          (startDate && endDate && startDate.isAfter(endDate)) ||
+          (startDate != "" && endDate == "")
+        ) {
+          endInstance.config.endDate = startDate;
+          endDate = moment(startDate).add(1, "days");
+          startInstance.config.endDate = endDate;
+
+          endInstance.setDisplayDate(endDate);
+        }
+        if (startDate == "" && endDate != "") {
+          startInstance.config.endDate = endDate;
+
+          startDate = moment(endDate).add(-1, "days");
+
+          startInstance.config.endDate = endDate;
+          endInstance.setDisplayDate(endDate);
+        }
+
+        startInstance.config.startDate = startDate.clone();
+        startInstance.config.endDate = endDate.clone();
+        endInstance.config.startDate = startDate.clone();
+        endInstance.config.endDate = endDate.clone();
+
+        startInstance.globals.startSelected = false;
+        endInstance.globals.startSelected = true;
+        endInstance.globals.endSelected = false;
+        endInstance.globals.firstValueSelected = true;
+        startInstance.globals.firstValueSelected = true;
+
+        endInstance.setDisplayDate(endDate);
+        endInstance.config.minDate = startDate.clone();
+
+        fillInputs();
+
+        startInstance.updateHeader();
+        endInstance.updateHeader();
+        startInstance.reDrawCells();
+        endInstance.reDrawCells();
+      }
+
+      function cancellaDateRicerca(instance = "calendarioHP") {
+        startInstance = $("#" + instance + "1").data("caleran");
+        endInstance = $("#" + instance + "2").data("caleran");
+        startDate = null;
+        endDate = null;
+
+        startInstance.clearInput();
+        endInstance.clearInput();
+        startInstance.globals.startSelected = false;
+        endInstance.globals.startSelected = false;
+        startInstance.globals.endSelected = false;
+        endInstance.globals.endSelected = false;
+
+        startInstance.config.minDate = moment();
+
+        endInstance.config.minDate = moment().add(1, "days");
+
+        fillInputs();
+        startInstance.updateHeader();
+        endInstance.updateHeader();
+        startInstance.reDrawCells();
+        endInstance.reDrawCells();
+
+        startInstance.fetchInputs(1);
+        endInstance.fetchInputs(1);
+
+        console.log(
+          "RECOVER DATE FETCH INPUT -- WIDH --  RETURN FALSE (MY MOD): \n\rstartInstance= " +
+            moment(startInstance.config.startDate).format("YYYY-MM-DD") +
+            " \n\r endInstance = " +
+            moment(endInstance.config.endDate).format("YYYY-MM-DD")
+        );
+
+        startInstance.fetchInputs();
+        endInstance.fetchInputs();
+
+        console.log(
+          "RECOVER DATE FETCH INPUT -- WITHOUT -- RETURN FALSE (NO MOD): \n\r startInstance= " +
+            moment(startInstance.config.startDate).format("YYYY-MM-DD") +
+            " \n\r  endInstance = " +
+            moment(endInstance.config.endDate).format("YYYY-MM-DD")
+        );
+      }
+
+      $(document).ready(function() {
+        impostaDateCheckinCheckout("2019-07-05", "2019-07-15");
+      });
+    </script>
+
+    <!-- end caleran includes -->
+  </head>
+  <body>
+    <input
+      type="text"
+      name="calendarioHP1"
+      id="calendarioHP1"
+      class="caleran calendarioinput"
+    />
+
+    <input
+      type="text"
+      name="calendarioHP2"
+      id="calendarioHP2"
+      class="caleran calendarioinput"
+    />
+
+    <div class="cancelladate" onclick="cancellaDateRicerca('calendarioHP');">
+      DELETE Date [X]
+    </div>
+
+    <script>
+      $("#calendarioHP1").caleran({
+        locale: userLanguage,
+        format: "ddd DD MMM YYYY",
+        showFooter: false,
+        autoAlign: true,
+        startOnMonday: true,
+        showHeader: false,
+        cancelLabel: '<?=strtoupper($cms->traduci("txt_29"))?>',
+        applyLabel: '<?=strtoupper($cms->traduci("title_step4"))?>',
+        minDate: moment(),
+        startEmpty: $("#calendarioHP1").val() === "",
+        startDate: $("#calendarioHP1").val(),
+        endDate: $("#calendarioHP2").val(),
+        enableKeyboard: false,
+        oninit: function(instance) {
+          startInstance = instance;
+          if (!instance.config.startEmpty && instance.config.startDate) {
+            instance.$elem.val(
+              instance.config.startDate
+                .locale(instance.config.format)
+                .format(instance.config.format)
+            );
+            startDate = instance.config.startDate.clone();
+          }
+        },
+        onbeforeshow: function(instance) {
+          console.log(
+            "" + startDate + " ////// " + moment(startDate).format("YYYY-MM-DD")
+          );
+          if (startDate) {
+            startInstance.config.startDate = startDate;
+            endInstance.config.startDate = startDate;
+          }
+          if (endDate) {
+            startInstance.config.endDate = endDate.clone();
+            endInstance.config.endDate = endDate.clone();
+          }
+          fillInputs();
+          instance.updateHeader();
+          instance.reDrawCells();
+        },
+        onfirstselect: function(instance, start) {
+          impostaDateCheckinCheckout(start, null, "calendarioHP");
+          startInstance.hideDropdown();
+          endInstance.showDropdown();
+        },
+        onrangeselect: function(instance, range) {
+          startDate = range.startDate.clone();
+          endDate = range.endDate.clone();
+        },
+        ondraw: function(instance) {
+          if (startInstance && endInstance) {
+            fillInputs();
+          }
+        }
+      });
+
+      $("#calendarioHP2").caleran({
+        locale: userLanguage,
+        format: "ddd DD MMM YYYY",
+        showFooter: false,
+        autoAlign: true,
+        startOnMonday: true,
+        showHeader: false,
+        cancelLabel: '<?=strtoupper($cms->traduci("txt_29"))?>',
+        applyLabel: '<?=strtoupper($cms->traduci("title_step4"))?>',
+        minDate: moment(),
+        startEmpty: $("#calendarioHP2").val() === "",
+        startDate: $("#calendarioHP1").val(),
+        endDate: $("#calendarioHP2").val(),
+        enableKeyboard: false,
+        autoCloseOnSelect: true,
+        oninit: function(instance) {
+          endInstance = instance;
+          if (!instance.config.startEmpty && instance.config.endDate) {
+            instance.$elem.val(
+              instance.config.endDate
+                .locale(instance.config.format)
+                .format(instance.config.format)
+            );
+            endDate = instance.config.endDate.clone();
+          }
+        },
+        onfirstselect: function(instance, end) {
+          impostaDateCheckinCheckout(null, end, "calendarioHP");
+          endInstance.hideDropdown();
+          startInstance.showDropdown();
+        },
+
+        onbeforeshow: function(instance) {
+          if (startDate) {
+            startInstance.config.startDate = startDate;
+            endInstance.config.startDate = startDate;
+          }
+          if (endDate) {
+            startInstance.config.endDate = endDate.clone();
+            endInstance.config.endDate = endDate.clone();
+          }
+          fillInputs();
+          instance.updateHeader();
+          instance.reDrawCells();
+          console.log(
+            startInstance.config.endDate.inspect(),
+            endInstance.config.endDate.inspect()
+          );
+        },
+        onafterselect: function(instance, start, end) {
+          startDate = start.clone();
+          endDate = end.clone();
+          endInstance.hideDropdown();
+          startInstance.config.endDate = endDate.clone();
+          startInstance.globals.firstValueSelected = true;
+          fillInputs();
+          endInstance.globals.startSelected = true;
+          endInstance.globals.endSelected = false;
+        },
+        onrangeselect: function(instance, range) {
+          startDate = range.startDate.clone();
+          endDate = range.endDate.clone();
+        },
+        ondraw: function(instance) {
+          if (startInstance && endInstance) {
+            fillInputs();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

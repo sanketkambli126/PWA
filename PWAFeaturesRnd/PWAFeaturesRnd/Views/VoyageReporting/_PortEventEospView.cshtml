@@ -1,0 +1,234 @@
+﻿<div class="modal fade p-0 modal-events modelEospView" id="modelEospView" role="dialog" aria-labelledby="faop" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="">
+        <div class="modal-content">
+            <div class="modal-header header-background header-padding modaldetails-design">
+                <div class="col-md-11 pl-0">
+                    <div class="common-sub-heading-black headerEospShowmorewrapper">
+                        <span class="headerEosp">
+                            <div class="common-small-heading" id="EospEventName"></div>
+                        </span>
+                        <div class="common-small-heading">
+                            <span class="common-heading-green"><div><span id="EospVesselName"></span></div></span>
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading"><span class="head">Date  </span><span id="EospFromDate" class="value"></span></span>
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading">
+                                <span class="head">LOP Issued / Received  </span><span id="EospLOP" class="value"></span>
+                            </span>
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading">
+                                <span class="head">Security Level  </span><span id="EospSecurityLevel" class="value"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body new-background padding-20 filters-popup-scroller">
+                <div class="scroller">
+                    <div class="row background-padding no-gutters">
+                        <div class="col-12 col-md-8 col-lg-8 col-xl-6 pl-0">
+                            <div class="common-custom-card height-equal4 mobile-pad-0 table-common-design mb-3 mb-md-3 mb-lg-3 mb-xl-0">
+                                <div class="counters-heading border-none position-relative mb-2">
+                                    <div>
+                                        <span>ROB</span>
+                                    </div>
+                                </div>
+
+                                <div class="vessel-activity-port-details clearfix ml-3 ml-md-0">
+                                    <div class="dashboard-counters-label">
+                                        Fuel
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtfuel" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                            <thead id="tblEospFuelConsumptionThead">
+                                            </thead>
+                                            <tbody id="tblEospFuelConsumptionTbody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="vessel-activity-port-details clearfix ml-3 ml-md-0">
+                                    <div class="dashboard-counters-label">
+                                        Lube Oil
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtlubeoil2" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                            <thead id="tblEospLubeOilThead">
+                                            </thead>
+                                            <tbody id="tblEospLubeOilTbody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="vessel-activity-port-details clearfix ml-3 ml-md-0">
+                                    <div class="dashboard-counters-label">
+                                        Waste
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtwaste" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                            <thead id="tblEospWasteThead">
+                                            </thead>
+                                            <tbody id="tblEospWasteTbody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="vessel-activity-port-details clearfix ml-3 ml-md-0">
+                                    <div class="dashboard-counters-label">
+                                        Fresh Water
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0">
+                                            <div class="table-common-design">
+                                                <div class="table-responsive compact-table">
+                                                    <table style="width: 100%;" id="dtFreshWater" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                        <thead id="tblEospFreshWaterThead">
+                                                        </thead>
+                                                        <tbody id="tblEospFreshWaterTbody">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="vessel-activity-port-details clearfix ml-3 ml-md-0 d-sm-none d-md-none d-lg-none d-xl-none mt-3">
+                                            <div class="dashboard-counters-label">
+                                                Ballast Water
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-5 col-lg-5 col-xl-5 pr-0">
+                                            <div class="table-common-design">
+                                                <div class="table-responsive compact-table">
+                                                    <table style="width: 100%;" id="dtcargo" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Ballast Water</th>
+                                                                <th>Quantity</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tblEospBlastTbody">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 col-lg-4 col-xl-3 padding0">
+                            <div class="common-custom-card two-column-layout height-equal4 table-common-design mobile-pad-0 mb-3 mb-md-3 mb-lg-3 mb-xl-0" id="runninghours">
+                                <div class="counters-heading border-none position-relative">
+                                    <div>
+                                        <span>Running Hours (<span id="spanEospRunnigpowerCount">0</span>)</span>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtEosprunninghours" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                            <thead>
+                                                <tr>
+                                                    <th>Components</th>
+                                                    <th>Past Hrs</th>
+                                                    <th>Current Reading</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-3">
+                            <div class="row no-gutters">
+                                <div class="col-12 col-md-4 col-lg-3 col-xl-12 pr-0">
+                                    <div class="common-custom-card two-column-layout height-equal5" id="vesseldraft">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Vessel Draft (m)</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3 col-md-4 col-lg-4 col-xl-2">
+                                                <div class="dashboard-counters-label">
+                                                    Fore
+                                                </div>
+                                            </div>
+                                            <div class="col-7 col-md-8 col-lg-8 col-xl-10">
+                                                <div class="dashboard-counters">
+                                                    <span id="spanEospForeDraft"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3 col-md-4 col-lg-4 col-xl-2">
+                                                <div class="dashboard-counters-label">
+                                                    Mid.
+                                                </div>
+                                            </div>
+                                            <div class="col-7 col-md-8 col-lg-8 col-xl-10">
+                                                <div class="dashboard-counters">
+                                                    <span id="spanEospMidDraft"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3 col-md-4 col-lg-4 col-xl-2">
+                                                <div class="dashboard-counters-label">
+                                                    Aft.
+                                                </div>
+                                            </div>
+                                            <div class="col-7 col-md-8 col-lg-8 col-xl-10">
+                                                <div class="dashboard-counters">
+                                                    <span id="spanEospAftDraft"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3 col-md-4 col-lg-4 col-xl-2">
+                                                <div class="dashboard-counters-label">
+                                                    Mean
+                                                </div>
+                                            </div>
+                                            <div class="col-7 col-md-8 col-lg-8 col-xl-10">
+                                                <div class="dashboard-counters">
+                                                    <span id="spanEospMeanDraft"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-8 col-lg-9 col-xl-12 pr-0">
+                                    <div class="common-custom-card two-column-layout height-equal5 mb-0" id="comments">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Comments</span>
+                                            </div>
+                                        </div>
+                                        <p id="EospComment" class="open-sans-font details-common">Comments</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

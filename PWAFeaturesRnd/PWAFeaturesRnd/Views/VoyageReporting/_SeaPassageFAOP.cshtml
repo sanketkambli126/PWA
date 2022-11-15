@@ -1,0 +1,264 @@
+﻿@model FaopDetailViewModel
+
+
+<div class="modal-content">
+    <div class="modal-header header-background header-padding modaldetails-design">
+        <div class="col-md-11 pl-0">
+            <div class="common-sub-heading-black faopheadershowmorewrapper">
+                <span class="header">
+                    <div class="common-small-heading" id="">FAOP</div>
+                </span>
+                <div class="common-small-heading">
+                    <span class="common-heading-green"><div><span id="">@Model.VesselName</span></div></span>
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <span class="common-small-heading"><span class="head">Date & Time  </span><span id="" class="value">@Model.SpaDate</span></span>
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <span class="common-small-heading"><span class="head">Latitude  </span><span id="" class="value">@Model.LatDirection</span></span>
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <span class="common-small-heading">
+                        <span class="head">Longitude  </span><span id="" class="value">@Model.LongDirection</span>
+                    </span>
+
+                    @if (!string.IsNullOrEmpty(Model.TotRev2) && Model.TotRev2 != "-")
+                    {
+                        <span class="d-none d-md-inline-block dividerline">|</span>
+                        <span class="common-small-heading">
+                            <span class="head">Revolutions Total  </span><span id="" class="value">@Model.TotRev2</span>
+                        </span>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.SpaSecurity) && Model.SpaSecurity != "-")
+                    {
+                        <span class="d-none d-md-inline-block dividerline">|</span>
+                        <span class="common-small-heading">
+                            <span class="head">Security Level  </span><span id="" class="value">@Model.SpaSecurity</span>
+                        </span>
+                        <span class="d-none d-md-inline-block dividerline">|</span>
+                    }
+                    <div class="d-block">
+                        @if (!string.IsNullOrEmpty(Model.Dwt) && Model.Dwt != "-")
+                        {
+
+                            <span class="common-small-heading">
+                                <span class="head">Deadweight (mt)  </span><span id="" class="value">@Model.Dwt</span>
+                            </span>
+                        }
+
+                        @if (@Model.IsSpaRouteChanged != null)
+                        {
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading">
+                                <span class="head">
+                                    Have you been provided with route weather information by <span class="common-sub-heading-red">a third party weather service? </span>
+                                </span>
+                                <span class="value">@Model.SpaRouteChanged</span>
+                            </span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body new-background padding-20 filters-popup-scroller">
+        <div class="scroller">
+
+            <div class="common-custom-card table-common-design mobile-pad-0">
+                <div class="counters-heading border-none position-relative">
+                    <div>
+                        <span>ROB</span>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="">
+                                <div class="table-responsive compact-table" id="divROBFuelArr" data-fuellist='@Newtonsoft.Json.JsonConvert.SerializeObject(Model.FuelList)'>
+                                    <table style="width: 100%;" id="fuel" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                        <thead>
+                                            <tr>
+                                                <th>Fuel</th>
+                                                <th>HFO(mt)</th>
+                                                <th>LFO (mt)</th>
+                                                <th>DO (mt)</th>
+                                                <th>GO <span>(mt)</span></th>
+                                                <th>LNG Bunker <span>(mt)</span></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="table-common-design">
+                                <div class="table-responsive compact-table" id="divLubeOilArr" data-lubeoillist='@Newtonsoft.Json.JsonConvert.SerializeObject(Model.LubeOilList)'>
+                                    <table style="width: 100%;" id="dtLubeOil" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                        <thead>
+                                            <tr>
+                                                <th>Lube Oil</th>
+                                                <th>CLO</th>
+                                                <th>Crank Case</th>
+                                                <th>Auxilaries</th>
+                                                <th>General</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="table-common-design">
+                                <div class="table-responsive compact-table" id="divROBWasteArr" data-wastelist='@Newtonsoft.Json.JsonConvert.SerializeObject(Model.WasteList)'>
+                                    <table style="width: 100%;" id="dtwaste" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                        <thead>
+                                            <tr>
+                                                <th>Waste</th>
+                                                <th>Sludge</th>
+                                                <th>Bilge</th>
+                                                <th>Slops</th>
+                                                <th>Sewage</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="row">
+                                <div class="col-12 col-md-7 col-lg-7 col-xl-7">
+                                    <div class="table-common-design">
+                                        <div class="table-responsive compact-table" id="divFreshWaterArr" data-freshwaterlist='@Newtonsoft.Json.JsonConvert.SerializeObject(Model.FreshWaterList)'>
+                                            <table style="width: 100%;" id="dtFreshWater" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fresh water</th>
+                                                        <th>Domestic (mt)</th>
+                                                        <th>Technical (mt)</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-5 col-lg-5 col-xl-5">
+                                    <div class="table-common-design">
+                                        <div class="table-responsive compact-table" id="divCargoBallastArr" data-cargoballastlist='@Newtonsoft.Json.JsonConvert.SerializeObject(Model.SpaCargoBallastList)'>
+                                            <table style="width: 100%;" id="dtcargo" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cargo & Ballast</th>
+                                                        <th>Quantity</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row background-padding no-gutters">
+                <div class="col-12 col-md-3 col-lg-2 col-xl-2 pl-0">
+                    <div class="common-custom-card two-column-layout height-equal-box">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>Vessel Draft (m)</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 col-md-4 col-lg-4 col-xl-4">
+                                <div class="dashboard-counters-label">
+                                    Fore
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8 col-lg-8 col-xl-8">
+                                <div class="dashboard-counters">
+                                    <span id="">@Model.Fore</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 col-md-4 col-lg-4 col-xl-4">
+                                <div class="dashboard-counters-label">
+                                    Mid.
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8 col-lg-8 col-xl-8">
+                                <div class="dashboard-counters">
+                                    <span id="">@Model.Mid</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 col-md-4 col-lg-4 col-xl-4">
+                                <div class="dashboard-counters-label">
+                                    Aft.
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8 col-lg-8 col-xl-8">
+                                <div class="dashboard-counters">
+                                    <span id="">@Model.Aft</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 col-md-4 col-lg-4 col-xl-4">
+                                <div class="dashboard-counters-label">
+                                    Mean
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8 col-lg-8 col-xl-8">
+                                <div class="dashboard-counters">
+                                    <span id="">@Model.MeanDraft</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-md-4 col-lg-5 col-xl-5 comments">
+                    <div class="common-custom-card height-equal-box">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>Comments</span>
+                            </div>
+                        </div>
+                        <p id="" class="open-sans-font details-common">@Model.Comments</p>
+                    </div>
+
+                </div>
+                <div class="col-12 col-md-5 col-lg-5 col-xl-5 pr-0">
+                    <div class="common-custom-card mobile-pad-0 height-equal-box table-common-design table-scroll-width-modal faopscroller">
+                        <div class="counters-heading border-none position-relative">
+                            <div>
+                                <span>Running Hours (<span id="spanRunninghoursCount">0</span>)</span>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="table-responsive compact-table" id="divRunningHoursArr" data-runninghours='@Newtonsoft.Json.JsonConvert.SerializeObject(Model.VoyageRunningHourList)'>
+                                <table style="width: 100%;" id="dtrunninghours" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                    <thead>
+                                        <tr>
+                                            <th>Component</th>
+                                            <th>Part Hrs</th>
+                                            <th>Total Hrs</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,3165 @@
+﻿.sentinel-breadcrum {
+    margin-bottom: 25px;
+}
+
+    .sentinel-breadcrum a {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        text-transform: uppercase;
+        color: #707070;
+    }
+
+        .sentinel-breadcrum a span.arrow {
+            margin-left: 4px;
+            margin-right: 4px;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 20px;
+            height: 19px;
+        }
+
+        .sentinel-breadcrum a span {
+            vertical-align: middle;
+        }
+
+        .sentinel-breadcrum a.active {
+            color: #1C606B;
+            font-weight: 700;
+        }
+
+        .sentinel-breadcrum a:hover {
+            text-decoration: none;
+            color: #1C606B;
+        }
+
+.sentinel-common-card {
+    padding: 20px 25px;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.detailsheader .leftdetails {
+    float: left;
+    width: 64%;
+    margin-right: 45px;
+}
+
+.detailsheader .rightdetails {
+    float: left;
+    width: 32%;
+}
+
+.detailsheader .s-vesselhead,
+.detailsheader .s-scoreicons {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.detailsheader .s-scoreicons {
+    position: relative;
+}
+
+.detailsheader .s-scorenumber {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: #FFFFFF;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.detailsheader .s-vesselhead span {
+    margin-left: 30px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.detailsheader .s-vesselhead h1 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    color: #000000;
+    margin: 0px;
+    margin-left: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.detailsheader .bottombordermargin {
+    padding-bottom: 17px;
+    margin-bottom: 17px;
+    border-bottom: 1px solid #898989;
+    width: 100%;
+}
+
+.sentinel-accordation {
+    margin-bottom: 20px;
+}
+
+.s-vesseldetails img {
+    height: 30px;
+    width: 30px;
+    object-fit: scale-down;
+}
+
+.s-vesseldetails .sv-title {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #707070;
+    margin-bottom: 3px;
+}
+
+.s-vesseldetails .sv-value {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000000;
+}
+
+
+.s-vesseldetails .float-left:last-child .sv-value {
+    width: 170px;
+    word-break: break-word;
+}
+
+.s-vesseldetails .float-left:nth-child(2) .sv-value {
+    width: 80px;
+    word-break: break-word;
+}
+
+.s-vesseldetails .float-left {
+    margin-left: 30px;
+}
+
+    .s-vesseldetails .float-left:nth-child(2) {
+        margin-left: 18px !important;
+    }
+
+    .s-vesseldetails .float-left.leftimagemargin {
+        margin-left: 18px;
+    }
+
+.sv-date {
+    text-align: right;
+    margin-bottom: 7px;
+}
+
+    .sv-date span {
+        display: inline-block;
+        vertical-align: middle;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        color: #000000;
+        margin-left: 6px;
+    }
+
+    .sv-date h1 {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        color: #15ACA2;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0px;
+        margin-left: 5px;
+    }
+
+.sv-timeline {
+    position: relative;
+}
+
+.progress-bar-s {
+    /*border: 3px dashed #2499CE;
+    border-width: 2px;*/
+    height: auto;
+    font-size: inherit;
+    border-radius: 0px;
+    background: transparent;
+}
+
+    .progress-bar-s::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-image: url('../images/sentinelimages/barprogress.svg');
+        background-repeat: repeat;
+        background-size: cover;
+        background-position: left center;
+    }
+
+.progress-s {
+    border: 2px solid #2499CE;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background-color: #2499CE;
+    border-radius: 0px !important;
+}
+
+div.progress-s[style="width: 0%"] {
+    border: 0;
+}
+
+.progress-s span {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #15ACA2;
+    margin-left: 0px;
+    text-align: right;
+    margin-top: -39px;
+    margin-right: -5px;
+}
+
+.progress-s img {
+    width: 51px;
+    vertical-align: bottom;
+    margin-right: 6px;
+}
+
+    .progress-s img.porticon {
+        width: 24px;
+    }
+
+.sv-timeline {
+    margin-top: 38px;
+}
+
+.s-portinfo {
+    margin-top: 13px;
+}
+
+    .s-portinfo h2 {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        color: #707070;
+        margin-bottom: 0;
+        display: block;
+    }
+
+    .s-portinfo span {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        margin-right: 4px;
+        display: inline-block;
+        color: #000000;
+    }
+
+.s-fromport {
+    text-align: left;
+}
+
+.s-toport {
+    text-align: right;
+}
+
+.accordation-s {
+    text-align: right;
+    margin: 15px 0px;
+    margin-right: 15px;
+}
+
+    .accordation-s a {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        text-align: right;
+        color: #000000;
+        vertical-align: middle;
+    }
+
+        .accordation-s a:hover {
+            text-decoration: none;
+        }
+
+        .accordation-s a img {
+            margin-left: 5px;
+        }
+
+.sentinelpanel {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+    .sentinelpanel img.sicon {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .sentinelpanel div.panelicon-width {
+        display: inline-block;
+        vertical-align: middle;
+        width: 25px;
+        margin-right: 13px;
+    }
+
+    .sentinelpanel h1 {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-bottom: 0px;
+        width: 170px;
+        max-width: 170px;
+    }
+
+
+.stxt-orange,
+.stxt-Amber {
+    color: #FF8D1F !important;
+}
+
+.stxt-green,
+.stxt-Green {
+    color: #39B54A !important;
+}
+
+.stxt-red,
+.stxt-Red {
+    color: #ED1C24 !important;
+}
+
+.stxt-black,
+.stxt-Black {
+    color: #000000 !important;
+}
+
+.stxt-grey,
+.stxt-Grey {
+    color: #707070 !important;
+}
+
+.dashcolor {
+    color: #000000 !important;
+    font-weight: 600;
+}
+
+
+.sentinelpanel .scorevessel {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    margin-left: 135px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 39px;
+}
+
+.sentinelpanel .scycle {
+    margin-left: 95px;
+    display: inline-block;
+    width: 24px;
+    vertical-align: middle;
+}
+
+.sentinelpanel h2 {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0px;
+}
+
+.scoredate {
+    width: 195px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 135px;
+}
+
+.sentinelpanel h3 {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    margin-left: 13px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0px;
+}
+
+.sentinelpanel .scoredate h3 {
+    margin-left: 0px;
+    line-height: 0;
+}
+
+.sentinelpanel h3 img {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.sentinelpanel h3 span {
+    vertical-align: middle;
+}
+
+.sentinelpanel .graph {
+    margin-left: 40px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.sentinel-accordation .btn {
+    padding: 0px;
+    border: 0;
+    width: 100%;
+    text-align: left;
+}
+
+.sentinel-accordation .card {
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 0;
+}
+
+    .sentinel-accordation .card:last-child {
+        margin-bottom: 0;
+    }
+
+.sentinel-accordation .card-header {
+    border-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+    height: auto;
+    padding: 25px 25px;
+    border: 0;
+}
+
+.sentinel-accordation.sentinel-accordation-veseldetails .card-header {
+    padding: 15px 25px;
+}
+
+.sentinel-accordation.sentineloff-accordation .card-header .btn-link {
+    position: absolute;
+    right: 25px;
+    top: 27px;
+}
+
+.sentinel-accordation .card-header .btn-link:after {
+    content: "";
+    margin-left: 0;
+    position: absolute;
+    right: 0;
+    top: 9px;
+    background-image: url('../images/sentinelimages/s-collapsearrow.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 17px;
+    height: 10px;
+}
+
+.sentinel-accordation.sentinel-accordation-veseldetails .card-header .btn-link:after {
+    top: 19px;
+}
+
+.sentinel-accordation.sentinel-accordation-veseldetails .card-header .btn-link:not(.collapsed):after {
+    top: 17px;
+}
+
+.sentinel-accordation .sentinel-portinformation .topinfo .btn-link:after {
+    content: "";
+    margin-left: 0;
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    background-image: url('../images/sentinelimages/s-collapsearrow-inner.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 13px;
+    height: 8px;
+}
+
+.sentinel-accordation .card-header .btn-link:not(.collapsed):after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 8px;
+    background-image: url('../images/sentinelimages/s-collapsearrow.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 17px;
+    height: 10px;
+    transform: rotate(180deg);
+}
+
+.sentinel-accordation .sentinel-portinformation .topinfo .btn-link:not(.collapsed):after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    background-image: url('../images/sentinelimages/s-collapsearrow-inner.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 13px;
+    height: 8px;
+    transform: rotate(180deg);
+}
+
+.sentinel-accordation .card-body {
+    padding: 20px 45px 40px 45px;
+    border-top: 3px solid #DE2C36;
+}
+
+.cardborder-Amber {
+    border-top: 3px solid #FF8D1F !important;
+}
+
+.cardborder-Red {
+    border-top: 3px solid #DE2C36 !important;
+}
+
+.cardborder-Green {
+    border-top: 3px solid #39B54A !important;
+}
+
+.sentinel-portinformation {
+    padding-bottom: 0;
+    border-bottom: 0;
+    margin-bottom: 20px;
+}
+
+
+    .sentinel-portinformation:last-child {
+        padding-bottom: 0px;
+        border-bottom: 0px solid #020202;
+        margin-bottom: 0px;
+    }
+
+    .sentinel-portinformation .topinfo {
+        padding: 0px 0px 20px 25px;
+        border-bottom: 2px solid #020202;
+    }
+
+        .sentinel-portinformation .topinfo .portmax-width {
+            width: 254px;
+            max-width: 254px;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 0;
+        }
+
+        .sentinel-portinformation .topinfo h1 {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 19px;
+            color: #EF1A26;
+            margin: 0px;
+            margin-right: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .sentinel-portinformation .topinfo .portmax-width .ptitle {
+            position: absolute;
+            width: 90px;
+            top: -12px;
+            left: 2px;
+        }
+
+        .sentinel-portinformation .topinfo .porticon {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+    .sentinel-portinformation .groupingportinfo {
+        margin-left: 90px;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 0;
+    }
+
+        .sentinel-portinformation .groupingportinfo div {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+    .sentinel-portinformation .ptitle {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        color: #707070;
+        margin-left: 22px;
+    }
+
+    .sentinel-portinformation .pvalue {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 16px;
+        color: #000000;
+        margin-left: 0;
+    }
+
+.portguide a {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration-line: underline;
+    color: #15ACA2;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.subcategoryicon {
+    margin-right: 77px;
+}
+
+.portguide a img {
+    margin-right: 8px;
+}
+
+.portguide a:last-child {
+    margin-left: 45px;
+    margin-right: 55px;
+}
+
+    .portguide a:last-child img {
+        margin-right: 0px;
+        margin-left: 7px;
+        vertical-align: text-top;
+    }
+
+.sentinel-portinformation .float-left,
+.sentinel-portinformation .float-right {
+    line-height: 0px;
+}
+
+.tablesinfo .lefttabledetails {
+    float: left;
+    width: 61%;
+    margin-right: 85px;
+}
+
+.tablesinfo .righttabledetails {
+    float: left;
+    width: 31%;
+}
+
+.sentinel-table-design .table {
+    margin: 0px !important;
+}
+
+    .sentinel-table-design .table thead th {
+        border: 0;
+        padding: 15px 0px 15px 25px;
+        border-bottom: 2px solid #020202;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 16px;
+        color: #000000;
+        vertical-align: middle;
+    }
+
+.sentinel-table-design .overridecolor thead th {
+    color: #DE2C36;
+    border-bottom: 2px solid #DE2C36;
+}
+
+    .sentinel-table-design .overridecolor thead th img {
+        margin-right: 10px;
+    }
+
+.sentinel-table-design .table tbody td {
+    border: 0;
+    padding: 15px 0px 15px 25px;
+    border-bottom: 2px solid #020202;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000000;
+    padding: 13px 0px 13px 25px;
+    border: 0;
+    vertical-align: middle;
+}
+
+.sentinel-table-design .table tbody td {
+    font-weight: 600;
+}
+
+.sentinel-table-design .indicatorsmobile tbody td:nth-child(2),
+.sentinel-table-design .indicatorsmobile tbody td:nth-child(3),
+.sentinel-table-design .indicatorsmobile tbody td:nth-child(4) {
+    text-align: right;
+    padding-left: 0px;
+    padding-right: 25px;
+}
+
+.sentinel-table-design .indicatorsmobile thead th:nth-child(2),
+.sentinel-table-design .indicatorsmobile thead th:nth-child(3),
+.sentinel-table-design .indicatorsmobile thead th:nth-child(4) {
+    text-align: right !important;
+    padding-left: 0px;
+    padding-right: 25px;
+}
+
+.sentinel-table-design .actionable tbody td:nth-child(2) {
+    padding-left: 45px;
+}
+
+.sentinel-table-design #dtoverridename tbody td:nth-child(2) {
+    text-align: right;
+    padding-left: 0px;
+    padding-right: 25px;
+}
+
+.sentinel-table-design #dtoverridename thead th:nth-child(2) {
+    text-align: right !important;
+    padding-left: 0px;
+    padding-right: 25px;
+}
+
+.sentinel-table-design .imagealign img {
+    margin-left: 165px;
+}
+
+.sentinel-table-design .dt-bootstrap4 {
+    margin-bottom: 0px;
+}
+
+.scorecombinediv textarea,
+.scorecombinediv textarea:focus,
+.scorecombinediv textarea:active {
+    border: 1px solid #AAAAAA;
+    border-radius: 4px;
+    width: 100%;
+    height: 125px;
+    padding: 15px;
+    box-shadow: none;
+    resize: none;
+    margin-top: 45px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #707070;
+}
+
+.offc-head {
+    margin-bottom: 25px;
+}
+
+    .offc-head h1 {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 25px;
+        color: #15ACA2;
+        margin: 0px;
+    }
+
+.offcpanel h1 {
+    color: #15ACA2;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+    width: 220px;
+}
+
+.offcpanel .soverride {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 135px;
+    width: 24px;
+}
+
+.offcpanel .totalvessel {
+    margin-left: 135px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 67px;
+}
+
+    .offcpanel .totalvessel img,
+    .offcpanel .redscore img,
+    .offcpanel .orangescore img,
+    .offcpanel .greenscore img,
+    .offcpanel .greyscore img {
+        margin-right: 2px;
+        display: inline-block;
+    }
+
+    .offcpanel .totalvessel span,
+    .offcpanel .redscore span,
+    .offcpanel .orangescore span,
+    .offcpanel .greenscore span,
+    .offcpanel .greyscore span {
+        display: inline-block;
+        vertical-align: middle;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        color: #000000;
+        width: 30px;
+    }
+
+.offcpanel .redscore {
+    margin-left: 55px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.offcpanel .orangescore {
+    margin-left: 55px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.offcpanel .greenscore {
+    margin-left: 55px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.offcpanel .greyscore {
+    margin-left: 55px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.office-info .topinfo h1 {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #000000;
+    margin: 0px;
+}
+
+.office-info .topinfo a,
+.office-info .topinfo a:hover {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    text-decoration-line: underline;
+    color: #15ACA2;
+}
+
+    .office-info .topinfo a:last-child {
+        margin-left: 25px;
+    }
+
+/*.office-info .topinfo .linkswidth {
+    position: absolute;
+    right: 72px;
+}*/
+
+.office-info .float-left,
+.office-info .float-right {
+    line-height: 0;
+}
+
+.office-info .topinfo {
+    padding: 0px 25px 15px 25px;
+    border-bottom: 1px solid #AAAAAA;
+}
+
+.sentineloff-accordation .card-body {
+    padding: 10px 45px 40px 45px;
+    border-top: 3px solid #2DAA9D !important;
+}
+
+.inc-dec-info {
+    padding: 20px 45px 20px 25px;
+    border-bottom: 2px solid #020202;
+}
+
+    .inc-dec-info .float-left {
+        line-height: 0;
+    }
+
+    .inc-dec-info .scorebar {
+        margin-bottom: 17px;
+    }
+
+        .inc-dec-info .scorebar img {
+            margin-right: 5px;
+        }
+
+        .inc-dec-info .scorebar span {
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+.vesselscore .listvessel {
+    margin-right: 70px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+    .vesselscore .listvessel:last-child {
+        margin-right: 0px;
+    }
+
+.vesselscore .snumber {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    color: #707070;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.vesselscore .snumbervessel span {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+    display: inline-block;
+    margin-right: 2px;
+    vertical-align: middle;
+}
+
+.inc-dec-info .firstsection {
+    margin-right: 200px;
+}
+
+.action-overridediv {
+    padding: 15px 0px 0px 0px;
+}
+
+    .action-overridediv h1 {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        color: #DE2C36;
+        padding-left: 25px;
+        margin: 0px;
+        margin-bottom: 15px;
+    }
+
+.actionlist {
+    padding: 13px 0px 13px 25px;
+}
+
+    .actionlist:nth-of-type(odd) {
+        background: #F7F7F7;
+    }
+
+    .actionlist:nth-of-type(even) {
+        background: #ffffff;
+    }
+
+    .actionlist .float-left {
+        line-height: 0;
+    }
+
+    .actionlist h2 {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        color: #000000;
+    }
+
+    .actionlist h2 {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        color: #000000;
+        margin: 0px;
+        margin-bottom: 2px;
+    }
+
+    .actionlist .breadcrums {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        color: #707070;
+    }
+
+    .actionlist .vsno {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 25px;
+        color: #2CA699;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        margin-top: 5px;
+        width: 32px;
+        text-align: right;
+    }
+
+    .actionlist img {
+        margin-top: 5px;
+    }
+
+    .actionlist .firstcol {
+        max-width: 290px;
+        width: 290px;
+        margin-right: 150px;
+    }
+
+.actionsbtn {
+    text-align: right;
+    margin-top: 7px;
+}
+
+    .actionsbtn a,
+    .actionsbtn a:hover {
+        margin-right: 20px;
+        display: inline-block;
+        vertical-align: middle;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        color: #15ACA2;
+        text-decoration: none;
+    }
+
+        .actionsbtn a span {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 5px;
+            text-decoration-line: underline;
+        }
+
+.list-total-box {
+    background: #EDFBFA;
+    border: 2px solid #15ACA2;
+    border-radius: 8px;
+    padding: 20px 40px;
+}
+
+.off-list-head {
+    margin-bottom: 20px;
+}
+
+.leftlist .lists {
+    margin-right: 80px;
+}
+
+    .leftlist .lists:last-child {
+        margin-right: 0px;
+    }
+
+.leftlist span {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+    color: #000000;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.voffc {
+    margin-right: 3px;
+    width: 21px;
+}
+
+.voverride {
+    margin-right: 3px;
+    width: 18px;
+}
+
+.leftlist h6 {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #5E5E5E;
+    margin: 0px;
+    margin-top: 3px;
+}
+
+.scorelist div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.scorelist span {
+    font-size: 16px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 30px;
+    margin-left: 0px;
+}
+
+.scorelist {
+    margin-top: 11px;
+}
+
+.sortdrop .dropdown-menu {
+    border: 1px solid #2DAA9D;
+    border-radius: 4px;
+    box-shadow: none;
+    background: #F2FAF9;
+    padding: 20px;
+    min-width: 235px;
+    width: 235px;
+    margin-top: 10px !important;
+}
+
+    .sortdrop .dropdown-menu h1 {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        color: #000000;
+        margin-bottom: 12px;
+    }
+
+.sortdrop label {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 15px;
+    color: #2DAA9D;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+    .sortdrop label.activesort {
+        font-weight: 700;
+        color: #2DAA9D;
+    }
+
+    .sortdrop label:last-child {
+        margin-bottom: 0px;
+    }
+
+.sortsearch {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+    .sortsearch .checkbox-design-table {
+        display: inline-block;
+        margin-left: 15px;
+        position: relative;
+        top: 4px;
+    }
+
+        .sortsearch .checkbox-design-table .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+            top: 1px;
+            left: -24px;
+            width: 7px;
+            height: 13px;
+            border: solid #15ACA2;
+            border-width: 0 2px 2px 0;
+        }
+
+        .sortsearch .checkbox-design-table .custom-checkbox {
+            padding-left: 34px;
+        }
+
+    .sortsearch .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+        border-color: #b3b3b3;
+    }
+
+    .sortsearch .checkbox-design-table .custom-control-label {
+        font-weight: 600;
+        line-height: 18px;
+        cursor: pointer;
+        color: #15ACA2;
+        font-size: 15px;
+    }
+
+    .sortsearch .checkbox-design-table .custom-checkbox .custom-control-label::before {
+        border-radius: 0px;
+        border: #15ACA2 solid 2px;
+        width: 22px;
+        height: 22px;
+        margin-top: -4px;
+        background: transparent;
+        border-radius: 3px;
+        left: -31px;
+    }
+
+.btn-sort,
+.btn-sort:hover {
+    background: #FFFFFF !important;
+    border: 1px solid #15ACA2 !important;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 23px;
+    color: #15ACA2;
+    padding: 8px 15px;
+    margin-top: 0 !important;
+}
+
+    .btn-sort span {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+
+.btn-filters-active,
+.btn-filters-active:hover {
+    background: #15ACA2 !important;
+    border: 1px solid #15ACA2 !important;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    position: relative;
+}
+
+    .btn-filters-active svg path {
+        fill: white;
+    }
+
+.activecount {
+    width: 27px;
+    height: 27px;
+    background: #1C606B;
+    border: 1px solid #FFFFFF;
+    position: absolute;
+    border-radius: 50%;
+    line-height: 24px;
+    position: absolute;
+    top: -13px;
+    right: -11px;
+}
+
+.searchtext input,
+.searchtext input:focus,
+.searchtext input:active:focus {
+    border: 1px solid #15ACA2;
+    border-radius: 40px;
+    width: 430px;
+    padding: 10px 20px;
+    height: 45px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    color: #000000;
+    box-shadow: none;
+}
+
+    .searchtext input::placeholder {
+        font-style: italic;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 20px;
+        color: #15ACA2;
+    }
+
+.searchtext {
+    position: relative;
+}
+
+    .searchtext img {
+        position: absolute;
+        right: 20px;
+        top: 13px;
+    }
+
+.vstemplate {
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 12px 25px;
+    margin-bottom: 10px;
+}
+
+    .vstemplate:last-child {
+        margin-bottom: 0px;
+    }
+
+    .vstemplate .s-scorenumber {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        color: #FFFFFF;
+        position: absolute;
+        left: 50%;
+        top: 46%;
+        transform: translate(-50%,-50%);
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+    }
+
+    .vstemplate .panelicon-width {
+        margin-right: 18px;
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+    }
+
+    .vstemplate .vesselintro {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 80px;
+    }
+
+        .vstemplate .vesselintro a:hover {
+            text-decoration: none;
+        }
+
+        .vstemplate .vesselintro h1 {
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 22px;
+            color: #15ACA2;
+            display: block;
+            vertical-align: middle;
+            margin: 0px;
+            width: 170px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .vstemplate .vesselintro span {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            color: #000000;
+            display: inline-block;
+            vertical-align: middle;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 130px;
+        }
+
+    .vstemplate .scoresoverdue {
+        width: 220px;
+    }
+
+    .vstemplate .scycle {
+        width: 17px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+.soverrideicon {
+    width: 24px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.scoresoverdue .overallscore {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 15px;
+    color: #000000;
+    margin-right: 0;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+}
+
+.scoresoverdue .dashcolor {
+    display: inline-block;
+    margin-left: 0;
+}
+
+.scoresoverdue .scorevessel {
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 17px;
+    margin-right: 5px;
+}
+
+.scoresoverdue {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 30px;
+}
+
+    .scoresoverdue img {
+        margin-right: 4px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .scoresoverdue h2 {
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 19px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0px;
+    }
+
+        .scoresoverdue h2 span.num {
+            font-weight: 700;
+        }
+
+        .scoresoverdue h2 span {
+            display: inline-block;
+            vertical-align: middle;
+            font-weight: 500;
+        }
+
+
+.vesselflow {
+    margin-right: 50px;
+    margin-left: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 22px;
+}
+
+.vessellisttemplate {
+    margin-bottom: 20px;
+}
+
+.listtimeline {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+    .listtimeline .s-portinfo {
+        width: 465px;
+        display: block;
+        vertical-align: middle;
+        text-align: left;
+    }
+
+    .listtimeline .s-fromport {
+        width: 140px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .listtimeline .sv-timeline {
+        width: 175px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: 0;
+    }
+
+    .listtimeline .s-portinfo span {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        text-align: center;
+        color: #15ACA2;
+    }
+
+    .listtimeline .s-portinfo:last-child span {
+        margin-right: 1px;
+        font-size: 12px;
+    }
+
+    .listtimeline .s-portinfo .text-left span {
+        text-align: left;
+    }
+
+    .listtimeline .s-toport {
+        width: 140px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+        .listtimeline .s-toport h2 {
+            text-align: right
+        }
+
+    .listtimeline .sv-timeline span {
+        margin-left: 25%;
+        position: relative;
+        top: 7px;
+        font-size: 13px;
+    }
+
+.sentinel-filter {
+    box-shadow: -5px 4px 9px rgba(0, 0, 0, 0.1);
+    top: 65px;
+    right: -45px;
+}
+
+    .sentinel-filter .theme-settings__inner {
+        width: 500px;
+    }
+
+    .sentinel-filter .filterpanel {
+        border-bottom: 1px solid rgba(28, 96, 107, 0.3);
+        padding: 20px 40px;
+    }
+
+        .sentinel-filter .filterpanel svg {
+            width: 19px;
+            margin-right: 5px;
+        }
+
+        .sentinel-filter .filterpanel h1 {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 25px;
+            color: #15ACA2;
+        }
+
+    .sentinel-filter .close-search-panel {
+        font-weight: 400;
+        color: #282828;
+        right: 38px;
+        top: 2px;
+        opacity: 1;
+        font-size: 36px;
+    }
+
+    .sentinel-filter .nav-pills .nav-link.active,
+    .sentinel-filter .nav-pills .nav-link.active:hover {
+        color: #15ACA2 !important;
+        background: #EFF9F8;
+        font-weight: 700;
+    }
+
+    .sentinel-filter .nav-pills .nav-link {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 19px;
+        color: #282828;
+        padding-left: 40px;
+        padding-right: 30px;
+    }
+
+    .sentinel-filter .nav-pills {
+        background: white;
+    }
+
+    .sentinel-filter .tab-content {
+        padding: 30px 20px 235px 30px;
+        background: #EFF9F8;
+    }
+
+    .sentinel-filter .search-section-bottom {
+        width: 66%;
+        background: #EFF9F8;
+        padding-bottom: 30px;
+    }
+
+    .sentinel-filter ul.fancytree-container {
+        padding: 0px !important;
+    }
+
+    .sentinel-filter .scroller::-webkit-scrollbar-track {
+        background-color: #EFF9F8;
+    }
+
+    /*.sentinel-filter .scroller::-webkit-scrollbar-thumb {
+        background-color: #638c92;
+    }*/
+
+    .sentinel-filter .common-form-design .search-section-bottom .clear-btn {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #15ACA2;
+        border: 1px solid #15ACA2;
+        border-radius: 2px;
+        padding: 7px 17px;
+    }
+
+    .sentinel-filter .common-form-design .search-btn {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: #FFFFFF;
+        background: #15ACA2;
+        border-radius: 2px;
+        padding: 7px 18px;
+    }
+
+.alllist .listrepeat {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #85adb2;
+}
+
+    .alllist .listrepeat:last-child {
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        border-bottom: 0px solid rgba(28, 96, 107, 0.5);
+    }
+
+    .alllist .listrepeat h1 {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 22px;
+        color: #15ACA2;
+        margin: 0px;
+    }
+
+    .alllist .listrepeat ul {
+        list-style-type: none;
+        margin: 0px;
+        margin-top: 20px;
+        padding-left: 20px;
+    }
+
+.sentinel-filter .tab-pane .alllist .listrepeat .radio-button-design label {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #2CA699;
+    margin-bottom: 20px;
+}
+
+.sentinel-filter .tab-pane .alllist .listrepeat .radio-button-design .custom-control-input:checked ~ .custom-control-label::before {
+    border: #2CA699 solid 1px;
+}
+
+.sentinel-filter .tab-pane .alllist .listrepeat .radio-button-design .custom-radio .custom-control-input:checked ~ .custom-control-label {
+    color: #1C606B;
+}
+
+    .sentinel-filter .tab-pane .alllist .listrepeat .radio-button-design .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+        background-color: #1C606B;
+    }
+
+.sentinel-filter .radio-button-design .custom-control:last-child label {
+    margin-bottom: 0px !important;
+}
+
+.sentinel-filter .common-form-design .fancytree-exp-n .fancytree-title,
+.sentinel-filter .common-form-design .fancytree-exp-nl .fancytree-title {
+    margin-left: 0;
+}
+
+.sentinel-filter .common-form-design span.fancytree-title {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    color: #282828;
+    padding: 0;
+    margin-left: 8px;
+    padding-right: 15px;
+}
+
+.sentinel-filter ul.fancytree-container ul li ul li span.fancytree-title {
+    font-weight: 500;
+}
+
+.sentinel-filter ul.fancytree-container li.toptreemenu {
+    border: 0;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 14px;
+    margin-left: -10px;
+}
+
+.sentinel-filter .fancytree-exp-c span.fancytree-expander,
+.sentinel-filter .fancytree-exp-cl span.fancytree-expander {
+    width: 5px !important;
+    height: 11px !important;
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-image: url(../images/sentinelimages/sarrowright.svg) !important;
+    background-position: center center !important;
+    cursor: pointer;
+    background-size: cover;
+    margin-top: -4px !important;
+}
+
+.sentinel-filter span.fancytree-active.fancytree-exp-c span.fancytree-expander,
+.sentinel-filter span.fancytree-active.fancytree-exp-cl span.fancytree-expander {
+    background-image: url(../images/sentinelimages/sarrowright-active.svg) !important;
+}
+
+.sentinel-filter .fancytree-exp-e span.fancytree-expander,
+.sentinel-filter .fancytree-exp-ed span.fancytree-expander,
+.sentinel-filter .fancytree-exp-el span.fancytree-expander {
+    width: 10px !important;
+    height: 6px !important;
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-image: url(../images/sentinelimages/sarrowdown.svg) !important;
+    background-position: center center !important;
+    cursor: pointer;
+    background-size: cover;
+    margin-top: -4px !important;
+}
+
+.sentinel-filter span.fancytree-active.fancytree-exp-e span.fancytree-expander,
+.sentinel-filter span.fancytree-active.fancytree-exp-ed span.fancytree-expander,
+.sentinel-filter span.fancytree-active.fancytree-exp-el span.fancytree-expander {
+    background-image: url(../images/sentinelimages/sarrowdown-active.svg) !important;
+}
+
+.sentinel-filter .fancytree-exp-n span.fancytree-expander,
+.sentinel-filter .fancytree-exp-nl span.fancytree-expander {
+    display: none;
+}
+
+
+.sentinel-filter ul.fancytree-container ul li ul {
+    padding-left: 19px;
+}
+
+.sentinel-filter ul.fancytree-container ul {
+    padding-left: 19px;
+}
+
+.sentinel-filter .multilevel-hierarchy-design span.fancytree-node span.fancytree-expander {
+    margin-top: 4px;
+}
+
+
+
+.sentinel-filter ul.fancytree-container ul li ul li img.fancytree-icon {
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    margin-top: 0;
+    position: relative;
+    top: 3px;
+    margin-right: 8px;
+}
+
+.sentinel-filter .common-form-design span.fancytree-node {
+    width: 95%;
+}
+
+.sentinel-filter ul.fancytree-container li {
+    padding: 0px 0px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #85adb2;
+}
+
+.sentinel-filter .common-form-design .biggestmovers ul.fancytree-container li .fancytree-focused span.fancytree-title {
+    color: #15ACA2;
+}
+
+.sentinel-filter .common-form-design .biggestmovers .fancytree-exp-n .fancytree-title,
+.sentinel-filter .common-form-design .biggestmovers .fancytree-exp-nl .fancytree-title {
+    font-weight: 500;
+}
+
+.sentinel-filter .common-form-design .biggestmovers .fancytree-exp-n .fancytree-expander,
+.sentinel-filter .common-form-design .biggestmovers .fancytree-exp-nl .fancytree-expander {
+    display: inline-block;
+    background-image: url(../images/sentinelimages/movers-box.svg) !important;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+    background-position: center center !important;
+    cursor: pointer;
+}
+
+.sentinel-filter .multilevel-hierarchy-design .biggestmovers span.fancytree-active .fancytree-expander,
+.sentinel-filter .multilevel-hierarchy-design .biggestmovers span.fancytree-active.fancytree-focused .fancytree-expander {
+    background-image: url(../images/sentinelimages/movers-box-tick.svg) !important;
+}
+
+
+.sentinel-filter .multilevel-hierarchy-design .biggestmovers span.fancytree-active span.fancytree-title {
+    font-weight: 700;
+}
+
+.sentinel-filter .biggestmovers span.fancytree-focused span.fancytree-expander,
+.sentinel-filter .biggestmovers span.fancytree-focused span.fancytree-expander {
+    background-image: url(../images/sentinelimages/sarrowdown-active.svg) !important;
+}
+
+
+.sentinel-filter .biggestmovers span.fancytree-focused.fancytree-ico-c span.fancytree-expander {
+    background-image: url(../images/sentinelimages/sarrowright.svg) !important;
+}
+
+.sentinel-filter .biggestmovers span.fancytree-focused.fancytree-ico-c span.fancytree-expander {
+    background-image: url(../images/sentinelimages/sarrowright-active.svg) !important;
+}
+
+.sentinel-filter .biggestmovers ul.fancytree-container li {
+    position: relative;
+}
+
+    .sentinel-filter .biggestmovers ul.fancytree-container li:first-child span.fancytree-has-children span.fancytree-title:after,
+    .sentinel-filter .biggestmovers ul.fancytree-container li:nth-child(2) span.fancytree-has-children span.fancytree-title:after {
+        content: "";
+        position: absolute;
+        margin-left: 8px;
+        margin-top: 4px;
+        background-image: url(../images/sentinelimages/increase-black.svg) !important;
+        width: 9px;
+        height: 11px;
+    }
+
+    .sentinel-filter .biggestmovers ul.fancytree-container li:first-child span.fancytree-focused.fancytree-has-children span.fancytree-title:after {
+        background-image: url(../images/sentinelimages/increase-green.svg) !important;
+    }
+
+    .sentinel-filter .biggestmovers ul.fancytree-container li:nth-child(2) span.fancytree-focused.fancytree-has-children span.fancytree-title:after {
+        background-image: url(../images/sentinelimages/increase-green.svg) !important;
+    }
+
+    .sentinel-filter .biggestmovers ul.fancytree-container li:nth-child(2) span.fancytree-has-children span.fancytree-title:after {
+        transform: rotate(180deg);
+    }
+
+
+.sentinel-filter ul.fancytree-container li ul li {
+    border-bottom: 0px;
+    margin-bottom: 7px;
+    padding-bottom: 7px;
+}
+
+.sentinel-filter ul.fancytree-container li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.sentinel-filter .multilevel-hierarchy-design span.fancytree-node:hover span.fancytree-title,
+.sentinel-filter .multilevel-hierarchy-design span.fancytree-active span.fancytree-title {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: #15ACA2;
+}
+
+.sentinel-filter .multilevel-hierarchy-design span.fancytree-active img.fancytree-icon {
+    content: url(../images/sentinelimages/s-cycle-green.svg);
+    width: 14px;
+    height: 14px;
+}
+
+.sentinel-filter ul.fancytree-container ul {
+    margin-top: 14px;
+}
+
+.sentinel-filter .radio-button-design .form-group {
+    margin-bottom: 0px;
+}
+
+.alllist .listrepeat li:last-child {
+    margin-bottom: 0px;
+}
+
+.alllist .listrepeat h1.activeelement {
+    font-weight: 700;
+    color: #1C606B;
+}
+
+.fleettabs .nav-tabs {
+    border: 0;
+    margin: 0px;
+}
+
+    .fleettabs .nav-tabs .nav-link {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        color: #15ACA2;
+        background: transparent;
+        padding: 0px 20px 4px;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        transition: inherit;
+        position: relative;
+    }
+
+        .fleettabs .nav-tabs .nav-link:hover {
+            color: #1C606B !important;
+            border-color: transparent;
+        }
+
+            .fleettabs .nav-tabs .nav-link:hover:before {
+                background: #1C606B;
+                content: "";
+                width: 116px;
+                height: 3px;
+                border-bottom-right-radius: 8px;
+                border-bottom-left-radius: 8px;
+                position: absolute;
+                left: 10px;
+                bottom: -3px;
+            }
+
+        .fleettabs .nav-tabs .nav-link.active {
+            background: transparent;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+            padding: 0px 20px 4px;
+            border-bottom-color: transparent;
+            position: relative;
+            color: #1C606B;
+            font-weight: 700;
+        }
+
+            .fleettabs .nav-tabs .nav-link.active:before {
+                background: #1C606B;
+                content: "";
+                width: 126px;
+                height: 3px;
+                border-bottom-right-radius: 8px;
+                border-bottom-left-radius: 8px;
+                position: absolute;
+                left: 10px;
+                bottom: -3px;
+            }
+
+    .fleettabs .nav-tabs .nav-item:nth-child(2) .nav-link.active:before {
+        width: 116px;
+    }
+
+    .fleettabs .nav-tabs .nav-item {
+        margin-bottom: -2px;
+        margin-right: 0;
+    }
+
+/*.fleettabs .tab-pane .list-total-box {
+    border-top-left-radius: 0px;
+}*/
+
+.fleettabs .fleetlisting.active .list-total-box {
+    border-top-left-radius: 8px;
+}
+
+.no-items {
+    padding: 20px 0;
+    text-align: center;
+    border-radius: 8px !important;
+    background: white;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.no-items-vs {
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.customAccordionDetail {
+    height: auto;
+    overflow: hidden;
+    display: none;
+}
+
+.customAccordionContainer {
+    height: auto;
+    overflow: hidden;
+}
+
+span.trimcharacter {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    max-width: 370px;
+    vertical-align: middle;
+}
+
+/*.customAccordionHeader .expandCollapseArrow:not(.collapsed):after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 8px;
+    background-image: url('../images/sentinelimages/s-collapsearrow.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 17px;
+    height: 10px;
+    transform: rotate(180deg);
+}*/
+
+.recordsfound-sentinel {
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #494949;
+    margin: 0px 0px 12px 0px;
+    display: block;
+}
+
+@media only screen and (min-width: 1441px) {
+    .subcategoryicon {
+        margin-right: 83px;
+    }
+
+    .sentinel-portinformation .topinfo {
+        padding: 0px 0px 20px 23px;
+    }
+
+    .sentinel-portinformation .groupingportinfo {
+        margin-left: 104px;
+    }
+
+    span.trimcharacter {
+        max-width: 380px;
+    }
+
+    .sentinel-portinformation .topinfo .portmax-width .ptitle {
+        top: -10px;
+    }
+
+    .listtimeline .s-portinfo {
+        width: 480px;
+    }
+
+    .listtimeline .sv-timeline {
+        width: 191px;
+    }
+}
+
+@media only screen and (max-width:1440px) {
+    .vstemplate .vesselintro {
+        margin-right: 80px;
+    }
+}
+
+@media only screen and (max-width:1360px) {
+    .detailsheader .leftdetails {
+        margin-right: 35px;
+    }
+
+    .s-vesseldetails .float-left {
+        margin-left: 25px;
+    }
+
+        .s-vesseldetails .float-left:last-child .sv-value {
+            width: 120px;
+            word-break: break-word;
+        }
+
+    .sentinelpanel .scorevessel {
+        margin-left: 125px;
+    }
+
+    .scoredate {
+        margin-left: 125px;
+    }
+
+    .sentinelpanel .graph {
+        margin-left: 10px;
+    }
+
+    .tablesinfo .lefttabledetails {
+        margin-right: 50px;
+    }
+
+    .portguide a:last-child {
+        margin-left: 25px;
+    }
+
+    .subcategoryicon {
+        margin-right: 51px;
+    }
+
+    .vstemplate .vesselintro {
+        margin-right: 30px;
+    }
+
+    .vesselflow {
+        margin-right: 35px;
+        margin-left: 35px;
+    }
+
+    .vstemplate .scoresoverdue {
+        width: 213px;
+    }
+
+    .tablesinfo .lefttabledetails {
+        width: 64%;
+    }
+
+    .sentinel-portinformation .topinfo .portmax-width {
+        width: 238px;
+        max-width: 238px;
+    }
+
+    .sentinel-portinformation .topinfo h1 {
+        margin-right: 9px;
+    }
+
+    .sentinel-portinformation .ptitle {
+        margin-left: 20px;
+    }
+}
+
+@media only screen and (max-width:767px) {
+    .detailsheader .s-vesselhead span {
+        display: none;
+    }
+
+    .sentinel-common-card {
+        padding: 15px 20px;
+    }
+
+    .detailsheader .s-scorenumber {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .detailsheader .s-vesselhead h1 {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 23px;
+        margin-left: 5px;
+    }
+
+    .detailsheader .bottombordermargin {
+        padding-bottom: 0;
+        margin-bottom: 15px;
+        border-bottom: 0;
+    }
+
+    .detailsheader .leftdetails {
+        margin-right: 0;
+    }
+
+    .detailsheader .leftdetails,
+    .detailsheader .rightdetails {
+        float: left;
+        width: 100%;
+        margin-right: 0px;
+    }
+
+    .s-vesseldetails .float-left:first-child {
+        display: none;
+    }
+
+    .sv-timeline {
+        margin-top: 30px;
+    }
+
+    .sv-date span {
+        margin-left: 4px;
+    }
+
+    .sv-date {
+        text-align: left;
+    }
+
+    .progress-s img {
+        display: none;
+    }
+
+    .progress-s span {
+        font-weight: 700;
+        font-size: 12px;
+        margin-top: -30px;
+        margin-right: 0;
+    }
+
+    .s-portinfo {
+        margin-top: 10px;
+    }
+
+    .sentinel-breadcrum a {
+        font-size: 12px;
+    }
+
+    .sentinel-breadcrum {
+        margin-bottom: 10px;
+    }
+
+    .s-vesseldetails {
+        display: none;
+    }
+
+        .s-vesseldetails.showdetails {
+            display: block;
+        }
+
+        .s-vesseldetails .float-left:nth-child(2) {
+            margin-left: 0px !important;
+        }
+
+        .s-vesseldetails .float-left {
+            margin-left: 0px;
+        }
+
+    .s-vesseldetails {
+        margin-top: 22px;
+    }
+
+        .s-vesseldetails .sv-value {
+            margin-bottom: 12px;
+        }
+
+        .s-vesseldetails .col-12:last-child .sv-value {
+            margin-bottom: 0px;
+        }
+
+    .withcmpydiv {
+        padding-left: 24px !important;
+    }
+
+    .hideshowdetails {
+        margin-top: 9px;
+    }
+
+    .arrowchange {
+        margin-top: 8px;
+        transform: rotate(180deg);
+    }
+
+    .mobileflagvs img {
+        width: 22px;
+        height: 22px;
+        margin-top: 0;
+        display: inline-block;
+        vertical-align: middle;
+        position: absolute;
+        top: -30px;
+        right: 0;
+        object-fit: scale-down;
+    }
+
+    .mobileflagvs {
+        text-align: right;
+        position: relative;
+    }
+
+    .detailsheader .s-vesselhead {
+        width: 72%;
+    }
+
+    .sentinel-accordation .card {
+        margin-bottom: 8px;
+    }
+
+    .sentinel-accordation .card-header {
+        padding: 10px 20px;
+    }
+
+    .sentinel-accordation.sentinel-accordation-veseldetails .card-header {
+        padding: 10px 20px;
+    }
+
+    .sentinelpanel h1 {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 21px;
+        width: 150px;
+        max-width: 150px;
+        position: relative;
+        top: 8px;
+    }
+
+    .sentinelpanel .graph {
+        display: none;
+    }
+
+    .sentinelpanel img.sicon {
+        height: 20px;
+    }
+
+    .sentinelpanel div.panelicon-width {
+        width: 20px;
+        margin-right: 5px;
+        text-align: left;
+        position: relative;
+        top: 8px;
+    }
+
+    .sentinel-accordation .card-header .btn-link:after {
+        top: 17px;
+        background-image: url(../images/sentinelimages/s-collapsearrowmobile.svg);
+        width: 11px;
+        height: 7px;
+    }
+
+    .sentinel-accordation .card-header .btn-link:not(.collapsed):after {
+        top: 17px;
+        background-image: url(../images/sentinelimages/s-collapsearrowmobile.svg);
+        width: 11px;
+        height: 7px;
+    }
+
+    .sentinel-accordation.sentinel-accordation-veseldetails .card-header .btn-link:after {
+        top: 17px;
+    }
+
+    .sentinel-accordation.sentinel-accordation-veseldetails .card-header .btn-link:not(.collapsed):after {
+        top: 17px;
+    }
+
+    .sentinelpanel .scorevessel {
+        margin-left: 0;
+        font-size: 13px;
+        font-weight: 700;
+        width: 32px;
+        line-height: 16px;
+        float: right;
+        margin-right: 25px;
+    }
+
+    .sentinelpanel .scycle {
+        width: 13px;
+        margin-left: 0;
+        float: right;
+        margin-right: 8px;
+        margin-top: 2px;
+    }
+
+    .sentinelpanel h2 {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .sentinelpanel h3 span {
+        font-weight: 700;
+    }
+
+    .sentinelpanel h3 {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 12px;
+        margin-left: 0;
+        display: inline-block;
+        vertical-align: middle;
+        margin-bottom: 0px;
+    }
+
+        .sentinelpanel h3 img {
+            margin-right: 1px;
+            width: 12px;
+        }
+
+    .scoredate {
+        margin-left: 0;
+        width: 155px;
+        text-align: right;
+        float: right;
+        margin-right: 25px;
+        line-height: 0;
+    }
+
+    .sentinel-accordation .card-body {
+        padding: 25px 0px 5px 0px;
+        border-top: 3px solid #EF1A26;
+    }
+
+    .sentineloff-accordation .card-body {
+        padding: 20px 0px 20px 0px;
+    }
+
+    .sentinel-portinformation .topinfo {
+        padding: 0px 20px 0px 20px;
+        border-bottom: 0;
+    }
+
+        .sentinel-portinformation .topinfo h1 {
+            margin-right: 12px;
+            max-width: 150px;
+            vertical-align: top;
+        }
+
+    .sentinel-portinformation .groupingportinfo {
+        margin-left: 0;
+        margin-top: 15px;
+    }
+
+    .sentinel-portinformation .ptitle {
+        font-weight: 400;
+        font-size: 14px;
+        position: relative;
+        top: -1px;
+    }
+
+    .sentinel-portinformation .pvalue {
+        font-weight: 600;
+        font-size: 12px;
+        margin-left: 3px;
+    }
+
+    .sentinel-portinformation .ptitle {
+        margin-left: 0;
+    }
+
+    .sentinel-portinformation .float-right {
+        float: left !important;
+        padding-top: 15px;
+        border-top: 1px solid #dddddd;
+        margin-top: 18px;
+        width: 100%;
+        border-bottom: 0;
+        padding-bottom: 15px;
+    }
+
+    .portguide a {
+        font-size: 14px;
+    }
+
+        .portguide a img {
+            margin-right: 8px;
+            height: 17px;
+        }
+
+        .portguide a:last-child img {
+            margin-right: 0px;
+            margin-left: 11px;
+            vertical-align: text-top;
+            width: 14px;
+            position: relative;
+            top: 1px;
+        }
+
+    .sentinel-portinformation .groupingportinfo div.residual {
+        margin-left: 30px;
+        margin-bottom: 10px;
+    }
+
+    .sentinel-portinformation .groupingportinfo div.current {
+        margin-bottom: 10px;
+    }
+
+    .sentinel-portinformation {
+        padding-bottom: 0;
+        border-bottom: 1px solid #020202;
+        margin-bottom: 20px;
+    }
+
+    .scorecombinediv {
+        padding: 0px 25px;
+    }
+
+        .scorecombinediv textarea {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+    .portguide a:last-child {
+        margin-left: 0;
+        float: right;
+        margin-right: 0;
+    }
+
+    .sentinel-portinformation .topinfo .portmax-width {
+        width: auto;
+        max-width: inherit;
+    }
+
+    .tablesinfo .lefttabledetails {
+        float: none;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .sentinel-table-design .table.table-striped tbody tr:nth-of-type(odd) {
+        background: #F7F7F7;
+        border: 0;
+    }
+
+    .sentinel-table-design .table.table-striped tbody tr {
+        border: 0;
+        box-shadow: none;
+        margin: 0px;
+        position: relative;
+    }
+
+    .sentinel-table-design .table tbody td {
+        border-bottom: 0px solid #020202;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 16px;
+        padding: 9px 22px 10px 25px;
+    }
+
+    .sentinel-table-design .table.actionable tbody td,
+    .sentinel-table-design .table.indicatorsmobile tbody td {
+        width: 100%;
+    }
+
+        .sentinel-table-design .table.actionable tbody td:last-child {
+            padding: 0px;
+        }
+
+            .sentinel-table-design .table.actionable tbody td:last-child img {
+                position: absolute;
+                top: 10px;
+                margin-right: 22px;
+                right: 0;
+                width: 14px;
+            }
+
+        .sentinel-table-design .table.actionable tbody td:last-child {
+            position: absolute;
+            top: 0;
+            margin-right: 0;
+            right: 0;
+        }
+
+        .sentinel-table-design .table.actionable tbody td:nth-of-type(2) {
+            padding-top: 0px;
+        }
+
+        .sentinel-table-design .table.actionable tbody td:first-child {
+            padding-right: 35px;
+        }
+
+    .mobilehead {
+        display: inline-block;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        color: #707070;
+        margin-right: 5px;
+    }
+
+    .sentinel-table-design .table.actionable tbody td:nth-of-type(2),
+    .sentinel-table-design .table.indicatorsmobile tbody td:nth-of-type(2),
+    .sentinel-table-design .table.indicatorsmobile tbody td:nth-of-type(3),
+    .sentinel-table-design .table.indicatorsmobile tbody td:nth-of-type(4) {
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .sentinel-table-design #dtoverridename tbody td:nth-child(2) {
+        text-align: right;
+        padding-left: 25px;
+        padding-right: 0;
+    }
+
+    .sentinel-table-design .actionable tbody td:nth-child(2) {
+        padding-left: 25px;
+    }
+
+    .sentinel-table-design .table.indicatorsmobile tbody td:nth-of-type(2),
+    .sentinel-table-design .table.indicatorsmobile tbody td:nth-of-type(3),
+    .sentinel-table-design .table.indicatorsmobile tbody td:nth-of-type(4) {
+        width: auto;
+        float: left;
+        padding: 0;
+        margin-left: 25px;
+        padding-bottom: 10px;
+        padding-right: 0 !important;
+    }
+
+    .sentinel-table-design .table.indicatorsmobile tbody td:nth-of-type(2) {
+        width: 65px;
+    }
+
+    .sentinel-table-design .table.indicatorsmobile tbody td:nth-of-type(1) span {
+        width: 90%;
+        display: inline-block;
+        max-width: inherit;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: inherit;
+    }
+
+    .sentinel-table-design .table.indicatorsmobile tbody td:nth-of-type(1) img {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .sentinel-table-design h1 {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 18px;
+        color: #000000;
+        padding: 10px 21px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.7);
+        margin: 0px;
+    }
+
+        .sentinel-table-design h1.actionoverride {
+            border-top: 1px solid #dddddd;
+        }
+
+            .sentinel-table-design h1.actionoverride img {
+                margin-right: 10px;
+            }
+
+    .tablesinfo .righttabledetails {
+        float: none;
+        width: 100%;
+    }
+
+    .app-main__inner.sentinelpadmobile {
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+
+    .offc-head h1 {
+        font-weight: 600;
+        font-size: 20px;
+    }
+
+    .offc-head {
+        margin-bottom: 12px;
+    }
+
+    sentinel-accordation.sentineloff-accordation .card-header {
+        padding: 15px 20px;
+    }
+
+    .sentinel-accordation.sentineloff-accordation .card-header .btn-link:after {
+        top: 0;
+        width: 15px;
+        height: 9px;
+    }
+
+    .sentinelpanel.offcpanel {
+        width: 100%;
+    }
+
+    .offcpanel .soverride {
+        margin-left: 0;
+        width: 18px;
+        float: right;
+        margin-right: 33px;
+    }
+
+    .offcpanel.sentinelpanel h1 {
+        font-weight: 700;
+        font-size: 16px;
+        width: 220px;
+        max-width: 220px;
+        top: 0;
+        line-height: 18px;
+    }
+
+    .sentinel-accordation.sentineloff-accordation .card-header .btn-link {
+        right: 20px;
+        top: 13px;
+    }
+
+    .offcpanel .totalvessel {
+        margin-left: 0px;
+        width: auto;
+        margin: 15px 0px;
+        display: block;
+    }
+
+        .offcpanel .totalvessel img {
+            width: 22px;
+            margin-right: 0;
+        }
+
+    offcpanel .redscore {
+        margin-left: 0;
+    }
+
+    .offcpanel .totalvessel span,
+    .offcpanel .redscore span,
+    .offcpanel .orangescore span,
+    .offcpanel .greenscore span,
+    .offcpanel .greyscore span {
+        width: auto;
+    }
+
+    .offcpanel .redscore {
+        margin-left: 0px;
+    }
+
+    .offcpanel .orangescore,
+    .offcpanel .greenscore,
+    .offcpanel .greyscore {
+        margin-left: 25px;
+    }
+
+        .offcpanel .orangescore img,
+        .offcpanel .greenscore img,
+        .offcpanel .greyscore img,
+        .offcpanel .redscore img {
+            width: 19px;
+        }
+
+    .office-info .topinfo {
+        padding: 0px 20px 10px 20px;
+        border-bottom: 1px solid #8D8D8D;
+    }
+
+    .office-info {
+        padding: 0px 15px;
+    }
+
+        .office-info .topinfo h1 {
+            font-size: 13px;
+        }
+
+    .inc-dec-info {
+        padding: 20px 20px 20px 20px;
+    }
+
+        .inc-dec-info .firstsection {
+            margin-right: 0;
+        }
+
+        .inc-dec-info .scorebar span {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 19px;
+        }
+
+        .inc-dec-info .scorebar {
+            margin-bottom: 10px;
+        }
+
+    .vesselscore .listvessel {
+        margin-right: 40px;
+    }
+
+    .vesselscore .snumbervessel span {
+        font-size: 16px;
+        line-height: 23px;
+        margin-right: 0px;
+        margin-left: 4px;
+    }
+
+    .vesselscore .snumber {
+        margin-bottom: 8px;
+    }
+
+    .vesselscore .listvessel img {
+        width: 23px;
+        float: left;
+    }
+
+    .inc-dec-info .firstsection {
+        margin-bottom: 30px;
+    }
+
+    .action-overridediv {
+        padding: 10px 0px 0px 0px;
+    }
+
+        .action-overridediv h1 {
+            font-size: 13px;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+
+    .actionlist {
+        padding: 13px 10px 13px 17px;
+    }
+
+        .actionlist img {
+            float: left;
+        }
+
+        .actionlist .firstcol {
+            max-width: 185px;
+            width: 185px;
+            margin-right: 50px;
+        }
+
+        .actionlist .vsno {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            width: 32px;
+            margin-right: 0;
+            margin-left: 8px;
+            text-align: left;
+        }
+
+    .office-info .topinfo a:last-child {
+        margin-left: 14px;
+    }
+
+    .actionlist h2 {
+        font-size: 13px;
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
+
+    .actionlist .breadcrums {
+        font-weight: 600;
+        font-size: 12px;
+        color: #666666;
+    }
+
+    .actionsbtn {
+        text-align: left;
+        margin-top: 0px;
+        margin-bottom: 15px;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .btn-filters {
+        position: absolute;
+        top: -63px;
+        right: 0;
+    }
+
+    .searchtext input,
+    .searchtext input:focus,
+    .searchtext input:active:focus {
+        width: 100%;
+    }
+
+    .sortsearch .checkbox-design-table .custom-control-label {
+        line-height: 20px;
+        padding-left: 0px;
+        font-size: 14px;
+    }
+
+    .searchtext {
+        margin-top: 15px;
+    }
+
+    .fleetlisting .searchtext {
+        margin-top: 15px;
+    }
+
+    .sortsearch .checkbox-design-table .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+        top: 3px;
+    }
+
+    .sortsearch .checkbox-design-table {
+        top: 2px;
+        margin-left: 0;
+        width: 58%;
+    }
+
+        .sortsearch .checkbox-design-table .custom-checkbox {
+            padding-left: 19px;
+        }
+
+    .list-total-box {
+        background: #ffffff;
+        border: 0px solid #15ACA2;
+        border-radius: 8px;
+        padding: 15px 20px;
+    }
+
+    .leftlist span {
+        font-size: 16px;
+        line-height: 26px;
+        color: #000000;
+    }
+
+    .leftlist h6 {
+        font-weight: 400;
+        font-size: 13px;
+    }
+
+    .voffc {
+        width: 21px;
+    }
+
+    .scorelist div img {
+        width: 19px;
+        margin-right: 5px;
+    }
+
+    .scorelist span {
+        align-items: start;
+        margin-right: 25px;
+        font-weight: 600;
+    }
+
+    .vstemplate {
+        padding: 20px 20px 60px 20px;
+        position: relative;
+    }
+
+    .sentinel-filter .theme-settings__inner {
+        width: 340px;
+        height: auto !important;
+        padding-bottom: 0;
+    }
+
+    .sentinel-filter .nav-pills .nav-link {
+        padding-left: 15px;
+        padding-right: 0;
+    }
+
+    .sentinel-filter .filterpanel {
+        padding: 20px 20px;
+    }
+
+    .sentinel-filter .close-search-panel {
+        right: 22px;
+    }
+
+    .vstemplate .panelicon-width img {
+        width: 25px;
+    }
+
+    .vstemplate .vesselintro {
+        margin-right: 0;
+        width: 75%;
+    }
+
+    .vstemplate .s-scorenumber {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 12px;
+        top: 46%;
+        margin: 0;
+    }
+
+    .vstemplate .panelicon-width {
+        margin-right: 9px;
+    }
+
+    .vstemplate .vesselintro span {
+        font-size: 11px;
+        line-height: 14px;
+        width: auto;
+        display: none;
+    }
+
+    .vstemplate .scycle {
+        width: 16px;
+        display: block;
+        vertical-align: middle;
+        position: absolute;
+        top: 27px;
+        right: 20px;
+    }
+
+    .vstemplate .vesselintro h1 {
+        font-weight: 700;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .vesselflow {
+        margin-right: 0;
+        margin-left: 0;
+        display: block;
+        vertical-align: middle;
+        width: 19px;
+        margin-top: 18px;
+        margin-bottom: 8px;
+    }
+
+    .vstemplate .scoresoverdue {
+        width: auto;
+        margin-left: 0;
+        position: absolute;
+        width: 315px;
+        right: 21px;
+        bottom: 11px;
+        /* left: 0; */
+        text-align: right;
+    }
+
+    .scoresoverdue h2 {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        display: inline-block;
+    }
+
+    .scoresoverdue img {
+        margin-right: 2px;
+        width: 15px;
+    }
+
+    .scoresoverdue .scorevessel {
+        font-size: 12px;
+        margin-right: 3px;
+    }
+
+    .scoresoverdue .overallscore {
+        top: 0px;
+        margin-right: 1px;
+    }
+
+    .listtimeline {
+        width: 100%;
+        margin-top: 12px;
+    }
+
+        .listtimeline .sv-timeline span {
+            margin-left: 0;
+            width: auto;
+            position: absolute;
+            left: 50%;
+            transform: translate(37%,0);
+            margin-top: -34px;
+        }
+
+        .listtimeline .s-portinfo .s-fromport,
+        .listtimeline .s-portinfo .s-toport {
+            display: none;
+        }
+
+        .listtimeline .s-portinfo.s-mobileportinfo .s-fromport,
+        .listtimeline .s-portinfo.s-mobileportinfo .s-toport {
+            display: block;
+            width: auto;
+        }
+
+        .listtimeline .s-portinfo {
+            width: 100%;
+            text-align: left;
+        }
+
+            .listtimeline .s-portinfo:last-child span {
+                font-size: 12px;
+            }
+
+        .listtimeline .sv-timeline {
+            width: 100%;
+        }
+
+    .s-portinfo {
+        margin-top: 0;
+    }
+
+    .detailsheader .rightdetails .s-portinfo {
+        margin-top: 10px;
+    }
+
+    .fleettabs .nav-tabs .nav-link.active {
+        color: #1C606B !important;
+        font-weight: 700;
+        padding: 11px 30px;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 2px solid #15ACA2;
+        border-top-right-radius: 0px;
+        background: #EDFBFA;
+        border-top-left-radius: 8px;
+    }
+
+        .fleettabs .nav-tabs .nav-link.active:before {
+            display: none;
+        }
+
+    .fleettabs .nav-tabs .nav-item:last-child .nav-link.active {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 8px;
+    }
+
+    .fleettabs .nav-tabs .nav-link {
+        padding: 11px 30px;
+    }
+
+    .fleettabs .nav-tabs .nav-item {
+        margin-right: 0px;
+        margin-bottom: 0px;
+        width: 50%;
+    }
+
+        .fleettabs .nav-tabs .nav-item:last-child {
+            margin-right: 0px;
+        }
+
+    .fleettabs .nav-tabs {
+        border-bottom: 1px solid #15ACA2;
+    }
+
+    .fleettabs .tab-pane .list-total-box {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+
+    .fleetvsdate {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        color: #000000;
+        margin-left: 8px;
+        display: inline-block;
+        vertical-align: middle;
+        position: absolute;
+        margin-top: -23px;
+        margin-left: 31px;
+    }
+
+    .sortdrop .dropdown-menu {
+        margin-top: 48px !important;
+        position: absolute !important;
+        width: 235px !important;
+        min-width: 235px !important;
+        top: 0px !important;
+        transform: none !important;
+        left: -1px !important;
+    }
+
+    .fleettabs #divLoadMore {
+        margin-bottom: 20px;
+    }
+
+    .sentinel-filter .tab-content {
+        padding: 30px 20px 30px 20px;
+    }
+
+    .sentinel-filter .search-section-bottom {
+        padding-bottom: 20px;
+        bottom: 0;
+        position: relative;
+        max-width: 67%;
+        width: auto;
+        margin-left: auto;
+    }
+
+    .sentinel-filter .common-form-design .search-section-bottom .clear-btn {
+        font-size: 14px;
+        padding: 5px 15px;
+    }
+
+    .sentinel-filter .common-form-design .search-btn {
+        font-size: 14px;
+        padding: 5px 16px;
+    }
+
+    .sentinel-filter .fancytree-exp-c span.fancytree-expander, .sentinel-filter .fancytree-exp-cl span.fancytree-expander {
+        margin-top: -5px !important;
+    }
+
+    .sentinel-accordation .sentinel-portinformation .topinfo .btn-link:after {
+        right: 2px;
+        top: 7px;
+        background-image: url(../images/sentinelimages/s-collapsearrowmobile.svg);
+        width: 10px;
+        height: 6px;
+    }
+
+    .sentinel-accordation .sentinel-portinformation .topinfo .btn-link:not(.collapsed):after {
+        right: 1px;
+        top: 6px;
+        background-image: url(../images/sentinelimages/s-collapsearrowmobile.svg);
+        width: 10px;
+        height: 6px;
+    }
+
+    .sentinel-portinformation .topinfo .portmax-width .ptitle {
+        width: auto;
+        position: relative;
+        top: 3px;
+        vertical-align: top;
+    }
+
+    .sentinel-portinformation .topinfo .porticon {
+        vertical-align: top;
+        margin-top: 3px;
+    }
+
+    .no-items-vs {
+        position: relative;
+        top: -11px;
+    }
+}
+
+@media only screen and (max-width:371px) {
+    .actionlist .firstcol {
+        margin-right: 30px;
+    }
+}

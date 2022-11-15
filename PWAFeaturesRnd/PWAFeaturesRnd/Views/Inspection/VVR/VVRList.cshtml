@@ -1,0 +1,387 @@
+﻿@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+    {
+    Vessel Visit Report List
+}
+
+@section ContentSection
+{
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding new-background common-border-radius mobile-tab-bottom-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="margin-left-35">
+                        <div class="">
+                            <a class="common-heading-green" href="javscript:void(0)">ADAFERA - 2363</a>
+                        </div>
+                        <div class="common-sub-heading-black">
+                            Vessel Visit Report
+                        </div>
+                    </div>
+                    <div class="page-title-actions mobile-padding-0">
+                        <button class="btn btn-vvr openvvr" id="divPopup" data-toggle="modal" data-target="#modalInspectionVesselVisit">
+                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="11" cy="11" r="10.25" stroke="#ffffff" stroke-width="1.5" />
+                                <path d="M10.353 5.5V10.353H5.5V11.647H10.353V16.5H11.647V11.647H16.5V10.353H11.647V5.5H10.353Z" fill="#ffffff" stroke="#ffffff" stroke-width="0.25" />
+                            </svg>
+                            <span class="align-middle" style="line-height:0px;"> Add Inspection</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-pane">
+                <div class="vvrlist open-sans-font">
+                    <div class="vvrcolumns">
+                        <div class="common-custom-card">
+                            <div class="vheader">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <img src="~/images/vvr/vvessel.svg" />
+                                        <h1>CSL Elbe</h1>
+                                    </div>
+                                    <div class="float-right">
+                                        <span class="vstatus vstatus-amber">Open</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="findetails">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <div class="fhead">When</div>
+                                        <div class="fvalue">02 Sep 2022</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">Where</div>
+                                        <div class="fvalue">Mumbai</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="totalfindings">
+                                <h2>Findings</h2>
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <div class="fhead">Total</div>
+                                        <div class="fvalue vblack">3</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">open</div>
+                                        <div class="fvalue vred">2</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">cleared</div>
+                                        <div class="fvalue vgreen">1</div>
+                                    </div>
+                                    <div class="float-right">
+                                        <img src="~/images/vvr/vadd.svg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="~/images/vvr/vcomment.svg" class="d-inline-block vcomments" />
+                                <img src="~/images/vvr/vdoc.svg" class="d-inline-block" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="vvrcolumns">
+                        <div class="common-custom-card">
+                            <div class="vheader">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <img src="~/images/vvr/vvessel.svg" />
+                                        <h1>CSL Elbe</h1>
+                                    </div>
+                                    <div class="float-right">
+                                        <span class="vstatus vstatus-green">Cleared</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="findetails">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <div class="fhead">When</div>
+                                        <div class="fvalue">02 Sep 2022</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">Where</div>
+                                        <div class="fvalue">Mumbai</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="totalfindings">
+                                <h2>Findings</h2>
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <div class="fhead">Total</div>
+                                        <div class="fvalue vblack">3</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">open</div>
+                                        <div class="fvalue vred">2</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">cleared</div>
+                                        <div class="fvalue vgreen">1</div>
+                                    </div>
+                                    <div class="float-right">
+                                        <img src="~/images/vvr/vadd.svg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="~/images/vvr/vcomment.svg" class="d-inline-block vcomments" />
+                                <img src="~/images/vvr/vdoc.svg" class="d-inline-block" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="vvrcolumns">
+                        <div class="common-custom-card">
+                            <div class="vheader">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <img src="~/images/vvr/vvessel.svg" />
+                                        <h1>CSL Elbe</h1>
+                                    </div>
+                                    <div class="float-right">
+                                        <span class="vstatus vstatus-amber">Open</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="findetails">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <div class="fhead">When</div>
+                                        <div class="fvalue">02 Sep 2022</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">Where</div>
+                                        <div class="fvalue">Mumbai</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="totalfindings">
+                                <h2>Findings</h2>
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <div class="fhead">Total</div>
+                                        <div class="fvalue vblack">3</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">open</div>
+                                        <div class="fvalue vred">2</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">cleared</div>
+                                        <div class="fvalue vgreen">1</div>
+                                    </div>
+                                    <div class="float-right">
+                                        <img src="~/images/vvr/vadd.svg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="~/images/vvr/vcomment.svg" class="d-inline-block vcomments" />
+                                <img src="~/images/vvr/vdoc.svg" class="d-inline-block" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="vvrcolumns">
+                        <div class="common-custom-card">
+                            <div class="vheader">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <img src="~/images/vvr/vvessel.svg" />
+                                        <h1>CSL Elbe</h1>
+                                    </div>
+                                    <div class="float-right">
+                                        <span class="vstatus vstatus-amber">Open</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="findetails">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <div class="fhead">When</div>
+                                        <div class="fvalue">02 Sep 2022</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">Where</div>
+                                        <div class="fvalue">Mumbai</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="totalfindings">
+                                <h2>Findings</h2>
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <div class="fhead">Total</div>
+                                        <div class="fvalue vblack">3</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">open</div>
+                                        <div class="fvalue vred">2</div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="fhead">cleared</div>
+                                        <div class="fvalue vgreen">1</div>
+                                    </div>
+                                    <div class="float-right">
+                                        <img src="~/images/vvr/vadd.svg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="~/images/vvr/vcomment.svg" class="d-inline-block vcomments" />
+                                <img src="~/images/vvr/vdoc.svg" class="d-inline-block" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section Modal
+{
+    <partial name="VVR/addInspectionModal" />
+    <div class="modal fade p-0 vvrmodal" id="modalfindingslist" role="dialog" aria-labelledby="modalfindingslist" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:820px;box-shadow: none;">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding">
+                    <div class="col-md-11 pl-0">
+                        <div class="common-sub-heading-black">
+                            Add Finding
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background padding-20 open-sans-font">
+                    <div class="common-custom-card common-form-design background-padding">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>Inspection Details</span>
+                            </div>
+                        </div>
+                        <div class="clearfix vvrmargin">
+                            <div class="float-left mr-common">
+                                <div class="dashboard-counters-label mr-0">
+                                    Vessel
+                                </div>
+                                <div class="dashboard-counters">
+                                    <span id="">ADELANTE</span>
+                                </div>
+                            </div>
+                            <div class="float-left mr-common">
+                                <div class="dashboard-counters-label mr-0">
+                                    Vessel Ref. No.
+                                </div>
+                                <div class="dashboard-counters">
+                                    <span id="">022/0051</span>
+                                </div>
+                            </div>
+                            <div class="float-left mr-common">
+                                <div class="dashboard-counters-label mr-0">
+                                    Chapter/Insp Ref. No.
+                                </div>
+                                <div class="dashboard-counters">
+                                    <span id="">007</span>
+                                </div>
+                            </div>
+                            <div class="float-left wp-mobile-100">
+                                <div class="dashboard-counters-label mr-0">
+                                    Issue Date
+                                </div>
+                                <div class="dashboard-counters">
+                                    <span id="">29 Aug 2022</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="common-custom-card common-form-design background-padding mb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>Finding Details</span>
+                            </div>
+                        </div>
+                        <div class="vesseldiv">
+                            <div class="row no-gutters mx-auto">
+                                <div class="col-xl-6 p-0">
+                                    <label>Type of Item<span class="formreq">*</span></label>
+                                    <div class="form-group mb-0 vesselmargin">
+                                        <select id="" class="form-control form-select form-control-sm">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 p-0 dateicon ">
+                                    <label>Due Date<span class="formreq">*</span></label>
+                                    <div class="form-group mb-0">
+                                        <input type="text" class="form-control" id="" placeholder="Enter Due Date">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="row no-gutters mx-auto">
+                                <div class="col-xl-12 p-0">
+                                    <label>Description<span class="formreq">*</span></label>
+                                    <div class="form-group">
+                                        <textarea id="" rows="5" class="form-control form-select" placeholder="Enter Description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="row no-gutters mx-auto">
+                                <div class="col-xl-6 p-0">
+                                    <label>Correction Action Assign To<span class="formreq">*</span></label>
+                                    <div class="form-group mb-0 vesselmargin">
+                                        <select id="" class="form-control form-select">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer common-form-design">
+                    <button class="btn btn-cancelsecondarybtn vvrbtn" data-dismiss="modal" id="">Cancel</button>
+                    <button class="btn btn search-btn" id="btnSaveVVR">Save</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/vvrList.bundle.js"></script>
+}
+

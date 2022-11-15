@@ -1,0 +1,219 @@
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration configuration
+
+@{
+	Layout = "~/Views/Shared/basePages.cshtml";
+}
+
+@section Title
+{
+	Register
+}
+
+@section ContentSection
+{
+	<div class="app-container">
+		<div class="h-100">
+			<div class="h-100 no-gutters row">
+				@*<div class="d-lg-flex d-none col-lg-5">
+						<div class="slider-light">
+							<div class="slick-slider slick-initialized">
+								<div>
+									<div class="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
+										<div class="slide-img-bg" style="background-image: url('/assets/images/originals/citynights.jpg');"></div>
+										<div class="slider-content">
+											<h3>Scalable, Modular, Consistent</h3>
+											<p>Easily exclude the components you don't require. Lightweight, consistent Bootstrap based styles across all elements and components</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>*@
+				<div class="d-none d-lg-block col-lg-4">
+					<div class="slider-light">
+						<div class="slick-slider">
+							<div>
+								<div class="position-relative h-100 d-flex justify-content-center align-items-center bg-plum-plate" tabindex="-1">
+									<div class="slide-img-bg" style="background-image: url('/assets/images/originals/city.jpg');"></div>
+									<div class="slider-content">
+										<h3>Perfect Balance</h3>
+										<p>ArchitectUI is like a dream. Some think it's too good to be true! Extensive collection of unified React Boostrap Components and Elements.</p>
+									</div>
+								</div>
+							</div>
+							<div>
+								<div class="h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
+									<div class="position-relative slide-img-bg" style="background-image: url('/assets/images/originals/citynights.jpg');"></div>
+									<div class="slider-content">
+										<h3>Scalable, Modular, Consistent</h3>
+										<p>Easily exclude the components you don't require. Lightweight, consistent Bootstrap based styles across all elements and components</p>
+									</div>
+								</div>
+							</div>
+							<div>
+								<div class="position-relative h-100 d-flex justify-content-center align-items-center bg-sunny-morning" tabindex="-1">
+									<div class="slide-img-bg opacity-6" style="background-image: url('/assets/images/originals/citydark.jpg');"></div>
+									<div class="slider-content">
+										<h3>Complex, but lightweight</h3>
+										<p>We've included a lot of components that cover almost all use cases for any type of application.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 col-lg-7">
+					<div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
+						@*<div class="app-logo"></div>*@
+						<img src="~/images/icons/vg_logo_new.png" />
+						<h4>
+							<span>It only takes a <span class="text-success">few seconds</span> to create your account</span>
+						</h4>
+						<div>
+							<form asp-controller="Login" asp-action="Index">
+								<div class="form-row">
+									<div class="col-md-6">
+										<div class="position-relative form-group">
+											<label for="ForeName" class=""><span class="text-danger">*</span> ForeName</label>
+											<input name="forename" id="txtForeName" type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="position-relative form-group">
+											<label for="SurName" class=""><span class="text-danger">*</span> SurName</label>
+											<input name="surname" id="txtSoreName" type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="position-relative form-group">
+											<label for="Organization" class="">Organization</label>
+											<input name="Organization" id="txtOrganization" type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="position-relative form-group">
+											<label for="Email" class=""><span class="text-danger">*</span> Email</label>
+											<input name="email" id="txtEmail" type="text" class="form-control">
+										</div>
+									</div>
+									@*<div class="col-md-6">
+											<div class="position-relative form-group">
+												<label for="ConfirmEmail" class=""><span class="text-danger">*</span> Confirm Email</label>
+												<input name="ConfirmEmail" id="txtConfirmEmail" type="text" class="form-control">
+											</div>
+										</div>*@
+									<div class="col-md-6">
+										<div class="position-relative form-group">
+											<label for="Password" class=""><span class="text-danger">*</span> Password</label>
+											<input name="password" id="txtPassword" type="password" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="position-relative form-group">
+											<label for="ConfirmPassword" class=""><span class="text-danger">*</span> Confirm Password</label>
+											<input name="ConfirmPassword" id="txtConfirmPassword" type="password" class="form-control">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="position-relative form-group">
+											<div class="g-recaptcha" data-sitekey="@(configuration["ReCaptcha:SiteKey"])"></div>
+										</div>
+									</div>
+								</div>
+								<div class="mt-3 position-relative form-check">
+									<input name="check" id="exampleCheck" type="checkbox" class="form-check-input"><label for="exampleCheck" class="form-check-label">
+										I agree to the <a href="#" data-toggle="modal" data-target="#modTandC">
+											Terms and Conditions</a>.
+									</label>
+								</div>
+								<div class="mt-4 d-flex align-items-center">
+									<h5 class="mb-0">Already have an account? <a href="/Login" class="text-primary">Sign in</a></h5>
+									<div class="ml-auto">
+										<button class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Create Account</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section Modal
+{
+
+	<div class="modal fade" id="modTandC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h4>
+						<span style="text-transform: uppercase;">
+							You must read and review the following terms of use and disclaimer carefully before using this web site
+						</span> (the &#8220;Site&#8221;).
+					</h4>
+					<p>
+						These terms of use, along with the Privacy Policy, govern your use of the Site. By accessing, browsing, or using this Site, you acknowledge that you have read, understand, and agree to be bound by these terms and the terms of the Privacy Policy. If you do not agree to these terms, or the terms of the Privacy Policy, then please do not use this Site. V.Group (&#8220;The Company&#8221;) reserves the right, at any time, to modify, alter, or update these terms of use and the Privacy Policy, and you agree to be bound by such modifications, alterations or updates.
+					</p>
+					<h3>
+						Copyright and Trademarks
+					</h3>
+					<p>
+						The material displayed on this Site including all Site design, images, illustrations, designs, photographs, writings, text, graphics, interfaces and other materials, and the selection and arrangements thereof that appear herein are copyrighted and owned, controlled or licensed by the Company. Permission to reproduce photographs from this Site may be granted. Direct such inquiries to:
+						<a href="mailto:media@vgrouplimited.com">media@vgrouplimited.com</a>.
+						<br />
+						All trademarks, service marks, logos and trade names used and displayed on this Site are proprietary to the Company or other respective owners that have granted the Company the right and license to use such marks.<br /> Hypertext linking to this Site and framing of this Site without the prior written permission of the Company is strictly prohibited. Inquiries to obtain permission for such linking should be addressed to V.Group:
+						<a href="mailto:media@vgrouplimited.com">media@vgrouplimited.com</a>.
+					</p>
+					<h3>Use Restrictions</h3>
+					<p>
+						The Company grants you permission to view this Site and to display, copy, distribute, download, and print in hard copy portions of this Site solely for the purposes of using this Site as an information resource, provided you do not modify the Site and that you retain all copyright and other proprietary notices contained in the material contained on this Site. Except in connection with using this Site as an information resource, as stated above, no material on this Site may be copied, reproduced, distributed, republished, downloaded, displayed, posted electronically or mechanically, transmitted, recorded, mirrored, photocopied or reproduced in any manner without the prior written permission of the Company or the applicable copyright owner. Inquiries should be directed to:
+						<a href="mailto:info@vships.com">info@vships.com</a>.
+						<br />
+						Please note that the permission granted herein terminates automatically if you breach any of the terms or conditions of this Agreement. Any other use of the material on this Site including reproduction for purposes other than as noted above, and including any reproduction, modification, distribution, or republication may violate copyright, trademark or other intellectual property laws, and, without the prior written permission of the Company, is strictly prohibited.
+					</p>
+					<h3>Forward-Looking Statements</h3>
+					<p>
+						Certain statements contained or incorporated by reference in this site may be “forward-looking statements” as that term is defined under United States federal securities laws. We caution you to bear in mind that “forward-looking statements” are subject to risks, uncertainties and other factors which could cause actual events to differ materially from those stated in such statements. Such risks, uncertainties and other factors include, but are not limited to, changes in the Company’s plans for growth, the identification of suitable vessels for purchase, the availability of additional financing, the cyclical nature of the shipping industry, competition, general economic conditions and other factors affecting the Company’s business and markets which are detailed in the Company’s filings with the United States Securities and Exchange Commission.
+					</p>
+					<h3>Disclaimer</h3>
+					<p>
+						The information, services, products and materials contained within this site is provided by the company on an “as is” basis and the company, their suppliers, consultants, directors, officers and employees (collectively throughout “the company”) make no representations or warranties of any kind, either express or implied, including, without limitation, warranties or conditions of title or implied warranties of merchantability or fitness for a particular purpose, and non-infringement. The company does not represent or warrant that the information accessible on this site is accurate, complete, or current. In no event shall v.group or any party involved in creating, producing or delivering this site be liable for special, indirect, exemplary, or consequential damages or any damages whatsoever, including but not limited to, loss of use, data, or profits, without regard to the form of any action, including but not limited to contract, negligence, or other tortious actions, all arising out of or in connection with the access to, use, copying, or display of the contents of this site. In an effort to provide our customers with the most current information, the company will, from time to time, make changes in the contents and in the products or services described on this site, therefore any information provided is subject to change without notice. The company disclaims all responsibility or liability for any damages caused by viruses contained at or within the site or within any electronic files sent from the company or from the site.
+					</p>
+					<p>
+						Use of information on this site is at your own risk. Information changes rapidly and although this site is updated on a periodic basis, there could be new information that is not reflected here. The company is not responsible for any injuries or damages arising from the review or use of the information or services on this site. In addition, from time to time, as a courtesy, this site may refer to or provide links to other websites. The company makes no endorsements, promises, representations or warranties of any kind concerning the products, information, services, content or appropriateness of the information on other websites and the user of this site hereby irrevocably waives any claim against the company with respect to any liability or use of this or any other website.
+					</p>
+					<h3>User Comments, Feedback, and Other Submissions Provided By You</h3>
+					<p>
+						You agree that all rights, title and interest in any material and information that you transmit to this Site or otherwise provide to the Company are hereby transferred and assigned to the Company and shall be and remain the Company&#8217;s property. The Company shall be free to use any ideas, concepts, know-how, or techniques contained in such material or information for any purpose whatsoever including, but not limited to, developing, manufacturing, or marketing products incorporating such material or information. In addition, you agree, and are hereby put on notice, that you are prohibited from posting or transmitting to or from this Site any unlawful, threatening, libellous, defamatory, inflammatory, pornographic, or profane material or information or any other material or information that could give rise to any civil or criminal liability under law. You are solely responsible for the content of any comments you make and shall indemnify and hold harmless the Company for any actions arising out of any comments that you make.
+					</p>
+					<h3>External Sites</h3>
+					<p>
+						This Site may include links to other sites on the Internet that are owned and operated by third party vendors and other third parties (the &#8220;External Sites&#8221;). Such links are provided for your reference only. You acknowledge that the Company is not responsible for the availability of, or the content located on or through, any External Site. The Company&#8217;s inclusion of links to an External Site does not imply any endorsement of the material on the External Site or, unless expressly disclosed otherwise, any sponsorship, affiliation or association with its owner, operator or sponsor, nor does the Company&#8217;s inclusion of links to External Sites imply that the Company is authorised to use any trademark, service mark, logo, trade name or any copyrighted symbol that may be reflected in the External Site. You should contact the site administrator or Webmaster for those External Sites if you have any concerns regarding such links or the content located on such External Sites.
+					</p>
+					<h3>Terms of Use Revisions</h3>
+					<p>
+						The Company may revise these terms of use by updating this posting. You agree that in the event any portion of these Site terms of use is found to be unenforceable, the remainder of these Site terms and conditions shall remain in full force and effect. By using this Site you agree to be bound by any such revisions and should therefore periodically visit this portion of the Site to determine the then-current terms of use to which you are bound.
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+}
+
+@section ScriptSection
+{
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+}

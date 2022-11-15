@@ -1,0 +1,987 @@
+﻿@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Requisition
+}
+
+@section ContentSection
+{
+    <div class="app-main__outer fixed-page-header requisition-details">
+        <div class="app-main__inner background-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading">
+                        <div>
+                            Create Requisition
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card content-pane margin-bottom-custom">
+                <div class="card-body">
+                    <div id="smartwizard2" class="forms-wizard-alt">
+                        <ul class="forms-wizard">
+                            <li>
+                                <a href="#step-12">
+                                    <em>1</em><span>Select Details</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-22">
+                                    <em>2</em><span>Select Order Lines</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-32">
+                                    <em>3</em><span>Add Notes</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="form-wizard-content">
+                            <div id="step-12">
+                                <h1>Requisition Details</h1>
+                                <div class="no-gutters">
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="vessel">Vessel</label>
+                                                <select class="multiselect-dropdown form-control">
+                                                    <optgroup label="Options">
+                                                        <option value="3480 - Phonex Beauty">3480 - Phonex Beauty</option>
+                                                        <option value="3485 - Sichem">3485 - Sichem</option>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="">Account Code</label>
+                                                <select class="multiselect-dropdown form-control">
+                                                    <optgroup label="Options">
+                                                        <option value="AO0057 - Oil & Marine Agencies (OMT) To">AO0057 - Oil & Marine Agencies (OMT) To</option>
+                                                        <option value="AO0065 - Marine Agencies (OMT) To">AO0065 - Marine Agencies (OMT) To</option>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="ordertitle">Order Title</label>
+                                                <input name="email" id="" placeholder="" class="form-control" value="Oil & Marine Agencies (OMT) To">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="">Project</label>
+                                                <select class="multiselect-dropdown form-control">
+                                                    <optgroup label="Options">
+                                                        <option value="Winter Work">Winter Work</option>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-6 col-md-3 col-lg-2">
+                                            <div class="position-relative form-group">
+                                                <label for="ordertitle">Priority</label>
+                                                <select name="select" id="exampleSelect" class="form-control">
+                                                    <option value="">Normal</option>
+                                                    <option value="">Low</option>
+                                                    <option value="">Medium</option>
+                                                    <option value="">High</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1>Other Details</h1>
+                                <div class="no-gutters">
+                                    <div class="form-row">
+                                        <div class="col-md-3">
+                                            <div class="position-relative form-group">
+                                                <label for="ordertitle">Order Type</label>
+                                                <select name="select" id="exampleSelect" class="form-control">
+                                                    <option value="">Consumables</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="position-relative form-group">
+                                                <label for="ordertitle">Spare Part Type</label>
+                                                <select name="select" id="exampleSelect" class="form-control">
+                                                    <option value="">OEM - Original Equipment Manufacturer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="position-relative form-group">
+                                                <label for="">Department</label>
+                                                <select name="select" id="exampleSelect" class="form-control">
+                                                    <option value="">Engineering</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="position-relative form-check checkbox-top">
+                                                <input name="check" id="exampleCheck" type="checkbox" class="form-check-input">
+                                                <label for="exampleCheck" class="form-check-label">Hazardous Materials Requested</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <h1>Requested Delivery Details </h1>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-row">
+                                            <div class="col-6 col-md-3 col-lg-2">
+                                                <div class="position-relative form-group">
+                                                    <label for="">Requested Delivery Date</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend datepicker-trigger">
+                                                            <div class="input-group-text">
+                                                                <i class="fa fa-calendar-alt"></i>
+                                                            </div>
+                                                        </div>
+                                                        <input type="text" class="form-control" data-toggle="datepicker-icon" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3 requested-border">
+                                        <div class="position-relative form-check form-check-inline mb-3">
+                                            <label class="form-check-label">
+                                                <input name="radio-position" type="radio" value="1" class="form-check-input">
+                                                Position List
+                                            </label>
+                                        </div>
+                                        <div class="position-relative form-group descrip" id="radio-position2">
+
+                                            <select name="select" id="list" class="form-control" disabled>
+                                                <option value="">List</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-check form-check-inline mb-3">
+                                            <label class="form-check-label">
+                                                <input name="radio-position" type="radio" value="2" class="form-check-input">
+                                                New Port
+                                            </label>
+                                        </div>
+                                        <div class="position-relative form-group descrip" id="radio-position3">
+
+                                            <select name="select" id="port" class="form-control" disabled>
+                                                <option value="">Port 1</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-22">
+                                <div class="no-gutters">
+                                    @*<b class="text-danger">Note :</b> <b>Please choose to add to orderlines either from Vessel Inventory or Catalogue if avaiable.</b><br />*@
+
+                                    <div class="form-row mt-3">
+                                        <div class="col-md-4">
+                                            <div class="position-relative form-group">
+                                                <label for="">Component</label>
+                                                <select class="multiselect-dropdown form-control">
+                                                    <optgroup label="Options">
+                                                        <option value="Main Engine">Main Engine</option>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="position-relative form-group">
+                                                <label for="ordertitle">Part Name</label>
+                                                <input name="" id="" placeholder="" class="form-control" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="position-relative form-group">
+                                                <label for="ordertitle">Maker Reference Number</label>
+                                                <input name="" id="" placeholder="" class="form-control" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="position-relative form-check text-right">
+                                        <button class="btn btn-cancelsecondarybtn no-btn btn-no">Clear</button>
+                                        <button class="mr-2 btn btn-primary">Search</button>
+                                    </div>
+                                </div>
+                                <div class="no-gutters">
+                                    <div class="nav add-nav">
+                                        <a href="javascript:void(0);" class="nav-link active px-0 py-0">
+                                            <i class="nav-link-icon  fa fa-fw" aria-hidden="true" title=""></i> <span class="text-primary">Add To Order Lines</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-6 col-md-6 text-left"><h1 class="mt-2">Spare Parts (3)</h1></div>
+                                                <div class="col-6 col-md-6 text-right">
+                                                    <a href="#" data-toggle="modal" data-target="#orderlist">
+                                                        <span class="badge badge-pill badge-success">2</span>
+                                                        <i class="fa fa-fw shopping" aria-hidden="true" title=""></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-1">
+                                            <b class="text-danger">Note:</b> <b>Search Results reflect top 500 parts, for more specific results please use further filters.</b>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="table-responsive compact-table">
+                                                        <table id="dtorderlines" class="table table-hover table-bordered cardview layout-new row-sm">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-left checkbox-sort">
+                                                                        <div class="position-relative form-check">
+                                                                            <input name="check" id="exampleCheck" type="checkbox" class="form-check-input" style="margin-left: -15px;">
+                                                                            <label for="exampleCheck" class="form-check-label"></label>
+                                                                        </div>
+                                                                    </th>
+                                                                    <th class="text-center">Notes</th>
+                                                                    <th>Component Name</th>
+                                                                    <th class="text-left">Part Name</th>
+                                                                    <th class="text-left">Makers Reference</th>
+                                                                    <th class="text-left">Drawing Position</th>
+                                                                    <th class="text-center">UOM</th>
+                                                                    <th class="text-center">REC</th>
+                                                                    <th class="text-center">ROB</th>
+                                                                    <th class="text-center">REQ</th>
+                                                                    <th class="text-left">Pending Orders</th>
+                                                                    <th class="text-center">QTY</th>
+                                                                    <th class="text-left">Last Purchase Cost (USD)</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="tdblock text-left">
+                                                                        <Label></Label> <div class="position-relative form-check">
+                                                                            <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox" checked>
+                                                                            <label for="exampleCheck" class="form-check-label"></label>
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                    <td class="tdblock"><Label>Component Name</Label><br />Main Engine<a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                                                    <td class="tdblock"><Label>Part Name</Label><br />Compensator <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                                                    <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                                                    <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                                                    <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                                                    <td class="text-center"><Label>REC</Label><br />0</td>
+                                                                    <td class="text-center"><Label>ROB</Label><br />0</td>
+                                                                    <td class="text-center"><Label>REQ</Label><br />1</td>
+                                                                    <td class="text-center"><Label>Pending Orders</Label><br /> <a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                    <td class="">
+                                                                        <Label>QTY</Label><br />
+                                                                        <div class="input-group input-group-sm d-input">
+                                                                            <div class="input-group-prepend">
+                                                                                <span class="input-group-text btn btn-secondary">-</span>
+                                                                            </div>
+                                                                            <input placeholder="" type="text" class="form-control text-center" value="1">
+                                                                            <div class="input-group-append">
+                                                                                <span class="input-group-text btn btn-secondary">+</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="tdblock text-left">
+                                                                        <Label></Label> <div class="position-relative form-check">
+                                                                            <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox" checked>
+                                                                            <label for="exampleCheck" class="form-check-label"></label>
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                    <td><Label>Component Name</Label>Main Engine <a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                                                    <td class=""><Label>Part Name</Label><br />Gasket <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                                                    <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                                                    <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                                                    <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                                                    <td class="text-center"><Label>REC</Label><br />0</td>
+                                                                    <td class="text-center"><Label>ROB</Label><br />0</td>
+                                                                    <td class="text-center"><Label>REQ</Label><br />1</td>
+                                                                    <td class="text-center"><Label>Pending Orders</Label><br /><a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                    <td class="">
+                                                                        <Label>QTY</Label><br />
+                                                                        <div class="input-group input-group-sm d-input">
+                                                                            <div class="input-group-prepend">
+                                                                                <span class="input-group-text btn btn-secondary">-</span>
+                                                                            </div>
+                                                                            <input placeholder="" type="text" class="form-control text-center" value="1">
+                                                                            <div class="input-group-append">
+                                                                                <span class="input-group-text btn btn-secondary">+</span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </td>
+                                                                    <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="tdblock text-left">
+                                                                        <Label></Label> <div class="position-relative form-check">
+                                                                            <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox">
+                                                                            <label for="exampleCheck" class="form-check-label"></label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                    <td><Label>Component Name</Label>Main Engine <a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                                                    <td class=""><Label>Part Name</Label><br />Butterfly Valve <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                                                    <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                                                    <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                                                    <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                                                    <td class="text-center"><Label>REC</Label><br />0</td>
+                                                                    <td class="text-center"><Label>ROB</Label><br />0</td>
+                                                                    <td class="text-center"><Label>REQ</Label><br />1</td>
+                                                                    <td class="text-center"><Label>Pending Orders</Label><br /><a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                    <td class="">
+                                                                        <Label>QTY</Label><br />
+                                                                        <div class="input-group input-group-sm d-input">
+                                                                            <div class="input-group-prepend">
+                                                                                <span class="input-group-text btn btn-secondary">-</span>
+                                                                            </div>
+                                                                            <input placeholder="" type="text" class="form-control text-center" value="1">
+                                                                            <div class="input-group-append">
+                                                                                <span class="input-group-text btn btn-secondary">+</span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </td>
+                                                                    <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="step-32" class="order-details">
+                                <h1>OIL MAJOR VETTING</h1>
+                                <div class="no-gutters row order-detail-tab">
+                                    <div class="page-title-subheading">
+                                        3480 - Phonex Beauty &nbsp; <span class="divider-step3">|</span> &nbsp;<br class="d-none d-block d-sm-none" /><b>Account Code</b> 5610500 &nbsp;-&nbsp;
+                                        Oil & Marine Agencies (OMT)
+                                    </div>
+                                </div>
+
+                                <div class="no-gutters row">
+                                    <div class="col-lg-12">
+                                        <h1>TOTAL NO. OF ITEMS</h1>
+                                        <div class="row d-none d-sm-block">
+                                            <div class="col-lg-12">
+                                                <div class="table-responsive compact-table">
+                                                    <table id="summary" class="table table-hover table-bordered  cardview layout-new row-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-left checkbox-sort">
+                                                                    <div class="position-relative form-check">
+                                                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input" style="margin-left: -15px;">
+                                                                        <label for="exampleCheck" class="form-check-label"></label>
+                                                                    </div>
+                                                                </th>
+                                                                <th class="text-center">Notes</th>
+                                                                <th>Component Name</th>
+                                                                <th class="text-left">Part Name</th>
+                                                                <th class="text-left">Makers Reference</th>
+                                                                <th class="text-left">Drawing Position</th>
+                                                                <th class="text-center">UOM</th>
+                                                                <th class="text-center">REC</th>
+                                                                <th class="text-center">ROB</th>
+                                                                <th class="text-center">REQ</th>
+                                                                <th class="text-left">Pending Orders</th>
+                                                                <th class="text-center">QTY</th>
+                                                                <th class="text-left">Last Purchase Cost (USD)</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="tdblock text-left">
+                                                                    <Label></Label> <div class="position-relative form-check">
+                                                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox" checked>
+                                                                        <label for="exampleCheck" class="form-check-label"></label>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td class="tdblock"><Label>Component Name</Label><br />Main Engine<a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                                                <td class="tdblock"><Label>Part Name</Label><br />Compensator <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                                                <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                                                <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                                                <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                                                <td class="text-center"><Label>REC</Label><br />0</td>
+                                                                <td class="text-center"><Label>ROB</Label><br />0</td>
+                                                                <td class="text-center"><Label>REQ</Label><br />1</td>
+                                                                <td class="text-center"><Label>Pending Orders</Label><br /> <a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td class="">
+                                                                    <Label>QTY</Label><br />
+                                                                    <div class="input-group input-group-sm d-input">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text btn btn-secondary">-</span>
+                                                                        </div>
+                                                                        <input placeholder="" type="text" class="form-control text-center" value="1">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text btn btn-secondary">+</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="tdblock text-left">
+                                                                    <Label></Label> <div class="position-relative form-check">
+                                                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox" checked>
+                                                                        <label for="exampleCheck" class="form-check-label"></label>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td><Label>Component Name</Label>Main Engine <a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                                                <td class=""><Label>Part Name</Label><br />Gasket <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                                                <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                                                <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                                                <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                                                <td class="text-center"><Label>REC</Label><br />0</td>
+                                                                <td class="text-center"><Label>ROB</Label><br />0</td>
+                                                                <td class="text-center"><Label>REQ</Label><br />1</td>
+                                                                <td class="text-center"><Label>Pending Orders</Label><br /><a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td class="">
+                                                                    <Label>QTY</Label><br />
+                                                                    <div class="input-group input-group-sm d-input">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text btn btn-secondary">-</span>
+                                                                        </div>
+                                                                        <input placeholder="" type="text" class="form-control text-center" value="1">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text btn btn-secondary">+</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </td>
+                                                                <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="tdblock text-left">
+                                                                    <Label></Label> <div class="position-relative form-check">
+                                                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox">
+                                                                        <label for="exampleCheck" class="form-check-label"></label>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td><Label>Component Name</Label>Main Engine <a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                                                <td class=""><Label>Part Name</Label><br />Butterfly Valve <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                                                <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                                                <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                                                <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                                                <td class="text-center"><Label>REC</Label><br />0</td>
+                                                                <td class="text-center"><Label>ROB</Label><br />0</td>
+                                                                <td class="text-center"><Label>REQ</Label><br />1</td>
+                                                                <td class="text-center"><Label>Pending Orders</Label><br /><a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td class="">
+                                                                    <Label>QTY</Label><br />
+                                                                    <div class="input-group input-group-sm d-input">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text btn btn-secondary">-</span>
+                                                                        </div>
+                                                                        <input placeholder="" type="text" class="form-control text-center" value="1">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text btn btn-secondary">+</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </td>
+                                                                <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="tdblock text-left">
+                                                                    <Label></Label> <div class="position-relative form-check">
+                                                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox">
+                                                                        <label for="exampleCheck" class="form-check-label"></label>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td><Label>Component Name</Label>Main Engine <a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                                                <td class=""><Label>Part Name</Label><br />Butterfly Valve <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                                                <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                                                <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                                                <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                                                <td class="text-center"><Label>REC</Label><br />0</td>
+                                                                <td class="text-center"><Label>ROB</Label><br />0</td>
+                                                                <td class="text-center"><Label>REQ</Label><br />1</td>
+                                                                <td class="text-center"><Label>Pending Orders</Label><br /><a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td class="">
+                                                                    <Label>QTY</Label><br />
+                                                                    <div class="input-group input-group-sm d-input">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text btn btn-secondary">-</span>
+                                                                        </div>
+                                                                        <input placeholder="" type="text" class="form-control text-center" value="1">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text btn btn-secondary">+</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </td>
+                                                                <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="tdblock text-left">
+                                                                    <Label></Label> <div class="position-relative form-check">
+                                                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox">
+                                                                        <label for="exampleCheck" class="form-check-label"></label>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td><Label>Component Name</Label>Main Engine <a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                                                <td class=""><Label>Part Name</Label><br />Butterfly Valve <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                                                <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                                                <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                                                <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                                                <td class="text-center"><Label>REC</Label><br />0</td>
+                                                                <td class="text-center"><Label>ROB</Label><br />0</td>
+                                                                <td class="text-center"><Label>REQ</Label><br />1</td>
+                                                                <td class="text-center"><Label>Pending Orders</Label><br /><a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td class="">
+                                                                    <Label>QTY</Label><br />
+                                                                    <div class="input-group input-group-sm d-input">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text btn btn-secondary">-</span>
+                                                                        </div>
+                                                                        <input placeholder="" type="text" class="form-control text-center" value="1">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text btn btn-secondary">+</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </td>
+                                                                <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="tdblock text-left">
+                                                                    <Label></Label> <div class="position-relative form-check">
+                                                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox">
+                                                                        <label for="exampleCheck" class="form-check-label"></label>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td><Label>Component Name</Label>Main Engine <a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                                                <td class=""><Label>Part Name</Label><br />Butterfly Valve <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                                                <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                                                <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                                                <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                                                <td class="text-center"><Label>REC</Label><br />0</td>
+                                                                <td class="text-center"><Label>ROB</Label><br />0</td>
+                                                                <td class="text-center"><Label>REQ</Label><br />1</td>
+                                                                <td class="text-center"><Label>Pending Orders</Label><br /><a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                                                <td class="">
+                                                                    <Label>QTY</Label><br />
+                                                                    <div class="input-group input-group-sm d-input">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text btn btn-secondary">-</span>
+                                                                        </div>
+                                                                        <input placeholder="" type="text" class="form-control text-center" value="1">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text btn btn-secondary">+</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </td>
+                                                                <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <a href="#" data-toggle="modal" data-target="#totalitem" class="d-none d-block d-sm-none">
+                                            <span class="badge badge-pill badge-success">2</span>
+                                            <i class="fa fa-fw shopping" aria-hidden="true" title=""></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="position-relative form-group">
+                                            <h1>Notes</h1>
+                                            <textarea name="text" rows="5" id="exampleText" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="clearfix">
+                        <a id="" href="/PurchaseOrder/List" class="btn-shadow float-left btn btn-link">Cancel</a>
+                        @*<button id="btnCloseWindow">Close Window</button>*@
+
+                        <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>
+                        <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary finish" style="display:none;">Finish</button>
+                        <button type="button" id="prev-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Previous</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Modal
+{
+
+    <div class="modal fade cart-popup" id="orderlist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Selected Parts</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body compact-table">
+                    <table id="" class="table table-hover table-bordered modal-table cardview row-sm">
+                        <thead>
+                            <tr>
+                                <th>Component Name</th>
+                                <th class="text-left">Part Name</th>
+                                <th class="text-left">Makers Reference</th>
+                                <th class="text-left">Drawing Position</th>
+                                <th class="text-center">QTY</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="tdblock"><Label>Component Name</Label><br />Main Engine<a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                <td class="tdblock"><Label>Part Name</Label><br />Compensator <i class="fa fa-fw red pull-right mt-1" aria-hidden="true" title=""></i></td>
+                                <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                <td width="150">
+                                    <Label>QTY</Label><br />
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text btn btn-secondary">-</span>
+                                        </div>
+                                        <input placeholder="" type="text" class="form-control text-center" value="1">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text btn btn-secondary">+</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdblock"><Label>Component Name</Label><br />Main Engine<a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                <td class="tdblock"><Label>Part Name</Label><br />Gasket <i class="fa fa-fw red pull-right mt-1" aria-hidden="true" title=""></i></td>
+                                <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                <td width="150">
+                                    <Label>QTY</Label><br />
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text btn btn-secondary">-</span>
+                                        </div>
+                                        <input placeholder="" type="text" class="form-control text-center" value="1">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text btn btn-secondary">+</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer text-right">
+
+                    <a href="#" data-dismiss="modal" class="btn btn-secondary">Update</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade cart-popup" id="totalitem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Selected Parts</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body compact-table">
+                    <table id="" class="table table-hover table-bordered modal-table cardview row-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-left checkbox-sort">
+                                    <div class="position-relative form-check">
+                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input" style="margin-left: -15px;">
+                                        <label for="exampleCheck" class="form-check-label"></label>
+                                    </div>
+                                </th>
+                                <th class="text-center">Notes</th>
+                                <th>Component Name</th>
+                                <th class="text-left">Part Name</th>
+                                <th class="text-left">Makers Reference</th>
+                                <th class="text-left">Drawing Position</th>
+                                <th class="text-center">UOM</th>
+                                <th class="text-center">REC</th>
+                                <th class="text-center">ROB</th>
+                                <th class="text-center">REQ</th>
+                                <th class="text-left">Pending Orders</th>
+                                <th class="text-center">QTY</th>
+                                <th class="text-left">Last Purchase Cost (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="tdblock text-left">
+                                    <div class="position-relative form-check">
+                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox" checked>
+                                        <label for="exampleCheck" class="form-check-label"></label>
+                                    </div>
+                                </td>
+
+                                <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                <td class="tdblock"><Label>Component Name</Label><br />Main Engine<a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                <td class="tdblock"><Label>Part Name</Label><br />Compensator <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                <td class="text-center"><Label>REC</Label><br />0</td>
+                                <td class="text-center"><Label>ROB</Label><br />0</td>
+                                <td class="text-center"><Label>REQ</Label><br />1</td>
+                                <td class="text-center"><Label>Pending Orders</Label><br /> <a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                <td class="">
+                                    <Label>QTY</Label><br />
+                                    <div class="input-group input-group-sm d-input">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text btn btn-secondary">-</span>
+                                        </div>
+                                        <input placeholder="" type="text" class="form-control text-center" value="1">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text btn btn-secondary">+</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                            </tr>
+                            <tr>
+                                <td class="tdblock text-left">
+                                    <div class="position-relative form-check">
+                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox" checked>
+                                        <label for="exampleCheck" class="form-check-label"></label>
+                                    </div>
+                                </td>
+
+                                <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                <td><Label>Component Name</Label>Main Engine <a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                <td class=""><Label>Part Name</Label><br />Gasket <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                <td class="text-center"><Label>REC</Label><br />0</td>
+                                <td class="text-center"><Label>ROB</Label><br />0</td>
+                                <td class="text-center"><Label>REQ</Label><br />1</td>
+                                <td class="text-center"><Label>Pending Orders</Label><br /><a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                <td class="">
+                                    <Label>QTY</Label><br />
+                                    <div class="input-group input-group-sm d-input">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text btn btn-secondary">-</span>
+                                        </div>
+                                        <input placeholder="" type="text" class="form-control text-center" value="1">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text btn btn-secondary">+</span>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                            </tr>
+                            <tr>
+                                <td class="tdblock text-left">
+                                    <div class="position-relative form-check">
+                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input inside-checkbox">
+                                        <label for="exampleCheck" class="form-check-label"></label>
+                                    </div>
+                                </td>
+                                <td class="text-center tdblock"><Label>Notes</Label><br /><a href="#"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                <td><Label>Component Name</Label>Main Engine <a href="#" data-toggle="modal" data-target="#component"><i class="fa fa-fw pull-right mt-1" aria-hidden="true" title=""></i></a></td>
+                                <td class=""><Label>Part Name</Label><br />Butterfly Valve <i class="fa fa-fw red pull-right" aria-hidden="true" title=""></i></td>
+                                <td class=""><Label>Makers Reference</Label><br />98810-0039-085</td>
+                                <td class=""><Label>Drawing Position</Label><br />Yes</td>
+                                <td class="text-center"><Label>UOM</Label><br />PCS</td>
+                                <td class="text-center"><Label>REC</Label><br />0</td>
+                                <td class="text-center"><Label>ROB</Label><br />0</td>
+                                <td class="text-center"><Label>REQ</Label><br />1</td>
+                                <td class="text-center"><Label>Pending Orders</Label><br /><a href="#" data-toggle="modal" data-target="#pendingorders"><i class="fa fa-fw" aria-hidden="true" title=""></i></a></td>
+                                <td class="">
+                                    <Label>QTY</Label><br />
+                                    <div class="input-group input-group-sm d-input">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text btn btn-secondary">-</span>
+                                        </div>
+                                        <input placeholder="" type="text" class="form-control text-center" value="1">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text btn btn-secondary">+</span>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td class="text-center d-none d-sm-block"><Label>Last Purchase Cost (USD)</Label><br />0.00</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer text-right">
+
+                    <a href="#" data-dismiss="modal" class="btn btn-secondary">Update</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="pendingorders" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Pending Orders</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0 compact-table">
+                        <table id="" class="table table-hover table-bordered cardview modal-table row-sm">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Order No.</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">ORD QTY</th>
+                                    <th class="text-center">Expected Delivery Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center"><Label>Order No.</Label><br />00224</td>
+                                    <td class="text-center"><Label>Status</Label><br /><span class="badge badge-pill badge-primary status-req">SW</span></td>
+                                    <td class="text-center"><Label>ORD QTY</Label><br />1</td>
+                                    <td class="text-center"><Label>Expected Delivery Date</Label><br />20 Apr 2020</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center"><Label>Order No.</Label><br />00224</td>
+                                    <td class="text-center"><Label>Status</Label><br /><span class="badge badge-pill badge-primary status-req">SW</span></td>
+                                    <td class="text-center"><Label>ORD QTY</Label><br />1</td>
+                                    <td class="text-center"><Label>Expected Delivery Date</Label><br />20 Apr 2020</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="component" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Main Engine</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0 compact-table">
+                        <table id="" class="table table-hover table-bordered cardview modal-table row-sm">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Maker</th>
+                                    <th class="text-center">Type</th>
+                                    <th class="text-center">Serial</th>
+                                    <th class="text-center">Warranty End Date</th>
+                                    <th class="text-center">Designer</th>
+                                    <th class="text-center">Critical Component</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center"><Label>Maker</Label><br />MAN B&W</td>
+                                    <td class="text-center"><Label>Type</Label><br />7G80ME</td>
+                                    <td class="text-center"><Label>Serial</Label><br />AA283</td>
+                                    <td class="text-center"><Label>Warranty End Date</Label><br />20 Apr 2021</td>
+                                    <td class="text-center"><Label>Designer</Label><br />Yes</td>
+                                    <td class="text-center"><Label>Critical Component</Label><br />Yes</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center"><Label>Maker</Label><br />MAN B&W</td>
+                                    <td class="text-center"><Label>Type</Label><br />7G80ME</td>
+                                    <td class="text-center"><Label>Serial</Label><br />AA283</td>
+                                    <td class="text-center"><Label>Warranty End Date</Label><br />20 Apr 2021</td>
+                                    <td class="text-center"><Label>Designer</Label><br />Yes</td>
+                                    <td class="text-center"><Label>Critical Component</Label><br />Yes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/orderLinesList.bundle.js"></script>
+}

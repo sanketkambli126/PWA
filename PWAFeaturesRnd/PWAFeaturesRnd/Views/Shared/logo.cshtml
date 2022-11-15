@@ -1,0 +1,79 @@
+<div class="app-header__logo">
+    <a href="/Dashboard" class="logo-src"></a>
+   
+    <div class="vesseldropdownmobile">
+        <div class="vesseldropdowntopheader" data-toggle="modal" data-target="#modalSendEmail" id="vesselandfleetsectionmobile">
+            <div class="blockhead">
+                <img src="~/images/veseltopiconnew.svg" class="vesselselect" />
+                <span class="spanvesselCount"></span>
+                @*<img src="~/images/arrowvessel.svg" class="vesselarrow" />*@
+            <div class="vesselarrow">
+                <img src="~/images/headersearchicon.svg" />
+            </div>
+            </div>
+            <span class="spanfleetSelectionTitle"></span>
+        </div>
+        <div class="header__pane ml-auto">
+            <div>
+                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                    <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="app-header__mobile-menu">
+    <div class="menumobile">
+        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav d-none">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+            <span class="headericonnames">Menu</span>
+        </button>
+        <a href="#" class="back mobile-header-back">
+            <img src="~/images/mobile-header-back-new.svg" />
+            <span class="headericonnames backname">Back</span>
+        </a>
+        <a href="#" class="backclose d-none">
+            <img src="~/images/close-white.png" />
+        </a>
+    </div>
+    <div class="header-dots d-inline-block d-lg-none">
+        <a href="/Dashboard?isHome=true" class="" id="homediv">
+            <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+                <i class="home-icon flag large DE"></i>
+                <span class="headericonnames">Home</span>
+            </span>
+        </a>
+    </div>
+</div>
+<div class="app-header__menu">
+    <div class="row">
+
+        <div class="header-dots d-flex d-md-none d-lg-none d-xl-none">
+            <a class="p-0 mr-2 btn btn-link aBaseNotification">
+                <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+                    <span class="icon-wrapper-bg bg-teal"></span>
+                    <i class="message-icon flag large DE"></i>
+                    <span class="headericonnames">V.Chat</span>
+                    <span class="alert-notify notificationAlert" id="notificationAlert"></span>
+                    <span class="badge badge-dot badge-dot-sm badge-teal">Notifications</span>
+                </span>
+            </a>
+        </div>
+        <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+            <span class="btn-icon-wrapper">
+                @*<i class="fa fa-ellipsis-v fa-w-6"></i>*@
+                <img src="~/images/more.svg" />
+            </span>
+            <span class="headericonnames">More</span>
+        </button>
+        <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm notes-mobileview-header-icon btn-open-options">
+            <span class="btn-icon-wrapper">
+                <i class="fa fa-sticky-note fa-w-6"></i>
+            </span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+﻿@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Inspection
+}
+
+@section ContentSection
+{
+    <div class="app-main__outer fixed-page-header crewing-details">
+        <div class="app-main__inner background-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading">
+                        <div>
+                            Inspection - Sichem Amethyst
+                        </div>
+
+                    </div>
+                    <div class="page-title-actions">
+                        <div class="d-inline-block dropdown mr-3">
+                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+                                <span class="btn-icon-wrapper pr-2 opacity-7">
+                                    <i class="fa fa-filter fa-w-20"></i>
+                                </span>
+                                <span id="spSubtitle">Total Find (27)</span>
+                            </button>
+                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link active link-clicked" href="#tab-content-0" data-toggle="tab">
+                                            <span>
+                                                Total Find (27)
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link link-clicked" href="#tab-content-1" data-toggle="tab">
+                                            <span>
+                                                Outstanding Find (27)
+                                            </span>
+                                        </a>
+                                    </li>
+          
+                                    <li class="nav-item">
+                                        <a class="nav-link link-clicked" href="#tab-content-1" data-toggle="tab">
+                                            <span>
+                                                Overdue Find (0)
+                                            </span>
+                                        </a>
+                                    </li>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link link-clicked" href="#tab-content-1" data-toggle="tab">
+                                            <span>
+                                                Weekly Since Inspection (5)
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button data-toggle="tooltip" title="Export to excel" data-placement="bottom" class="btn btn-dark btn-shadow font-size-lg p-1 hover-blue mr-1">
+                            <i class="fa fa-fw" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-card card content-pane margin-bottom-custom">
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="breadcrum float-left">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="tab-grid">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtinspection" class="table table-hover table-bordered cardview row-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Inspection Type</th>
+                                                    <th class="text-center">Inspection Date</th>
+                                                    <th>Dept / Comp</th>
+                                                    <th>Location</th>
+                                                    <th class="text-center">Due Date</th>
+                                                    <th class="text-right">Total</th>
+                                                    <th class="text-right">Oustanding</th>
+                                                    <th class="text-right">Overdue</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="tdblock"><Label>Inspection Type</Label><br /><a href="/Inspection/Findings"> Master MLC Inspection (ADM33)</a></td>
+                                                    <td class="text-center"><Label>Inspection Date</Label><br />16 May 2020</td>
+                                                    <td><Label>Dept / Comp</Label><br />Panama Flag State</td>
+                                                    <td><Label>Location</Label><br />Cartagena (Spain)</td>
+                                                    <td class="text-center"><Label>Due Date</Label><br />16 May 2021</td>
+                                                    <td class="text-center"><Label>Total</Label><br />0</td>
+                                                    <td class="text-center"><Label>Oustanding</Label><br />0</td>
+                                                    <td class="text-center tdblock"><Label>Overdue</Label><br />0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="tdblock"><Label>Inspection Type</Label><br /><a href="/Inspection/Findings"> HSEQ Circular Follow Up</a></td>
+                                                    <td class="text-center"><Label>Inspection Date</Label><br />9 Jul 2020</td>
+                                                    <td><Label>Dept / Comp</Label><br />Maxcom Petroli S.p.A.</td>
+                                                    <td><Label>Location</Label><br />Tarragona</td>
+                                                    <td class="text-center"><Label>Due Date</Label><br />9 Jul 2021</td>
+                                                    <td class="text-center"><Label>Total</Label><br />1</td>
+                                                    <td class="text-center"><Label>Oustanding</Label><br />0</td>
+                                                    <td class="text-center tdblock"><Label>Overdue</Label><br />0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="tdblock"><Label>Inspection Type</Label><br /><a href="/Inspection/Findings">Third Party Inspection</a></td>
+                                                    <td class="text-center"><Label>Inspection Date</Label><br />5 Mar 2020</td>
+                                                    <td><Label>Dept / Comp</Label><br />REPSOL</td>
+                                                    <td><Label>Location</Label><br />Cartagena (Spain)</td>
+                                                    <td class="text-center"><Label>Due Date</Label><br />5 Mar 2021</td>
+                                                    <td class="text-center"><Label>Total</Label><br />1</td>
+                                                    <td class="text-center"><Label>Oustanding</Label><br />0</td>
+                                                    <td class="text-center tdblock"><Label>Overdue</Label><br />0</td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/inspectionList.bundle.js"></script>
+}

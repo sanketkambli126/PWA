@@ -1,0 +1,630 @@
+﻿@model VoyageReportingRequestViewModel
+
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Sea Passage Event - @Model.VesselName
+}
+
+
+@section ContentSection
+{
+
+    @Html.HiddenFor(m => m.ListURL)
+    @Html.HiddenFor(m => m.EncryptedVesselDetail)
+    @Html.HiddenFor(m => m.PositionListId)
+    @Html.HiddenFor(m => m.MessageDetailsJSON)
+    @Html.HiddenFor(m => m.ActiveMobileTabClass)
+    @Html.HiddenFor(m => m.IsFromViewRecord)
+
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding new-background common-border-radius mobile-tab-bottom-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="margin-left-35 width-70">
+                        <div class="">
+                            @if (Model.IsFromViewRecord == true)
+                            {
+                                <span class="common-small-heading">
+                                    @Model.VesselName
+                                </span>
+                            }
+                            else
+                            {
+                                <a class="common-heading-green"
+                                   href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.EncryptedVesselDetail)"> @Model.VesselName</a>
+                            }
+
+                        </div>
+                        <div class="common-sub-heading-black pr-0">
+                            <span id="spanActivityName">-</span>,
+                            <div class="d-block d-md-inline-block">
+                                <span id="spanFromDestination">-</span> to <span id="spanToDestination">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-title-actions mt-0 mt-lg-0 mobile-padding-0 left-fixed-ipad">
+                        <partial name="DiscussionAndNotesCountButton" />
+                    </div>
+                    <div class="dropdown mobile-dropdown-title d-block d-md-none d-lg-none d-xl-none">
+                        <button type="button" id="mobileactiontoggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-dark-grey text-white btn-export btn-shadow">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="mobileActiondropdown">
+                            <ul class="nav flex-column">
+                                <li id="baseDiscussionMobile" class="d-none">
+                                    <a class="nav-link discussionAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>Discussions (<span class="baseDiscussionCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                                <li id="baseNotesMobile" class="d-none">
+                                    <a class="nav-link noteAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>My Notes (<span class="baseNotesCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-pane" id="divSeapassageParent">
+                <div class="row  tab-box-1">
+                    <div class="col-md-9 col-lg-10 col-xl-9">
+                        <div class="height-equal">
+                            <div class="row">
+                                <div class="col-md-7 col-lg-7 col-xl-8">
+                                    <div class="common-custom-card font-family-open-sans height-equal-box">
+                                        <div class="counters-heading">
+                                            <div>
+                                                <span>Details</span>
+                                            </div>
+                                        </div>
+                                        <div class="vessel-activity-port-details seapassage-details">
+                                            <div class="row">
+                                                <div class="col-6 col-md-6 col-lg-5 col-xl-3">
+                                                    <div class="dashboard-counters-label mr-0 float-none">
+                                                        Charter Number
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-6 col-lg-7 col-xl-9">
+                                                    <div class="dashboard-counters text-break">
+                                                        <span id="spanChartererNumber">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-6 col-lg-5 col-xl-3">
+                                                    <div class="dashboard-counters-label mr-0 float-none">
+                                                        Charterer Name
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-6 col-lg-7 col-xl-9">
+                                                    <div class="dashboard-counters text-break">
+                                                        <span id="spanChartererName">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 col-md-6 col-lg-5 col-xl-3">
+                                                    <div class="dashboard-counters-label mr-0 float-none">
+                                                        Voyage Number
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-6 col-lg-7 col-xl-9">
+                                                    <div class="dashboard-counters text-break">
+                                                        <span id="spanVoyageNumber">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-6 col-lg-5 col-xl-3 pr-0">
+                                                    <div class="dashboard-counters-label mr-0 float-none">
+                                                        Last Reported Event
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-6 col-lg-7 col-xl-9">
+                                                    <div class="dashboard-counters text-break">
+                                                        <span id="spanLastReportedEvent">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-lg-5 col-xl-4">
+                                    <div class="common-custom-card font-family-open-sans height-equal-box">
+                                        <div class="counters-heading mb-0">
+                                            <div>
+                                                <span>Performance</span>
+                                            </div>
+                                        </div>
+                                        <div class="seapassage-performance performance-section">
+                                            <div class="row">
+                                                <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+
+                                                </div>
+                                                <div class="col-7 col-md-7 col-lg-7 col-xl-7">
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center">
+                                                            <small>Speed (kn)</small>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center">
+                                                            <small>Consum. (mt)</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-5 col-md-5 col-lg-5 col-xl-5 my-auto pl-0 pr-0">
+                                                    <h2>24 Hours</h2>
+                                                </div>
+                                                <div class="col-7 col-md-7 col-lg-7 col-xl-7 ">
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-right">
+                                                            <div class="last24HourSpeed">
+                                                                <div class="text-style last24HourSpeed-text"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-left">
+                                                            <div class="last24HourConsumption">
+                                                                <div class="text-style last24HourConsumption-text"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-5 col-md-5 col-lg-5 col-xl-5 my-auto pl-0 pr-0">
+                                                    <h2>Voyage Avg.</h2>
+                                                </div>
+                                                <div class="col-7 col-md-7 col-lg-7 col-xl-7 ">
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-right">
+                                                            <div class="voyageAverageSpeed">
+                                                                <div class="text-style voyageAverageSpeed-text"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-left">
+                                                            <div class="voyageAverageConsumption">
+                                                                <div class="text-style voyageAverageConsumption-text"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-5 col-md-5 col-lg-5 col-xl-5 my-auto pl-0 pr-0">
+                                                    <h2><span class="align-middle">CP Adjusted</span> <img src="~/images/outline-i.svg" width="15" class="i-outline-icon" title="Adjusted figures show speed and performance with entries above the wind CP allowance removed" data-html="true" data-toggle="tooltip" data-placement="bottom" /></h2>
+                                                </div>
+                                                <div class="col-7 col-md-7 col-lg-7 col-xl-7 ">
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-right">
+                                                            <div class="cpAdjustedSpeed">
+                                                                <div class="text-style cpAdjustedSpeed-text"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-left">
+                                                            <div class="cpAdjustedConsumption">
+                                                                <div class="text-style cpAdjustedConsumption-text"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row blue-performance mb-0">
+                                                <div class="col-5 col-md-5 col-lg-5 col-xl-5 my-auto pr-0 pl-0">
+                                                    <h2>CP Orders</h2>
+                                                </div>
+                                                <div class="col-7 col-md-7 col-lg-7 col-xl-7 ">
+                                                    <div class="row my-auto">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-right">
+                                                            <div class="">
+                                                                <div class="text-style cpOrdersSpeed-text"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-left">
+                                                            <div class="">
+                                                                <div class="text-style cpOrdersConsumption-text"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="common-custom-card font-family-open-sans">
+                                        <div class="vessel-activity-port-details seapassage-details seapassage-legends">
+                                            <div class="row">
+                                                <div class="col-12 col-md-5 col-lg-3 col-xl-3 my-auto">
+                                                    <span class="badweather-legend"></span>
+                                                    <div class="dashboard-counters-label text-break">
+                                                        Bad Weather
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-4 col-lg-3 col-xl-3 my-auto">
+                                                    <span class="break-details"></span>
+                                                    <div class="dashboard-counters-label text-break">
+                                                        Off Hire
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-3 col-lg-3 col-xl-2">
+                                                    <span class="delayed-legends"><img src="~/images/DashboardIcons/clock-orange.png" /></span>
+                                                    <div class="dashboard-counters-label text-break">
+                                                        Delay
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-4 col-lg-3 col-xl-3">
+                                                    <span class="location-legends"><img src="~/images/DashboardIcons/at-sea-blue.png" /></span>
+                                                    <div class="dashboard-counters-label text-break">
+                                                        Current Location
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="port-activity-detail p-0 border-0">
+                                            <div class="row my-auto">
+                                                <div class="col-12 col-md-12 col-lg-12  col-xl-12">
+                                                    <div class="graph-bar">
+                                                        <div class="progress-bar-animated-alt progress divProgressBar">
+                                                            <div class="progress-bar bg-bar divProgressBarFlow" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
+                                                            </div>
+                                                            <div class="graph-position-default at-location" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                                                 style="left:0%" data-toggle="tooltip" data-placement="bottom" data-html="true">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-left">
+                                                    <div class="fromtoport ml-0 voyage-divFromSection voyagemobiledivvessel">
+                                                        <h5>From</h5>
+                                                        <div class="clearfix">
+                                                            <h6 class="d-inline-block mt-0 spanFromPortName equalheightport"></h6>
+                                                            <div id="divFromPortAlert">
+                                                                <div class="d-block d-md-inline-block cursor-pointer fromvesselport fromportalert anchorPortAlertCls ml-1">
+                                                                    @*<div class="dashboard-counters-label mr-0 float-none port-message-red">
+                                                                            Port Alert
+                                                                        </div>*@
+                                                                    <i class="fa fa-anchor icon-red"></i> <sup class="icon-red">★</sup>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="d-block d-md-inline-block dashboard-counters-label mr-1 float-none spanFoap">
+
+                                                            </div>
+
+                                                            <div class="d-block d-md-inline-block dashboard-counters">
+                                                                <span id="" class="spanSeaPassageFromDate">
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div>
+                                                            <div class="d-block d-md-inline-block dashboard-counters-label mr-1 float-none ">
+                                                                Traveled Distance
+                                                            </div>
+
+                                                            <div class="d-inline-block dashboard-counters">
+                                                                <span id="" class="spanSPDistanceCovered">
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-right">
+                                                    <div class="fromtoport to-port voyage-divToSection voyagemobiledivvessel">
+                                                        <h5>To</h5>
+                                                        <div class="clearfix">
+                                                            <h6 class="d-block d-md-none mt-0 spanToPortName equalheightport"></h6>
+                                                            <div id="divToPortAlert">
+                                                                <div class="d-block d-md-inline-block cursor-pointer tovesselport toportalert anchorPortAlertCls mr-1">
+                                                                    <i class="fa fa-anchor icon-red"></i> <sup class="icon-red">★</sup>
+                                                                    @*<div class="dashboard-counters-label mr-0 float-none port-message-red">
+                                                                            Port Alert
+                                                                        </div>*@
+                                                                </div>
+                                                            </div>
+                                                            <h6 class="d-none d-md-inline-block mt-0 spanToPortName"></h6>
+                                                        </div>
+                                                        <div>
+                                                            <div class="d-block dashboard-counters-label mr-1 float-none d-md-inline-block spanToEosp text-right">
+
+                                                            </div>
+                                                            <div class="dashboard-counters d-block d-md-inline-block eta text-right">
+                                                                <span id="" class="spanSeaPassageToDate">
+
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div>
+                                                            <div class="d-block dashboard-counters-label mr-1 float-none d-md-inline-block text-right">
+                                                                Total Distance
+                                                            </div>
+                                                            <div class="dashboard-counters d-inline-block eta">
+                                                                <span id="" class="spanSPTotalDistance">
+
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-3">
+                        <a id="expandseapassagemap" class="hover-none" href="javascript:void(0);">
+                            <div class="expand-seapsaage"><i class="fa fa-fw" aria-hidden="true" title=""></i></div>
+                        </a>
+                        <div class="height-equal right-map-passage">
+                            <iframe id="generalMap" src="@Model.FleetTrackerURL" class="card w-100">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="main-card card margin-bottom-custom table-common-design hide-mobile tab-box-2" id="">
+                <div class="common-custom-card mobile-pad-0 mb-0 table-scroll-width">
+                    <div class="counters-heading border-none">
+                        <div class="">
+                            <span>Events</span>
+                        </div>
+                    </div>
+                    <div id="tableGrid" class="compact-table">
+                        <table style="width: 100%;" id="dtEventsList" class="table table-hover table-striped table-bordered cardview row-sm nowrap  table-footer-design">
+                            <thead>
+                                <tr class="table-sub-heading">
+                                    <th colspan="11">
+                                        Voyage Details
+                                    </th>
+                                    <th colspan="4">
+                                        Weather
+                                    </th>
+                                    <th colspan="11">
+                                        Consumption (mt)
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>Date/Time</th>
+                                    <th>Event</th>
+                                    <th>Date/Time</th>
+                                    <th>Position</th>
+                                    <th>Course</th>
+                                    <th class="white-space-break">Time Sailed</th>
+                                    <th class="white-space-break">Breaks Time</th>
+                                    <th>Dist</th>
+                                    <th class="white-space-break">Avg Speed</th>
+                                    <th>RPM</th>
+                                    <th class="white-space-break">True Slip</th>
+                                    <th>Specifics</th>
+                                    <th>Wind Force</th>
+                                    <th>Sea State</th>
+                                    <th class="white-space-break">Wind Speed</th>
+                                    <th>Wind Dir</th>
+                                    <th>FO</th>
+                                    <th>LSFO</th>
+                                    <th>DO</th>
+                                    <th>GO</th>
+                                    <th>LNG</th>
+                                    <th class="white-space-break">FW DOM.</th>
+                                    <th class="white-space-break">FW TECH.</th>
+                                    <th>CLO</th>
+                                    <th>CRANK</th>
+                                    <th>AUX</th>
+                                    <th>General</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    @*<td></td>*@
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mobile-tab d-block d-md-none d-lg-none d-xl-none">
+        <a id="tab-1" class="tab-1 mobileTabClick active">
+            <svg width="19" height="22" viewBox="0 0 21 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                <path d="M20.4848 1.34377C20.4884 1.07278 20.247 0.875 19.9824 0.875H1.38007C1.11443 0.875 0.875 1.07323 0.875 1.34289V22.6571C0.875 22.9265 1.11414 23.125 1.38007 23.125H19.9799C20.2456 23.125 20.485 22.9268 20.485 22.6571L20.4848 1.34377ZM20.4848 1.34377C20.4848 1.34412 20.4848 1.34448 20.4848 1.34483L20.3598 1.34289L20.4848 1.34289V1.34377ZM19.4769 22.1892H1.88765V1.81074H19.4769V22.1892Z" fill="#000000" stroke="#000000" stroke-width="0.25" />
+                <path d="M4.63485 18.2247C4.70813 18.1538 4.80728 18.114 4.91042 18.1145L15.5725 18.1147C15.7861 18.1155 15.959 18.2841 15.9599 18.4924C15.9602 18.5929 15.9196 18.6896 15.847 18.7609C15.7744 18.8323 15.6756 18.8726 15.5725 18.8731H4.91043C4.80676 18.8734 4.70709 18.8335 4.63381 18.762C4.56053 18.6904 4.51955 18.5934 4.5199 18.4924C4.52025 18.3918 4.56175 18.2955 4.63485 18.2247Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.63485 14.826C4.70813 14.7551 4.80728 14.7153 4.91042 14.7158L15.5725 14.716C15.7861 14.7168 15.959 14.8855 15.9599 15.0937C15.9602 15.1942 15.9196 15.2909 15.847 15.3622C15.7744 15.4336 15.6756 15.4739 15.5725 15.4744H4.91043C4.80676 15.4748 4.70709 15.4348 4.63381 15.3634C4.56053 15.2918 4.51955 15.1948 4.5199 15.0937C4.52025 14.9931 4.56175 14.8968 4.63485 14.826Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.64647 11.4274C4.72715 11.3564 4.83632 11.3166 4.94989 11.3171L11.1333 11.3173C11.3685 11.3182 11.5589 11.4868 11.5599 11.695C11.5603 11.7956 11.5155 11.8922 11.4356 11.9635C11.3557 12.0349 11.2469 12.0752 11.1333 12.0757H4.94989C4.83575 12.0761 4.726 12.0361 4.64532 11.9647C4.56464 11.8931 4.51952 11.7961 4.5199 11.695C4.52028 11.5944 4.56598 11.4981 4.64647 11.4274Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.64647 8.02892C4.72715 7.95798 4.83632 7.9182 4.94989 7.91871L11.1333 7.91888C11.3685 7.91973 11.5589 8.08834 11.5599 8.29657C11.5603 8.39713 11.5155 8.49379 11.4356 8.56507C11.3557 8.6365 11.2469 8.6768 11.1333 8.6773H4.94989C4.83575 8.67764 4.726 8.63769 4.64532 8.56625C4.56464 8.49464 4.51952 8.39763 4.5199 8.29657C4.52028 8.19601 4.56598 8.09968 4.64647 8.02892Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.64647 4.63023C4.72715 4.5593 4.83632 4.51952 4.94989 4.52002L16.4133 4.5202C16.6485 4.52105 16.8389 4.68966 16.8399 4.89789C16.8403 4.99845 16.7955 5.09511 16.7156 5.16638C16.6357 5.23782 16.5269 5.27811 16.4133 5.27862H4.94989C4.83575 5.27896 4.726 5.23901 4.64532 5.16757C4.56464 5.09595 4.51952 4.99895 4.5199 4.89788C4.52028 4.79733 4.56598 4.701 4.64647 4.63023Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+            </svg>
+            Overview
+        </a>
+        <a id="tab-2" class="tab-2 mobileTabClick">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                <path d="M5.34483 17.1034C5.5977 17.1034 5.81034 17.023 5.98276 16.8621C6.15517 16.7011 6.24138 16.4943 6.24138 16.2414C6.24138 15.9885 6.15517 15.7759 5.98276 15.6034C5.81034 15.431 5.5977 15.3448 5.34483 15.3448C5.06896 15.3448 4.85057 15.431 4.68965 15.6034C4.52874 15.7759 4.44828 15.9885 4.44828 16.2414C4.44828 16.5172 4.52874 16.7299 4.68965 16.8793C4.85057 17.0287 5.06896 17.1034 5.34483 17.1034ZM5.34483 11.8621C5.5977 11.8621 5.81034 11.7816 5.98276 11.6207C6.15517 11.4598 6.24138 11.2529 6.24138 11C6.24138 10.7241 6.15517 10.5057 5.98276 10.3448C5.81034 10.1839 5.5977 10.1034 5.34483 10.1034C5.06896 10.1034 4.85057 10.1897 4.68965 10.3621C4.52874 10.5345 4.44828 10.7471 4.44828 11C4.44828 11.2529 4.52874 11.4598 4.68965 11.6207C4.85057 11.7816 5.06896 11.8621 5.34483 11.8621ZM5.34483 6.62069C5.5977 6.62069 5.81034 6.54023 5.98276 6.37931C6.15517 6.21839 6.24138 6.01149 6.24138 5.75862C6.24138 5.48276 6.15517 5.26437 5.98276 5.10345C5.81034 4.94253 5.5977 4.86207 5.34483 4.86207C5.06896 4.86207 4.85057 4.94253 4.68965 5.10345C4.52874 5.26437 4.44828 5.48276 4.44828 5.75862C4.44828 6.01149 4.52874 6.21839 4.68965 6.37931C4.85057 6.54023 5.06896 6.62069 5.34483 6.62069ZM9.75862 16.7586H17.2414V15.7241H9.75862V16.7586ZM9.75862 11.5172H17.2414V10.4828H9.75862V11.5172ZM9.75862 6.27586H17.2414V5.24138H9.75862V6.27586ZM1.89655 22C1.36782 22 0.91954 21.8161 0.551724 21.4483C0.183908 21.0805 0 20.6322 0 20.1034V1.89655C0 1.36782 0.183908 0.91954 0.551724 0.551724C0.91954 0.183908 1.36782 0 1.89655 0H20.1034C20.6322 0 21.0805 0.183908 21.4483 0.551724C21.8161 0.91954 22 1.36782 22 1.89655V20.1034C22 20.6322 21.8161 21.0805 21.4483 21.4483C21.0805 21.8161 20.6322 22 20.1034 22H1.89655ZM1.89655 20.9655H20.1034C20.3103 20.9655 20.5057 20.8736 20.6897 20.6897C20.8736 20.5057 20.9655 20.3103 20.9655 20.1034V1.89655C20.9655 1.68966 20.8736 1.49425 20.6897 1.31034C20.5057 1.12644 20.3103 1.03448 20.1034 1.03448H1.89655C1.68966 1.03448 1.49425 1.12644 1.31034 1.31034C1.12644 1.49425 1.03448 1.68966 1.03448 1.89655V20.1034C1.03448 20.3103 1.12644 20.5057 1.31034 20.6897C1.49425 20.8736 1.68966 20.9655 1.89655 20.9655ZM1.03448 1.03448V20.9655V1.03448Z" fill="black" />
+            </svg>
+            Event List
+        </a>
+    </div>
+}
+
+@section Modal
+{
+    <partial name="modal" />
+    <partial name="VoyageReportingModal" />
+
+    <div class="modal fade page-popup-design-2 specifics" id="specifics" tabindex="-1" role="dialog" aria-labelledby="specifics" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered w-1110px" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>Event Specifics,</span>
+                                <span id="specificsDate">-</span>
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label>Position </label>
+                            <span id="specificsPosition" class="">-</span>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label>Course (deg.) </label>
+                            <span id="specificsCourse" class="">-</span>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label>Time Sailed</label>
+                            <span id="specficsTime" class="">-</span>
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtspecifics" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Reason</th>
+                                        <th>Off Hire</th>
+                                        <th>Off Hire Type</th>
+                                        <th>Comments</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade p-0 modal-events changedest" id="destination" role="dialog" aria-labelledby="faop" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="" id="divDestinationReport">
+
+        </div>
+    </div>
+
+    <div class="modal fade p-0 modal-events faop" id="faop" role="dialog" aria-labelledby="faop" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="" id="divFAOPReport">
+        </div>
+    </div>
+
+    <div class="modal fade p-0 modal-events noonreport" id="noonreport" role="dialog" aria-labelledby="faop" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="">
+            <div class="modal-content">
+                <div id="divNoonReport"></div>
+                <div class="mobile-tab mobile-dropdown-twodefault mobile-dropdown-tab d-none d-md-none d-lg-none d-xl-none">
+                    <button type="button" class="dropdown-toggle wp-mobile-100" data-flip="false" id="dropdowntabbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href="" class="active dropdowntabtitle">DECK</a>  <i class="fa fa-fw dropdown-rotate" aria-hidden="true"></i>
+                    </button>
+                    <div class="dropdown-menu tab-2-text" id="dropdowntablist">
+                        <ul class="p-0 mb-0">
+                            <li class="active">
+                                <a href="" class="dropdown-tab-1 deck">
+                                    <svg width="43" height="22" viewBox="0 0 45 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                                        <path d="M1 10.5962V23.0001L1.3816 22.9998H31.4051C35.9117 22.9998 39.173 20.014 41.2802 17.0827C43.3872 14.1514 44.3792 11.2256 44.3792 11.2256L44.57 10.6795L1 10.5962ZM1.76355 11.4124L43.3796 11.4904C43.2108 11.9586 42.5067 14.0413 40.6737 16.5912C38.6451 19.4132 35.5984 22.184 31.4052 22.184H1.76329L1.76355 11.4124Z" fill="black" stroke="black" stroke-width="0.5" />
+                                        <path d="M14.7152 1.0007L12.7166 11.4183L41.684 11.4121L40.9541 10.7041L30.9216 1L14.7152 1.0007ZM15.3382 1.8169H30.6307L39.714 10.5962L13.6486 10.6023L15.3382 1.8169Z" fill="black" stroke="black" stroke-width="0.5" />
+                                        <path d="M25.8635 1.57033V5.54895H34.7444V4.73275H26.6268V1.57031L25.8635 1.57033Z" fill="black" stroke="black" stroke-width="0.5" />
+                                        <path d="M31.0694 2H26.2583V5H34.6778L31.0694 2Z" fill="black" />
+                                        <path d="M1.34286 16.8738C1.14424 16.8989 0.997576 17.0847 1.0081 17.2984C1.01829 17.5122 1.18193 17.6806 1.38224 17.6839H14.5862C14.6924 17.6933 14.7973 17.6552 14.8758 17.5782C14.9539 17.5009 14.9987 17.3924 14.9987 17.2788C14.9987 17.1649 14.9539 17.0564 14.8758 16.9794C14.7973 16.9025 14.6924 16.864 14.5862 16.8738H1.38224C1.369 16.8731 1.3561 16.8731 1.34286 16.8738L1.34286 16.8738ZM16.478 16.8738C16.2791 16.8989 16.1327 17.0847 16.1429 17.2984C16.1534 17.5122 16.3171 17.6806 16.5174 17.6839H40.3535C40.4594 17.6933 40.5643 17.6552 40.6427 17.5782C40.7212 17.5009 40.7656 17.3924 40.7656 17.2788C40.7656 17.1649 40.7212 17.0564 40.6427 16.9794C40.5643 16.9025 40.4594 16.864 40.3535 16.8738H16.5174C16.5041 16.8731 16.4909 16.8731 16.478 16.8738L16.478 16.8738Z" fill="black" stroke="black" stroke-width="0.5" />
+                                        <path d="M18.5483 7.95557V10.7761H19.3071V8.7659H43.6738V11.0824H44.4383V7.95594L18.5483 7.95557Z" fill="black" stroke="black" stroke-width="0.5" />
+                                        <path d="M22.3218 8.30396V11.0523H23.0853V8.30396H22.3218Z" fill="black" stroke="black" stroke-width="0.5" />
+                                        <path d="M30.6748 8.30396V11.0523H31.4326V8.30396H30.6748Z" fill="black" stroke="black" stroke-width="0.5" />
+                                    </svg>
+                                    Deck
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" class="dropdown-tab-2 engine">
+                                    <svg width="26" height="22" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                                        <path d="M25.9022 8.17447H25.0038C24.9405 8.17447 24.88 8.19949 24.8352 8.24413C24.7906 8.28897 24.7655 8.34943 24.7655 8.41269V9.96812H23.4483V8.73662C23.4483 8.34966 23.2946 7.97873 23.021 7.70507C22.7473 7.43142 22.3764 7.27769 21.9894 7.27769C21.7418 7.27789 21.5006 7.20002 21.2998 7.05529C21.0992 6.91056 20.9491 6.70617 20.8712 6.47133L20.652 5.81512C20.5331 5.45739 20.3047 5.1461 19.9988 4.92574C19.6929 4.70538 19.3256 4.58683 18.9487 4.58723H16.7223V2.82163H18.9503C19.2758 2.82163 19.5765 2.64807 19.739 2.36622C19.9018 2.08436 19.9018 1.73727 19.739 1.45541C19.5765 1.17356 19.2758 1 18.9503 1H11.3274C11.0019 1 10.7012 1.17356 10.5386 1.45541C10.3759 1.73727 10.3759 2.08436 10.5386 2.36622C10.7012 2.64807 11.0019 2.82163 11.3274 2.82163H13.5554V4.58723H11.286C10.9206 4.58823 10.5643 4.70033 10.2641 4.90832C9.9638 5.11631 9.73377 5.41078 9.60448 5.7525L9.05916 7.20683H9.05896C8.95166 7.49049 8.76049 7.73492 8.51124 7.90768C8.26201 8.08043 7.96613 8.17352 7.66285 8.17452H4.92014C4.59424 8.17492 4.28155 8.30464 4.05094 8.53505C3.82053 8.76566 3.69082 9.07836 3.69041 9.40424V13.5554H2.82163V9.08533C2.82163 8.75984 2.64807 8.45915 2.36622 8.2966C2.08436 8.13385 1.73727 8.13385 1.45541 8.2966C1.17356 8.45915 1 8.75982 1 9.08533V18.5019C1 18.8274 1.17356 19.1281 1.45541 19.2906C1.73727 19.4534 2.08436 19.4534 2.36622 19.2906C2.64807 19.1281 2.82163 18.8274 2.82163 18.5019V14.0318H3.69041V18.183C3.69081 18.5089 3.82053 18.8216 4.05094 19.0522C4.28155 19.2826 4.59426 19.4123 4.92014 19.4127H9.90489C10.2082 19.4137 10.504 19.5068 10.7533 19.6795C11.0025 19.8523 11.1937 20.0967 11.301 20.3802L11.8761 21.9144C11.9968 22.2327 12.2112 22.5068 12.4909 22.7005C12.7705 22.8945 13.1025 22.9988 13.4427 23H21.9896C22.3764 22.9996 22.7473 22.8457 23.0208 22.5722C23.2942 22.2988 23.4482 21.9278 23.4486 21.5411V18.5159H24.7658V20.0714C24.7658 20.1346 24.7908 20.1951 24.8354 20.2399C24.8803 20.2846 24.9407 20.3096 25.004 20.3096H25.9024C26.3218 20.3092 26.7239 20.1422 27.0204 19.8458C27.3168 19.5493 27.4838 19.1471 27.4842 18.7278V9.75656C27.4838 9.33718 27.3168 8.93503 27.0204 8.63857C26.7239 8.3421 26.3217 8.17514 25.9024 8.17474L25.9022 8.17447ZM2.34514 18.5017C2.34514 18.7415 2.15056 18.9361 1.91074 18.9361C1.67093 18.9361 1.47635 18.7415 1.47635 18.5017V9.08512C1.47635 8.8453 1.67093 8.65072 1.91074 8.65072C2.15056 8.65072 2.34514 8.8453 2.34514 9.08512V18.5017ZM10.8931 1.9106C10.8933 1.67078 11.0876 1.4764 11.3275 1.4762H18.9504C19.1902 1.4762 19.3848 1.67078 19.3848 1.9106C19.3848 2.15042 19.1902 2.345 18.9504 2.345H11.3275C11.0876 2.3448 10.8933 2.15042 10.8931 1.9106ZM14.0319 2.8214H16.2459V4.587H14.0319V2.8214ZM27.0075 18.7273C27.0071 19.0204 26.8906 19.3014 26.6835 19.5086C26.4763 19.7158 26.1952 19.8323 25.9021 19.8327H25.2419V18.2773C25.2419 18.214 25.2169 18.1536 25.1723 18.1087C25.1274 18.0641 25.067 18.0391 25.0037 18.0391H23.2101C23.1468 18.0391 23.0864 18.0641 23.0415 18.1087C22.9969 18.1536 22.9719 18.214 22.9719 18.2773V21.5407C22.9717 21.8011 22.868 22.0509 22.6838 22.2351C22.4996 22.4193 22.2498 22.523 21.9894 22.5232H13.4425C13.199 22.5224 12.9616 22.4477 12.7617 22.3092C12.5615 22.1704 12.4083 21.9745 12.3221 21.7468L11.7469 20.2126C11.605 19.8383 11.353 19.516 11.0241 19.288C10.6952 19.06 10.3048 18.9373 9.90465 18.9359H4.9199C4.72012 18.9357 4.52875 18.8562 4.3874 18.7151C4.24627 18.5737 4.1668 18.3823 4.1666 18.1825V9.40401C4.1668 9.20424 4.24627 9.01286 4.3874 8.87151C4.52873 8.73038 4.7201 8.65091 4.9199 8.65071H7.66262C8.06278 8.64931 8.45315 8.5266 8.78205 8.29859C9.11115 8.07078 9.36318 7.7483 9.50488 7.37395L10.0504 5.91921V5.91941C10.1453 5.66839 10.3142 5.45219 10.5348 5.29923C10.7554 5.14649 11.0173 5.06422 11.2857 5.06341H18.9486C19.2254 5.06321 19.4955 5.15029 19.7201 5.31224C19.9449 5.47419 20.1129 5.70299 20.2002 5.96584L20.4193 6.62205H20.4191C20.5286 6.95195 20.7392 7.2388 21.0211 7.44199C21.3029 7.64538 21.6418 7.75468 21.9894 7.75428C22.2498 7.75428 22.4999 7.85777 22.684 8.04214C22.8682 8.22631 22.9719 8.47634 22.9719 8.73679V10.2061C22.9719 10.2694 22.9969 10.3298 23.0416 10.3747C23.0864 10.4193 23.1469 10.4444 23.2101 10.4444H25.0038C25.067 10.4444 25.1275 10.4193 25.1723 10.3747C25.2169 10.3298 25.242 10.2694 25.242 10.2061V8.65069H25.9022C26.1953 8.6511 26.4763 8.7676 26.6835 8.97479C26.8907 9.18198 27.0072 9.46303 27.0076 9.75609L27.0075 18.7273Z" fill="#000000" stroke="#000000" stroke-width="0.5" />
+                                        <path d="M19.1746 12.6586H18.32C18.2824 12.5525 18.2393 12.4484 18.1911 12.3468L18.7954 11.7424C18.8401 11.6978 18.8651 11.6373 18.8651 11.5741C18.8651 11.511 18.8401 11.4503 18.7954 11.4057L17.5267 10.1371C17.482 10.0925 17.4214 10.0675 17.3583 10.0675C17.2951 10.0675 17.2346 10.0925 17.1898 10.1371L16.5854 10.7415H16.5856C16.4837 10.6932 16.3798 10.6502 16.2737 10.6124V9.75799C16.2737 9.69474 16.2487 9.63428 16.2039 9.58944C16.1592 9.5448 16.0988 9.51978 16.0355 9.51978H14.2421C14.1788 9.51978 14.1184 9.5448 14.0735 9.58944C14.0289 9.63428 14.0039 9.69474 14.0039 9.75799V10.6126C13.8978 10.6502 13.7937 10.6933 13.692 10.7415L13.0876 10.1371C13.043 10.0925 12.9825 10.0673 12.9193 10.0673C12.8562 10.0673 12.7956 10.0925 12.7509 10.1371L11.4824 11.4059C11.4377 11.4505 11.4127 11.5112 11.4127 11.5743C11.4127 11.6375 11.4377 11.698 11.4824 11.7428L12.0867 12.3472V12.347C12.0385 12.4487 11.9954 12.5528 11.9578 12.6589H11.1032C11.04 12.6589 10.9795 12.6839 10.9347 12.7287C10.89 12.7734 10.865 12.8338 10.865 12.8971V14.6907C10.865 14.754 10.89 14.8144 10.9347 14.8593C10.9795 14.9039 11.04 14.9289 11.1032 14.9289H11.9578C11.9954 15.035 12.0385 15.1391 12.0867 15.2408L11.4824 15.8452C11.4377 15.8898 11.4127 15.9504 11.4127 16.0135C11.4127 16.0768 11.4377 16.1372 11.4824 16.1821L12.7511 17.4502C12.7958 17.4949 12.8564 17.5199 12.9195 17.5199C12.9827 17.5199 13.0432 17.4949 13.088 17.4502L13.6924 16.8459H13.6922C13.7941 16.8939 13.898 16.9369 14.0041 16.9748V17.8294C14.0041 17.8926 14.0291 17.9531 14.0739 17.9979C14.1186 18.0426 14.179 18.0676 14.2423 18.0676H16.0359C16.0992 18.0676 16.1596 18.0426 16.2045 17.9979C16.2491 17.9531 16.2741 17.8926 16.2741 17.8294V16.9748C16.3802 16.9371 16.4843 16.8941 16.586 16.8459L17.1904 17.4502C17.235 17.4949 17.2957 17.5199 17.3587 17.5199C17.422 17.5199 17.4824 17.4949 17.5273 17.4502L18.7954 16.1814C18.8401 16.1368 18.8651 16.0762 18.8651 16.0131C18.8651 15.9498 18.8401 15.8894 18.7954 15.8445L18.1911 15.2402V15.2404C18.2393 15.1387 18.2824 15.0346 18.32 14.9285H19.1746C19.2378 14.9285 19.2983 14.9035 19.3431 14.8586C19.3878 14.814 19.4128 14.7535 19.4128 14.6903V12.8969C19.4128 12.8336 19.3878 12.7731 19.3431 12.7283C19.2983 12.6837 19.2378 12.6586 19.1746 12.6586H19.1746ZM18.9364 14.4523H18.1473V14.4533C18.0418 14.4529 17.9487 14.5221 17.9187 14.6232C17.8624 14.814 17.7862 14.9984 17.6913 15.1731C17.6412 15.2658 17.658 15.3803 17.7329 15.4546L17.7321 15.4554L18.29 16.0133L17.3586 16.9449L16.8006 16.387L16.7998 16.3878V16.3876C16.7256 16.3128 16.6111 16.2959 16.5184 16.346C16.3436 16.4409 16.1593 16.5171 15.9685 16.5734C15.8674 16.6034 15.7982 16.6965 15.7988 16.802H15.7976V17.5911H14.4804V16.8024H14.4792C14.4798 16.6973 14.4109 16.6044 14.3102 16.5742C14.1192 16.5173 13.9347 16.4408 13.7595 16.3459C13.6668 16.2959 13.5523 16.3127 13.4781 16.3876L13.4773 16.3868L12.9193 16.9449L11.9877 16.0132L12.5456 15.4553L12.5448 15.4545H12.545C12.6199 15.3803 12.6367 15.2658 12.5866 15.1731C12.4917 14.9981 12.4155 14.8137 12.359 14.623C12.329 14.5219 12.2361 14.4528 12.1306 14.4532V14.4522H11.3415V13.135H12.1308C12.2363 13.135 12.3294 13.0654 12.3592 12.9641C12.4155 12.7733 12.4917 12.5889 12.5866 12.4142C12.6367 12.3215 12.6199 12.207 12.545 12.1328L12.5458 12.132L11.9877 11.574L12.9193 10.6424L13.4775 11.2005H13.4773C13.5519 11.2752 13.6668 11.2918 13.7595 11.2413C13.9343 11.1464 14.1186 11.0702 14.3094 11.0139C14.4105 10.9839 14.4795 10.8908 14.4791 10.7853H14.4803V9.99623H15.7975V10.785H15.7987H15.7985C15.7981 10.8901 15.867 10.9829 15.9677 11.0132C16.1587 11.07 16.343 11.1465 16.5184 11.2414C16.6111 11.2918 16.7258 11.2752 16.8004 11.2005L17.3586 10.6424L18.2902 11.5741L17.7323 12.132L17.7331 12.1328H17.7327C17.658 12.2071 17.641 12.3216 17.6911 12.4143C17.786 12.5892 17.8622 12.7736 17.9187 12.9643C17.9485 13.0656 18.0414 13.1351 18.1469 13.1351H18.9364L18.9364 14.4523Z" fill="#000000" stroke="#000000" stroke-width="0.5" />
+                                        <path d="M15.1389 12.2102C14.7189 12.2102 14.3161 12.377 14.0192 12.674C13.7222 12.9709 13.5554 13.3736 13.5554 13.7937C13.5554 14.2137 13.7222 14.6164 14.0192 14.9133C14.3161 15.2104 14.7189 15.3771 15.1389 15.3771C15.5589 15.3771 15.9616 15.2104 16.2585 14.9133C16.5556 14.6164 16.7223 14.2137 16.7223 13.7937C16.7219 13.3739 16.5548 12.9713 16.2581 12.6744C15.9612 12.3778 15.5587 12.2106 15.1389 12.2102L15.1389 12.2102ZM15.1389 14.9006C14.8452 14.9006 14.5637 14.7839 14.3562 14.5764C14.1486 14.3688 14.0319 14.0873 14.0319 13.7937C14.0319 13.5 14.1486 13.2185 14.3562 13.011C14.5638 12.8034 14.8452 12.6867 15.1389 12.6867C15.4325 12.6867 15.714 12.8034 15.9216 13.011C16.1292 13.2186 16.2459 13.5 16.2459 13.7937C16.2455 14.0871 16.1288 14.3686 15.9214 14.5762C15.7138 14.7836 15.4323 14.9003 15.1388 14.9007L15.1389 14.9006Z" fill="#000000" stroke="#000000" stroke-width="0.5" />
+                                        <circle cx="15.35" cy="13.35" r="1.35" fill="#000000" />
+                                    </svg>
+                                    Engine
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/seaPassageEvent.bundle.js"></script>
+}

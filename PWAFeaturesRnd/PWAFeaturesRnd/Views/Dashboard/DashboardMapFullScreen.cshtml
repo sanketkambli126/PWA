@@ -1,0 +1,30 @@
+﻿@model DashboardMapViewModel
+
+@{
+
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Dashboard Map
+}
+
+@section ContentSection
+{
+    <div class="app-main__outer">
+        <input type="hidden" id="IsAllowSelectFleetParent" value="true" />
+        <div class="app-main__inner background-padding new-background open-sans-font-dashboard  mapheight" id="">
+            <div class="common-custom-card mb-0 mapfullscreen position-relative">
+                <div class="close-map fleetTrackerClose"><i class="lnr-cross"> </i></div>
+                <iframe id="mapfullscreen" src="@Model.FleetTrackerURL" class="">
+                </iframe>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/dashboardMapFullScreen.bundle.js"></script>
+}

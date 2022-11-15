@@ -1,0 +1,1100 @@
+﻿<div class="modal fade p-0" id="modalSendEmail" role="dialog" aria-labelledby="modalLabelSendEmail" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header header-background header-padding">
+                <div class="col-md-11 pl-0">
+                    <div class="">
+                        <div class="common-heading-green" id="modalLabelSendEmail">Choose Vessel / Fleet</div>
+                    </div>
+                </div>
+                <div>
+                    <img src="~/images/fleetcross.svg" width="15" data-dismiss="modal" aria-label="Close" class="mt-0 mt-md-1 cursor-pointer" />
+                </div>
+            </div>
+            @*<span class="header-background header-padding alert-danger " id="isAllowSelectFleetMessage">Only single vessel can be selected'</span>*@
+            <div class="modal-body new-background fleetpaddingmo">
+                <div class="">
+                    <div class="common-custom-card mb-0">
+                        <div class="importnote clearfix vesselnote" id="isAllowSelectFleetMessage">
+                            <span class="importtext">IMPORTANT</span>
+                            <div>Only single vessel can be selected</div>
+                        </div>
+                        <select id="cbFromVesselSearch" class="form-control form-control-sm">
+                            <option></option>
+                        </select>
+                        <div class="or"> OR </div>
+                        <div class="scroller vesselselectscroll vesselarrowchange" style="height: 240px; overflow-x: hidden; padding: 0.5rem 0.3rem">
+                            <div class="">
+                                <partial name="NavigationTree" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade p-0 apply-loader mobilescrollerheightmodal fleetscrollmanage" id="modalManageUserFleet" role="dialog" aria-labelledby="modalManageUserFleet" aria-hidden="true">
+	<div class="modal-dialog " role="document" style="max-width:650px;">
+		<div class="modal-content">
+			<div class="modal-header header-background header-padding backpaddingleft">
+				<div class="col-md-11 pl-0">
+					<div class="">
+						<div class="common-heading-green">
+							<button class="btn p-0 d-md-none" id="backmanagefavourite" data-dismiss="modal" aria-label="Close">
+								<img src="~/images/mobile-header-back-green.svg" class="backsymbol" />
+							</button> Manage Favourites
+						</div>
+					</div>
+				</div>
+				<div class="d-none d-md-inline-block">
+					<img src="~/images/fleetcross.svg" width="15" data-dismiss="modal" aria-label="Close" class="mt-0 mt-md-1 cursor-pointer" />
+				</div>
+			</div>
+			<div class="modal-body new-background padding-20 scrollerpadingmodal fleetpaddingmo fleetbackground">
+				<div class="scrollermobile">
+					<div class="apply-loader busy-indicator">
+						<div class="table-common-design icon-padding">
+							<div class="common-custom-card mobile-pad-0 mb-0 mb-md-0 position-relative">
+								<div class="counters-heading border-none position-relative float-left mb-3 mb-md-2">
+									<div class="">
+										<span>Favourites (<span id="favouriterowcount"></span>)</span>
+									</div>
+								</div>
+								<div class="data-grid-right mobilefavouritebtn">
+									<div class="export">
+										<div class="position-relative form-group mb-0">
+											<div>
+												<button id="btnAddUserFleet" data-toggle="modal" data-target="#modalAddEditUserFleet" title="" data-placement="bottom" class="btn btn-dark-green btn-addaction position-relative staticbutton mt-0 text-white fav-btn" ontouchstart>New Favourite</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="table-responsive compact-table search-filter-fleet">
+									<table id="dtFleetList" class="w-100-w table table-hover table-striped table-bordered cardview row-sm">
+										<thead>
+											<tr>
+												<th>
+													#
+												</th>
+												<th>
+													Favourite List
+												</th>
+												<th>
+													Active
+												</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade p-0 mobilescrollerheightmodal2 fleetscrolladduser" id="modalAddEditUserFleet" role="dialog" aria-labelledby="modalAddEditUserFleet" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document" style="max-width:1000px;">
+		<div class="modal-content">
+			<div class="modal-header header-background header-padding backpaddingleft">
+				<div class="col-md-11 pl-0">
+					<div class="">
+						<div class="common-heading-green">
+							<button class="btn p-0 d-md-none" id="backeditfavouritefleet" data-dismiss="modal" aria-label="Close">
+								<img src="~/images/mobile-header-back-green.svg" class="backsymbol" />
+							</button>
+							<span id="UserFleetHeader">Add User Fleet</span>
+						</div>
+					</div>
+				</div>
+				<div class="d-none d-md-inline-block">
+					<img src="~/images/fleetcross.svg" width="15" data-dismiss="modal" aria-label="Close" class="mt-0 mt-md-1 cursor-pointer" />
+				</div>
+			</div>
+			<div class="modal-body new-background scrollerpadingmodal fleetpaddingmo fleetbackground">
+				<div class="scrollermobile">
+					<div class="common-custom-card background-padding mobile-pad-0 mb-0 fleetpaddingmobile busy-indicator apply-loader ">
+						<div class="namesection">
+							<div class="clearfix">
+								<div class="counters-heading border-none  float-left">
+									<span>Name <span class="txt-red">*</span></span>
+								</div>
+								<div class="checkboxshadownone float-right">
+									<div class="custom-checkbox custom-control">
+										<input type="checkbox" id="chkIsActive" class="custom-control-input" checked>
+										<label class="custom-control-label" for="chkIsActive">Active</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<input type="text" id="fleetName" class="form-control-sm form-control inputfocusoff" />
+									<span id="fleetNameReqValidation" class="text-red d-none">Name is mandatory</span>
+								</div>
+							</div>
+						</div>
+						<div class="row scrollbody-common mappedvesselscroll position-relative">
+							<button id="addbuttonmobile" class="btn btn-addaction addbuttonfixedmobile d-md-none" aria-disabled="true" ontouchstart>
+								Add
+							</button>
+
+							<div class="col-12 col-md-6 col-lg-6 col-xl-6 pr-md-3 apply-loader avaiablevesselsmobilehide" id="loaderAvailableVessel">
+								<div class="table-common-design icon-padding">
+									<div class="pt-3 position-relative">
+										<div class="counters-heading border-none position-1024-bottom mb-3 mb-md-0 position-relative">
+											<div class="">
+												<span>Available Vessels (<span id="avaiablevesselrowcount"></span>)</span>
+											</div>
+										</div>
+										<div class="data-grid-right">
+											<div class="export">
+												<div class="position-relative form-group mb-0">
+													<div>
+														<button id="btnAddtoMapped" title="Add" data-placement="bottom" class="btn btn-dark-green text-white btn-shadow disabled" aria-disabled="true">
+															<span class="open-sans-font bold-text"><i class="fa fa-fw fav-btn-icon" aria-hidden="true" title=""></i>Add</span>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="table-responsive compact-table search-filter-fleet fleettablechanges">
+											<div class="checkbox-design-card  isSelectAllDocument">
+												<div class="custom-checkbox custom-control custom-control-inline">
+													<input type="checkbox" id="add" class="custom-control-input">
+													<label class="custom-control-label" for="add"></label>
+												</div>
+											</div>
+											<table id="dtAvailableVesselList" class="w-100-w table table-hover table-striped table-bordered cardview row-sm desktopavaiablevessel">
+												<thead>
+													<tr>
+														<th class="table-header-icon-align mobile-popover-attachments tdblock checkbox-design-table">
+
+														</th>
+														<th>
+															Vessel Name
+														</th>
+													</tr>
+												</thead>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-md-6 col-lg-6 col-xl-6 apply-loader" id="loaderMappedVessel">
+								<div class="table-common-design icon-padding">
+									<div class="pt-3 position-relative">
+										<div class="counters-heading border-none position-1024-bottom mb-3 mb-md-0 position-relative">
+											<div class="">
+												<span>Mapped Vessels (<span id="mappedvesselrowcount"></span>)</span>
+											</div>
+										</div>
+										<div class="data-grid-right hide-mobile">
+											<div class="export">
+												<div class="position-relative form-group mb-0">
+													<div>
+														<button id="btnRemoveFromMapped" title="Remove" data-placement="bottom" class=" btn btn-dark-grey text-white btn-shadow fav-btn disabled mr-0" aria-disabled="true">
+															<span class="open-sans-font bold-text">
+																<i class="fa fa-fw fav-btn-icon" aria-hidden="true" title=""></i>Remove
+															</span>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="table-responsive compact-table search-filter-fleet fleettablechanges">
+											<div class="checkbox-design-card  isSelectAllDocument hide-mobile">
+												<div class="custom-checkbox custom-control custom-control-inline">
+													<input type="checkbox" id="add" class="custom-control-input">
+													<label class="custom-control-label" for="add"></label>
+												</div>
+											</div>
+											<table style="width: 100%;" id="dtMappedVesselList" class="table table-hover table-striped table-bordered cardview row-sm">
+												<thead>
+													<tr>
+														<th class="table-header-icon-align mobile-popover-attachments tdblock checkbox-design-table">
+
+														</th>
+														<th class="d-inline-block d-none">
+															Vessel Name
+														</th>
+														<th>
+															Vessel Name
+														</th>
+													</tr>
+												</thead>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer common-form-design">
+				<div class="row no-gutters w-100">
+					<div class="col-6 text-left"> <button class="btn-cancelsecondarybtn btn-cancel-mappedvessel btn float-left d-block d-md-none" data-dismiss="modal" aria-label="Close" id="" ontouchstart>Cancel</button></div>
+					<div class="col-6 text-right">
+						<button type="button" id="btnSaveUserFleetDetails" class="btn btn-addaction position-relative staticbutton search-btn disabled mt-0" aria-disabled="true" ontouchstart>Save</button>
+						<input type="hidden" id="hdnFleetId" />
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade p-0 mobilescrollerheightmodal3" id="addvesselavaiablemodal" role="dialog" aria-labelledby="addvesselavaiablemodal" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header header-background header-padding backpaddingleft">
+				<div class="col-md-11 pl-0">
+					<div class="">
+						<div class="common-heading-green">
+							<span id="">
+								<button class="btn p-0 d-md-none" id="backVesselAvaiableModal" data-dismiss="modal" aria-label="Close">
+									<img src="~/images/mobile-header-back-green.svg" class="backsymbol" />
+								</button>
+								Select Vessels
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="d-none d-md-inline-block">
+					<img src="~/images/fleetcross.svg" width="15" data-dismiss="modal" aria-label="Close" class="mt-0 mt-md-1 cursor-pointer" />
+				</div>
+			</div>
+			<div class="modal-body new-background scrollerpadingmodal fleetpaddingmo fleetbackground">
+				<div class="scrollermobile">
+					<div class="common-custom-card background-padding mobile-pad-0 mb-0 fleetpaddingmobile">
+						<div class="row scrollbody-common vesselscroll">
+							<div class="col-12 col-md-6 col-lg-6 col-xl-6 apply-loader" id="loaderAvailableVessel">
+								<div class="table-common-design icon-padding">
+									<div class="mb-0 mb-md-0 position-relative pl-0 pt-0">
+										<div class="counters-heading border-none position-1024-bottom mb-2 position-relative pb-0">
+											<div class="">
+												<span>Available Vessels (<span id="avaiablevesselrowcountmobile"></span>)</span>
+											</div>
+										</div>
+										<div class="table-responsive compact-table search-filter-fleet fleettablechanges pb-0">
+											<div class="checkbox-design-card  isSelectAllDocument hide-mobile">
+												<div class="custom-checkbox custom-control custom-control-inline">
+													<input type="checkbox" id="add" class="custom-control-input">
+													<label class="custom-control-label" for="add"></label>
+												</div>
+											</div>
+											<table id="dtAvailableVesselList" class="w-100-w table table-hover table-striped table-bordered cardview row-sm">
+												<thead>
+													<tr>
+														<th class="table-header-icon-align mobile-popover-attachments tdblock checkbox-design-table">
+
+														</th>
+														<th>
+															Vessel Name
+														</th>
+													</tr>
+												</thead>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer common-form-design">
+				<div class="row no-gutters w-100">
+					<div class="col-6 text-left"> <button class="btn-cancelsecondarybtn btn-cancel-mappedvessel btn float-left d-block d-md-none" data-dismiss="modal" aria-label="Close" id="" ontouchstart>Cancel</button></div>
+					<div class="col-6 text-right">
+						<button type="button" ontouchstart id="btnAddtoMappedmobile" class="btn btn-addaction position-relative staticbutton mt-0 disabled" aria-disabled="true">Add Vessels</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade p-0 " id="modalTaskMessageNotifications" role="dialog" aria-labelledby="modalTaskMessageNotifications" aria-hidden="true">
+	<div class="modal-dialog" role="document" style="max-width:600px;">
+		<div class="modal-content">
+			<div class="modal-header header-background header-padding">
+				<div class="col-md-10 pl-0 my-auto">
+					<div class="">
+						<div class="common-heading-green">Notifications</div>
+					</div>
+				</div>
+				<div class="mr-2">
+					<button id="btnRefreshTaskNotifications" title="Refresh" data-toggle="tooltip" data-placement="bottom" class="btn btn-dark btn-shadow font-size-lg hover-blue float-right px-2 py-1">
+						<i class="fa fa-redo" aria-hidden="true"></i>
+					</button>
+				</div>
+				<div>
+					<button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+			</div>
+			<div class="modal-body new-background padding-20 modal-max-scroll">
+				<div class="common-custom-card background-padding apply-loader mobile-pad-0">
+					<div class="table-common-design">
+						<div class="table-responsive compact-table">
+							<table style="width: 100%;" id="dtTaskNotifications" class="table table-hover table-striped table-bordered cardview row-sm">
+								<thead>
+									<tr>
+										<th>Date Time</th>
+										<th>Message</th>
+										<th></th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- About us modal -->
+<div class="modal fade" id="aboutus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	 aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">About Us</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body font-size-md">
+				<div class="scroll-area-md">
+					<div class="scrollbar-container ps--active-y ps">
+						<p><b>Vships.Owners: version 1.0.0.0</b></p>
+						<p>&copy; 2017 V.ships UK Ltd</p>
+						<p>
+							<b>V.Group Limited</b><br />
+							1st Floor, 63 Queen Victoria Street,<br />
+							EC4N 4UA, LONDON,<br />
+							UYK
+						</p>
+						<p>Third Party Libraries</p>
+						<p>BEHAVIORS.FORMS</p>
+						<p>The Mit License (MIT)</p>
+						<p>
+							Copyright (c) 2016 David Britch
+						</p>
+						<p>Permission is hereby granted,free of charge,to any person obtaining a copy of this software and associated documentation files (the "Software"),to deal in the software without registration,including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, and to permit persons to whom the software is needed.</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer text-right">
+
+				<a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Preference modal -->
+<div class="modal fade apply-loader p-0" id="preference" role="dialog" aria-labelledby="preference" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header header-background header-padding">
+                <div class="col-md-11 pl-0">
+                    <div class="common-heading-green">My Preferences</div>
+                </div>
+                <div>
+                    <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body new-background padding-20">
+                <div class="common-custom-card background-padding mb-0">
+                    <div class="card-body pb-0">
+                        <div class="row">
+                            <div class="col-12 col-md-12 col-md-4 col-lg-4 mb-3">
+                                <div class="row">
+                                    <div class="col-9 col-lg-12">
+                                        <div class="widget-content p-0 mb-2">
+                                            <div class="widget-content-left">
+                                                <label class="widget-heading text-uppercase opacity-1 mb-0">
+                                                    Commercial
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-lg-12">
+                                        <input type="checkbox" id="CommercialPrefCheckbox" data-toggle="toggle" data-onstyle="teal" data-size="small">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-md-4 col-lg-4 mb-3">
+                                <div class="row">
+                                    <div class="col-9 col-lg-12">
+                                        <div class="widget-content p-0 mb-2">
+                                            <div class="widget-content-left">
+                                                <label class="widget-heading text-uppercase opacity-1 mb-0">
+                                                    Hazocc
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-lg-12">
+                                        <input type="checkbox" id="HazoccPrefCheckbox" data-toggle="toggle" data-onstyle="teal" data-size="small">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-md-4 col-lg-4 mb-3">
+                                <div class="row">
+                                    <div class="col-9 col-lg-12">
+                                        <div class="widget-content p-0 mb-2">
+                                            <div class="widget-content-left">
+                                                <label class="widget-heading text-uppercase opacity-1 mb-0">
+                                                    Crewing
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-lg-12">
+                                        <input type="checkbox" id="CrewPrefCheckbox" data-toggle="toggle" data-onstyle="teal" data-size="small">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-md-4 col-lg-4 mb-3">
+                                <div class="row">
+                                    <div class="col-9 col-lg-12">
+                                        <div class="widget-content p-0 mb-2">
+                                            <div class="widget-content-left">
+                                                <label class="widget-heading text-uppercase opacity-1 mb-0">
+                                                    Environment
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-lg-12">
+                                        <input type="checkbox" id="EnvironmentPrefCheckbox" data-toggle="toggle" data-onstyle="teal" data-size="small">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-md-4 col-lg-4 mb-3">
+                                <div class="row">
+                                    <div class="col-9 col-lg-12">
+                                        <div class="widget-content p-0 mb-2">
+                                            <div class="widget-content-left">
+                                                <label class="widget-heading text-uppercase opacity-1 mb-0">
+                                                    Financials
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-lg-12">
+                                        <input type="checkbox" id="FinancialPrefCheckbox" data-toggle="toggle" data-onstyle="teal" data-size="small">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-md-4 col-lg-4 mb-3">
+                                <div class="row">
+                                    <div class="col-9 col-lg-12">
+                                        <div class="widget-content p-0 mb-2">
+                                            <div class="widget-content-left">
+                                                <label class="widget-heading text-uppercase opacity-1 mb-0">
+                                                    Certificates
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-lg-12">
+                                        <input type="checkbox" id="CertificatePrefCheckbox" data-toggle="toggle" data-onstyle="teal" data-size="small">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-md-4 col-lg-4 mb-3">
+                                <div class="row">
+                                    <div class="col-9 col-lg-12">
+                                        <div class="widget-content p-0 mb-2">
+                                            <div class="widget-content-left">
+                                                <label class="widget-heading text-uppercase opacity-1 mb-0">
+                                                    Defect manager
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-lg-12">
+                                        <input type="checkbox" id="DefectPrefCheckbox" data-toggle="toggle" data-onstyle="teal" data-size="small">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-md-4 col-lg-4 mb-3">
+                                <div class="row">
+                                    <div class="col-9 col-lg-12">
+                                        <div class="widget-content p-0 mb-2">
+                                            <div class="widget-content-left">
+                                                <label class="widget-heading text-uppercase opacity-1 mb-0">
+                                                    PMS
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-lg-12">
+                                        <input type="checkbox" id="PMSPrefCheckbox" data-toggle="toggle" data-onstyle="teal" data-size="small">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-md-4 col-lg-4 mb-3">
+                                <div class="row">
+                                    <div class="col-9 col-lg-12">
+                                        <div class="widget-content p-0 mb-2">
+                                            <div class="widget-content-left">
+                                                <label class="widget-heading text-uppercase opacity-1 mb-0">
+                                                    Procurement
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-lg-12">
+                                        <input type="checkbox" id="OpenOrdersPrefCheckbox" data-toggle="toggle" data-onstyle="teal" data-size="small">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-md-4 col-lg-4 ">
+                                <div class="row">
+                                    <div class="col-9 col-lg-12">
+                                        <div class="widget-content p-0 mb-2">
+                                            <div class="widget-content-left">
+                                                <label class="widget-heading text-uppercase opacity-1 mb-0">
+                                                    Inspection
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-lg-12">
+                                        <input type="checkbox" id="InspectionPrefCheckbox" data-toggle="toggle" data-onstyle="teal" data-size="small">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer common-form-design">
+                <button type="button" id="btnCancelUserPreferences" data-dismiss="modal" class="btn btn-cancelsecondarybtn closedefectcancelbtn" aria-disabled="true">Cancel</button>
+                <button type="button" id="btnSaveUserPreferences" class="btn search-btn" aria-disabled="true">Save</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- settings modal -->
+<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	 aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">My Settings</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body settings">
+				<div class="mb-4">
+					<h5 class="card-title">Remember Last Vessel</h5>
+					<input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="dark">
+				</div>
+				<div class="mb-4">
+					<h5 class="card-title">Demo Mode</h5>
+					<input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="dark">
+				</div>
+				<div class="">
+					<a href="javascript:void(0);">View Terms and Conditions</a>
+				</div>
+			</div>
+			<div class="modal-footer text-right">
+
+				<a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade p-0" id="modalInspectionPlanning" role="dialog" aria-labelledby="modalInspectionPlanning" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document" style="max-width:900px;">
+		<div class="modal-content">
+			<div class="modal-header header-background header-padding">
+				<div class="col-md-11 pl-0">
+					<div class="">
+						<a class="common-heading-green" id="vesselNameModalInspectionPlanning"></a>
+					</div>
+					<div class="common-sub-heading-black">
+						Planning Details
+					</div>
+				</div>
+				<div class="mr-2">
+					<button id="btnExportInspectionPlanning" title="Export to excel" data-toggle="tooltip" data-placement="bottom" class="btn btn-dark btn-shadow font-size-lg hover-blue float-right px-2 py-1">
+						<i class="fa fa-file-excel" aria-hidden="true"></i>
+					</button>
+				</div>
+				<div>
+					<button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+			</div>
+			<div class="modal-body new-background padding-20">
+				<div class="common-custom-card common-form-design background-padding">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="position-relative form-group clearfix mb-0">
+								<label class="float-left">Due</label>
+								<select id="selInspectionPlanningDue" class="form-control-sm form-control float-left w-75 mb-0">
+								</select>
+							</div>
+						</div>
+						<div class="col-md-9">
+							<form class="margin-top-2 mt-m-12">
+								<div class="position-relative form-check form-check-inline checkbox-style">
+									<label class="form-check-label">
+										<input type="checkbox" class="form-check-input" id="chkOverdue" checked>Overdue
+									</label>
+								</div>
+								<div class="position-relative form-check form-check-inline checkbox-style">
+									<label class="form-check-label">
+										<input type="checkbox" class="form-check-input" id="chkNeverDone" checked>Never Done
+									</label>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+				<div class="table-common-design">
+					<div class="common-custom-card mb-0  mobile-pad-0">
+						<div class="counters-heading border-none">
+							<div class="">
+								<span>Details</span>
+							</div>
+						</div>
+						<div class="table-responsive compact-table">
+							<table style="width: 100%;" id="dtInspectionPlanningDetails" class="table table-hover table-striped table-bordered cardview row-sm">
+								<thead>
+									<tr>
+										<th>Inspection Type</th>
+										<th>Occured Date</th>
+										<th>Next Due</th>
+										<th>Default Interval</th>
+										<th>Management <br /> Start Date</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			@*<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>*@
+		</div>
+	</div>
+</div>
+
+<div class="modal fade p-0" id="defectlegend" role="dialog" aria-labelledby="defectlegend" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document" style="max-width:900px;">
+		<div class="modal-content">
+			<div class="modal-header header-background header-padding">
+				<div class="col-md-11 pl-0">
+					<div class="common-sub-heading-black">
+						Legends
+					</div>
+				</div>
+				<div>
+					<button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+			</div>
+			<div class="modal-body new-background padding-20">
+				<div class="common-custom-card legend-box legend-icon-box mb-0">
+					<div class="clearfix">
+						<div class="float-left mr-common box-1">
+							<div class="top-title height-equal">
+								<img src='~/images/Rescheduled.png' width='15' data-html='true' data-toggle='tooltip' data-placement='bottom'><span class="legend-text d-inline-block">- Rescheduled</span>
+							</div>
+						</div>
+
+						<div class="float-left mr-common">
+							<div class="top-title height-equal">
+								<img src='~/images/GuaranteedClaim.png' width='15' data-html='true' data-toggle='tooltip' data-placement='bottom'><span class="legend-text d-inline-block">- Guarantee Claim</span>
+							</div>
+
+							<div class="bottom-title">
+								<img src='~/images/JSA.png' width='15' data-html='true' data-toggle='tooltip' data-placement='bottom' /><span class="legend-text d-inline-block">- Job  Safety Analysis (JSA)</span>
+							</div>
+						</div>
+
+						<div class="float-left mr-common box-3">
+							<div class="top-title height-equal">
+								<img src='~/images/TechDefect.png' width='15' data-html='true' data-toggle='tooltip' data-placement='bottom'><span class="legend-text d-inline-block">- Technical Defect</span>
+							</div>
+
+							<div class="bottom-title">
+								<img src='~/images/MOC.png' width='15' data-html='true' data-toggle='tooltip' data-placement='bottom'><span class="legend-text d-inline-block">- Management Of Change (MOC)</span>
+							</div>
+						</div>
+
+						<div class="float-left mr-common box-4">
+							<div class="top-title height-equal">
+								<span class="legend-text">  CA - Claim Accepted</span>
+							</div>
+
+							<div class="bottom-title">
+								<span class="legend-text"> DWO - Defect Work Order</span>
+							</div>
+						</div>
+
+						<div class="float-left mr-common box-5">
+							<div class="top-title height-equal">
+								<span class="legend-text">CLS - Closed</span>
+							</div>
+
+							<div class="bottom-title">
+								<span class="legend-text">RJ - Rejected</span>
+							</div>
+						</div>
+
+						<div class="float-left box-6 wp-mobile-100">
+							<div class="top-title height-equal">
+								<span class="legend-text"> CP - Completed</span>
+							</div>
+
+							<div class="bottom-title mb-0">
+								<span class="legend-text">RS - Reschedule</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade p-0" id="defectlegendpms" role="dialog" aria-labelledby="defectlegend" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document" style="max-width:900px;">
+		<div class="modal-content">
+			<div class="modal-header header-background header-padding">
+				<div class="col-md-11 pl-0">
+					<div class="common-sub-heading-black">
+						Legends
+					</div>
+				</div>
+				<div>
+					<button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+			</div>
+			<div class="modal-body new-background padding-20">
+				<div class="common-custom-card legend-box legend-icon-box mb-0">
+					<div class="clearfix">
+						<div class="float-left mr-common box-4">
+							<div class="top-title height-equal">
+								<img src='~/images/overdue.png'><span class="legend-text d-inline-block">- Overdue</span>
+							</div>
+							<div class="bottom-title">
+								<img src='~/images/jsa-l.png'><span class="legend-text d-inline-block">- JSA Required</span>
+							</div>
+						</div>
+
+						<div class="float-left mr-common box-5">
+							<div class="top-title height-equal">
+								<img src='~/images/permit.png' /><span class="legend-text d-inline-block">- Permit Required</span>
+							</div>
+							<div class="bottom-title">
+								<img src='~/images/critical.png'><span class="legend-text d-inline-block">- Critical</span>
+							</div>
+						</div>
+
+						<div class="float-left mr-common box-4">
+							<div class="top-title height-equal">
+								<span class="legend-text">  WO - Work Order</span>
+							</div>
+
+							<div class="bottom-title">
+								<span class="legend-text"> RP - Reported Work Order</span>
+							</div>
+						</div>
+
+						<div class="float-left mr-common box-5">
+							<div class="top-title height-equal">
+								<span class="legend-text">CP - Compeleted Work Order</span>
+							</div>
+
+							<div class="bottom-title">
+								<span class="legend-text">RS - Reschedule Requested</span>
+							</div>
+						</div>
+
+						<div class="float-left box-6 wp-mobile-100">
+							<div class="top-title height-equal">
+								<span class="legend-text"> DWO - Defect Work Order</span>
+							</div>
+
+							<div class="bottom-title mb-0">
+								<span class="legend-text">
+									RO - Re-Opened Work Order
+								</span>
+							</div>
+						</div>
+						<div class="float-left box-6 wp-mobile-100">
+							<div class="top-title height-equal">
+								<span class="legend-text"> SWO - Ships Work Order</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade open-sans-font" id="notesComfirmAsCompleteModal" role="dialog" aria-labelledby="notesComfirmAsCompleteModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Confirmation</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to mark this note as completed?</p>
+
+            </div>
+            <div class="modal-footer common-form-design">
+                <button class="btn btn-cancelsecondarybtn no-btn btn-no" data-dismiss="modal" id="noConfirmAsCompleteButton">No</button>
+                <button class="btn btn search-btn" data-dismiss="modal" id="yesConfirmAsCompleteButton">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade open-sans-font successpopup warningpopup" id="notesComfirmAsDeleteModal" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="notesComfirmAsCompleteModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+		<div class="modal-content">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<div class="modal-body">
+				<i class="fa fa-fw" aria-hidden="true" title=""></i>
+				<h2>Confirmation</h2>
+				<h1>Are you sure you want to delete this note?</h1>
+				<button class="btn btn-cancelsecondarybtn no-btn btn-no clickEventDisable" data-dismiss="modal" id="noConfirmAsDeleteButton">Cancel</button>
+				<button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="yesConfirmAsDeleteButton">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--New Channel Modal : Ids set using NCM-->
+<div class="modal fade generalmsgpopup open-sans-font apply-loader p-0 w-100 h-100" data-keyboard="false" data-backdrop="static" id="modalCreateNewChannel" role="dialog" aria-labelledby="modalCreateNewChannel" aria-hidden="true">
+	<div class="modal-dialog modal-full modal-draggable modal-dialog-centered shadow-none creatediscussiframemodal" id="CreateDraftChannel" role="document">
+		<div class="modal-content border-0 apply-loader">
+			<div class="header-message modal-drag-holder">
+				<h1>New Discussion</h1>
+				<div>
+					<button type="button" class="close p-0" aria-label="Close" id="notificationclosemodal">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+			</div>
+			<div class="modal-body p-0">
+				<form id="notificationcreatechannelform" target="NotificationcreatechannelFrame" action="@AppSettings.NotificationCreateDiscussionURL" method="POST" class="d-none">
+					<input id="createRequest" type="hidden" name="createRequest" value="" />
+					<input type="submit">
+				</form>
+				<input type="hidden" id="hdnGeneralMessageJSON" value="" />
+				<input type="hidden" id="hdnmessageDetailsJSON" value="" />
+				<iframe src="" name="NotificationcreatechannelFrame" allowfullscreen id="iframeCreateChannel" class="creatediscussiframe"></iframe>
+			</div>
+		</div>
+	</div>
+</div>
+<!--V. Chat Modal : Ids set using VCM-->
+<div class="modal fade notifynewpopup open-sans-font apply-loader p-0" data-keyboard="false" data-backdrop="static" id="modalVChat" role="dialog" aria-labelledby="modalVChat" aria-hidden="true">
+	<div class="modal-dialog modal-draggable shadow-none modal-dialog-centered notificationiframemodal" role="document">
+		<div class="modal-content border-0 apply-loader">
+			<button type="button" class="close p-0" aria-label="Close" id="modalVChatClose">
+				<span aria-hidden="true">×</span>
+			</button>
+			<div class="modal-body p-0">
+
+				<input type="hidden" id="hdnDefaultNotificationJSON" value="" />
+
+				<div name="NotificationFrame" id="iframeNotification" class="notificationiframe"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="modal fade open-sans-font successpopup warningpopup" id="notificationMessageDelete" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="notificationMessageDelete" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+		<div class="modal-content">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<div class="modal-body">
+				<i class="fa fa-fw" aria-hidden="true" title=""></i>
+				<h2>Confirmation</h2>
+				<h1>Are you sure you want to delete this message?</h1>
+				<button class="btn btn-cancelsecondarybtn no-btn btn-no" data-dismiss="modal" id="noNotificationMessageDelete">Cancel</button>
+				<button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="yesNotificationMessageDelete">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="modal fade open-sans-font successpopup warningpopup" id="notificationDraft" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="notificationDraft" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+		<div class="modal-content" style="border: 1px solid rgba(0,0,0,0.2);">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<div class="modal-body">
+				<i class="fa fa-fw" aria-hidden="true" title=""></i>
+				<h2>Confirmation</h2>
+				<h1> Do you want to save this discussion as a draft?</h1>
+				<button class="btn btn-cancelsecondarybtn no-btn btn-no" data-dismiss="modal" id="noNotificationDraft">Cancel</button>
+				<button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="yesNotificationDraft">Yes</button>
+				<input type="hidden" id="hdnNotificationDraftChannelId" />
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade page-popup-design-2 allvesselmodal apply-loader" data-backdrop="static" id="modalVesselCommunication" tabindex="-1" role="dialog" aria-labelledby="modalVesselCommunication" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered w-1110px modal-margin " role="document" style="box-shadow:none;">
+		<div class="modal-content">
+			<div class="modal-header p-0">
+				<div class="common-custom-card mb-0 w-100 pb-0">
+					<div class="counters-heading border-none">
+						<div>
+							<span>
+								Communications
+							</span>
+						</div>
+					</div>
+				</div>
+				<button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+				<div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+					<div class="table-responsive compact-table">
+						<table style="width: 100%;" id="dtVesselCommunication" class="table table-hover table-striped table-bordered cardview row-sm">
+							<thead>
+								<tr>
+									<th class="d-none"></th>
+									<th>Primary</th>
+									<th>Type</th>
+									<th>Number/Email</th>
+									<th>Comments</th>
+									<th>Provider</th>
+									<th>Contract Start Date</th>
+									<th>Contract Expiry Date</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade page-popup-design agentdetailsdashboard apply-loader" id="ModalVoyageAgentDetails" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="ModalVoyageAgentDetails" aria-modal="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-top-mobile" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="header">
+					<img id="" src="/images/agent.png" class="d-inline-block">
+					<div class="d-inline-block align-middle">
+						<span id="" class="align-middle">Agent Details (<span id="VoyageAgentCount">0</span>)</span>
+						<small id="VoyagePortName" class="align-middle d-block"></small>
+					</div>
+				</div>
+				<button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<!-- add content here for agent details -->
+			<div class="modal-body">
+				<div class="">
+					<div class="body-layout scroller p-0 h-auto" id="VoyageAgentContentsHtml">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade open-sans-font successpopup warningpopup" id="modalDashboardDeleteChannelConfirmation" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modalDashboardDeleteChannelConfirmation" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+		<div class="modal-content">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<div class="modal-body">
+				<i class="fa fa-fw" aria-hidden="true" title=""></i>
+				<h2>Confirmation</h2>
+				<h1 id="pDashboardDeleteChannelMsg"></h1>
+				<button class="btn btn-cancelsecondarybtn no-btn btn-no" data-dismiss="modal" id="btnDashboardDeleteChannelNo">Cancel</button>
+				<button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="btnDashboardDeleteChannelYes">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--Sentinel Coming Soon Popup -->
+<div class="modal fade p-0" id="modalSentinel" role="dialog" aria-labelledby="modalLabelSentinel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header header-background header-padding">
+                <div class="col-md-11 pl-0">
+                    <div class="">
+                        <div class="common-heading-green">Coming Soon</div>
+                    </div>
+                </div>
+                <div>
+                    <img src="~/images/fleetcross.svg" width="15" data-dismiss="modal" aria-label="Close" class="mt-0 mt-md-1 cursor-pointer" />
+                </div>
+            </div>
+            <div class="modal-body new-background fleetpaddingmo">
+                <div class="">
+                    <div class="common-custom-card mb-0">
+                        <div>ShipSure Sentinel uses AI to identify and highlight patterns and calculate a vessel score. This score can be used to predict									potential issues and assist in managing risk.</div>
+						<div class="text-right"><button data-dismiss="modal" aria-label="Close" class=" mt-md-1 btn btn-dark-green text-white btn-addaction position-relative staticbutton mt-0 mb-3 mb-md-0" >OK</button></div>
+                    </div>
+                </div>
+
+			</div>
+		</div>
+	</div>
+</div>																		

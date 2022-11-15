@@ -1,0 +1,2185 @@
+﻿@model PurchaseOrderDetailViewModel
+
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+
+@section Title
+{
+    Order Details
+}
+
+
+@section ContentSection
+{
+    @Html.HiddenFor(m => m.OrderNumber)
+    @Html.HiddenFor(m => m.Title)
+    @Html.HiddenFor(m => m.AccountingCompanyId)
+    @Html.HiddenFor(m => m.SelectedJustificationReason)
+    @Html.HiddenFor(m => m.OrderId)
+    @Html.HiddenFor(m => m.MessageDetailsJSON)
+    @Html.HiddenFor(m => m.ActiveMobileTabClass)
+    @Html.Hidden("IsFromViewRecord", Model.IsFromViewRecord)
+
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding new-background common-border-radius  mobile-tab-bottom-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="margin-left-35 width-60per">
+                        <div class="common-sub-heading-black">
+                            <span id="spanOrderAuthPending" class="badge badge-pill badge-amber-color purchase-order-status-badge d-none" data-toggle="tooltip" data-placement="bottom" title="Authorisation Required">AR</span>
+                            @if (Model.IsHighPriority)
+                            {
+                                <span class="badge badge-pill badge-danger purchase-order-status-badge" data-toggle="tooltip" data-placement="bottom" title="@Model.OrderStatusName">
+                                    @Model.OrderStatus
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-pill badge-success purchase-order-status-badge" data-toggle="tooltip" data-placement="bottom" title="@Model.OrderStatusName">
+                                    @Model.OrderStatus
+                                </span>
+                            }
+                            <span class="header">
+                                @Model.AccountingCompanyId - @Model.OrderNumber
+                                @Model.Title
+                            </span>
+                            <div class="">
+                                @if (Model.IsFromViewRecord == true)
+                                {
+                                    <span class="common-small-heading">
+                                        @Model.VesselName
+                                    </span>
+                                }
+                                else
+                                {
+                                    <a class="common-heading-green"
+                                       href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.PurchaseOrderVesselId)">@Model.VesselName</a>
+                                }
+                                <span class="common-small-heading">
+                                    <span class="">|</span>
+
+                                    <div>@Model.OrderType</div>
+                                </span>
+                                @if (Model.AccountId != null)
+                                {
+                                    <span class="common-small-heading">
+                                        <span class="d-none d-md-inline-block">|</span>
+                                        <div>Account Code <span>@Model.AccountId - @Model.AccountCodeDescription</span></div>
+                                    </span>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page-title-actions mt-0 mt-lg-0 mobile-padding-0 left-fixed-ipad">
+                        <partial name="DiscussionAndNotesCountButton" />
+                        <div class="inline-block d-none authoriseSection">
+                            <div class="d-none" id="authoriseButtonSection">
+                                <button id="authoriseButton" class="btn btn-dark-grey text-white btn-shadow  hover-blue mr-1 d-none">
+                                    <span class="open-sans-font bold-text">Authorise</span>
+                                </button>
+                                <button id="clientAuthoriseButton" class="btn btn-dark-grey text-white btn-shadow  hover-blue mr-1 d-none">
+                                    <span class="open-sans-font bold-text">Authorise</span>
+                                </button>
+                                <button id="clientRejectButton" class="btn btn-dark-grey text-white btn-shadow  hover-blue d-none mr-1 " data-toggle="modal" data-target="#clientAuthoriseRejectModal">
+                                    <span class="open-sans-font bold-text">Reject</span>
+                                </button>
+                            </div>
+                        </div>
+                        @*<button id="btnAdvDownloadDesktop" class="btn btn-dark-grey text-white btn-shadow hover-blue mr-1 hide-mobile btnAdvDownload">
+                                <img src="~/images/Download-doc-hover.png" class="m-0 align-top" /><span class="open-sans-font bold-text ml-2">Download Options</span>
+                            </button>*@
+                        <button id="" data-toggle="tooltip" title="" data-placement="bottom" class="btnExportOrderDetails btn btn-dark-grey text-white btn-export btn-shadow hover-blue hide-mobile" data-original-title="Export to excel">
+                            <i class="fa fa-file-excel" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="dropdown mobile-dropdown-title d-block d-md-none d-lg-none d-xl-none">
+                        <button type="button" id="mobileactiontoggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-dark-grey text-white btn-export btn-shadow">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="mobileActiondropdown">
+                            <ul class="nav flex-column">
+                                <li id="baseDiscussionMobile" class="d-none">
+                                    <a class="nav-link discussionAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>Discussions (<span class="baseDiscussionCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                                <li id="baseNotesMobile" class="d-none">
+                                    <a class="nav-link noteAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>My Notes (<span class="baseNotesCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                                @*<li>
+                                        <a class="nav-link btnAdvDownload tab-box-2" id="btnAdvDownloadMobile" data-toggle="modal" data-target="#" title="Download" data-placement="bottom">
+                                            <i class="fa fa-list-ul" aria-hidden="true" title="Download"></i><span> Download Options</span>
+                                        </a>
+                                    </li>*@
+                                <li>
+                                    <a class="nav-link btnExportOrderDetails">
+                                        <i class="fa fa-fw" aria-hidden="true"></i><span> Export To Excel</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-pane">
+                <div id="tabdivhide">
+                    <div class="margin-bottom-custom mt-0 tab-new-design tab-new-design-2 position-relative" id="">
+                        <div class="card-header card-header-tab-animation hide-mobile">
+                            <ul class="nav nav-justified">
+                                <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-1" href="#tab-orderDetails-Summary" class="active nav-link Summary dropdown-tab-1 mobileTabClick">SUMMARY</a></li>
+                                <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-2" href="#tab-orderDetails-OrderLines" class="nav-link OrderLines dropdown-tab-2 mobileTabClick">ORDER LINES</a></li>
+                                @if (Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.Enquiry)) || Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.AuthorisedEnquiry)) || Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.PurchaseOrder)))
+                                {
+                                    <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-3" href="#tab-orderDetails-Suppliers" class="nav-link Suppliers dropdown-tab-3 mobileTabClick">SUPPLIERS</a></li>
+                                }
+
+                                @if (Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.PurchaseOrder)) || Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.AuthorisedEnquiry)))
+                                {
+                                    <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-4" href="#tab-orderDetails-Delivery" class="nav-link Delivery dropdown-tab-4 mobileTabClick">DELIVERY</a></li>
+                                }
+                                <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-5" href="#tab-orderDetails-Budget" class="nav-link Budget dropdown-tab-5 mobileTabClick">BUDGET</a></li>
+                            </ul>
+                        </div>
+                        <div class="card-body p-0">
+                            @Html.Hidden("hdnAccountingCompanyId", Model.ProtectedAccountingCompanyId)
+                            @Html.Hidden("hdnOrderNumber", Model.ProtectedOrderNumber)
+                            @Html.Hidden("hdnOrderStage", Model.OrderStage)
+                            @Html.Hidden("hdnAccountCode", Model.AccountId)
+                            @Html.Hidden("hdnOrderStatus", Model.OrderStatus)
+                            @Html.Hidden("hdnOrderType", Model.OrderType)
+                            @Html.Hidden("hdnOrderPriority", Model.OrderPriority)
+                            @Html.HiddenFor(m => m.PurchaseOrderRequest)
+                            @Html.HiddenFor(m => m.PurchaseOrderVesselId)
+                            <div class="tab-content mb-0 p-0">
+                                <div class="tab-pane active tab-box-1" id="tab-orderDetails-Summary" role="tabpanel">
+                                    <div class="common-custom-card two-column-layout">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Order Details</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5 col-lg-4 col-xl-3">
+                                                <div class="row">
+                                                    <div class="col-8 col-md-7 col-lg-7 col-xl-6">
+                                                        <div class="dashboard-counters-label">Type</div>
+                                                    </div>
+                                                    <div class="col-4 col-md-5 col-lg-5 col-xl-6">
+                                                        <div class="dashboard-counters">
+                                                            <span id="orderDetailsType"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-lg-4 col-xl-3">
+                                                <div class="row">
+                                                    <div class="col-8 col-md-6 col-lg-4 col-xl-5">
+                                                        <div class="dashboard-counters-label">Priority</div>
+                                                    </div>
+                                                    <div class="col-4 col-md-6 col-lg-8 col-xl-7">
+                                                        <div class="dashboard-counters">
+                                                            <span id="orderDetailsPriority"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4 col-xl-3">
+                                                <div class="row">
+                                                    <div class="col-8 col-md-7 col-lg-6 col-xl-5">
+                                                        <div class="dashboard-counters-label">Order Lines</div>
+                                                    </div>
+                                                    <div class="col-4 col-md-5 col-lg-6 col-xl-7">
+                                                        <div class="dashboard-counters">
+                                                            <span id="orderDetailsLines"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5 col-lg-4 col-xl-3">
+                                                <div class="row">
+                                                    <div class="col-8 col-md-7 col-lg-7 col-xl-6">
+                                                        <div class="dashboard-counters-label mr-0 w-auto">Expected Delivery Date</div>
+                                                    </div>
+                                                    <div class="col-4 col-md-5 col-lg-5 col-xl-6">
+                                                        <div class="dashboard-counters">
+                                                            <span id="orderDetailsExpectedDeliveryDate"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-lg-4 col-xl-3">
+                                                <div class="row">
+                                                    <div class="col-8 col-md-6 col-lg-4 col-xl-5">
+                                                        <div class="dashboard-counters-label">Expected Port</div>
+                                                    </div>
+                                                    <div class="col-4 col-md-6 col-lg-8 col-xl-7">
+                                                        <div class="dashboard-counters">
+                                                            <span id="orderDetailsExpectedPort"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4 col-xl-3">
+                                                <div class="row">
+                                                    <div class="col-8 col-md-7 col-lg-6 col-xl-5">
+                                                        <div class="dashboard-counters-label mr-0 w-auto">Expected Country</div>
+                                                    </div>
+                                                    <div class="col-4 col-md-5 col-lg-6 col-xl-7">
+                                                        <div class="dashboard-counters">
+                                                            <span id="orderDetailsExpectedCountry"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="common-custom-card mobile-pad-0 d-none authoriseSection">
+                                        <div class="mobile-pad-info-table">
+                                            <div class="counters-heading border-none">
+                                                <div class="">
+                                                    <span>Authorization</span>
+                                                </div>
+                                            </div>
+                                            <div id="limitSection" class="d-none">
+                                                <div class="row">
+                                                    <div class="col-12 col-lg-12">
+                                                        <label class="txt-red">Important:</label>
+                                                    </div>
+                                                </div>
+                                                <div id="isContractedAccount" class="d-none">
+                                                    <div class="row d-none" id="vesselLimitDesc">
+                                                        <div class="col-12 col-lg-12">
+                                                            <div>
+                                                                Vessel limit of
+                                                                <span id="vesselLimitAmount"></span>
+                                                                (<span class="limitCurrency"></span>)
+                                                                was exceeded
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row d-none" id="officeLimitDesc">
+                                                        <div class="col-12 col-lg-12">
+                                                            <div>
+                                                                Office limit of
+                                                                <span id="officeLimitAmount"></span>
+                                                                (<span class="limitCurrency"></span>)
+                                                                was exceeded
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row d-none" id="authLevelDesc">
+                                                        <div class="col-12 col-lg-12">
+                                                            <div>
+                                                                Authorisation level 1 limit of
+                                                                <span id="authLevelAmount"></span>
+                                                                (<span class="limitCurrency"></span>)
+                                                                was exceeded
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row d-none" id="clientLimitDesc">
+                                                    <div class="col-12 col-lg-12">
+                                                        <div>
+                                                            Client limit of
+                                                            <span id="clientLimitAmount"></span>
+                                                            (<span class="limitCurrency"></span>)
+                                                            was exceeded
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-common-design">
+                                            <div class="clearfix pt-3">
+                                                <div class="counters-heading border-none position-relative border-table-title">
+                                                    <div class="">
+                                                        <span>Authorisers</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6 col-xl-6">
+                                                    <div class="table-responsive compact-table">
+                                                        <table id="dtOrderAuthorisers" class="table table-hover table-bordered cardview row-sm">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Role</th>
+                                                                    <th>Username</th>
+                                                                    <th>Date</th>
+                                                                </tr>
+                                                            </thead>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-common-design">
+                                        <div class="common-custom-card mobile-pad-0">
+
+                                            <div class="clearfix">
+                                                <div class="counters-heading border-none position-relative border-table-title">
+                                                    <div>
+                                                        <span>Components</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="compact-table">
+                                                <table style="width: 100%;" id="dtComponentList" class="table table-hover table-bordered cardview row-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Component</th>
+                                                            <th>Maker</th>
+                                                            <th>Serial</th>
+                                                            <th>Type</th>
+                                                            <th>Designer</th>
+                                                            <th>Critical</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    @if (Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.Requisition)) || Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.Enquiry)) || Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.AuthorisedEnquiry)))
+                                    {
+                                        <div class="table-common-design">
+                                            <div class="common-custom-card mobile-pad-0">
+
+                                                <div class="clearfix">
+                                                    <div class="counters-heading border-none">
+                                                        <div>
+                                                            <span>Suppliers</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="compact-table">
+                                                    <table style="width: 100%;" id="dtSuppliersList" class="table table-hover table-striped table-bordered cardview row-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="d-none d-sm-table-cell">
+                                                                    Status
+                                                                </th>
+                                                                <th>
+                                                                    Supplier Name
+                                                                </th>
+                                                                <th>
+                                                                    Goods
+                                                                </th>
+                                                                <th>
+                                                                    Freight
+                                                                </th>
+                                                                <th>
+                                                                    Total
+                                                                </th>
+                                                                <th>
+                                                                    CUR
+                                                                </th>
+                                                                <th>
+                                                                    Base
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                    @if (Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.PurchaseOrder)))
+                                    {
+
+
+                                        <div class="">
+                                            <div class="row">
+                                                <div class="col-12 col-md-12 col-lg-7">
+                                                    <div class="common-custom-card mobile-pad-0 two-column-layout height-equal">
+                                                        <div class="mobile-pad-info-table">
+                                                            <div class="counters-heading border-none">
+                                                                <div>
+                                                                    <span id="summaryAuthorisedSupplierDetails"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4 col-lg-6 col-xl-4">
+                                                                    <div class="row">
+                                                                        <div class="col-7 col-md-6 col-lg-6 col-xl-6">
+                                                                            <div class="dashboard-counters-label">   Date Authorised</div>
+                                                                        </div>
+                                                                        <div class="col-5 col-md-6 col-lg-6 col-xl-6">
+                                                                            <div class="dashboard-counters">
+                                                                                <span id="authorisedSupDateAuthorised"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 col-lg-6 col-xl-4">
+                                                                    <div class="row">
+                                                                        <div class="col-7 col-md-7 col-lg-7 col-xl-5">
+                                                                            <div class="dashboard-counters-label">  Authorised By</div>
+                                                                        </div>
+                                                                        <div class="col-5 col-md-5 col-lg-5 col-xl-7">
+                                                                            <div class="dashboard-counters">
+                                                                                <span id="authorisedSupAuthorisedBy"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 col-lg-6 col-xl-4">
+                                                                    <div class="row">
+                                                                        <div class="col-7 col-md-8 col-lg-7 col-xl-8">
+                                                                            <div class="dashboard-counters-label w-auto"> PO Confirmed Date</div>
+                                                                        </div>
+                                                                        <div class="col-5 col-md-4 col-lg-5 col-xl-4">
+                                                                            <div class="dashboard-counters">
+                                                                                <span id="authorisedSupPOConfirmedDate"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 col-lg-6 col-xl-4">
+                                                                    <div class="row">
+                                                                        <div class="col-7 col-md-6 col-lg-6 col-xl-6">
+                                                                            <div class="dashboard-counters-label mr-0 w-auto"> PO Chased Date</div>
+                                                                        </div>
+                                                                        <div class="col-5 col-md-6 col-lg-6 col-xl-6">
+                                                                            <div class="dashboard-counters">
+                                                                                <span id="authorisedSupPOChasedDate"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-lg-12 col-xl-12">
+                                                                    <div class="row">
+                                                                        <div class="col-7 col-md-3 col-lg-4 col-xl-3">
+                                                                            <div class="dashboard-counters-label w-auto"> Invoice Chased Date</div>
+                                                                        </div>
+                                                                        <div class="col-5 col-md-3 col-lg-3 col-xl-3">
+                                                                            <div class="dashboard-counters">
+                                                                                <span id="authorisedSupInvoiceChasedDate"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="counters-heading border-none mt-3">
+                                                                <div>
+                                                                    <span id="authSupCompanyName"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="">
+                                                                <span id="authSupAddress"></span>
+                                                            </div>
+                                                            <div class="">
+                                                                <span id="authSupTownDetails"></span>
+                                                            </div>
+                                                            <div class="">
+                                                                <span id="authSupCountry"></span>
+                                                            </div>
+                                                            <div class="row d-none" id="divAuthSupTelephone">
+                                                                <div class="col-5 col-md-2 col-lg-2 col-xl-2">
+                                                                    <div class="dashboard-counters-label">Telephone</div>
+                                                                </div>
+                                                                <div class="col-7 col-md-10 col-lg-10 col-xl-10">
+                                                                    <div class="dashboard-counters">
+                                                                        <span id="authSupTelephone"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row d-none" id="divAuthSupFax">
+                                                                <div class="col-5 col-md-2 col-lg-2 col-xl-2">
+                                                                    <div class="dashboard-counters-label">Fax</div>
+                                                                </div>
+                                                                <div class="col-7 col-md-10 col-lg-10 col-xl-10">
+                                                                    <div class="dashboard-counters">
+                                                                        <span id="authSupFax"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row d-none" id="divAuthSupEmail">
+                                                                <div class="col-5 col-md-2 col-lg-2 col-xl-2">
+                                                                    <div class="dashboard-counters-label">Email</div>
+                                                                </div>
+                                                                <div class="col-7 col-md-10 col-lg-10 col-xl-10">
+                                                                    <div class="dashboard-counters">
+                                                                        <a id="authSupDeliveryEmail" class="txt-green-common-text">
+                                                                            <span id="authSupEmail"></span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-12 col-lg-5">
+                                                    <div class="common-custom-card mobile-pad-0 height-equal">
+                                                        <div class="table-common-design">
+                                                            <div class="clearfix">
+                                                                <div class="counters-heading border-none position-relative border-table-title">
+                                                                    <div>
+                                                                        <span id="spanCostHeader"></span>
+                                                                        <span id="costWarningMessageLabel" class="ml-1 d-none txt-red">
+                                                                            Important:
+                                                                        </span>
+                                                                        <span id="spanCostWarningMessage" class="ml-1">
+
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="table-responsive compact-table">
+                                                                <table style="width: 100%;" id="dtSummaryCostList" class="table table-striped table-hover table-bordered cardview row-sm">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th></th>
+                                                                            <th>Amount</th>
+                                                                            <th>Outstanding</th>
+                                                                            <th>Proposed</th>
+                                                                            @*<th>
+                                                                                    &nbsp;
+                                                                                </th>*@
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="table-common-design icon-padding">
+                                            <div class="common-custom-card mb-0 mobile-pad-0">
+                                                <div class="counters-heading border-none">
+                                                    <div>
+                                                        <span>Invoices</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="table-responsive compact-table">
+                                                    <table style="width: 100%;" id="dtSummaryInvoiceList" class="table table-hover table-striped table-bordered cardview row-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Docs</th>
+                                                                <th>Reference</th>
+                                                                <th>Status</th>
+                                                                <th>Amount</th>
+                                                                <th>Currency</th>
+                                                                <th>Invoice Date</th>
+                                                                <th>Paid Date</th>
+                                                                @*<th>
+                                                                        &nbsp;
+                                                                    </th>*@
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="tab-pane tab-box-2 hide-mobile" id="tab-orderDetails-OrderLines" role="tabpanel">
+                                    <div class="common-custom-card mb-0 mobile-pad-0">
+                                        <div class="table-common-design compact-table">
+                                            <table style="width: 100%;" id="dtOrderLines" class="table table-hover table-striped table-bordered cardview row-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="d-none d-sm-table-cell">
+                                                            Notes
+                                                        </th>
+                                                        <th>
+                                                            #
+                                                        </th>
+                                                        <th>
+                                                            Part Name
+                                                        </th>
+                                                        <th>
+                                                            Makers Reference
+                                                        </th>
+                                                        <th>
+                                                            Drawing Position
+                                                        </th>
+                                                        <th>
+                                                            UOM
+                                                        </th>
+                                                        <th>
+                                                            ROB
+                                                        </th>
+                                                        <th>
+                                                            REQ
+                                                        </th>
+                                                        <th>
+                                                            ENQ
+                                                        </th>
+                                                        <th>
+                                                            ORD
+                                                        </th>
+                                                        <th>
+                                                            REC
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane tab-box-3 hide-mobile" id="tab-orderDetails-Suppliers" role="tabpanel">
+                                    <div class="common-custom-card mb-0 mobile-pad-0 dropdown-overflow">
+                                        <div class="table-responsive compact-table table-common-design">
+                                            <table style="width: 100%;" id="dtSuppliersTab" class="table table-hover table-striped table-bordered cardview row-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="table-header-icon-align">
+                                                            @*//checkbox*@
+                                                        </th>
+                                                        <th class="d-none d-sm-table-cell">Doc</th> @*//icon*@
+
+                                                        <th class="d-none d-sm-table-cell">
+                                                            Actions
+                                                        </th>
+                                                        <th class="d-none d-sm-table-cell">
+                                                            Notes
+                                                        </th>
+                                                        <th>
+                                                            Supplier Name
+                                                        </th>
+                                                        <th class="d-table-cell d-sm-none">
+                                                            &nbsp;
+                                                        </th>
+                                                        <th>
+                                                            Rating
+                                                        </th>
+                                                        <th>
+                                                            Status
+                                                        </th>
+                                                        <th>
+                                                            Country
+                                                        </th>
+                                                        <th>
+                                                            Type
+                                                        </th>
+                                                        <th>
+                                                            Full Quote
+                                                        </th>
+                                                        <th>
+                                                            Max Ex-Works Days
+                                                        </th>
+                                                        <th class="white-space-break">
+                                                            Quote Received
+                                                        </th>
+                                                        <th>
+                                                            Total
+                                                        </th>
+                                                        <th>
+                                                            CUR
+                                                        </th>
+                                                        <th>
+                                                            Base (USD)
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane tab-box-4 hide-mobile" id="tab-orderDetails-Delivery" role="tabpanel">
+
+                                    <div class="row">
+                                        <div class="col-12 col-md-4 col-lg-4">
+                                            <div class="common-custom-card mb-0 height-equal">
+                                                <div class="counters-heading border-none">
+                                                    <div>
+                                                        <span>Order Tracker</span>
+                                                    </div>
+                                                </div>
+                                                <div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column mt-3">
+                                                    <div class="vertical-timeline-item vertical-timeline-element d-none" id="divCreatedHeader">
+                                                        <div>
+                                                            <span class="vertical-timeline-element-icon bounce-in" id="spanCreatedSubHeader"></span>
+                                                            <div class="vertical-timeline-element-content bounce-in">
+                                                                <h4 class="timeline-title">
+                                                                    Created
+                                                                </h4>
+                                                                <p>
+                                                                    <span id="spanCreatedDate"></span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-item vertical-timeline-element d-none" id="divRequestedHeader">
+                                                        <div>
+                                                            <span class="vertical-timeline-element-icon bounce-in" id="spanRequestedSubHeader"></span>
+                                                            <div class="vertical-timeline-element-content bounce-in">
+                                                                <h4 class="timeline-title">
+                                                                    Requested
+                                                                </h4>
+                                                                <p>
+                                                                    <span id="spanRequestedDate"></span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-item vertical-timeline-element d-none" id="divAuthorisedHeader">
+                                                        <div>
+                                                            <span class="vertical-timeline-element-icon bounce-in" id="spanAuthorisedSubHeader"></span>
+                                                            <div class="vertical-timeline-element-content bounce-in">
+                                                                <h4 class="timeline-title">
+                                                                    Authorised
+                                                                </h4>
+                                                                <p>
+                                                                    <span id="spanAuthorisedDate"></span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-item vertical-timeline-element d-none" id="divOrderedHeader">
+                                                        <div>
+                                                            <span class="vertical-timeline-element-icon bounce-in" id="spanOrderedSubHeader"></span>
+                                                            <div class="vertical-timeline-element-content bounce-in">
+                                                                <h4 class="timeline-title">
+                                                                    Ordered
+                                                                </h4>
+                                                                <p>
+                                                                    <span id="spanOrderedDated"></span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-item vertical-timeline-element d-none" id="divExpectedDeliveryHeader">
+                                                        <div>
+                                                            <span class="vertical-timeline-element-icon bounce-in" id="spanExpectedDeliverySubHeader"></span>
+                                                            <div class="vertical-timeline-element-content bounce-in">
+                                                                <h4 class="timeline-title">
+                                                                    Expected Delivery
+                                                                </h4>
+                                                                <p>
+                                                                    <span id="spanExpectedDeliveryDate"></span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-item vertical-timeline-element d-none" id="divPartiallyClosedHeader">
+                                                        <div>
+                                                            <span class="vertical-timeline-element-icon bounce-in" id="spanPartiallyClosedSubHeader"></span>
+                                                            <div class="vertical-timeline-element-content bounce-in">
+                                                                <h4 class="timeline-title">
+                                                                    Partially Recieved
+                                                                </h4>
+                                                                <p>
+                                                                    <span id="spanPartiallyRecievedDate"></span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-item vertical-timeline-element d-none" id="divClosedHeader">
+                                                        <div>
+                                                            <span class="vertical-timeline-element-icon bounce-in" id="spanClosedSubHeader"></span>
+                                                            <div class="vertical-timeline-element-content bounce-in">
+                                                                <h4 class="timeline-title">
+                                                                    Closed
+                                                                </h4>
+                                                                <p>
+                                                                    <span id="spanRecievedDate"></span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4 col-lg-4 border-md-left-border-sm-top mt-3 mt-sm-0">
+                                            <div class="common-custom-card mb-0 height-equal">
+                                                <div class="counters-heading border-none">
+                                                    <div>
+                                                        <span id="divDeliveryHeader">Delivery To</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="row py-1">
+                                                        <div class="col-12 col-md-2">
+                                                            <label class="custom-label">Port</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-10">
+                                                            <span id="spanPortName">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-1">
+                                                        <div class="col-12 col-md-12">
+                                                            <span class="card-title" id="spanCompanyType"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mt-1">
+                                                        <div class="col-12 col-md-12">
+                                                            <h6 class="card-title">
+                                                                <span id="spanCompanyName"></span>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-12">
+                                                            <span id="spanAddress"></span>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-12">
+                                                            <span id="spanTownDetails"></span>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-12">
+                                                            <span id="spanCountry"></span>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row py-1 d-none" id="divDeliveryTelephone">
+                                                        <div class="col-12 col-md-12 col-lg-4 col-xl-3">
+                                                            <label class="custom-label">Telephone</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-12 col-lg-8 col-xl-9">
+                                                            <span id="spanTelephone">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row py-1 d-none" id="divDeliveryFax">
+                                                        <div class="col-12 col-md-12 col-lg-4 col-xl-3">
+                                                            <label class="custom-label">Fax</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-12 col-lg-8 col-xl-9">
+                                                            <span id="spanFax">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row py-1 d-none" id="divDeliveryEmail">
+                                                        <div class="col-12 col-md-12 col-lg-4 col-xl-3">
+                                                            <label class="custom-label">Email</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-12 col-lg-8 col-xl-9">
+                                                            <a id="deliveryEmail" class="card-link">
+                                                                <span id="spanEmail"></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4 col-lg-4 border-md-left-border-sm-top mt-3 mt-sm-0">
+                                            <div class="common-custom-card mb-0 height-equal">
+                                                <div class="counters-heading border-none">
+                                                    <div>
+                                                        <span id="divDeliveryHeader">Delivery Times</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 col-md-12 col-xl-4 py-1 py-sm-0">
+                                                        <div>
+                                                            <label class="custom-label">
+                                                                Delivery Days
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <span id="deliveryDays"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-12 col-xl-4 py-1 py-sm-0">
+                                                        <div>
+                                                            <label class="custom-label">
+                                                                Days Remaining
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <span id="daysRemaining"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-12 col-xl-4 py-1 py-sm-0">
+                                                        <div>
+                                                            <label class="custom-label">
+                                                                Delivery Date
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <span id="deliveryDate"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane tab-box-5 hide-mobile" id="tab-orderDetails-Budget" role="tabpanel">
+                                    <div class="common-custom-card budget-details-box">
+                                        <div class="">
+                                            <div class="counters-heading border-none">
+                                                <div>
+                                                    <span>Budget Details</span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="float-left mr-common">
+                                                    <div class="clearfix">
+                                                        <div class="float-left float-md-none">
+                                                            <div class="dashboard-counters-label">
+                                                                From
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-right float-md-none">
+                                                            <span id="budgetFromDate" class="dashboard-counters"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left mr-common">
+                                                    <div class="clearfix">
+                                                        <div class="float-left float-md-none">
+                                                            <div class="dashboard-counters-label">
+                                                                To
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-right float-md-none">
+                                                            <span id="budgetToDate" class="dashboard-counters"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left mr-common">
+                                                    <div class="clearfix">
+                                                        <div class="float-left float-md-none">
+                                                            <div class="dashboard-counters-label">
+                                                                Year Allocation
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-right float-md-none">
+                                                            <span id="budgetYearAllocation" class="dashboard-counters"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left mr-common">
+                                                    <div class="clearfix">
+                                                        <div class="float-left float-md-none">
+                                                            <div class="dashboard-counters-label">
+                                                                Accruals
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-right float-md-none">
+                                                            <span id="budgetAccural" class="dashboard-counters"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left mr-common">
+                                                    <div class="clearfix">
+                                                        <div class="float-left float-md-none">
+                                                            <div class="dashboard-counters-label">
+                                                                Actual
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-right float-md-none">
+                                                            <span id="budgetActual" class="dashboard-counters"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left mr-common">
+                                                    <div class="clearfix">
+                                                        <div class="float-left float-md-none">
+                                                            <div class="dashboard-counters-label">
+                                                                Total
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-right float-md-none">
+                                                            <span id="budgeTotal" class="dashboard-counters"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left mr-common">
+                                                    <div class="clearfix">
+                                                        <div class="float-left float-md-none">
+                                                            <div class="dashboard-counters-label">
+                                                                Variance
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-right float-md-none">
+                                                            <span id="budgetVariance" class="dashboard-counters"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left wp-mobile-100">
+                                                    <div class="clearfix">
+                                                        <div class="float-left float-md-none">
+                                                            <div class="dashboard-counters-label">
+                                                                Currency
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-right float-md-none">
+                                                            <span id="budgetCurrency" class="dashboard-counters"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="common-custom-card mobile-pad-0">
+                                        <div class="table-common-design position-relative">
+                                            <div class="counters-heading border-none">
+                                                <div class="">
+                                                    <span>Orders</span>
+                                                </div>
+                                            </div>
+                                            @*<div class="data-grid-right">
+                                                    <button data-toggle="tooltip" id="btnExportBudgetList" title="Export to excel" data-placement="bottom" class="btn btn-dark btn-shadow btn-actions hover-blue ">
+                                                        <i class="fa fa-fw" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>*@
+                                            <div class="table-responsive compact-table">
+                                                <table style="width: 100%;" id="dtBudgetTabList" class="table table-hover table-striped table-bordered cardview row-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Order No.</th>
+                                                            <th>Order Name</th>
+                                                            <th>Date</th>
+                                                            <th>Local Cost</th>
+                                                            <th>Currency</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+
+        @*pop over*@
+        @*<div class="download-attachments-popup hide-desktop grid-action-panel">
+                <div class="position-relative form-group mb-0">
+                    <span class="items-selected wp-mobile-100"><span id="AdvDocSelected">0</span> Items Selected</span>
+                    <button type="button" id="btnDownloadSelection" class=" btn btn-green-background text-white btn-shadow mr-3 disabled btn-green">
+                        <img src="~/images/Download-doc-hover.png" class="m-0" width="15" title="Download" />
+                        <span class="open-sans-font bold-text ml-2 align-middle">Download Selection </span>
+                    </button>
+                    <button type="button" id="btnEmailToMe" class=" btn btn-green-background text-white btn-shadow btn-green mr-0 d-none" disabled="disabled">
+                        <img src="~/images/Email.png" class="m-0" width="15" title="" /><span class="open-sans-font bold-text ml-2 align-middle">Email to Me</span>
+                    </button>
+                    <button type="button" id="btnAdvCancel" class="btn bold-text btn-cancel wp-mobile-100">Cancel</button>
+                </div>
+            </div>*@
+    </div>
+
+    <div class="mobile-tab mobile-dropdown-tab d-block d-md-none d-lg-none d-xl-none">
+        <button type="button" class="dropdown-toggle wp-mobile-100" data-flip="false" id="dropdowntabbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a href="javascript:void(0)" class="active dropdowntabtitle">&nbsp;</a>  <i class="fa fa-fw dropdown-rotate" aria-hidden="true"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdowntablist">
+            <ul class="p-0 mb-0">
+                <li class="active">
+                    <a id="dropdown-tab-1" href="javascript:void(0)" class="dropdown-tab-1 Summary mobileTabClick">
+                        <svg width="19" height="22" viewBox="0 0 21 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                            <path d="M20.4848 1.34377C20.4884 1.07278 20.247 0.875 19.9824 0.875H1.38007C1.11443 0.875 0.875 1.07323 0.875 1.34289V22.6571C0.875 22.9265 1.11414 23.125 1.38007 23.125H19.9799C20.2456 23.125 20.485 22.9268 20.485 22.6571L20.4848 1.34377ZM20.4848 1.34377C20.4848 1.34412 20.4848 1.34448 20.4848 1.34483L20.3598 1.34289L20.4848 1.34289V1.34377ZM19.4769 22.1892H1.88765V1.81074H19.4769V22.1892Z" fill="#000000" stroke="#000000" stroke-width="0.25" />
+                            <path d="M4.63485 18.2247C4.70813 18.1538 4.80728 18.114 4.91042 18.1145L15.5725 18.1147C15.7861 18.1155 15.959 18.2841 15.9599 18.4924C15.9602 18.5929 15.9196 18.6896 15.847 18.7609C15.7744 18.8323 15.6756 18.8726 15.5725 18.8731H4.91043C4.80676 18.8734 4.70709 18.8335 4.63381 18.762C4.56053 18.6904 4.51955 18.5934 4.5199 18.4924C4.52025 18.3918 4.56175 18.2955 4.63485 18.2247Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.63485 14.826C4.70813 14.7551 4.80728 14.7153 4.91042 14.7158L15.5725 14.716C15.7861 14.7168 15.959 14.8855 15.9599 15.0937C15.9602 15.1942 15.9196 15.2909 15.847 15.3622C15.7744 15.4336 15.6756 15.4739 15.5725 15.4744H4.91043C4.80676 15.4748 4.70709 15.4348 4.63381 15.3634C4.56053 15.2918 4.51955 15.1948 4.5199 15.0937C4.52025 14.9931 4.56175 14.8968 4.63485 14.826Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.64647 11.4274C4.72715 11.3564 4.83632 11.3166 4.94989 11.3171L11.1333 11.3173C11.3685 11.3182 11.5589 11.4868 11.5599 11.695C11.5603 11.7956 11.5155 11.8922 11.4356 11.9635C11.3557 12.0349 11.2469 12.0752 11.1333 12.0757H4.94989C4.83575 12.0761 4.726 12.0361 4.64532 11.9647C4.56464 11.8931 4.51952 11.7961 4.5199 11.695C4.52028 11.5944 4.56598 11.4981 4.64647 11.4274Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.64647 8.02892C4.72715 7.95798 4.83632 7.9182 4.94989 7.91871L11.1333 7.91888C11.3685 7.91973 11.5589 8.08834 11.5599 8.29657C11.5603 8.39713 11.5155 8.49379 11.4356 8.56507C11.3557 8.6365 11.2469 8.6768 11.1333 8.6773H4.94989C4.83575 8.67764 4.726 8.63769 4.64532 8.56625C4.56464 8.49464 4.51952 8.39763 4.5199 8.29657C4.52028 8.19601 4.56598 8.09968 4.64647 8.02892Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            <path d="M4.64647 4.63023C4.72715 4.5593 4.83632 4.51952 4.94989 4.52002L16.4133 4.5202C16.6485 4.52105 16.8389 4.68966 16.8399 4.89789C16.8403 4.99845 16.7955 5.09511 16.7156 5.16638C16.6357 5.23782 16.5269 5.27811 16.4133 5.27862H4.94989C4.83575 5.27896 4.726 5.23901 4.64532 5.16757C4.56464 5.09595 4.51952 4.99895 4.5199 4.89788C4.52028 4.79733 4.56598 4.701 4.64647 4.63023Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                        </svg>
+                        Summary
+                    </a>
+                </li>
+                <li>
+                    <a id="dropdown-tab-2" href="javascript:void(0)" class="dropdown-tab-2 OrderLines mobileTabClick">
+                        <svg width="16" height="22" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.35706 1C6.25678 0.999497 6.16054 1.03945 6.08965 1.11106C6.01877 1.1825 5.97896 1.2795 5.97946 1.38057V2.15083H2.86363C1.84018 2.15083 1 2.98731 1 4.01508V21.1351C1 22.1629 1.84018 23 2.86363 23H15.826C16.8495 23 17.6897 22.1629 17.6897 21.1351L17.6895 4.01508C17.6895 2.98731 16.8493 2.15083 15.8259 2.15083H12.7093V1.38057C12.7097 1.27951 12.67 1.1825 12.5991 1.11106C12.5283 1.03945 12.4319 0.999498 12.3316 1H6.35706ZM6.73264 1.75843H11.9567V3.30423L6.73264 3.30406V1.75843ZM2.86361 2.90946H5.97945V3.68192C5.97895 3.78299 6.01875 3.87999 6.08964 3.95144C6.16052 4.02288 6.25677 4.06283 6.35705 4.06249H12.3315C12.4318 4.06283 12.5282 4.02288 12.5991 3.95144C12.6699 3.88 12.7096 3.78282 12.7093 3.68175V2.90929H15.8258C16.4491 2.90929 16.9369 3.39802 16.9369 4.01511V21.1351C16.9369 21.7522 16.4491 22.241 15.8258 22.241H2.86338C2.24022 22.241 1.75225 21.7522 1.75225 21.1351V4.01511C1.75225 3.39806 2.24046 2.90946 2.86361 2.90946ZM7.43152 6.71124C7.33141 6.71446 7.23668 6.75746 7.16831 6.8311L5.49952 8.62796L4.65732 7.77692C4.51119 7.62913 4.27418 7.62811 4.1267 7.77455C4.05565 7.84548 4.0155 7.94181 4.01516 8.04254C4.01466 8.14344 4.05413 8.2401 4.12451 8.31154L5.24084 9.43951C5.3129 9.51265 5.41116 9.55294 5.51329 9.55141C5.61541 9.54989 5.71266 9.50655 5.78237 9.43139L7.71807 7.34875C7.85967 7.19639 7.85244 6.95735 7.70194 6.81396C7.62888 6.74471 7.53163 6.70786 7.43152 6.71124ZM10.1733 7.75189C10.0734 7.75155 9.97745 7.79099 9.90656 7.86193C9.83568 7.93303 9.79571 8.02953 9.79554 8.13025C9.7952 8.23132 9.83484 8.32832 9.90573 8.39977C9.97661 8.47138 10.073 8.51133 10.1733 8.51082H14.2981C14.3979 8.51048 14.4935 8.47019 14.5637 8.39875C14.6339 8.32732 14.6732 8.23082 14.6729 8.13026C14.6725 7.92169 14.5051 7.75257 14.2981 7.75172L10.1733 7.75189ZM7.43152 11.4475C7.33141 11.4507 7.23668 11.4939 7.16831 11.5675L5.49939 13.3644L4.65719 12.5133C4.51106 12.3655 4.27422 12.3645 4.12674 12.511C4.05569 12.5819 4.01554 12.6782 4.0152 12.7791C4.0147 12.8799 4.05417 12.9765 4.12455 13.048L5.24088 14.1759C5.31294 14.2491 5.4112 14.2894 5.51332 14.2878C5.61545 14.2863 5.7127 14.243 5.78241 14.1678L7.71811 12.0852C7.85971 11.9328 7.85248 11.6938 7.70198 11.5504C7.62892 11.4811 7.53163 11.4441 7.43152 11.4475ZM10.1733 12.4881C10.073 12.4878 9.97661 12.5278 9.90572 12.5992C9.83484 12.6706 9.7952 12.7678 9.79553 12.8689C9.7957 12.9696 9.83568 13.0661 9.90656 13.137C9.97744 13.208 10.0734 13.2478 10.1733 13.2474H14.2981C14.5051 13.2466 14.6725 13.0774 14.6729 12.8689C14.6732 12.7683 14.6339 12.6717 14.5637 12.6002C14.4935 12.5289 14.3979 12.4885 14.2981 12.4881L10.1733 12.4881ZM7.43152 16.1839C7.33141 16.1871 7.23668 16.2303 7.16831 16.3039L5.49952 18.1008L4.65732 17.2498C4.51051 17.1027 4.27351 17.1027 4.1267 17.2498C3.98023 17.397 3.97922 17.6359 4.12451 17.7846L5.24084 18.9156C5.3129 18.9887 5.41116 19.0289 5.51329 19.0273C5.61541 19.0258 5.71266 18.9825 5.78237 18.9073L7.71807 16.8247C7.78694 16.7514 7.82405 16.6534 7.82103 16.5525C7.81784 16.4514 7.77501 16.3559 7.70194 16.287C7.62888 16.2176 7.53163 16.1807 7.43152 16.1839ZM10.1733 17.2274C10.0735 17.2269 9.97761 17.2667 9.90673 17.3376C9.83602 17.4084 9.79587 17.5047 9.79554 17.6053C9.7952 17.7063 9.83484 17.8034 9.90573 17.875C9.97661 17.9464 10.073 17.9864 10.1733 17.986H14.2981C14.3979 17.9855 14.4935 17.9452 14.5637 17.8738C14.6339 17.8025 14.6732 17.7058 14.6729 17.6053C14.672 17.3971 14.5047 17.2284 14.2981 17.2276L10.1733 17.2274Z" fill="black" stroke="black" stroke-width="0.35" />
+                        </svg>
+                        Orders
+                    </a>
+                </li>
+                @if (Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.Enquiry)) || Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.AuthorisedEnquiry)) || Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.PurchaseOrder)))
+                {
+                    <li>
+                        <a id="dropdown-tab-3" href="javascript:void(0)" class="dropdown-tab-3 Suppliers mobileTabClick">
+                            <svg width="21" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                                <path d="M6.33898 22C5.84181 22 5.41634 21.8231 5.06258 21.4694C4.70882 21.1156 4.53194 20.6806 4.53194 20.1643C4.53194 19.6671 4.70882 19.2416 5.06258 18.8879C5.41634 18.5341 5.85137 18.3572 6.36767 18.3572C6.86484 18.3572 7.29031 18.5341 7.64407 18.8879C7.99783 19.2416 8.17471 19.6671 8.17471 20.1643C8.17471 20.6806 7.99783 21.1156 7.64407 21.4694C7.29031 21.8231 6.85528 22 6.33898 22ZM17.382 22C16.8848 22 16.4594 21.8231 16.1056 21.4694C15.7518 21.1156 15.575 20.6806 15.575 20.1643C15.575 19.6671 15.7518 19.2416 16.1056 18.8879C16.4594 18.5341 16.8848 18.3572 17.382 18.3572C17.8983 18.3572 18.3333 18.5341 18.6871 18.8879C19.0409 19.2416 19.2177 19.6671 19.2177 20.1643C19.2177 20.6806 19.0409 21.1156 18.6871 21.4694C18.3333 21.8231 17.8983 22 17.382 22ZM4.64667 3.52803L7.85919 10.2112H15.8044C15.8618 10.2112 15.9192 10.1921 15.9765 10.1538C16.0339 10.1156 16.0721 10.0678 16.0913 10.0104L19.5046 3.84355C19.5428 3.76706 19.5428 3.69535 19.5046 3.62842C19.4663 3.5615 19.409 3.52803 19.3325 3.52803H4.64667ZM4.01565 2.26597H19.8201C20.279 2.26597 20.6232 2.47153 20.8527 2.88266C21.0821 3.29379 21.0917 3.70013 20.8814 4.10169L17.382 10.412C17.2099 10.7179 16.9709 10.9713 16.6649 11.1721C16.359 11.3729 16.0435 11.4733 15.7184 11.4733H7.28553L5.67927 14.399C5.6219 14.4946 5.6219 14.595 5.67927 14.7001C5.73664 14.8053 5.82269 14.8579 5.93742 14.8579H19.2177V16.0913H6.1382C5.41156 16.0913 4.89526 15.8475 4.58931 15.3598C4.28335 14.8722 4.29292 14.3416 4.61799 13.7679L6.45372 10.412L2.12256 1.26206H0V0H2.95437L4.01565 2.26597Z" fill="black" />
+                            </svg>
+                            Suppliers
+                        </a>
+                    </li>
+                }
+
+                @if (Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.PurchaseOrder)) || Model.OrderStage.Equals(EnumsHelper.GetKeyValue(PurchaseOrderStage.AuthorisedEnquiry)))
+                {
+                    <li>
+                        <a id="dropdown-tab-4" href="javascript:void(0)" class="dropdown-tab-4 Delivery mobileTabClick">
+                            <svg width="31" height="24" viewBox="0 0 31 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                                <path d="M16.102 16.5102C15.2171 16.6628 14.6215 17.5067 14.7741 18.3915C14.9267 19.2764 15.7705 19.8721 16.6554 19.7195C17.5403 19.5669 18.1359 18.723 17.9833 17.8382C17.8307 16.9533 16.9869 16.3577 16.102 16.5102Z" fill="black" />
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M28.9916 14.6016L28.5904 14.6708L26.601 3.13357C26.4103 2.02753 25.3554 1.28294 24.2494 1.47365L15.7289 2.94286L15.4522 1.33824C15.4139 1.11635 15.2037 0.967995 14.9818 1.00626L10.3257 1.80913C9.88237 1.38784 9.21489 1.1745 8.52128 1.2941L6.11435 1.70913C5.00831 1.89984 4.24825 2.865 4.41985 3.86018C4.59145 4.85537 5.63085 5.51024 6.7369 5.31952L9.14383 4.90449C9.61646 4.823 10.0192 4.59496 10.3198 4.28863L12.6851 3.88079L14.3725 13.6671C12.3923 14.5609 11.1789 16.7067 11.5648 18.9449C12.0225 21.5993 14.5544 23.3864 17.2088 22.9287C19.1499 22.594 20.6228 21.1484 21.0974 19.3583C21.1034 19.358 21.1092 19.3587 21.1149 19.3593C21.1223 19.3602 21.1296 19.3611 21.1373 19.3597L29.5615 17.9071C29.7834 17.8689 29.9318 17.6587 29.8935 17.4368L29.4619 14.9336C29.4236 14.7117 29.2134 14.5634 28.9916 14.6016ZM19.643 3.09397L22.1462 2.66234L22.7751 6.30964L20.2719 6.74127L19.643 3.09397ZM18.8406 3.23231L19.6253 7.78303L23.7331 7.07471L22.9484 2.524L23.0033 2.51453C24.4181 2.27037 25.5911 2.06795 25.7987 3.27192L27.788 14.8091L20.9478 15.9886C20.2659 14.5365 19.5456 13.7705 17.4911 13.1643L15.8669 3.74508L18.8406 3.23231ZM6.59855 4.51721C5.93502 4.63163 5.31755 4.27504 5.22216 3.72184C5.12677 3.16864 5.58916 2.62585 6.25269 2.51144L8.65962 2.09641C9.32316 1.98199 9.94063 2.33858 10.036 2.89178C10.1314 3.44498 9.66902 3.98777 9.00548 4.10218L6.59855 4.51721ZM15.1475 13.3702L13.4182 3.34129C13.3799 3.1194 13.1698 2.97105 12.9479 3.00931L10.8189 3.37642C10.8612 3.17418 10.8748 2.9653 10.8383 2.75344C10.8296 2.703 10.8137 2.65561 10.7977 2.60819C10.792 2.59114 10.7862 2.57402 10.7808 2.55681L14.719 1.87774L16.6558 13.1101L15.1475 13.3702ZM17.0704 22.1264C14.8585 22.5078 12.7486 21.0185 12.3672 18.8066C11.9857 16.5947 13.4751 14.4847 15.687 14.1033C17.8989 13.7219 20.0089 15.2112 20.3903 17.4231C20.7717 19.635 19.2823 21.745 17.0704 22.1264ZM29.022 17.174L21.4001 18.4883L21.1068 16.7874L28.7287 15.4731L29.022 17.174Z" fill="black" />
+                                <path d="M9.22103 14.9431H1V13.9069H9.22103V14.9431Z" fill="black" />
+                                <path d="M4.28841 19.0537H9.22102V18.0175H4.28841V19.0537Z" fill="black" />
+                                <path d="M16.102 16.5102C15.2171 16.6628 14.6215 17.5067 14.7741 18.3915C14.9267 19.2764 15.7705 19.8721 16.6554 19.7195C17.5403 19.5669 18.1359 18.723 17.9833 17.8382C17.8307 16.9533 16.9869 16.3577 16.102 16.5102Z" stroke="black" stroke-width="0.3" />
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M28.9916 14.6016L28.5904 14.6708L26.601 3.13357C26.4103 2.02753 25.3554 1.28294 24.2494 1.47365L15.7289 2.94286L15.4522 1.33824C15.4139 1.11635 15.2037 0.967995 14.9818 1.00626L10.3257 1.80913C9.88237 1.38784 9.21489 1.1745 8.52128 1.2941L6.11435 1.70913C5.00831 1.89984 4.24825 2.865 4.41985 3.86018C4.59145 4.85537 5.63085 5.51024 6.7369 5.31952L9.14383 4.90449C9.61646 4.823 10.0192 4.59496 10.3198 4.28863L12.6851 3.88079L14.3725 13.6671C12.3923 14.5609 11.1789 16.7067 11.5648 18.9449C12.0225 21.5993 14.5544 23.3864 17.2088 22.9287C19.1499 22.594 20.6228 21.1484 21.0974 19.3583C21.1034 19.358 21.1092 19.3587 21.1149 19.3593C21.1223 19.3602 21.1296 19.3611 21.1373 19.3597L29.5615 17.9071C29.7834 17.8689 29.9318 17.6587 29.8935 17.4368L29.4619 14.9336C29.4236 14.7117 29.2134 14.5634 28.9916 14.6016ZM19.643 3.09397L22.1462 2.66234L22.7751 6.30964L20.2719 6.74127L19.643 3.09397ZM18.8406 3.23231L19.6253 7.78303L23.7331 7.07471L22.9484 2.524L23.0033 2.51453C24.4181 2.27037 25.5911 2.06795 25.7987 3.27192L27.788 14.8091L20.9478 15.9886C20.2659 14.5365 19.5456 13.7705 17.4911 13.1643L15.8669 3.74508L18.8406 3.23231ZM6.59855 4.51721C5.93502 4.63163 5.31755 4.27504 5.22216 3.72184C5.12677 3.16864 5.58916 2.62585 6.25269 2.51144L8.65962 2.09641C9.32316 1.98199 9.94063 2.33858 10.036 2.89178C10.1314 3.44498 9.66902 3.98777 9.00548 4.10218L6.59855 4.51721ZM15.1475 13.3702L13.4182 3.34129C13.3799 3.1194 13.1698 2.97105 12.9479 3.00931L10.8189 3.37642C10.8612 3.17418 10.8748 2.9653 10.8383 2.75344C10.8296 2.703 10.8137 2.65561 10.7977 2.60819C10.792 2.59114 10.7862 2.57402 10.7808 2.55681L14.719 1.87774L16.6558 13.1101L15.1475 13.3702ZM17.0704 22.1264C14.8585 22.5078 12.7486 21.0185 12.3672 18.8066C11.9857 16.5947 13.4751 14.4847 15.687 14.1033C17.8989 13.7219 20.0089 15.2112 20.3903 17.4231C20.7717 19.635 19.2823 21.745 17.0704 22.1264ZM29.022 17.174L21.4001 18.4883L21.1068 16.7874L28.7287 15.4731L29.022 17.174Z" stroke="black" stroke-width="0.3" />
+                                <path d="M9.22103 14.9431H1V13.9069H9.22103V14.9431Z" stroke="black" stroke-width="0.3" />
+                                <path d="M4.28841 19.0537H9.22102V18.0175H4.28841V19.0537Z" stroke="black" stroke-width="0.3" />
+                            </svg>
+                            Delivery
+                        </a>
+                    </li>
+                }
+                <li>
+                    <a id="dropdown-tab-5" href="javascript:void(0)" class="dropdown-tab-5 Budget mobileTabClick">
+                        <svg width="17" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                            <path d="M8.22105 18.6421H9.55263V17.4842H11.4053C11.5982 17.4842 11.7575 17.4215 11.8829 17.2961C12.0083 17.1706 12.0711 17.0211 12.0711 16.8474V13.1421C12.0711 12.9684 12.0083 12.8189 11.8829 12.6934C11.7575 12.568 11.5982 12.5053 11.4053 12.5053H7.00526V10.1316H12.0711V8.8H9.55263V7.64211H8.22105V8.8H6.36842C6.17544 8.8 6.01623 8.86272 5.89079 8.98816C5.76535 9.1136 5.70263 9.27281 5.70263 9.46579V13.1421C5.70263 13.3351 5.76535 13.4943 5.89079 13.6197C6.01623 13.7452 6.17544 13.8079 6.36842 13.8079H10.7684V16.1816H5.70263V17.4842H8.22105V18.6421ZM1.67895 22C1.21579 22 0.820176 21.836 0.492105 21.5079C0.164035 21.1798 0 20.7842 0 20.3211V1.67895C0 1.21579 0.164035 0.820175 0.492105 0.492105C0.820176 0.164035 1.21579 0 1.67895 0H11.7237L17.3684 5.64474V20.3211C17.3684 20.7842 17.2044 21.1798 16.8763 21.5079C16.5482 21.836 16.1526 22 15.6895 22H1.67895ZM10.6526 5.78947V1.30263H1.67895C1.58246 1.30263 1.49561 1.34123 1.41842 1.41842C1.34123 1.49561 1.30263 1.58246 1.30263 1.67895V20.3211C1.30263 20.4175 1.34123 20.5044 1.41842 20.5816C1.49561 20.6588 1.58246 20.6974 1.67895 20.6974H15.6895C15.786 20.6974 15.8728 20.6588 15.95 20.5816C16.0272 20.5044 16.0658 20.4175 16.0658 20.3211V5.78947H10.6526ZM1.30263 1.30263V5.78947V1.30263V20.6974V1.30263Z" fill="black" />
+                        </svg>
+                        Budget
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+}
+
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/orderDetail.bundle.js"></script>
+}
+
+@section Modal
+{
+    <div class="modal fade" id="orderLinesNotesModal" tabindex="-1" role="dialog" aria-labelledby="orderLinesNotesModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Notes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="spanOrderLineNotes"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal-on-modal" id="modalSupplierNotes" tabindex="-1" role="dialog" aria-labelledby="modalSupplierNotes" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Supplier Notes</h5>
+                    <button type="button" class="close close-modal-btn" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body background-padding">
+                    <div class="card margin-bottom-custom">
+                        <div class="card-body">
+                            <div class="card-title">Quote Details</div>
+                            <div class="row py-1">
+                                <div class="col-12 col-md-2">
+                                    <label class="custom-label"> Supplier</label>
+                                </div>
+                                <div class="col-12 col-md-10">
+                                    <span id="spanSupplierName">
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row py-1">
+                                <div class="col-12 col-md-2 ">
+                                    <label class="custom-label">Currency</label>
+                                </div>
+
+                                <div class="col-12 col-md-10">
+                                    <span id="spanCurrency">
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row py-1">
+                                <div class="col-12 col-md-2">
+                                    <label class="custom-label"> Port </label>
+                                </div>
+                                <div class="col-12 col-md-10">
+                                    <span id="spanPortNameSupplierNotes">
+
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card margin-bottom-custom">
+                        <div class="card-body">
+                            <div class="card-title">Notes</div>
+                            <div class="row py-1">
+                                <div class="col-12 col-md-12">
+                                    <textarea id="txtAreaNote" disabled="disabled" rows="5" style="width: 100%; max-width: 100%;">
+							        </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">Order Lines</div>
+                            <div class="table-responsive compact-table">
+                                <table style="width: 100%;" id="dtOrderLineDetails" class="table table-hover table-bordered cardview row-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                #
+                                            </th>
+                                            <th>
+                                                Order Line
+                                            </th>
+                                            <th>
+                                                Qty Enq
+                                            </th>
+                                            <th>
+                                                Supplier Qty
+                                            </th>
+                                            <th>
+                                                Unit Price
+                                            </th>
+                                            <th>
+                                                Supplier Notes
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-modal-btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalBudgetAlert" tabindex="-1" role="dialog" aria-labelledby="modalBudgetAlert" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Alert</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">
+                        Account code not found. Could not retrieve budget details
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-modal-btn" data-dismiss="modal">Ok</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade scrollerheightmodal" id="modalAuthorizeQuote" tabindex="-1" role="dialog" aria-labelledby="modalAuthorizeQuote" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        @*<div class="modal-backdrop fade show d-none" id="authorizeQuoteBackdrop"></div>*@
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Authorize Quote</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body background-padding  scrollerpadingmodal">
+                    <div id="smartwizardAuthorizeQuote" class="forms-wizard-alt actions scroller h-auto">
+                        <ul class="forms-wizard">
+                            <li>
+                                <a href="#step-1">
+                                    <em>1</em><span>Read Notes</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-2">
+                                    <em>2</em><span>Details</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-3">
+                                    <em>3</em><span>Feedback</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="form-wizard-content">
+                            <div id="step-1">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <textarea class="form-control form-control-sm" id="textReadNotes" data-html="true" rows="20" disabled></textarea>
+
+                                        <div class="position-relative form-check mt-3">
+                                            <input name="check" id="supplierNoteCheck" type="checkbox" class="form-check-input">
+                                            <label for="supplierNoteCheck" class="form-check-label">
+                                                I have read and understood the supplier notes attached to this order.
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-2">
+                                <div class="card margin-bottom-custom">
+                                    <div class="card-body">
+                                        <div class="card-title">Details</div>
+                                        <div class="row" id="parentcboVessAccountCode">
+                                            <div class="col-12 col-md-12 col-lg-6 col-xl-6" id="divAuthQuoteDetails">
+
+                                                <div class="row py-1" id="divSupplierOrderStatus">
+                                                    <div class="col-12 col-md-4">
+                                                        <label class="custom-label BrushRed">Important</label>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8">
+                                                        <span id="spanOrderStatusImportantMsg">
+
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row py-1">
+                                                    <div class="col-12 col-md-4">
+                                                        <label class="custom-label">Order Name</label>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8">
+                                                        <span id="spanSupplierOrderName">
+
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row py-2 py-sm-1 cboVessAccountCode">
+                                                    <div class="col-12 col-md-4">
+                                                        <label class="custom-label">Account Code<span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-12 col-md-8">
+                                                        <select id="cboVessAccountCode" class="form-control form-control-sm">
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row py-1">
+                                                    <div class="col-12 col-md-4">
+                                                        <label class="custom-label">Supplier</label>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8">
+                                                        <span id="spanSupplierOrderSupplierName"></span>
+                                                        <a id="aSupplierDetails"><i class="fa fa-info-circle cursor-pointer open-modal-btn"></i></a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row py-1">
+                                                    <div class="col-12 col-md-4 ">
+                                                        <label class="custom-label">Port</label>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8">
+                                                        <span id="spanSupplierPortName">
+
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row py-1">
+                                                    <div class="col-12 col-md-4 ">
+                                                        <label class="custom-label">Ex-Works Country</label>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8">
+                                                        <span id="spanSupplierExpectedCountry">
+
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row py-1">
+                                                    <div class="col-12 col-md-4 ">
+                                                        <label class="custom-label">Ex-Works</label>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8">
+                                                        <span id="spanSupplierExpectedWorks">
+
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row py-1">
+                                                    <div class="col-12 col-md-4 ">
+                                                        <label class="custom-label">Hazardous Goods</label>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8">
+                                                        <span id="spanSupplierHazGoods">
+
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row py-1">
+                                                    <div class="col-12 col-md-4 ">
+                                                        <label class="custom-label">Type of Spare Parts</label>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8">
+                                                        <span id="spanSupplierSpareParts">
+
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row py-1">
+                                                    <div class="col-12 col-md-4 ">
+                                                        <label class="custom-label">All Items Quoted</label>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8">
+                                                        <span id="spanSupplierItemsQuoted">
+
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row py-1" id="divItemsNotQuoted">
+                                                    <div class="col-12 col-md-4 ">
+                                                        <label class="custom-label">Items Not Quoted</label>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8">
+                                                        <a href="" id="spanSupplierItemsNotQuoted" data-toggle="modal" data-target="#unquoteModal">
+
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row py-1">
+                                                    <div class="col-12 col-md-4 ">
+                                                        <label class="custom-label">Proforma Requested</label>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8">
+                                                        <span id="spanSupplierProformaReq">
+
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-12 col-md-12 col-lg-6 col-xl-6" id="divAuxLookup">
+                                                <div id="divInsuaranceClaimAux">
+                                                    <partial name="CC_InsuranceClaimAuxLookup" />
+                                                </div>
+                                                <div id="divSeasonalAux" class="mt-1">
+                                                    <partial name="CC_SeasonalAuxLookup" />
+                                                </div>
+                                                <div id="divNationalityAux" class="mt-1">
+                                                    <partial name="CC_NationalityAuxLookup" />
+                                                </div>
+                                                <div id="divCrewRankAux" class="mt-1">
+                                                    <partial name="CC_CrewRankAuxLookup" />
+                                                </div>
+                                                <div id="divVesselAux" class="mt-1">
+                                                    <partial name="CC_VesselAuxLookup" />
+                                                </div>
+                                                <div id="divGeneral1Aux" class="mt-1">
+                                                    <partial name="CC_General1AuxLookup" />
+                                                </div>
+                                                <div id="divGeneral3Aux" class="mt-1">
+                                                    <partial name="CC_General3AuxLookup" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-lg-12">
+                                        <div class="card-group">
+                                            <div class="card mr-0 mr-md-3 margin-bottom-custom">
+                                                <div class="card-body">
+                                                    <div class="row py-1">
+                                                        <div class="col-6 col-md-4 ">
+                                                            <label class="custom-label">Quoted</label>
+                                                        </div>
+                                                        <div class="col-6 col-md-8">
+                                                            <span class="float-right" id="spanSupplierQuotedAmount">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row py-1">
+                                                        <div class="col-6 col-md-4 ">
+                                                            <label class="custom-label">Budget</label>
+                                                        </div>
+                                                        <div class="col-6 col-md-8">
+                                                            <div class="float-right">
+                                                                <span id="spanSupplierBudget"></span>
+                                                                <span id="spanSupplierBudgetCurrency"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row py-1">
+                                                        <div class="col-6 col-md-4 ">
+                                                            <label class="custom-label">Actual</label>
+                                                        </div>
+                                                        <div class="col-6 col-md-8">
+                                                            <div class="float-right">
+                                                                <span id="spanSupplierActual">  </span>
+                                                                <span id="spanSupplierActualCurrency"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row py-1">
+                                                        <div class="col-12 col-md-12">
+                                                            <label class="custom-label">Limit Levels</label>
+                                                            <a id="aLimitLevels"><i class="fa fa-info-circle cursor-pointer open-modal-btn ml-1"></i></a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row py-1" id="divAdditionalApprovals">
+                                                        <div class="col-12 col-md-12">
+                                                            <span class="text-danger">Note:&nbsp; </span>
+                                                            The order exceeds authorisation limit and requires next level of approval.
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card margin-bottom-custom">
+                                                <div class="card-body">
+                                                    <div class="row py-1">
+                                                        <div class="col-6 col-md-6">
+                                                            <label class="custom-label"> PO and INV Accruals</label>
+                                                        </div>
+                                                        <div class="col-6 col-md-6">
+                                                            <div class="text-success float-right">
+                                                                <span id="spanPOINVAccrual"></span>
+                                                                <span id="spanPOINVCurrency"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row py-1">
+                                                        <div class="col-6 col-md-6">
+                                                            <label class="custom-label">Order Accrual</label>
+                                                        </div>
+                                                        <div class="col-6 col-md-6">
+                                                            <div class="text-success float-right">
+                                                                <span id="spanOrderAccrual"></span>
+                                                                <span id="spanOrderAccrualVesselCurrency"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row py-1">
+                                                        <div class="col-6 col-md-6">
+                                                            <label class="custom-label">Freight Accrual</label>
+                                                        </div>
+                                                        <div class="col-6 col-md-6">
+                                                            <div class="text-success float-right">
+                                                                <span id="spanFrieghtAccrual"></span>
+                                                                <span id="spanFrieghtAccrualVesselCurrency"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row py-1">
+                                                        <div class="col-5  col-md-6">
+                                                            <label class="custom-label"> Projected Accrual</label>
+                                                        </div>
+                                                        <div class="col-7  col-md-6">
+                                                            <div id="divProjectAccruals" class="float-right border-top">
+                                                                <span id="spanProjectAccrual"></span>
+                                                                <span id="spanProjectAccrualVesselCurrency"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row py-1" id="divProjectAccrualExceeds">
+                                                        <div class="col-12 col-md-12">
+                                                            <span class="text-danger">Important:&nbsp; </span> Projected Accrual has exceeded the budget limit.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card" id="divJustification">
+                                    <div class="card-body">
+                                        <div class="card-title">Justification</div>
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-4">
+                                                <label class="custom-label">Reason <span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <select id="selectReasons" class="form-control form-control-sm"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-4">
+                                                <label class="custom-label"> Description <span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <textarea id="txtAreaDescription" class="form-control form-control-sm" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-title">Feedback</div>
+
+                                        <div class="row py-1 px-1">
+                                            You have not chosen the preferred / default supplier selected for this order, kindly provide
+                                            your feedback to improve our services offered to client
+                                        </div>
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-4">
+                                                <label class="custom-label">Reason <span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <select id="selectFeedbackReason" class="form-control form-control-sm"></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-4">
+                                                <label class="custom-label">Comments <span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class="col-12 col-md-8">
+                                                <textarea id="txtAreaFeedbackComments" class="form-control form-control-sm" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <a id="cancel-btnAuthorizeQuote" data-dismiss="modal" class="btn-shadow float-left btn btn-link">Cancel</a>
+                    <button type="button" id="prev-btnAuthorizeQuote" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Previous</button>
+                    <button type="button" id="next-btnAuthorizeQuote" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>
+                    <button type="button" id="finish-btnAuthorizeQuote" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="supplierModal" tabindex="-1" role="dialog" aria-labelledby="supplierModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalHeader"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- add content here for supplier details -->
+                <div class="modal-body">
+                    <div class="row d-none ml-1" id="divCompanyAddress">
+                        <span id="spanCompanyAddress"></span>
+                    </div>
+
+                    <div class="row ml-1">
+                        <span id="spanLocalAddres">
+                            <!-- combined adress-->
+                        </span>
+                    </div>
+
+                    <div class="row d-none ml-1" id="divCountry">
+                        <span id="spanCountryName">
+
+                        </span>
+                        <img id="imgCountryFlag" class="ml-2" width="25" />
+                        <!-- image flag -->
+                    </div>
+
+                    <div class="row py-1 d-none" id="divPOTelephone">
+                        <div class="col-12 col-md-3">
+                            <label class="custom-label">Telephone</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <span id="spanSupplierTelephone">
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row py-1 d-none" id="divPOMobile">
+                        <div class="col-12 col-md-3">
+                            <label class="custom-label">Mobile</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <span id="spanMobile">
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row py-1 d-none" id="divPOFax">
+                        <div class="col-12 col-md-3">
+                            <label class="custom-label">Fax</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <span id="spanSupplierFax">
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row py-1 d-none" id="divPOEmail">
+                        <div class="col-12 col-md-3">
+                            <label class="custom-label">Email</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <a id="aEmail" class="card-link">
+                                <span id="spanSupplierEmail"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row py-1 d-none" id="divPOWeb">
+                        <div class="col-12 col-md-3">
+                            <label class="custom-label">Web</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <a id="aWebAddr" class="card-link">
+                                <span id="spanWeb">
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row py-1 d-none" id="divPOProcurment">
+                        <div class="col-12 col-md-3">
+                            <label class="custom-label">Proc Type</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <span id="spanProcurment">
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row py-1">
+                        <div class="col-12 col-md-3">
+                            <label class="custom-label">Certified</label>
+                        </div>
+                        <div class="col-12 col-md-9">
+                            <span id="spanIsCompanyCertified"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalVesselOfficeLimit" tabindex="-1" role="dialog" aria-labelledby="modalVesselOfficeLimit" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Limit Levels</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row py-1">
+                        <div class="col-12 col-md-4 ">
+                            <label class="custom-label">Vessel Limit</label>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <span id="spanVOVesselLimit"></span>
+                        </div>
+                    </div>
+                    <div class="row py-1">
+                        <div class="col-12 col-md-4 ">
+                            <label class="custom-label">Office Limit</label>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <span id="spanVOOfficeLimit"></span>
+                        </div>
+                    </div>
+                    <div class="row py-1">
+                        <div class="col-12 col-md-4 ">
+                            <label class="custom-label">Level 1 Limit</label>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <span id="spanVOLevel1Limit"></span>
+                        </div>
+                    </div>
+                    <div class="row py-1">
+                        <div class="col-12 col-md-4 ">
+                            <label class="custom-label">Level 2 Limit</label>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <span id="spanVOLevel2Limit"></span>
+                        </div>
+                    </div>
+                    <div class="row py-1">
+                        <div class="col-12 col-md-4 ">
+                            <label class="custom-label">Level 3 Limit</label>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <span id="spanVOLevel3Limit"></span>
+                        </div>
+                    </div>
+                    <div class="row py-1">
+                        <div class="col-12 col-md-4 ">
+                            <label class="custom-label">Client Limit</label>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <span id="spanVOClientLimit"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="unquoteModal" tabindex="-1" role="dialog" aria-labelledby="unquoteModal" aria-hidden="true">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Non Quoted Order Lines</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card margin-bottom-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">Order Lines(<span id="unQuoteCountDt">0</span>)</h5>
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtNonQuotedOrderLines" class="table table-hover table-striped table-bordered cardview row-sm ">
+                                <thead>
+                                    <tr>
+                                        <th class="d-none d-sm-table-cell">#</th>
+                                        <th>Part Name</th>
+                                        <th>Makers Reference</th>
+                                        <th>Qty ENQ</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="vesselPartDetailModal" role="dialog" aria-labelledby="vesselPartDetailModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div style="height: 70vh;overflow-x: auto;" class="modal-body">
+                    <div class="card margin-bottom-custom">
+                        <div class="card-body">
+                            <div class="row py-1">
+                                <div class="col-12">
+                                    <label class="custom-label" id="partNameModal"></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Maker Reference Number</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanMakerReferenceNumber"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Unit Of Measurement</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanUOM"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Plate/Sheet Number</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanPlateSheetNumber"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Drawing Position</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanDrawingPosition"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Harmonised Number</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanHarNumber"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Harmonised Weight</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanHarWeight"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Stock Item</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanStockItem"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Recommended ROB</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanROB"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Technical Min Stock</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanTechMinStock"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Operational Min Stock</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanOperationalMinStock"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Certificate Required</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanCertificateReq"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-4 ">
+                                    <label class="custom-label">Certificate Name</label>
+                                </div>
+                                <div class="col-12 col-md-8">
+                                    <span id="spanCertificateName"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Dangerous Goods</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanDangerousGoods"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Description</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanDescription"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Weight</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanWeight"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Volume</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanVolume"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 ">
+                                    <label class="custom-label">Shelf Life Duration</label>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <span id="spanShelfLifeDuration"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="clientAuthoriseRejectModal" tabindex="-1" role="dialog" aria-labelledby="clientAuthoriseRejectModal" aria-hidden="true">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reject Order</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card margin-bottom-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">Rejection Reason<span class="text-danger">*</span></h5>
+                        <textarea class="form-control form-control-sm" id="rejectionComment" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancelsecondarybtn no-btn btn-no" id="clientRejectCloseBtn" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="clientRejectSaveBtn" class="btn btn-primary" data-dismiss="modal" disabled>Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade open-sans-font successpopup warningpopup" id="modalConfirmAuthoriseQuote" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="notesComfirmAsCompleteModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+            <div class="modal-content" style="border: 1px solid rgba(0,0,0,0.2);">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body">
+                    <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                    <h2>Confirm</h2>
+                    <h1>This is the last time you can change account code. Are you sure you want to continue?</h1>
+                    <button class="btn btn-cancelsecondarybtn no-btn btn-no clickEventDisable" data-dismiss="modal" id="btnCancelSave">Cancel</button>
+                    <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="btnConfirmSave">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--the same modal is used for authorization and rejection -->
+    <div class="modal fade open-sans-font successpopup" id="modalAuthoriseOrderSuccess" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="modalAuthoriseOrderSuccess" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                    <h1 id="lblStatusMsg">Order authorized successfully</h1>
+                    <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="btnAuthoriseOrderSuccessOK">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Waiting for confirmation from client
+        <div class="modal fade open-sans-font" id="modalAuthoriseAlert" role="dialog" aria-labelledby="modalAuthoriseAlert" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Alert</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="pAlertMessage"></p>
+                    </div>
+                    <div class="modal-footer common-form-design">
+                        <button class="btn btn search-btn" data-dismiss="modal" id="btnAlertOk">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    -->
+}

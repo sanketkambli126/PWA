@@ -1,0 +1,121 @@
+﻿
+<div class="modal fade search-participant-popup open-sans-font" id="searchparticipant" role="dialog" aria-labelledby="searchparticipant" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered shadow-none" role="document" style="max-width:950px">
+        <div class="modal-content border-0">
+            <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body">
+                <h1>Participants</h1>
+                <div class="row no-gutters search-control participant-design">
+                    <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                        <div class="leftcolumn">
+                            <div id="divResponsibleUsersSection">
+                                <h5>Responsible for <span id="spanResponsibleVesselName"></span> (<span id="spanResponsibleUserCount">0</span>) </h5>
+                                <div class="mobile-responsible scroller p-0">
+                                    <div class="apply-loader loader-height mb-3">
+                                        <div id="divResponsibleUsers" class="row mx-auto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 class="search-more mt-2">Search More Users</h5>
+                            <select id="cboSearchMoreUsers" class="form-control" multiple="multiple">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4 col-xl-4">
+                        <div class="search-participant-panel">
+                            <div class="search-participant-box scroller">
+                                <h5>Selected (<span id="spanSelectedParticipantsCount">0</span>)</h5>
+                                <div class="">
+                                    <div class="row">
+                                        <div class="col-xl-12 apply-loader loader-height" id="divSelectedParticipants">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="discussion-form clearfix pt-3">
+                    <button class="btn btn-discussion float-right" id="btnAddToMessage">Add to Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade open-sans-font successpopup warningpopup" id="addParticipantConfirmationDialog" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="addParticipantConfirmationDialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="border: 1px solid rgba(0,0,0,0.2);">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body">
+                <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                <h2>Confirmation</h2>
+                <h1>Added Participant(s) will be able to read all the chat history, Do you want to continue?</h1>
+                <button class="btn btn-cancelsecondarybtn no-btn btn-no" data-dismiss="modal" id="noConfirmationButton">Cancel</button>
+                <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="yesConfirmationButton">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade open-sans-font" id="notificationWelcomeModal" role="dialog" aria-labelledby="notificationWelcomeModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Welcome to V.Chat</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Participant: <span id="notificationWelcomeModalUserName">-</span></p>
+                <p>Welcome to V.Chat, use this to communicate with your vessel contacts, or with others in the company. Use the add button to create a new discussion or click the filter button to search the discussions.</p>
+            </div>
+            <div class="modal-footer common-form-design">
+                <button class="btn btn search-btn" data-dismiss="modal" id="notificationWelcomeOkBtn">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade open-sans-font successpopup warningpopup" id="modalDeleteChannelConfirmationDialog" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modalDeleteChannelConfirmationDialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body">
+                <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                <h2>Confirmation</h2>
+                <h1 id="pDeleteChannelMessage"></h1>
+                <button class="btn btn-cancelsecondarybtn no-btn btn-no" data-dismiss="modal" id="btnDeleteChannelNo">Cancel</button>
+                <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="btnDeleteChannelYes">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade open-sans-font successpopup warningpopup" id="notificationVesselChangeConfirmationModal" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="notificationVesselChangeConfirmationModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body">
+                <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                <h2>Confirmation</h2>
+                <h1>Vessel has been changed/ removed, do you want to keep the participants?</h1>
+                <button class="btn btn-cancelsecondarybtn no-btn btn-no" data-dismiss="modal" id="noNotificationVesselChangeConfirmationModal">Cancel</button>
+                <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="yesNotificationVesselChangeConfirmationModal">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

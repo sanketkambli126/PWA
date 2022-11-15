@@ -1,0 +1,1229 @@
+﻿@model VesselDetailPartialViewModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="vessel-name-details customCollapse" id=@Model.DropDownId style="display: none;">
+    <div class="row">
+        <div class="col-12 col-md-4 col-lg-4 col-xl-3 p-0">
+            <div class="vessel-info height-equal-vessel">
+                <div class="vessel-summary apply-loader">
+                    <div class="">
+                        <div class="v-image"><img class="imgvesselpicture" src="~/images/NoImageAvailable.png" /></div>
+                    </div>
+                    <div class="">
+                        <div class="v-info">
+                            <div class="v-number">
+                                <div class="clearfix">
+                                    <div class="float-left spanVesselImo">-</div>
+                                    <div class="float-right"><img src="~/images/DashboardIcons/vessel-flag.png" /></div>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="float-left"><div class="v-label">Type</div></div>
+                                <div class="float-left"><div class="v-text spanVesselType">-</div></div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="float-left"><div class="v-label">Built Date</div></div>
+                                <div class="float-left datelineheight">
+                                    <div class="v-text spanVesselBuiltDate d-inline-block">- </div>
+                                    <div class="v-text d-inline-block"><div class="d-inline-block">(</div><div class="spanVesselAge d-inline-block">-</div><div class="d-inline-block">)</div></div>
+                                </div>
+                            </div>
+                            @*<div class="clearfix">
+                                <div class="float-left"><div class="v-label">Age</div></div>
+                                <div class="float-left"></div>
+                                </div>*@
+                            <div class="clearfix officer-details apply-loader">
+                                <div class="clearfix">
+                                    <div class="float-left"><div class="v-label">Master</div></div>
+                                    <div class="float-left"><div class="v-text spanVesselMaster">-</div></div>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="float-left"><div class="v-label">Chief Eng</div></div>
+                                    <div class="float-left"><div class="v-text spanVesselChiefEngg">-</div></div>
+                                </div>
+                            </div>
+                            <div class="clearfix rightship-details apply-loader">
+                                <div class="clearfix">
+                                    <div class="float-left"><div class="v-label">RightShip</div></div>
+                                    <div class="float-left"><div class="v-text spanRightShipScore">-</div></div>
+                                    <div class="float-left"><div class="v-label w-auto ml-4">GHG Rating</div></div>
+                                    <div class="float-left"><div class="v-text spanRightShipRating">-</div></div>
+                                </div>
+                            </div>
+                            <div class="agentdivvessel clearfix">
+                                <div class="dropdownvessel agentcalldropdown">
+                                    <a class="btn p-0 m-0 agentbtn agentbtncall" href="javascript:void(0)" role="button" aria-expanded="false">
+                                        <img class="vesselcommunicationlink" src="/images/agentcall.svg" />
+                                    </a>
+                                    <div class="agentmenudetail communicationcall apply-loader">
+                                        <div class="agentheader">
+                                            Call Vessel <a href="javascript:void(0);" class="closeagentcall"> <img src="~/images/agentclose.svg" /></a>
+                                        </div>
+                                        <div class="agentlisting">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdownvessel agentemaildropdown">
+                                    <a class="btn p-0 m-0 agentbtn agentbtnemail" href="javascript:void(0)" role="button" aria-expanded="false">
+                                        <img class="vesselcommunicationlink" src="/images/agentemail.svg" />
+                                    </a>
+                                    <div class="agentmenudetail communicationemail apply-loader">
+                                        <div class="agentheader">
+                                            Email Vessel <a href="javascript:void(0);" class="closeagentemail"> <img src="~/images/agentclose.svg" /></a>
+                                        </div>
+                                        <div class="agentlisting">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdownvessel agentoptiondropdown">
+                                    <a class="btn p-0 m-0 agentbtn agentbtnoptions" href="javascript:void(0)" role="button" aria-expanded="false">
+                                        <img class="vesselcommunicationlink align-bottom" src="/images/agentoption.svg" />
+                                    </a>
+                                    <div class="agentmenudetail communicationother apply-loader">
+                                        <div class="agentheader">
+                                            Other vessel contacts <a href="javascript:void(0);" class="closeagentother"> <img src="~/images/agentclose.svg" /></a>
+                                        </div>
+                                        <div class="agentlisting">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-right position-relative divSentinel">
+                                    <a class="aSentinelValue" href="/Sentinel/VesselDetail/?VesselId=@Model.EncryptedVesselId">
+                                        <p class="pSentinelScore"></p>
+                                        <img class="imgSentinelShield" width="30" height="35" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-8 col-lg-8 col-xl-9">
+            <div class="height-equal-vessel location-box">
+                <div class="apply-loader current-voyage-box  route-graph-loader">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <div class="current-voyage-head">
+                                <a href="" class="currentVoyageURL">
+                                    <span><img src="~/images/DashboardIcons/current-voyage.png" class="align-top" /> Current Activity </span>
+                                    @*- <span class="clsActivityName"> - </span>*@
+                                </a>
+                            </div>
+                        </div>
+                        @if (!Model.IsSeaPassage)
+                        {
+                            <div class="float-left float-lg-right agents-activity-details common-custom-card p-0 m-0 currentvoygeright">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <div class="dashboard-counters-label">
+                                            Voyage No.
+                                        </div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="dashboard-counters d-block">
+                                            <span class="portVoyageNoCls">
+                                                -
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="dashboard-counters-label">
+                                            Last Reported Event
+                                        </div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div class="dashboard-counters d-block">
+                                            <span class="portLastReportedEventCls">
+                                                -
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    @if (Model.IsSeaPassage)
+                    {
+                        <div class="clearfix">
+                            <div class="portleftcolumn">
+                                <div class="fromtoport voyage-divFromSection ml-0">
+                                    <h1>
+                                        <span class="spanFoap">-</span>,<span class="spanFromPortName">-</span>
+                                        <a href='javascript: void(0);' class="icon-hover-underline-none d-inline-block fromAnchorPortAlertCls" data-toggle="tooltip" data-placement="bottom" data-original-title="High Alert Port">
+                                            <i class='fa fa-anchor icon-red ml-1'></i>
+                                            <sup class='icon-red'>&#9733;</sup>
+                                        </a>
+                                    </h1>
+                                    <span class="datetime d-block spanSeaPassageFromDate">-</span>
+                                    <span class="travelled d-block"><span class="spanSPDistanceCovered">-</span></span>
+                                    <a href="javascript:void(0);" class="agentlink showFromAgentDetails">
+                                        <img src="~/images/agenticon.svg" />
+                                        <span class="align-middle">Agents</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portmiddlecolumn">
+                                <div class="graph-bar">
+                                    <div class="progress-bar-animated-alt progress divProgressBar">
+                                        <div class="progress-bar bg-bar divProgressBarFlow" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                        <div class="graph-position-default at-location" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         style="left:0%" data-toggle="tooltip" data-placement="bottom" data-html="true">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portrightcolumn">
+                                <div class="fromtoport to-port voyage-divToSection">
+                                    <h1>
+                                        <a href='javascript: void(0);' class="icon-hover-underline-none d-inline-block toAnchorPortAlertCls mr-1" data-toggle="tooltip" data-placement="bottom" data-original-title="High Alert Port">
+                                            <i class='fa fa-anchor icon-red'></i>
+                                            <sup class='icon-red'>&#9733;</sup>
+                                        </a>
+                                        <span class="spanToEosp">-</span>,<span class="spanToPortName">-</span>
+                                    </h1>
+                                    <span class="datetime d-block spanSeaPassageToDate">-</span>
+                                    <span class="travelled d-block"><span class="spanSPTotalDistance"></span></span>
+                                    <a href="javascript:void(0);" class="agentlink showToAgentDetails">
+                                        <img src="~/images/agenticon.svg" />
+                                        <span class="align-middle">Agents</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="infoportdiv">
+                            <div class="common-custom-card p-0 m-0">
+                                <div class="row mx-auto">
+                                    <div class="col-md-7 col-lg-7 col-xl-6 p-0">
+                                        <div class="port-activity-detail height-100-percent">
+                                            <div class="clearfix">
+                                                <div class="float-left">
+                                                    <h1 class="vessel-position-h1 d-inline-block mr-1">Port Info</h1>
+                                                    <h6 class="mb-0 d-inline-block mt-0 spanFromPortName"> - </h6>&nbsp;
+                                                    <div class="d-inline-block fromAnchorPortAlertCls cursor-pointer">
+                                                        <i class="fa fa-anchor icon-red ml-1"></i> <sup class="icon-red">★</sup>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left float-lg-right">
+                                                    <a href="javascript:void(0);" class="agentlink showFromAgentDetails">
+                                                        <img src="~/images/agenticon.svg" />
+                                                        <span class="align-middle">Agents</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="clearfix portdetailsserviceinfo">
+                                                <div class="float-left ml-0">
+                                                    <div class="dashboard-counters-label mr-0 float-none ">
+                                                        Country
+                                                    </div>
+                                                    <div class="dashboard-counters">
+                                                        <span class="portCountryCls">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left">
+                                                    <div class="dashboard-counters-label mr-0 float-none">
+                                                        UN/Loc Code
+                                                    </div>
+                                                    <div class="dashboard-counters">
+                                                        <span class="portLocCodeCls">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left">
+                                                    <div class="dashboard-counters-label mr-0 float-none">
+                                                        Key Hub
+                                                    </div>
+                                                    <div class="dashboard-counters">
+                                                        <span class="portKeyHubCls">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left">
+                                                    <div class="dashboard-counters-label mr-0 float-none">
+                                                        Latitude
+                                                    </div>
+                                                    <div class="dashboard-counters">
+                                                        <span class="portLatitudeCls">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left">
+                                                    <div class="dashboard-counters-label mr-0 float-none">
+                                                        Longitude
+                                                    </div>
+                                                    <div class="dashboard-counters">
+                                                        <span class="portLongitudeCls">
+                                                            -
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-lg-5 col-xl-6 p-0">
+                                        <div class="agents-activity-details height-100-percent">
+                                            <div class="">
+                                                <h1 class="vessel-position-h1">Scheduled Activity</h1>
+                                                <div class="clearfix scheduledserviceinfo">
+                                                    <div class="float-left ml-0">
+                                                        <div class="dashboard-counters-label mr-0 float-none  portEospDateHeaderCls">
+                                                            -
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span class="portEospDateCls">
+                                                                -
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="float-left">
+                                                        <div class="dashboard-counters-label mr-0 float-none  etbleftmargin portBerthDateHeaderCls">
+                                                            -
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span class="portBerthDateCls">
+                                                                -
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="float-left">
+                                                        <div class="dashboard-counters-label mr-0 float-none  PortUnBerthDateHeaderCls">
+                                                            -
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span class="PortUnBerthDateCLs">
+                                                                -
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="float-left">
+                                                        <div class="dashboard-counters-label mr-0 float-none  faopleftmargin portFaopDateHeaderCls">
+                                                            -
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span class="portFaopDateCls">
+                                                                -
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="divider-vessel"></div>
+                <div class="current-voyage-box charterdetail">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                            <div class="charter-box-panel">
+                                <div class="clearfix">
+                                    <div class="">
+                                        <div class="v-label mr-0 d-inline-block w-auto">Charter Details - </div>
+                                        <div class="v-label mr-0 chartername d-inline-block w-auto"></div>
+                                    </div>
+                                    <div class=""><div class="v-text charter-details-heading  charternumber">-</div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-10">
+                            <div class="performance-section apply-loader">
+                                <div class="row mx-auto">
+                                    <div class="col-xl-12 p-0">
+                                        <div class="row">
+                                            <div class="col-md-3 col-lg-2 col-xl-2 p-0">
+                                            </div>
+                                            <div class="col-md-4 col-lg-4 col-xl-4 hidepreformanceleft">
+                                                <h1 class="HeadingPreformanceLeft">-</h1>
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 p-0 spaceperformance">
+                                            </div>
+                                            <div class="col-6 col-md-4 col-lg-4 col-xl-4 hidepreformanceright pl-0">
+                                                <h1 class="HeadingPreformanceRight">-</h1>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row mx-auto">
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                        <div class="row mx-auto">
+                                            <div class="col-2 col-md-3 col-lg-2 col-xl-2 text-center">
+                                            </div>
+                                            <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-center hidepreformanceleft">
+                                                <small>Speed (kn)</small>
+                                            </div>
+                                            <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-center hidepreformanceleft">
+                                                <small>Consum. (mt)</small>
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 p-0 spaceperformance">
+                                            </div>
+                                            <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-center hidepreformanceright">
+                                                <small>Speed (kn)</small>
+                                            </div>
+                                            <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-center hidepreformanceright">
+                                                <small>Consum. (mt)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mx-auto">
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                        <div class="row mx-auto">
+                                            <div class="col-6 col-md-3 col-lg-2 col-xl-2 my-auto p-0">
+                                                <h2>24 Hours</h2>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-right hidepreformanceleft">
+                                                <div class="last24HourSpeed">
+                                                    <div class="text-style last24HourSpeed-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-left hidepreformanceleft">
+                                                <div class="last24HourConsumption">
+                                                    <div class="text-style last24HourConsumption-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 p-0 spaceperformance">
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-right hidepreformanceright">
+                                                <div class="last24HourSpeed">
+                                                    <div class="text-style last24HourSpeed-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-left hidepreformanceright">
+                                                <div class="last24HourConsumption">
+                                                    <div class="text-style last24HourConsumption-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mx-auto">
+
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                        <div class="row mx-auto">
+                                            <div class="col-6 col-md-3 col-lg-2 col-xl-2 my-auto p-0">
+                                                <h2>Voyage Avg.</h2>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-right hidepreformanceleft">
+                                                <div class="voyageAverageSpeed">
+                                                    <div class="text-style voyageAverageSpeed-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-left hidepreformanceleft">
+                                                <div class="voyageAverageConsumption">
+                                                    <div class="text-style voyageAverageConsumption-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 p-0 spaceperformance">
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-right hidepreformanceright">
+                                                <div class="voyageAverageSpeed">
+                                                    <div class="text-style voyageAverageSpeed-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-left hidepreformanceright">
+                                                <div class="voyageAverageConsumption">
+                                                    <div class="text-style voyageAverageConsumption-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mx-auto">
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                        <div class="row mx-auto">
+                                            <div class="col-6 col-md-3 col-lg-2 col-xl-2 my-auto p-0">
+                                                <h2>CP Adjusted <img src="~/images/outline-i.svg" width="15" class="i-outline-icon" title="Adjusted figures show speed and performance with entries above the wind CP allowance removed" data-html="true" data-toggle="tooltip" data-placement="bottom" /></h2>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-right hidepreformanceleft">
+                                                <div class="cpAdjustedSpeed">
+                                                    <div class="text-style cpAdjustedSpeed-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-left hidepreformanceleft">
+                                                <div class="cpAdjustedConsumption">
+                                                    <div class="text-style cpAdjustedConsumption-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 p-0 spaceperformance">
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-right hidepreformanceright">
+                                                <div class="cpAdjustedSpeed">
+                                                    <div class="text-style  cpAdjustedSpeed-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-left hidepreformanceright">
+                                                <div class="cpAdjustedConsumption">
+                                                    <div class="text-style cpAdjustedConsumption-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mx-auto blue-performance mb-0 pt-0">
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                        <div class="row mx-auto my-auto">
+                                            <div class="col-6 col-md-3 col-lg-2 col-xl-2 blue-performance-color p-0">
+                                                <h2 style="margin-top:2px;">CP Orders</h2>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-right blue-performance-color hidepreformanceleft">
+                                                <div class="">
+                                                    <div class="text-style cpOrdersSpeed-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-left pl-0 hidepreformanceleft">
+                                                <div class="blue-performance-color">
+                                                    <div class="text-style cpOrdersConsumption-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 p-0 spaceperformance">
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-right hidepreformanceright pr-0">
+                                                <div class="blue-performance-color">
+                                                    <div class="text-style cpOrdersSpeed-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-2 col-lg-2 col-xl-2 text-center padding-left hidepreformanceright blue-performance-color">
+                                                <div class="">
+                                                    <div class="text-style cpOrdersConsumption-text">
+                                                        -
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-12 col-md-8 col-lg-7 col-xl-4">
+                            <div id="charterorderspeed" class="charterchart">
+                            </div>
+                            </div>
+                            <div class="col-12 col-md-9 col-lg-8 col-xl-4">
+                            <canvas id="fuel-consuption" class="fuelconsuptionchart"></canvas>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        @if (Model.CanShowCommercial)
+        {
+            <div class="col-12 col-md-4 col-lg-3 col-xl-2 p-0">
+                <div class="commercial-panel apply-loader">
+                    <div class="panel-box">
+                        <a href="" class="commercialViewMoreUrl">
+                            <span><img src="~/images/DashboardIcons/commercial-vessel.png" /></span>
+                            <h1>Commercial</h1>
+                        </a>
+                        <div class="row">
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style unplannedOffHireHrs-panel">
+                                    <a href="" class="unplannedOffHireHrsUrl">
+                                        <div class="panel-number-style panel-number-center unplannedOffHireHrs">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Unplanned<br />
+                                        Off-Hire Hrs
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style fuelUnderPerformance-panel">
+                                    <a href="" class="fuelUnderPerformanceUrl">
+                                        <div class="panel-number-style panel-number-center fuelUnderPerformance">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text ">
+                                        Fuel Under-<br />
+                                        Performance
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style speedUnderPerformance-panel">
+                                    <a href="" class="speedUnderPerformanceUrl">
+                                        <div class="panel-number-style panel-number-center speedUnderPerformance">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text ">
+                                        Speed Under-<br />
+                                        Performance
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style green-panel predictedBadWeather-panel">
+                                    <a href="javascript:void(0);" class="predictedBadWeatherUrl PredictedBadWeatherCls">
+                                        <div class="panel-number-style green-panel-color panel-number-center predictedBadWeather">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text ">
+                                        Predicted<br />
+                                        Bad Weather
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model.CanShowHazOcc)
+        {
+            <div class="col-12 col-md-4 col-lg-3 col-xl-2 p-0">
+                <div class="hazoc-panel apply-loader">
+                    <div class="panel-box">
+                        <a href="/HazOcc/List" class="hazocViewMore">
+                            <span><img src="~/images/DashboardIcons/hazoc-vessel.png" /></span>
+                            <h1>HazOcc</h1>
+                        </a>
+
+                        <div class="row">
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style seriousAccidentsPanel">
+                                    <a href="" class="seriousAccidentsUrl">
+                                        <div class="panel-number-style panel-number-center seriousAccidentsCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Serious<br />
+                                        Accidents
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style seiousIncidentsPanel">
+                                    <a href="" class="seriousIncidentsUrl">
+                                        <div class="panel-number-style panel-number-center seriousIncidentsCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Serious<br />
+                                        Incidents
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style ltiFreeDaysPanel">
+                                    <div class="panel-number-style panel-number-center ltiFreeDaysCount">-</div>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        LTI Free<br />
+                                        Days
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style unsafePanel">
+                                    <a href="" class="unsafeUrl">
+                                        <div class="panel-number-style panel-number-center unsafeCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Unsafe Act &
+                                        <br />Condition Rate
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.CanShowCrewing)
+        {
+            <div class="col-12 col-md-4 col-lg-3 col-xl-2 p-0">
+                <div class="crew-panel apply-loader">
+                    <div class="panel-box">
+                        <a href="#" class="crewViewMore">
+                            <span><img src="~/images/DashboardIcons/crew-vessel.png" /></span>
+                            <h1>Crewing</h1>
+                        </a>
+
+                        <div class="row">
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style green-panel overdue-panel">
+                                    <a href="" class="overDueUrl"><div class="panel-number-style green-panel-color panel-number-center overDueCount">-</div></a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Overdue<br />
+                                        Relief
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style green-panel unplanned-panel">
+                                    <a href="" class="unplannedBirthUrl">
+                                        <div class="panel-number-style green-panel-color panel-number-center unplannedBirthCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Unplanned<br />
+                                        Berth
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style green-panel medicalSignOff-panel">
+                                    <a href="" class="medicalUrl">
+                                        <div class="panel-number-style green-panel-color panel-number-center medicalCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Medical<br />
+                                        Sign Off
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style crewChanges-panel">
+                                    <a href="" class="crewChangesUrl">
+                                        <div class="panel-number-style panel-number-center crewChangesCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Crew Changes<br />
+                                        Last 7 Days
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.CanShowProcurement)
+        {
+            <div class="col-12 col-md-4 col-lg-3 col-xl-2 p-0">
+                <div class="order-panel apply-loader">
+                    <div class="panel-box">
+                        <a href="#" class="orderViewMore">
+                            <span><img src="~/images/DashboardIcons/order-vessel.png" /></span>
+                            <h1>Procurement</h1>
+                        </a>
+
+                        <div class="row">
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style requested-panel ">
+                                    <a href="" class="requestedUrl"><div class="panel-number-style  panel-number-center requestedCount">-</div></a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Requisitions
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 -xl-6 pl-0">
+                                <div class="panel-common-style ordered-panel ">
+                                    <a href="" class="orderedUrl">
+                                        <div class="panel-number-style  panel-number-center orderedCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Ordered
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style tenderAwaitingAuth-panel">
+                                    <a href="" class="awaitingUrl">
+                                        <div class="panel-number-style panel-number-center awaitingCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Tender <br />
+                                        Awaiting Auth
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 -xl-6 pl-0">
+                                <div class="panel-common-style awaitingSnrAuth-panel">
+                                    <a href="" class="awaitingSnrUrl">
+                                        <div class="panel-number-style  panel-number-center awaitingSnrCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Awaiting Snr. /<br>
+                                        Client Auth.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.CanShowEnvironment)
+        {
+            <div class="col-12 col-md-4 col-lg-3 col-xl-2 p-0">
+                <div class="environment-panel apply-loader">
+                    <div class="panel-box">
+                        <span><img src="~/images/DashboardIcons/enviroment-vessel.png" /></span>
+                        <h1>Environment</h1>
+                        <div class="row">
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style EEOI-panel">
+                                    <div class="panel-number-style EEOICount panel-number-center">-</div>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        EEOI
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style accidentalSpills-panel">
+
+                                    <div class="panel-number-style accidentalSpillsCount panel-number-center">-</div>
+
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Accidental<br />
+                                        Spills
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style oilBilgeRetention-panel">
+                                    <div class="panel-number-style oilBilgeRetentionCount panel-number-center">-</div>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Oil Bilge<br />Retention
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 -xl-6 pl-0">
+                                <div class="panel-common-style aeUtilisation-panel">
+
+                                    <div class="panel-number-style aeUtilisationCount panel-number-center">-</div>
+
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        AE Utilisation
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.CanShowFinancials)
+        {
+            <div class="col-12 col-md-4 col-lg-3 col-xl-2 p-0">
+                <div class="Opex-panel apply-loader">
+                    <div class="panel-box">
+                        <a href="#" class="financeViewMore">
+                            <span><img src="~/images/DashboardIcons/opex-vessel.png" /></span>
+                            <h1>Financials</h1>
+                        </a>
+                        <div class="row">
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style variance-panel">
+                                    <a href="" class="varianceURL"><div class="panel-number-style panel-number-center varianceCount">-</div></a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Variance
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style budget-panel">
+                                    <a href="" class="budgetYTDUrl">
+                                        <div class="panel-number-style panel-number-center budgetYTDCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Budget YTD
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style actual-panel">
+                                    <a href="" class="actualSpendUrl">
+                                        <div class="panel-number-style panel-number-center actualSpendCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Actual Spend<br />
+                                        YTD
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style accrual-panel">
+                                    <a href="" class="accrualsUrl">
+                                        <div class="panel-number-style panel-number-center accrualsCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Accrual
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.CanShowCertificates)
+        {
+            <div class="col-12 col-md-4 col-lg-3 col-lg-2 col-xl-2 p-0">
+                <div class="certificates-panel apply-loader">
+                    <div class="panel-box">
+                        <a href="#" class="certificateViewMore">
+                            <span><img src="~/images/DashboardIcons/certificate-vessel.png" /></span>
+                            <h1>Certificates</h1>
+                        </a>
+
+                        <div class="row">
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style stopSailingExpiring30-panel">
+                                    <a href="" class="stopSailingExpiring30Url"> <div class="panel-number-style green-panel-color panel-number-center stopSailingExpiring30Count">-</div></a>
+                                    <div class="panel-text panel-text-center height-equal-text font-small-threeline">
+                                        Stop Sailing/Trading<br />
+                                        Expiring in 30 days<br />
+                                        in Window
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style overdueCertificate-panel ">
+                                    <a href="" class="overdueUrl">
+                                        <div class="panel-number-style  panel-number-center overdueCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Overdue
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style expiringWithin-panel ">
+                                    <a href="" class="expiringWithin30Url">
+                                        <div class="panel-number-style  panel-number-center expiringWithin30Count">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Expiring within<br />
+                                        30 Days
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style withingSurvey-panel ">
+                                    <a href="" class="withinSurveyRangeUrl">
+                                        <div class="panel-number-style  panel-number-center withinSurveyRangeCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Within Survey<br />
+                                        Range
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.CanShowDefects)
+        {
+            <div class="col-12 col-md-4 col-lg-3 col-xl-2 p-0">
+                <div class="defect-panel apply-loader">
+                    <div class="panel-box">
+                        <a href="#" class="defectViewMore">
+                            <span><img src="~/images/DashboardIcons/defect-vessel.png" /></span>
+                            <h1>Defects</h1>
+                        </a>
+
+                        <div class="row">
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style offHireRequiredCount-panel">
+                                    <a href="" class="offHireRequiredUrl">  <div class="panel-number-style panel-number-center offHireRequiredCount">-</div></a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Off-Hire<br />
+                                        Required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style overDueDefectsCount-panel">
+                                    <a href="" class="overDueDefectsUrl">
+                                        <div class="panel-number-style panel-number-center overDueDefectsCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Overdue<br />
+                                        Defects
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style awaitingSparesCount-panel">
+                                    <a href="" class="awaitingSparesUrl">
+                                        <div class="panel-number-style panel-number-center awaitingSparesCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Awaiting<br />
+                                        Spares
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style dueDefectsCount-panel">
+                                    <a href="" class="dueDefectsUrl">
+                                        <div class="panel-number-style panel-number-center dueDefectsCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Due
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.CanShowPMS)
+        {
+            <div class="col-12 col-md-4 col-lg-3 col-xl-2 p-0">
+                <div class="pms-panel apply-loader">
+                    <div class="panel-box">
+                        <a href="" class="pmsViewMore">
+                            <span><img src="~/images/DashboardIcons/pms-vessels.png" /></span>
+                            <h1>PMS</h1>
+                        </a>
+                        <div class="row">
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style pms-critical-overdue-panel">
+                                    <a href="" class="pmsCriticalOverdueURL">
+                                        <div class="panel-number-style panel-number-center pmsCriticalOverdueCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text font-small-threeline">
+                                        Critical Overdue<br />
+                                        (Prior Months)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style pms-critical-due-panel">
+                                    <a href="" class="pmsCriticalDueURL">
+                                        <div class="panel-number-style panel-number-center pmsCriticalDueCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Critical Due <br />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                                <div class="panel-common-style pms-overdue-panel">
+                                    <a href="" class="pmsOverdueURL">
+                                        <div class="panel-number-style panel-number-center pmsOverdueCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text font-small-threeline">
+                                        Overdue <br />
+                                        (Prior Months)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                                <div class="panel-common-style pms-due-panel">
+                                    <a href="" class="pmsDueURL">
+                                        <div class="panel-number-style panel-number-center pmsDueCount">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Due
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @*@if (Model.CanShowPMS) //need to change this to appropriate module
+            {*@
+        <div class="col-12 col-md-4 col-lg-3 col-xl-2 p-0">
+            <div class="jsa-panel apply-loader">
+                <div class="panel-box">
+                    <a href="#" class="jsaViewMore">
+                        <span><img src="~/images/DashboardIcons/jsaicon.png" /></span>
+                        <h1>JSA</h1>
+                    </a>
+                    <div class="row">
+                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                            <div class="panel-common-style jsaMedHighPanel">
+                                <a href="" class="jsaMidHighRiskUrl">
+                                    <div class="panel-number-style panel-number-center jsaMidHighRiskCount">-</div>
+                                </a>
+                                <div class="panel-text panel-text-center height-equal-text ">
+                                    Med. & High
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                            <div class="panel-common-style jsaOpenPanel">
+                                <a href="" class="jsaOpenReportURL">
+                                    <div class="panel-number-style panel-number-center jsaOpenCount">-</div>
+                                </a>
+                                <div class="panel-text panel-text-center height-equal-text">
+                                    Open
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 pr-0">
+                            <div class="panel-common-style jsaOverduePanel">
+                                <a href="" class="jsaOverdueForClosureUrl">
+                                    <div class="panel-number-style panel-number-center jsaOverdueClosureCount">-</div>
+                                </a>
+                                <div class="panel-text panel-text-center height-equal-text ">
+                                    Overdue for Closure
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 pl-0">
+                            <div class="panel-common-style jsaPendingOfficeApprovalPanel">
+                                <a href="" class="jsaPendOffAppUrl">
+                                    <div class="panel-number-style panel-number-center jsaPendingOffAppCount">-</div>
+                                </a>
+                                <div class="panel-text panel-text-center height-equal-text">
+                                    Pending Office Approval
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*  }*@
+
+        @if (Model.CanShowInspectionsAndRatings)
+        {
+            <div class="col-12 col-md-5 col-lg-4 col-xl-3 p-0">
+                <div class="inspection-panel apply-loader">
+                    <div class="panel-box">
+                        <a href="#" class="inspectionViewMore">
+                            <span><img src="~/images/DashboardIcons/inspection-vessel.png" /></span>
+                            <h1>Inspections & Ratings</h1>
+                        </a>
+
+                        <div class="row">
+                            <div class="col-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+                                <div class="panel-common-style overdueInspection-panel">
+                                    <a href="javascript: void(0);" class="overdueInspectionUrl dashboardInspectionPlanningDetils">
+                                        <div class="panel-number-style panel-number-center overdueInspectionCount" data-toggle="modal" data-target="#modalInspectionPlanning">-</div>
+                                    </a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Overdue<br />
+                                        Inspection
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4 col-md-4 col-lg-4 col-xl-4 pr-0 pl-0">
+                                <div class="panel-common-style deficienciesPerPsc-panel">
+                                    <a href="" class="deficienciesPerPscUrl"><div class="panel-number-style panel-number-center deficienciesPerPscCount">-</div></a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        <span data-toggle="tooltip" data-placement="bottom" title="Last 6 Months (Total PSC Finding/ Total PSC Inspection)">
+                                            Deficiencies<br />
+                                            Per PSC
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0">
+                                <div class="panel-common-style deficienciesPerOmv-panel">
+                                    <a href="" class="deficienciesPerOmvUrl"><div class="panel-number-style panel-number-center deficienciesPerOmvCount">-</div></a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        <span data-toggle="tooltip" data-placement="bottom" title="Last 6 Months (Total OMV Finding/ Total OMV Inspection)">
+                                            Deficiencies<br />
+                                            Per OMV
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4 col-md-4 col-lg-4 col-xl-4 pr-0">
+                                <div class="panel-common-style overdueFindings-panel">
+                                    <a href="" class="overdueFindingsUrl"><div class="panel-number-style panel-number-center overdueFindingsCount">-</div></a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        Overdue<br />
+                                        Findings
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4 col-md-4 col-lg-4 col-xl-4 pr-0 pl-0">
+                                <div class="panel-common-style pscDeficen-panel">
+                                    <a href="" class="pscDeficenUrl"><div class="panel-number-style panel-number-center pscDeficenCount">-</div></a>
+                                    <div class="panel-text panel-text-center height-equal-text">
+                                        PSC Deficen.<br />
+                                        Last 3 Months
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0">
+                                <div class="panel-common-style pscomv-panel">
+                                    <div class="row mx-auto">
+                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 p-0">
+                                            <a href="" class="pscDetUrl">
+                                                <div class="panel-number-style pscDetCount panel-number-center border-right-two">-</div>
+                                            </a>
+                                            <div class="panel-text panel-text-center height-equal-text">
+                                                PSC<br />
+                                                Det.
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6 p-0">
+                                            <a href="" class="omvRejUrl">
+                                                <div class="panel-number-style panel-number-center omvRejCount">-</div>
+                                            </a>
+                                            <div class="panel-text panel-text-center height-equal-text">
+                                                OMV<br />
+                                                Rej.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+    </div>
+</div>

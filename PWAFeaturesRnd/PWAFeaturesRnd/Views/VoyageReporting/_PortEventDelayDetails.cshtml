@@ -1,0 +1,134 @@
+﻿
+   <div class="modal fade p-0 modal-events portcallpopups" id="modelDelay" role="dialog" aria-labelledby="modelDelay" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding modaldetails-design">
+                    <div class="col-md-11 pl-0">
+                        <div class="common-sub-heading-black headerDelayedshowmorewrapper">
+                            <span class="headerDelayed">
+                                <div class="common-small-heading" id="popEventName"></div>
+                            </span>
+                            <div class="common-small-heading">
+                                <span class="common-heading-green"><div><span id="popVesselName"></span></div></span>
+                                <span class="d-none d-md-inline-block dividerline">|</span>
+                                <span class="common-small-heading"><span class="head">From  </span><span id="popFromDate" class="value"></span></span>
+                                <span class="d-none d-md-inline-block dividerline">|</span>
+                                <span class="common-small-heading"><span class="head">To  </span><span id="popToDate" class="value"></span></span>
+                                <span class="d-none d-md-inline-block dividerline">|</span>
+                                <span class="common-small-heading">
+                                    <span class="head">Distance (nm)  </span><span id="popDistance" class="value"></span>
+                                </span>
+                                <span class="d-none d-md-inline-block dividerline">|</span>
+                                <span class="common-small-heading">
+                                    <span class="head">Security Level  </span><span id="popSecurityLevel" class="value"></span>
+                                </span>
+                                <span class="d-none d-md-inline-block dividerline">|</span>
+                                <span class="common-small-heading">
+                                    <span class="head">Off Hire  </span><span id="popOffHire" class="value"></span>
+                                </span>
+                                <span class="d-none d-md-inline-block dividerline">|</span>
+                                <span class="common-small-heading">
+                                    <span class="head">Off Hire Type  </span><span id="popOffHireType" class="value"></span>
+                                </span>
+                                <span class="d-none d-md-inline-block dividerline">|</span>
+                                <span class="common-small-heading">
+                                    <span class="head">LOP Issued / Received  </span><span id="popLOP" class="value"></span>
+                                </span>
+                                <span class="d-none d-md-inline-block dividerline">|</span>
+                                <span class="common-small-heading">
+                                    <span class="head">Delay (Hrs) </span><span id="popHours" class="value"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background padding-20 filters-popup-scroller">
+                    <div class="scroller">
+                        <div class="row background-padding no-gutters">
+                            <div class="col-12 col-md-12 col-lg-5 col-xl-5 pl-0">
+                                <div class="common-custom-card two-column-layout height-equal1">
+                                    <div class="counters-heading border-none">
+                                        <div>
+                                            <span>Comments</span>
+                                        </div>
+                                    </div>
+                                    <p id="popComments" class="open-sans-font details-common"></p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-7 col-xl-7 pr-0">
+                                <div class="common-custom-card height-equal1 mobile-pad-0 table-common-design">
+                                    <div class="counters-heading border-none position-relative">
+                                        <div>
+                                            <span>Fuel Consumption</span>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="table-responsive compact-table">
+                                            <table style="width: 100%;" id="dtPopfuelcons" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                <thead id="tblFuelConsumptionThead">
+                                                </thead>
+                                                <tbody id="tblFuelConsumptionTbody">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row background-padding no-gutters">
+                            <div class="col-12 col-md-12 col-lg-5 col-xl-5 pl-0">
+                                <div class="common-custom-card height-equal2 mobile-pad-0 table-common-design mb-2 mb-md-0">
+                                    <div class="counters-heading border-none position-relative">
+                                        <div>
+                                            <span>Attachments (<span id="popSpanAttachCount"> 0 </span>)</span>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="table-responsive compact-table">
+                                            <table style="width: 100%;" id="dtPopEventsDocuments" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Docs</th>
+                                                        <th>Created Date</th>
+                                                        <th>Title</th>
+                                                        <th>Type</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-7 col-xl-7 pr-0">
+                                <div class="common-custom-card height-equal2 mobile-pad-0 table-common-design mb-0">
+                                    <div class="counters-heading border-none position-relative">
+                                        <div>
+                                            <span>Lube Oil</span>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="table-responsive compact-table">
+                                            <table style="width: 100%;" id="dtPoplubeoil" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                <thead id="tblLubeOilThead">
+                                                </thead>
+                                                <tbody id="tblLubeOilTbody">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>

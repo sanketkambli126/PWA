@@ -1,0 +1,1289 @@
+﻿@model DashboardViewModel
+
+@{
+
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+    {
+    Dashboard - @Context.Session.GetString(@Constants.UserNameSessionKey)
+}
+
+@section ContentSection
+    {
+    @Html.Hidden("EnableTour", AppSettings.EnableTour)
+    <div class="app-main__outer">
+        <div class="app-main__inner background-padding new-background open-sans-font-dashboard  mobile-tab-bottom-padding home-left-right-padding">
+            <div class="dashboard-section-1 dashboard-card-bottom-margin tab-box-1">
+                <div class="clearfix">
+                    <div class="float-right float-md-left mt-0 mt-md-1">
+                        <img id="imgClientLogo" height="40" />
+                    </div>
+                    <div class="float-left float-md-left vessel-head-top">
+                        <div class="border-left-name position-relative">
+                            <h1>@Context.Session.GetString(@Constants.UserNameSessionKey)</h1>
+                            <h2 style=""><span id="fleetSelectionTitle"></span> <span id="vesselCount"></span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(Model => Model.ActiveMobileTabClass)
+            <div class="dashboard-section-2">
+                <div class="row">
+                    <div class="col-12 col-md-4 col-lg-4 col-xl-3">
+                        <div class="height-equal tab-box-1">
+                            <div class="card dashboard-card-bottom-margin" id="vchatmainboxsection">
+                                <div class="card-header">
+                                    <ul class="nav nav-justified">
+
+                                        <li class="nav-item">
+                                            <a data-toggle="tab" href="#messages" class="active nav-link">
+                                                <div class="position-relative d-inline-block">
+                                                    <div class="alert-notify notificationAlert" style="display:none;">0</div>
+                                                    <img src="~/images/message.svg" class="messagesvg" />
+                                                </div>
+                                                <span>Messages</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a data-toggle="tab" href="#approval" class="nav-link" id="approvalsection">
+                                                <img src="~/images/approval.svg" class="appovalsvg" />
+                                                <span>Approvals</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a data-toggle="tab" href="#notes" class="nav-link">
+                                                <img src="~/images/notes.svg" class="notessvg" />
+                                                <span>
+                                                    My Notes
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a data-toggle="tab" href="#alerts" class="nav-link">
+                                                <div class="position-relative d-inline-block">
+                                                    <div class=""></div>
+                                                    <img src="~/images/alerts.svg" class="alertssvg" />
+                                                </div>
+                                                <span>
+                                                    Alerts
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active message-scroller apply-loader" id="messages" role="tabpanel">
+                                            <div class=" scroller dashboard-section-2-scroller">
+                                                <div class="norecordsgoundmsg d-none">No Record found</div>
+                                                <div class="message-list">
+                                                </div>
+                                            </div>
+                                            <a href="javascript:void(0);" class="view-message-fixed" id="unreadMessageListViewMessageBtn">
+                                                <img src="~/images/view-message.svg" />&nbsp;View Messages
+                                            </a>
+                                        </div>
+                                        <div class="tab-pane message-scroller apply-loader" id="approval" role="tabpanel">
+                                            <div class="scroller dashboard-section-2-scroller" id="">
+                                                <div class="norecordsgoundmsg d-none">No Record found</div>
+                                                <div class="approval-list">
+                                                </div>
+                                            </div>
+                                            <a class="view-message-fixed approvalimage" id="approvalsListViewBtn">
+                                                <img src="~/images/approval.png" />&nbsp;View Approvals
+                                            </a>
+                                        </div>
+
+                                        <div class="tab-pane notes-padding" id="notes" role="tabpanel">
+                                            <div id="divNotesTab" class="apply-loader scroller dashboard-section-2-scroller">
+                                                <div class="norecordsgoundmsg d-none">No Record found</div>
+                                                <div class="notes-list-sidebar">
+                                                    <input type="hidden" id="hdnNotesTabCurrentPageNumber" value="1" />
+                                                    <input type="hidden" id="hdnNotesTabHasNextPage" value="false" />
+                                                    <ul id="noteListTab">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="add-note-fixed">
+                                                <a href="javascript:void(0);" class="add-notesclick clickEventDisable">
+                                                    <img src="~/images/addnotedashboard.svg" width="17" />&nbsp;Add Note
+                                                </a>
+                                                <a href="javascript:void(0);" class="view-notesclick clickEventDisable">
+                                                    <img src="~/images/mynotesblue.svg" width="14" />&nbsp;View Notes
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane notes-padding alerts-padding" id="alerts" role="tabpanel">
+                                            <div id="divReminderAlertTab" class="apply-loader scroller dashboard-section-2-scroller">
+                                                <div class="norecordsgoundmsg d-none">No Record found</div>
+                                                <div class="notes-list-sidebar">
+                                                    <ul id="reminderAlertsTab">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card  d-none d-md-block">
+                                <div id="carouselControlsdashboard" class="carousel slide carousel-fade dashboard-carousel" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carouselControlsdashboard" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carouselControlsdashboard" data-slide-to="1"></li>
+                                        <li data-target="#carouselControlsdashboard" data-slide-to="2"></li>
+                                    </ol>
+                                    <div class="carousel-inner" id="carInner">
+                                        <div class="carousel-item active">
+                                            <img id="carImg1" class="img-fluid w-100" src="~/images/DashboardIcons/slide-1.png" alt="First slide">
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <p>Ocean Technologies Group acquires Marlins and enters into strategic partnership with V.Group</p>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img id="carImg2" class="img-fluid w-100" src="~/images/DashboardIcons/slide-2.png" alt="Second slide">
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <p>V.Group repatriates more than 7,000 stranded seafarers</p>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img id="carImg3" class="img-fluid w-100" src="~/images/DashboardIcons/slide-3.jpg" alt="Third slide">
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <p>Chief engineer praised as ‘Goal zero hero’ by Shell Americas</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselControlsdashboard" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselControlsdashboard" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 d-block d-md-none p-0">
+                        <div class="tab-box-1">
+                            <div class="vesselsearchmobile">
+                                <select id="cboDashboardMobileVesselSearch" class="form-control form-control-sm" placeholder="Search for a vessel..." multiple="multiple">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="searchbtnvessel">
+                                <button class="btn p-0 searchbtnmobile" ontouchstart>
+                                    <img src="~/images/searchbtnmobile.svg" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-5 col-xl-6 pl-0 pr-0">
+                        <div class="map-dashboard dashboard-mobile-card-margin tab-box-3-map hide-mobile">
+                            <a id="expanddashboardmap" class="hover-none" href="javascript:void(0);"><div class="expand"><i class="fa fa-fw" aria-hidden="true" title=""></i></div></a>
+                            <iframe id="generalMap" src="@Model.FleetTrackerURL" class="height-equal card w-100">
+                            </iframe>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-3 col-xl-3" id="dashboard-section-2">
+                        <div class="height-equal card dashboard-mobile-card-margin vessel-height tab-box-1">
+                            <div class="all-vessel">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <h1 id="">Key Indicators</h1>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="IsAllowSelectFleetParent" value="true" />
+                                <input type="hidden" id="fleetId" value="@Model.DashboardParameter.FleetId" />
+                                <input type="hidden" id="menuType" value="@Model.DashboardParameter.MenuType" />
+                                <input type="hidden" id="vesselId" value="@Model.DashboardParameter.VesselId" />
+                                <input type="hidden" id="selectedTitle" value="@Model.DashboardParameter.Title" />
+                                <input type="hidden" id="hdnVesselIdentifier" value="@Model.DashboardParameter.VesselIdentifier" />
+                                <input type="hidden" id="hdnIsFleetSelection" value="@Model.DashboardParameter.IsFleetSelection" />
+                                <input type="hidden" id="hdnIsMobileVesselId" value="@Model.DashboardParameter.MobileVesselId" />
+                                <div class="apply-loader vessel-list fleet-panel-loader">
+                                    <div class="row">
+                                        <div class="col-6 col-md-12 pr-m-0">
+                                            <div class="list" data-toggle="modal" data-target="#allvesselmodal">
+                                                <div id="divSeriousIncidents" class="fleet-panel fleet-seriousIncidents-panel">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1>Serious Incidents </h1>
+                                                            <h1><small>Last 3 months</small></h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-seriousIncidentsCount fleet-text">-</span>
+                                                                <input type="hidden" id="seriousIncidentCountId" />
+                                                                <input type="hidden" id="hdnSeriousIncidentPriority" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list">
+                                                <div id="divPscDetention" class="fleet-panel fleet-pscDetentions-panel">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1>
+                                                                PSC Detentions
+                                                            </h1>
+                                                            <h1><small>Last 3 months</small></h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-pscDetentionsCount fleet-text">-</span>
+                                                                <input type="hidden" id="pscDetentionCountId" />
+                                                                <input type="hidden" id="hdnPscDetentionPriority" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list">
+                                                <div id="divPscDefeciency" class="fleet-panel fleet-pscDeficiencies-panel" data-toggle="tooltip" data-placement="bottom" data-original-title="Last 3 Months (Total PSC Finding/ Total PSC Inspection)">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1>PSC Deficiencies </h1>
+                                                            <h1><small>Last 3 months</small></h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-pscDeficienciesCount fleet-text">-</span>
+                                                                <input type="hidden" id="hdnpscDeficienciesCount" />
+                                                                <input type="hidden" id="hdnPscDeficienciesPriority" />
+                                                                <input type="hidden" id="hdnPscDeficiencyRate" />
+                                                                <input type="hidden" id="hdnPscDeficiencyInspectionCount" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="divLtif" class="list" data-html="true" data-toggle="tooltip" data-placement="bottom">
+                                                <div class="fleet-panel fleet-ltif-panel">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1>
+                                                                LTI Free Days
+                                                            </h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <span class="fleet-ltifCount fleet-text">-</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list">
+                                                <div id="divOffHireSummary" class="fleet-panel fleet-offHire-panel">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1> Off-Hire </h1>
+                                                            <h1><small>Last 3 months</small></h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-offHire fleet-text align-middle">-</span>
+                                                                <input type="hidden" id="offHireCountId" />
+                                                                <input type="hidden" id="hdnOffHirePriority" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list">
+                                                <div id="divRightShip" class="fleet-panel fleet-rightShip-panel">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1>
+                                                                Right Ship
+                                                            </h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-rightShipCount fleet-text">-</span>
+                                                                <input type="hidden" id="hdnRightShipCount" />
+                                                                <input type="hidden" id="hdnRightShipPriority" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list">
+                                                <div id="divOmvFindingsSummary" class="fleet-panel fleet-omvfinding-panel" data-toggle="tooltip" data-placement="bottom" data-original-title="Last 6 Months (Total OMV Finding/ Total OMV Inspection)">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1>
+                                                                OMV Findings Rate
+                                                            </h1>
+                                                            <h1><small>Last 6 months</small></h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-omvfindingCount fleet-text">-</span>
+                                                                <input type="hidden" id="hdnOmvFindingRate" />
+                                                                <input type="hidden" id="hdnOmvFindingsCount" />
+                                                                <input type="hidden" id="hdnOmvInspectionsCount" />
+                                                                <input type="hidden" id="hdnOmvFindingPriority" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-12">
+                                            <div class="list">
+                                                <div id="divOverBudgetSummary" class="fleet-panel fleet-overBudget-panel">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1 id="hOpexHeader">Opex</h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-overBudgetCount fleet-text">-</span>
+                                                                <input type="hidden" id="hdnOverBudgetCount" />
+                                                                <input type="hidden" id="hdnOverBudgetPriority" />
+                                                                <input type="hidden" id="hdnOverBudgetToDate" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list">
+                                                <div id="divOverdueInspection" class="fleet-panel fleet-overdueInspection-panel">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1>
+                                                                Overdue
+                                                                Inspections
+                                                            </h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-overdueInspectionCount fleet-text">-</span>
+                                                                <input type="hidden" id="hdnOverdueInspection" />
+                                                                <input type="hidden" id="hdnOverdueInspectionPriority" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list">
+                                                <div id="divExperienceMatrix" class="fleet-panel fleet-experienceMatrix-panel">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1>
+                                                                Experience Matrix
+                                                            </h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-experienceMatrixCount fleet-text">-</span>
+                                                                <input type="hidden" id="hdnExperienceMatrixCount" />
+                                                                <input type="hidden" id="hdnExperienceMatrixPriority" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list">
+                                                <div id="divCriticalPMS" class="fleet-panel fleet-criticalPms-panel">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1>
+                                                                Critical PMS
+                                                            </h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-criticalPmsCount fleet-text">-</span>
+                                                                <input type="hidden" id="hdnCriticalPMSCountId" />
+                                                                <input type="hidden" id="hdnCriticalPMSPriority" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list">
+                                                <div id="divFuelEfficiencySummary" class="fleet-panel fleet-fuelEfficiency-panel">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left">
+                                                            <h1>
+                                                                Fuel Efficiency
+                                                            </h1>
+                                                            <h1><small>Last 3 months</small></h1>
+                                                        </div>
+                                                        <div class="col-2 col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-fuelEfficiencyCount fleet-text">-</span>
+                                                                <input type="hidden" id="hdnFuelEfficiencyCount" />
+                                                                <input type="hidden" id="hdnFuelEfficiencyPriority" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="list">
+                                                <div id="divOilSpillsToWater" class="fleet-panel fleet-oilSpills-panel">
+                                                    <div class="row">
+                                                        <div class="col-10 col-md-10 col-lg-10 col-xl-10 my-auto justify-content-left ">
+                                                            <h1>
+                                                                Oil Spills to Water
+                                                            </h1>
+                                                            <h1><small>Last 3 months</small></h1>
+                                                        </div>
+                                                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right d-flex align-items-center justify-content-end">
+                                                            <a href="javascript:void(0);">
+                                                                <span class="fleet-oilSpillsCount fleet-text">-</span>
+                                                                <input type="hidden" id="hdnOilSpillToWaterCount" />
+                                                                <input type="hidden" id="hdnOilSpillToWaterPriority" />
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-3  d-block d-md-none">
+                        <div id="carouselControlsdashboardmobile" class="carousel slide carousel-fade dashboard-carousel dashboard-mobile-card-margin tab-box-1" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselControlsdashboardmobile" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselControlsdashboardmobile" data-slide-to="1"></li>
+                                <li data-target="#carouselControlsdashboardmobile" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner" id="carInner">
+                                <div class="carousel-item active">
+                                    <img id="carImg1" class="img-fluid w-100" src="~/images/DashboardIcons/slide-1.png" alt="First slide">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <p>Ocean Technologies Group acquires Marlins and enters into strategic partnership with V.Group</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <img id="carImg2" class="img-fluid w-100" src="~/images/DashboardIcons/slide-2.png" alt="Second slide">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <p>V.Group repatriates more than 7,000 stranded seafarers</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <img id="carImg3" class="img-fluid w-100" src="~/images/DashboardIcons/slide-3.jpg" alt="Third slide">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <p>Chief engineer praised as ‘Goal zero hero’ by Shell Americas</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselControlsdashboardmobile" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselControlsdashboardmobile" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-section-3 hide-mobile tab-box-2">
+                <div class="dashboard-section-3-heading">
+                    <div class="row">
+                        <div class="col-12 col-md-9 col-lg-9 col-xl-10">
+                            <h1 id="fleetSelectionVesselTitle" class="vessel-title" style="">Fleets</h1>
+                        </div>
+                        <div class="col-8 col-md-3 col-lg-3 col-xl-2">
+                        </div>
+                    </div>
+                </div>
+                <div class="vessel-list-details">
+                    <div class="vessel-top-header d-none d-md-block">
+                        <div class="row">
+                            <div class="col-lg-3 col-xl-3 d-flex align-items-end justify-content-left">
+                                <div class="left-section">
+                                    <h1>Vessel</h1>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-7">
+                                <div class="middle-section">
+                                    <h1 id="commercialHeading">Commercial</h1>
+                                    <h1 id="hazoccHeading">HazOcc</h1>
+                                    <h1 id="crewHeading">Crewing</h1>
+                                    <h1 id="procurementHeading">Procurement </h1>
+                                    <h1 id="environmentHeading">Environment</h1>
+                                    <h1 id="financialHeading">Financials</h1>
+                                    <h1 id="certificateHeading">Certificates</h1>
+                                    <h1 id="defectHeading">Defects</h1>
+                                    <h1 id="pmsHeading">PMS</h1>
+                                    <h1 id="jsaHeading">JSA</h1>
+                                    <h1 id="inspectionHeading" class="inspection-text">Inspections<br />& Ratings</h1>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-xl-2 d-flex align-items-end justify-content-end">
+                                <div class="top-section">
+                                    <h1>Status</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="accordationbox" data-children="vessel-name-list">
+                        <div class="panel-list">
+                            <div id="divVesselResult" class="apply-loader dashboardvessel-panel-loader">
+                                <partial name="VesselDashboardContainerPartialView" model='Model.VesselLists'>
+                            </div>
+                            <div id="divLoadMore" class="vessel-name-list apply-loader dashboardvessel-panel-loadmore">
+                                <div class="row">
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12 d-flex align-items-center justify-content-center">
+                                        <div class="top-section">
+                                            <a id="btnLoadMoreVessels" href="javascript:void(0);" style="display:none" class="loadmore btn open-sans-font bold-text"><i class="fa fa-fw" aria-hidden="true" title=""></i>Load More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="loading-indicator d-none">
+                <div class="loader bg-transparent no-shadow p-0">
+                    <div class="ball-spin-fade-loader">
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="vessel-legend-mobile tab-box-2 hide-mobile hide-desktop">
+                <div class="vessel-legend">
+                    <span>Commercial <img src="~/images/DashboardIcons/commercial-vessel-l.png" /></span>
+                    <span>Orders <img src="~/images/DashboardIcons/order-vessel-l.png" /></span>
+                    <span>HazOcc <img src="~/images/DashboardIcons/hazoc-vessel-l.png" /></span>
+                    <span>Crew <img src="~/images/DashboardIcons/crew-vessel-l.png" /></span>
+                    <span>Enviornment <img src="~/images/DashboardIcons/enviroment-vessel-l.png" /></span>
+                </div>
+                <div class="vessel-legend">
+                    <span>Inspections & Ratings <img src="~/images/DashboardIcons/inspection-vessel-l.png" /></span>
+                    <span>Financials <span class="opex-darkgrey-vessel">0%</span></span>
+                    <span>Certificates <img src="~/images/DashboardIcons/certificate-vessel-l.png" /></span>
+                    <span>Defects <img src="~/images/DashboardIcons/defect-vessel-l.png" /></span>
+                    <span>PMS <img src="~/images/DashboardIcons/pms-green-vessel-l.png" /></span>
+                </div>
+            </div>-->
+        </div>
+    </div>
+
+
+    <div class="mobile-tab mobile-tab-threedefault d-block d-md-none d-lg-none d-xl-none">
+        <a id="tab-1" class="tab-1 mobileTabClick active">
+            <svg width="19" height="22" viewBox="0 0 21 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                <path d="M20.4848 1.34377C20.4884 1.07278 20.247 0.875 19.9824 0.875H1.38007C1.11443 0.875 0.875 1.07323 0.875 1.34289V22.6571C0.875 22.9265 1.11414 23.125 1.38007 23.125H19.9799C20.2456 23.125 20.485 22.9268 20.485 22.6571L20.4848 1.34377ZM20.4848 1.34377C20.4848 1.34412 20.4848 1.34448 20.4848 1.34483L20.3598 1.34289L20.4848 1.34289V1.34377ZM19.4769 22.1892H1.88765V1.81074H19.4769V22.1892Z" fill="#000000" stroke="#000000" stroke-width="0.25" />
+                <path d="M4.63485 18.2247C4.70813 18.1538 4.80728 18.114 4.91042 18.1145L15.5725 18.1147C15.7861 18.1155 15.959 18.2841 15.9599 18.4924C15.9602 18.5929 15.9196 18.6896 15.847 18.7609C15.7744 18.8323 15.6756 18.8726 15.5725 18.8731H4.91043C4.80676 18.8734 4.70709 18.8335 4.63381 18.762C4.56053 18.6904 4.51955 18.5934 4.5199 18.4924C4.52025 18.3918 4.56175 18.2955 4.63485 18.2247Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.63485 14.826C4.70813 14.7551 4.80728 14.7153 4.91042 14.7158L15.5725 14.716C15.7861 14.7168 15.959 14.8855 15.9599 15.0937C15.9602 15.1942 15.9196 15.2909 15.847 15.3622C15.7744 15.4336 15.6756 15.4739 15.5725 15.4744H4.91043C4.80676 15.4748 4.70709 15.4348 4.63381 15.3634C4.56053 15.2918 4.51955 15.1948 4.5199 15.0937C4.52025 14.9931 4.56175 14.8968 4.63485 14.826Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.64647 11.4274C4.72715 11.3564 4.83632 11.3166 4.94989 11.3171L11.1333 11.3173C11.3685 11.3182 11.5589 11.4868 11.5599 11.695C11.5603 11.7956 11.5155 11.8922 11.4356 11.9635C11.3557 12.0349 11.2469 12.0752 11.1333 12.0757H4.94989C4.83575 12.0761 4.726 12.0361 4.64532 11.9647C4.56464 11.8931 4.51952 11.7961 4.5199 11.695C4.52028 11.5944 4.56598 11.4981 4.64647 11.4274Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.64647 8.02892C4.72715 7.95798 4.83632 7.9182 4.94989 7.91871L11.1333 7.91888C11.3685 7.91973 11.5589 8.08834 11.5599 8.29657C11.5603 8.39713 11.5155 8.49379 11.4356 8.56507C11.3557 8.6365 11.2469 8.6768 11.1333 8.6773H4.94989C4.83575 8.67764 4.726 8.63769 4.64532 8.56625C4.56464 8.49464 4.51952 8.39763 4.5199 8.29657C4.52028 8.19601 4.56598 8.09968 4.64647 8.02892Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.64647 4.63023C4.72715 4.5593 4.83632 4.51952 4.94989 4.52002L16.4133 4.5202C16.6485 4.52105 16.8389 4.68966 16.8399 4.89789C16.8403 4.99845 16.7955 5.09511 16.7156 5.16638C16.6357 5.23782 16.5269 5.27811 16.4133 5.27862H4.94989C4.83575 5.27896 4.726 5.23901 4.64532 5.16757C4.56464 5.09595 4.51952 4.99895 4.5199 4.89788C4.52028 4.79733 4.56598 4.701 4.64647 4.63023Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+            </svg>
+            Overview
+        </a>
+        <a id="tab-2" class="tab-2 mobileTabClick">
+            <svg width="20" height="22" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                <path d="M21.246 21.7269C21.1677 21.6366 21.0593 21.5778 20.9409 21.5613C20.8226 21.5449 20.7022 21.5719 20.6023 21.6375C20.2754 21.8938 19.8842 22.0551 19.4717 22.1036C19.0592 22.1521 18.6412 22.086 18.2638 21.9126C18.1717 21.8672 18.0341 21.8204 17.9419 21.775C19.0905 20.167 20.1428 18.0995 21.2502 16.812C21.2935 16.7626 21.3257 16.7044 21.3447 16.6415C21.3637 16.5786 21.369 16.5123 21.3602 16.4472C21.3515 16.3821 21.3289 16.3195 21.2941 16.2638C21.2592 16.2081 21.2128 16.1605 21.158 16.1242L19.5486 15.1105V8.72375C19.5501 8.5725 19.5214 8.42249 19.4642 8.28247C19.407 8.14245 19.3224 8.01525 19.2155 7.9083C19.1085 7.80135 18.9813 7.7168 18.8413 7.6596C18.7013 7.60239 18.5513 7.57369 18.4 7.57516H17.2514V3.75524C17.2514 3.40173 17.111 3.0627 16.861 2.81273C16.611 2.56276 16.272 2.42233 15.9185 2.42233H11.4589V1.45944C11.4589 1.33759 11.4105 1.22073 11.3244 1.13457C11.2382 1.0484 11.1214 1 10.9995 1C10.8777 1 10.7608 1.0484 10.6746 1.13457C10.5885 1.22073 10.5401 1.33759 10.5401 1.45944V2.37968H6.0819C5.72839 2.37968 5.38936 2.52011 5.13939 2.77008C4.88942 3.02005 4.74898 3.35909 4.74898 3.7126V7.57516H3.60177C3.45053 7.57369 3.30051 7.60239 3.16049 7.6596C3.02047 7.7168 2.89327 7.80135 2.78632 7.9083C2.67937 8.01525 2.59482 8.14245 2.53762 8.28247C2.48041 8.42249 2.45171 8.5725 2.45318 8.72375V15.1105L0.841028 16.1215C0.786236 16.1578 0.739842 16.2054 0.70496 16.2611C0.670078 16.3168 0.647516 16.3793 0.638787 16.4445C0.630058 16.5096 0.635364 16.5759 0.65435 16.6388C0.673336 16.7017 0.705563 16.7598 0.748866 16.8093C1.94285 18.2343 2.77093 20.1629 4.01169 21.8177C3.6429 22.0344 3.21672 22.1332 2.79019 22.101C2.36367 22.0688 1.95716 21.9071 1.6251 21.6375C1.53913 21.5551 1.42429 21.5096 1.30521 21.5109C1.18613 21.5121 1.07228 21.56 0.988071 21.6442C0.903864 21.7284 0.855999 21.8423 0.85474 21.9613C0.853481 22.0804 0.898927 22.1953 0.981335 22.2812C1.55268 22.7462 2.26679 23 3.0034 23C3.74001 23 4.45412 22.7462 5.02547 22.2812C5.41978 21.9956 5.89421 21.8419 6.38108 21.8419C6.86795 21.8419 7.34239 21.9956 7.73669 22.2812C8.26428 22.7107 8.92583 22.9413 9.60605 22.933C10.2863 22.9247 10.942 22.678 11.4589 22.2358C12.1935 21.5013 13.7974 22.328 13.7974 22.328C14.3356 22.6814 14.9531 22.8959 15.5946 22.952C16.236 23.0082 16.8814 22.9044 17.4729 22.6499C17.5235 22.6271 17.5783 22.6153 17.6338 22.6153C17.6893 22.6153 17.7442 22.6271 17.7948 22.6499C18.3361 22.925 18.9458 23.0368 19.5495 22.9716C20.1533 22.9064 20.725 22.667 21.1951 22.2826C21.2423 22.2551 21.2823 22.2168 21.3116 22.1707C21.341 22.1247 21.3589 22.0722 21.3639 22.0179C21.3688 21.9635 21.3607 21.9087 21.3402 21.8581C21.3197 21.8075 21.2874 21.7625 21.246 21.7269ZM5.62246 3.75524C5.62246 3.64579 5.66594 3.54083 5.74333 3.46344C5.82072 3.38605 5.92568 3.34257 6.03513 3.34257H15.8676C15.9218 3.34257 15.9755 3.35325 16.0255 3.37398C16.0756 3.39472 16.1211 3.42512 16.1594 3.46344C16.1977 3.50176 16.2281 3.54725 16.2489 3.59732C16.2696 3.64739 16.2803 3.70105 16.2803 3.75524V7.62055H5.62246V3.75524ZM3.37205 8.72375C3.37025 8.69311 3.37496 8.66244 3.38587 8.63375C3.39677 8.60507 3.41363 8.57901 3.43533 8.55731C3.45704 8.53561 3.48309 8.51875 3.51177 8.50785C3.54046 8.49694 3.57113 8.49223 3.60177 8.49403H18.3973C18.4279 8.49223 18.4586 8.49694 18.4873 8.50785C18.5159 8.51875 18.542 8.53561 18.5637 8.55731C18.5854 8.57901 18.6023 8.60507 18.6132 8.63375C18.6241 8.66244 18.6288 8.69311 18.627 8.72375V14.5135L11.2292 9.82695C11.1527 9.78195 11.0656 9.75823 10.9768 9.75823C10.8881 9.75823 10.8009 9.78195 10.7244 9.82695L3.37205 14.5135V8.72375ZM8.28829 21.6375C7.79641 21.256 7.2037 21.0267 6.58315 20.9778C5.9626 20.9289 5.3413 21.0626 4.79575 21.3624C3.69531 19.8919 2.91124 18.0995 1.76953 16.6291L10.5456 11.0691V21.775C10.2098 22.0122 9.80314 22.1279 9.39276 22.1029C8.98239 22.0779 8.5928 21.9137 8.28829 21.6375ZM14.2156 21.5921C13.3694 21.1526 12.3963 21.0227 11.4645 21.2248V11.0663L20.2405 16.6263C19.0025 18.2343 17.8058 20.5783 16.6104 22.0488C15.7828 22.2173 14.9221 22.0522 14.2156 21.5893V21.5921Z" fill="black" stroke="black" stroke-width="0.5" />
+            </svg>
+            Vessels
+        </a>
+        <a id="tab-3" class="tab-3 mobileTabClick">
+            <svg width="22" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                <path d="M15.4557 22L6.75316 18.9367L1.35759 21.0253C1.0327 21.1878 0.725211 21.1762 0.435127 20.9905C0.145042 20.8049 0 20.5264 0 20.1551V3.23734C0 2.98207 0.0522148 2.75 0.156645 2.54114C0.261076 2.33228 0.429325 2.19304 0.661392 2.12342L6.75316 0L15.4557 3.02848L20.8165 0.939874C21.1181 0.800633 21.4198 0.812237 21.7215 0.974684C22.0232 1.13713 22.1741 1.39241 22.1741 1.74051V18.9715C22.1741 19.2268 22.0986 19.4357 21.9478 19.5981C21.7969 19.7605 21.6171 19.8882 21.4082 19.981L15.4557 22ZM14.8291 20.6772V3.82911L7.31013 1.25316V18.1013L14.8291 20.6772ZM15.9082 20.6772L21.1297 18.9715V1.87975L15.9082 3.82911V20.6772ZM1.0443 20.0854L6.26582 18.1013V1.25316L1.0443 3.02848V20.0854Z" fill="black" />
+            </svg>
+            Map
+        </a>
+    </div>
+}
+
+@section Modal
+    {
+    <partial name="VoyageReportingModal" />
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalSeriousIncident" tabindex="-1" role="dialog" aria-labelledby="modalSeriousIncident" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered w-850 modal-margin " role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>
+                                    Serious Incidents
+                                    <img id="imgSeriousIncidentTooltip" src="~/images/fleetinfo.svg" class=" ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label>Last 3 Months </label>
+                            <span id="spanSeriousIncidentsCount" class="align-middle">-</span>
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtSeriousIncidents" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel</th>
+                                        <th>Ship Ref No.</th>
+                                        <th>Occurrence Date</th>
+                                        <th>Category</th>
+                                        <th>Classification</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalOffHireSummary" tabindex="-1" role="dialog" aria-labelledby="modalOffHireSummary" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>
+                                    Off-Hire
+                                    <img id="imgOffHireTooltip" src="~/images/fleetinfo.svg" class=" ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label>Last 3 Months </label>
+                            <span id="spanOffHireCount" class="align-middle vessel-default-color">-</span>
+                            <label class="hide-mobile mr-0">|</label>
+
+                            <label>hh:mm:ss </label>
+                            <span id="spanOffHireValue" class="align-middle">-</span>
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtOffHireSummary" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel</th>
+                                        <th>Reason</th>
+                                        <th>Delay (hh:mm:ss)</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>OffHire Type</th>
+                                        <th>Comments</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalPscDetention" tabindex="-1" role="dialog" aria-labelledby="modalPscDetention" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered w-850 modal-margin" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>
+                                    PSC Detention
+                                    <img id="imgPscDetentionTooltip" src="~/images/fleetinfo.svg" class=" ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label>Last 3 Months </label>
+                            <span id="spanPscDetention" class="align-middle">-</span>
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtPscDetention" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel</th>
+                                        <th>Date</th>
+                                        <th>Port</th>
+                                        <th>Company Name</th>
+                                        <th>Days Detained</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade p-0" id="modalPredictedBadWeather" data-backdrop="static" role="dialog" aria-labelledby="modalPredictedBadWeather" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" style="max-width:700px;">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding">
+                    <div class="col-md-11 pl-0">
+                        <div class="">
+                            <span class="common-heading-green" id="vesselNameBadWeatherModal"></span>
+                        </div>
+                        <div class="common-small-heading">
+                            <span>Predicted Bad Weather</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background padding-20">
+                    <div class="table-common-design">
+                        <div class="common-custom-card mobile-pad-0 mb-0">
+                            <div class="counters-heading border-none">
+                                <span>Details</span>
+                            </div>
+                            <div class="compact-table">
+                                <table style="width: 100%;" id="dtbadweather" class="table table-hover table-fixed-layout table-striped table-bordered cardview row-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Location</th>
+                                            <th>Beaufort</th>
+                                            <th>Speed m/s</th>
+                                            <th>Direction</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalOmvFindingsSummary" tabindex="-1" role="dialog" aria-labelledby="modalOmvFindingsSummary" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-width-ipad modal-margin" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>
+                                    OMV Findings
+                                    <img id="imgOmvFindingsTooltip" src="~/images/fleetinfo.svg" class=" ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label>Inspection Count</label>
+                            <span id="spanInspectionCount" class="align-middle vessel-default-color">-</span>
+                            <label class="hide-mobile mr-0">|</label>
+
+                            <label class="ml-0 ml-sm-1">Findings Count</label>
+                            <span id="spanFindingCount" class="align-middle vessel-default-color">-</span>
+                            <label class="hide-mobile mr-0">|</label>
+
+                            <label class="ml-0 ml-sm-1">Last 6 Months OMV Findings Rate</label>
+                            <span id="spanOmvRate" class="align-middle">-</span>
+
+                            <label class="hide-mobile mr-0">|</label>
+                            <label class="ml-0 ml-sm-1 checkboxshadownone">
+                                <div class="custom-checkbox custom-control custom-control-inline">
+                                    <input type="checkbox" id="hideDeficiencyOMV" class="custom-control-input inputfocusoff">
+                                    <label class="custom-control-label" for="hideDeficiencyOMV">Hide records with 0 findings</label>
+                                </div>
+                            </label>
+
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtOmvFindings" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel</th>
+                                        <th>Insp. Date</th>
+                                        <th>Where</th>
+                                        <th>Company</th>
+                                        <th>Inspector</th>
+                                        <th>No. of Findings</th>
+                                        <th>Next Due Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalPscDeficiency" tabindex="-1" role="dialog" aria-labelledby="modalPscDeficiency" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-width-ipad modal-margin" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>
+                                    PSC Deficiency
+                                    <img id="imgPscDeficiencyTooltip" src="~/images/fleetinfo.svg" class=" ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="subtitle-heading">
+                            <label>Inspection Count</label>
+                            <span id="spanPscDefInspectionCount" class="align-middle vessel-default-color">-</span>
+                            <label class="hide-mobile mr-0">|</label>
+
+                            <label class="ml-0 ml-sm-1">Findings Count</label>
+                            <span id="spanPscDefFindingCount" class="align-middle vessel-default-color">-</span>
+                            <label class="hide-mobile mr-0">|</label>
+
+                            <label class="ml-0 ml-sm-1">Last 3 Months PSC Deficiency Rate</label>
+                            <span id="spanPscDefRate" class="align-middle">-</span>
+
+                            <label class="hide-mobile mr-0">|</label>
+
+                            <label class="ml-0 ml-sm-1 checkboxshadownone">
+                                <div class="custom-checkbox custom-control custom-control-inline">
+                                    <input type="checkbox" id="hideDeficiencyPSC" class="custom-control-input inputfocusoff">
+                                    <label class="custom-control-label" for="hideDeficiencyPSC">Hide records with 0 deficiency</label>
+                                </div>
+                            </label>
+
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtPscDeficiency" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel</th>
+                                        <th>Insp. Date</th>
+                                        <th>Where</th>
+                                        <th>Company</th>
+                                        <th>Inspector Name</th>
+                                        <th>No of Deficiencies</th>
+                                        <th>Detained (Y/N)</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalPMSOverdue" tabindex="-1" role="dialog" aria-labelledby="modalPMSOverdue" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered w-850 modal-margin" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>
+                                    Critical PMS
+                                    <img id="imgCriticalPMSTooltip" src="~/images/fleetinfo.svg" class=" ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label> Critical Overdue </label>
+                            <span id="spanPmsOverdueCount" class="align-middle">-</span>
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtPMSOverdue" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel</th>
+                                        <th>Due Date</th>
+                                        <th>No. Of Days Overdue</th>
+                                        <th>Job Name</th>
+                                        <th>Component Name</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalOverdueInspection" tabindex="-1" role="dialog" aria-labelledby="modalOverdueInspection" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered w-850 modal-margin" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>Overdue Inspection</span>
+                                <img id="imgOverdueInspectionsTooltip" src="~/images/fleetinfo.svg" class="ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label> Overdue Inspection Count</label>
+                            <span id="spanOverdueInspection" class="align-middle">-</span>
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtOverdueInspection" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel</th>
+                                        <th>Inspection Type</th>
+                                        <th>Last Done</th>
+                                        <th>Due Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalOilSpill" tabindex="-1" role="dialog" aria-labelledby="modalOilSpill" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-width-ipad modal-margin" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>
+                                    Oil Spills To Water
+                                    <img id="imgOilSpillToWaterTooltip" src="~/images/fleetinfo.svg" class=" ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label> Last 3 Months </label>
+                            <span id="spanOilSplillsToWater" class="align-middle">-</span>
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtOilSpillsToWater" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel</th>
+                                        <th>Ship Ref No.</th>
+                                        <th>Incident Date</th>
+                                        <th>Incident Type</th>
+                                        <th>Severity</th>
+                                        <th>Location Of Vessel</th>
+                                        <th>Quantity Spilled (ltr)</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade p-0" id="dashboardlegendsmobile" data-backdrop="static" role="dialog" aria-labelledby="defectlegend" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" style="max-width:900px;">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding">
+                    <div class="col-md-11 pl-0">
+                        <div class="common-sub-heading-black">
+                            Legends
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background padding-20">
+                    <div class="common-custom-card mb-0">
+                        <div class="vessel-legend-mobile">
+                            <div class="row vessel-legend no-gutters">
+                                <div class="col-5"><span>Commercial <img src="~/images/DashboardIcons/commercial-vessel-l.png" /></span></div>
+                                <div class="col-7"><span>Orders <img src="~/images/DashboardIcons/order-vessel-l.png" /></span></div>
+                                <div class="col-5"><span>HazOcc <img src="~/images/DashboardIcons/hazoc-vessel-l.png" /></span></div>
+                                <div class="col-7"><span>Crew <img src="~/images/DashboardIcons/crew-vessel-l.png" /></span></div>
+                                <div class="col-5"><span>Enviornment <img src="~/images/DashboardIcons/enviroment-vessel-l.png" /></span></div>
+                                <div class="col-7"><span>Inspections & Ratings <img src="~/images/DashboardIcons/inspection-vessel-l.png" /></span></div>
+                                <div class="col-5"><span>Financials <span class="opex-darkgrey-vessel">0%</span></span></div>
+                                <div class="col-7"><span>Certificates <img src="~/images/DashboardIcons/certificate-vessel-l.png" /></span></div>
+                                <div class="col-5"><span class="mb-0">Defects <img src="~/images/DashboardIcons/defect-vessel-l.png" /></span></div>
+                                <div class="col-7"><span class="mb-0">PMS <img src="~/images/DashboardIcons/pms-green-vessel-l.png" /></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalOverBudgetSummary" tabindex="-1" role="dialog" aria-labelledby="modalOverBudgetSummary" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span id="spanOpexDetailsHeader">
+                                    Opex
+                                </span>
+                                <img id="imgOpexOverBudgetTooltip" src="~/images/fleetinfo.svg" class=" ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label>Currency </label>
+                            <span class="align-middle vessel-default-color">USD</span>
+                            <label class="hide-mobile mr-0">|</label>
+
+                            <label>Opex </label>
+                            <span id="spanOverBudgetPercentage" class="align-middle">-</span>
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtOverBudget" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel</th>
+                                        <th>Total</th>
+                                        <th>Budget</th>
+                                        <th>Variance</th>
+                                        <th>Variance %</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalFuelEfficiencySummary" tabindex="-1" role="dialog" aria-labelledby="modalFuelEfficiencySummary" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>
+                                    Fuel Efficiency
+                                    <img id="imgFuelEfficiencyTooltip" src="~/images/fleetinfo.svg" class="ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label> Last 3 Months </label>
+                            <span id="spanFuelEfficiency" class="align-middle">-</span>
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtFuelEfficiency" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel</th>
+                                        <th>Fuel Efficiency Ratio</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalRightShip" tabindex="-1" role="dialog" aria-labelledby="modalRightShip" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>Right Ship</span>
+                                <img id="imgRightShipTooltip" src="~/images/fleetinfo.svg" class="ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label> Avg Score</label>
+                            <span id="spanRightshipScore" class="align-middle">-</span>
+                            <label class="hide-mobile mr-0">|</label>
+
+                            <a href="https://www.rightship.com/" target="_blank" class="align-middle">Right Ship Link</a>
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtRightShip" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel Name</th>
+                                        <th>Right Ship Score</th>
+                                        <th>GHG Rating</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade page-popup-design-2 allvesselmodal fleetkpimodal apply-loader" data-backdrop="static" id="modalExperienceMatrix" tabindex="-1" role="dialog" aria-labelledby="modalExperienceMatrix" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-width-ipad modal-margin" role="document" style="box-shadow:none;">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <div class="common-custom-card mb-0 w-100 pb-0">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>
+                                    Experience Matrix
+                                    <img id="imgExperienceMatrixTooltip" src="~/images/fleetinfo.svg" class="ml-1" data-html="true" data-toggle="tooltip" data-placement="bottom" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="subtitle-heading">
+                            <label>Vessel Count</label>
+                            <span id="spanExperienceMatrix" class="align-middle">-</span>
+                        </div>
+                    </div>
+                    <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-max-scroll pl-0 pr-0 pt-0">
+                    <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtExperienceMatrix" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel</th>
+                                        <th>Department</th>
+                                        <th>Crew</th>
+                                        <th>Rank</th>
+                                        <th>VMS Exp</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tour Modal -->
+    <div class="modal fade tourdesign open-sans-font" id="toumodal" role="dialog" aria-labelledby="toumodal" data-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="~/images/apps-green.svg" />
+                    <h1>
+                        Welcome to V.Connect!
+                    </h1>
+                    <button class="btn btntour d-none d-md-inline-block" data-tour>
+                        Get Started
+                    </button>
+                    <button class="btn btntour d-inline-block d-md-none" data-tourmobile>
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+    {
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtkdm4T14Ry_RJkMZo7LJK96Lio1I5uIw&callback=initMap"></script>
+    <script src="~/assets/scripts/dashboard.bundle.js"></script>
+
+}
+

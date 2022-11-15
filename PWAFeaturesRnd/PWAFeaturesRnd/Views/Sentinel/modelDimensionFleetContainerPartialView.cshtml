@@ -1,0 +1,48 @@
+﻿@model List<OfficeViewDetailResponseViewModel>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-header" id="@item.OfficeId">
+                <div class="sentinelpanel offcpanel">
+                    <h1 data-toggle="tooltip" data-placement="bottom" data-original-title="@item.OfficeName">@item.OfficeName</h1>
+                    @if (item.HasActiveOverride)
+                    {
+                        <img src="/images/sentinelimages/s-cycle.svg" class="scycle" data-original-title="Active Override(s)" title="" data-toggle="tooltip" data-placement="bottom">
+                    }
+                    else
+                    {
+                        <div class="scycle"></div>
+                    }
+
+                    <div class="totalvessel">
+                        <img src="~/images/sentinelimages/offc-vessels.svg" />
+                        <span>@item.TotalVesselCount</span>
+                    </div>
+                    <div class="redscore">
+                        <img src="~/images/sentinelimages/redscore.svg" />
+                        <span>@item.RedVesselCount</span>
+                    </div>
+                    <div class="orangescore">
+                        <img src="~/images/sentinelimages/orangescrore.svg" />
+                        <span>@item.AmberVesselCount</span>
+                    </div>
+                    <div class="greenscore">
+                        <img src="~/images/sentinelimages/greenscore.svg" />
+                        <span>@item.GreenVesselCount</span>
+                    </div>
+                    <div class="greyscore">
+                        <img src="~/images/sentinelimages/greyscore.svg" />
+                        <span>@item.GreyVesselCount</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="no-items">No Items Found</div>
+}

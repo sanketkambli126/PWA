@@ -1,0 +1,128 @@
+﻿@{
+	Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+	Defects
+}
+
+@section ContentSection
+{
+	<div class="app-main__outer fixed-page-header">
+		<div class="app-main__inner background-padding">
+			<div class="app-page-title header-shadow">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+						<div>
+							Defects - Sichem Amethyst
+						</div>
+					</div>
+					<div class="page-title-actions">
+						<div class="d-inline-block mr-3 mb-mobile-3">
+							<button class="btn-shadow btn btn-info" id="dtrdefectlist">
+								<i class="fa fa-calendar pr-1"></i>
+								<span></span>
+								<i class="fa pl-1 fa-caret-down"></i>
+							</button>
+						</div>
+						<div class="d-inline-block dropdown mr-3">
+							<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+								<span class="btn-icon-wrapper pr-2 opacity-7">
+									<i class="fa fa-filter fa-w-20"></i>
+								</span>
+								<span id="spSubtitle">Due (Jul) (2)</span>
+							</button>
+							<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" style="min-width: 16rem">
+								<ul class="nav flex-column">
+									<li class="nav-item">
+										<a class="nav-link active link-clicked" href="javascript:void(0);" id="ALL">
+											<span>
+												All (19)
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link link-clicked" href="javascript:void(0);" id="DUE">
+											<span>
+												Due (Jul) (2)
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link link-clicked" href="javascript:void(0);" id="OVERDUE">
+											<span>
+												Overdue (4)
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link link-clicked" href="javascript:void(0);" id="OPEN">
+											<span>
+												Open Tech. Defects (Last 30D) (5)
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link link-clicked" href="javascript:void(0);" id="CLOSED">
+											<span>
+												Closed Tech. Defects (Last 30D) (3)
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link link-clicked" href="javascript:void(0);" id="OFFHIRE">
+											<span>
+												Off Hire Required (2)
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link link-clicked" href="javascript:void(0);" id="OPENORDERS">
+											<span>
+												Defects With Open Orders (3)
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<br class="d-block d-sm-none" />
+						<button data-toggle="tooltip" title="Export to excel" data-placement="bottom" class="btn btn-dark btn-shadow font-size-lg p-1 hover-blue mr-1 mt-sm-0 mt-2">
+							<i class="fa fa-fw" aria-hidden="true"></i>
+						</button>
+					</div>
+
+				</div>
+			</div>
+			<div class="main-card content-pane card margin-bottom-custom">
+				<div class="card-body">
+					<div class="table-responsive compact-table">
+						<table style="width: 100%;" id="dtDefectsList" class="table table-hover table-bordered cardview row-sm">
+							<thead>
+								<tr>
+									<th class="d-none d-sm-table-cell">Defect No.</th>
+									<th>Title</th>
+									<th>Guarantee Claim Code</th>
+									<th>Off Hire</th>
+									<th>Tech. Defect</th>
+									<th>Category</th>
+									<th>Status</th>
+									<th>System Area</th>
+									<th>Current Due Date</th>
+									<th>Due Date Before Resc.</th>
+									<th>Adv (+) / OD Days (-)</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section ScriptSection
+{
+	<script src="~/assets/scripts/defectsList.bundle.js"></script>
+}

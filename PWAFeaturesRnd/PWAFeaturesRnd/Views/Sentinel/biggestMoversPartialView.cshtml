@@ -1,0 +1,44 @@
+﻿@model List<ValueDifferenceRangeResponseViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="clearfix">
+    <div class="float-left firstsection">
+        <div class="scorebar">
+            <img src="~/images/sentinelimages/score-up.svg" />
+            <span class="stxt-green">Increase in Vessel Score</span>
+        </div>
+        <div class="vesselscore">
+            @foreach (var item in Model.Where(x => x.ComparisonType.Equals(Constants.Increased)))
+            {
+                <div class="listvessel">
+                    <div class="snumber">@item.DisplayRange</div>
+                    <div class="snumbervessel">
+                        <a href="/Sentinel/FleetVesselList?fleetRequest=@item.FleetRequest&VesselFilters=@item.EncryptedVesselListRequest"><span class="stxt-green" >@item.VesselCount</span></a>
+                        <img src="~/images/sentinelimages/offc-vessels.svg" />
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+    <div class="float-left">
+        <div class="scorebar">
+            <img src="~/images/sentinelimages/score-down.svg" />
+            <span class="stxt-red">Decrease in Vessel Score</span>
+        </div>
+        <div class="vesselscore">
+            @foreach (var item in Model.Where(x => x.ComparisonType.Equals(Constants.Decreased)))
+            {
+                <div class="listvessel">
+                    <div class="snumber">@item.DisplayRange</div>
+                    <div class="snumbervessel">
+                        <a href="/Sentinel/FleetVesselList?fleetRequest=@item.FleetRequest&VesselFilters=@item.EncryptedVesselListRequest"><span class="stxt-red">@item.VesselCount</span></a>
+                        <img src="~/images/sentinelimages/offc-vessels.svg" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,294 @@
+﻿@model PWAFeaturesRnd.ViewModels.Inspection.InspectionActionRequestViewModel
+
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Actions
+}
+
+@section ContentSection
+{
+    <div class="app-main__outer fixed-page-header inspect-table">
+        <div class="app-main__inner background-padding new-background common-border-radius mobile-tab-bottom-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper new-heading-design">
+                    <div class="margin-left-35">
+                        <div class="common-sub-heading-black headershowmorewrapper">
+                            <span class="header breadcurmdeactive">
+                                @if (Model.IsFromViewRecord == true)
+                                {
+                                    <span>Inspections</span>
+                                    <span>&nbsp;> &nbsp;</span>
+                                    <span> @Model.InspectionName</span>
+                                    <span>&nbsp;> &nbsp;</span>
+                                    <span class="common-sub-heading-black pr-0"> Finding @Model.VesselReferenceNo </span>
+                                }
+                                else
+                                {
+                                    <a href="javascript:void(0)" id="inspectionHeader">Inspections</a>
+                                    <span>&nbsp;> &nbsp;</span>
+                                    <a href="javascript:void(0)" id="findingsHeader"> @Model.InspectionName</a>
+                                    <span>&nbsp;> &nbsp;</span>
+                                    <span class="common-sub-heading-black pr-0"> Finding @Model.VesselReferenceNo </span>
+                                }
+                            </span>
+                            <div class="common-small-heading">
+                                <span>
+                                    @if (Model.IsFromViewRecord == true)
+                                    {
+                                        <span class="common-small-heading">
+                                            @Model.VesselName
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <a class="common-heading-green"
+                                           href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.VesselId)">@Model.VesselName</a>
+                                    }
+                                </span>
+                                <span class="d-none d-md-inline-block ml-1 mr-1">|</span>
+                                <span class="common-small-heading"><div>Company: <span id="HeadingCompany"> </span></div></span>
+                                <span class="d-none d-md-inline-block ml-1 mr-1">|</span>
+                                <span class="common-small-heading"><div>Location: <span id="HeadingLocation"></span></div></span>
+                                <span class="d-none d-md-inline-block ml-1 mr-1 detained">|</span>
+                                <span class="common-small-heading detained">
+                                    <div>
+                                        <span class="common-sub-heading-red">
+                                            <img src="/images/detained.png" class="ml-1 mr-2" /> <span id="HeadingDetainedDay"></span>
+                                        </span>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-title-actions mobile-fixed-right left-fixed-ipad">
+                        <partial name="DiscussionAndNotesCountButton" />
+                        <button data-toggle="tooltip" title="Export to excel" data-placement="bottom" class="btnExport btn btn-dark-grey text-white btn-export btn-shadow hover-blue hide-mobile">
+                            <i class="fa fa-fw" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="dropdown mobile-dropdown-title d-block d-md-none d-lg-none d-xl-none">
+                            <button type="button" id="mobileactiontoggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-dark-grey text-white btn-export btn-shadow">
+                                <span class="btn-icon-wrapper">
+                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
+                                </span>
+                            </button>
+                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="mobileActiondropdown">
+                                <ul class="nav flex-column">
+                                    <li id="baseDiscussionMobile" class="d-none">
+                                        <a class="nav-link discussionAnchorOnClick">
+                                            <i class="fa fa-fw" aria-hidden="true" title=""></i><span>Discussions (<span class="baseDiscussionCountCommon">0</span>)</span>
+                                        </a>
+                                    </li>
+                                    <li id="baseNotesMobile" class="d-none">
+                                        <a class="nav-link noteAnchorOnClick">
+                                            <i class="fa fa-fw" aria-hidden="true" title=""></i><span>My Notes (<span class="baseNotesCountCommon">0</span>)</span>
+                                        </a>
+                                    </li>
+                                    <li id="btnExportShowHideMobile" class="d-none">
+                                        <a class="nav-link btnExport ">
+                                            <i class="fa fa-fw" aria-hidden="true"></i><span> Export To Excel</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card content-pane budget-summary">
+                <div class="row tab-box-1">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="common-custom-card action-top-box mb-0">
+                            <div class="clearfix">
+                                <div class="float-left">
+                                    <label class="d-none d-md-block">Ves Ref</label>
+                                    <span id="vesselRef" class=""></span>
+                                </div>
+                                <div class="float-left">
+                                    <label>Chapter/Insp. Ref No</label>
+                                    <span id="inspectionRef" class="d-inline-block d-md-block mobile-margin-left-10"></span>
+                                </div>
+                                <div class="float-left">
+                                    <label>Type or Category</label>
+                                    <span id="typeCatergory"></span>
+                                </div>
+                                <div class="float-left">
+                                    <label>Correction Action Assigned To</label>
+                                    <span id="correctionAction"></span>
+                                </div>
+                                <div class="float-left">
+                                    <label>System/Area</label>
+                                    <span id="systemArea"></span>
+                                </div>
+                                <div class="float-left">
+                                    <label>Due Date</label>
+                                    <span id="dueDate" class="mobile-color-red"></span>
+                                </div>
+                                <div class="float-left">
+                                    <label>Date Cleared</label>
+                                    <span id="dateCleared"></span>
+                                </div>
+                            </div>
+                            @*<div class="card-body">
+                                    <h5 class="card-title mb-0" id="">
+                                        @Model.InspectionName - @Model.OccuredDate | Actions for - @Model.VesselReferenceNo
+                                    </h5>
+                                </div>*@
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <strong>Description</strong>
+                                    <div id="findingdescription" class="description"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-14-top margin-bottom-custom mobile-top-0">
+                <div class="col-lg-8">
+                    <div class="main-card card table-common-design table-design-finding table-design-action hide-mobile tab-box-2" id="actionlist">
+                        <div class="common-custom-card mobile-pad-0 mb-0 pr-0 pl-0">
+                            <div class="tab-content">
+                                @*<div class="breadcrum float-left mb-1">
+                                        <a href="/Inspection/Findings/?Finding=@Model.InspectionUrl&VesselId=@Model.VesselId"> Back to FINDINGS</a>
+                                    </div>*@
+                                <div class="clearfix"></div>
+                                <div class="tab-grid">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            @Html.HiddenFor(m => m.InspectionUrl)
+                                            @Html.HiddenFor(m => m.InspectionName)
+                                            @Html.HiddenFor(m => m.OccuredDate)
+                                            @Html.HiddenFor(m => m.VesselReferenceNo)
+                                            @Html.HiddenFor(m => m.VesselName)
+                                            @Html.HiddenFor(m => m.VesselId)
+                                            @Html.HiddenFor(m => m.MessageDetailsJSON)
+                                            @Html.HiddenFor(m => m.IsFromViewRecord)
+                                            @Html.HiddenFor(m => m.ActiveMobileTabClass)
+                                            <div class="counters-heading border-none findings-header">
+                                                <div class="">
+                                                    <span>Actions</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="table-responsive compact-table">
+                                                <table style="width: 100%;" id="dtactions" class="table table-hover cardview row-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Reported By</th>
+                                                            @*<th>Description</th>*@
+                                                            <th>Cleared</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4 mobile-top-14 mt-top-768-14 tab-box-1">
+                    <div class="common-custom-card action-top-box mb-0 height-equal">
+                        <div class="counters-heading border-none">
+                            <div class="w-100">
+                                <span class="color-black">Causation</span>
+                            </div>
+                        </div>
+                        <div class="row mobile-top-20">
+                            <div class="col-md-12">
+                                <div class="dashboard-counters-label">
+                                    Substandard Acts
+                                </div>
+                                <span class="d-block" id="substandardActs">
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row margin-top-20">
+                            <div class="col-md-12">
+                                <div class="dashboard-counters-label">
+                                    Substandard Conditions
+                                </div>
+                                <span class="d-block" id="substandardConditions">
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row margin-top-20">
+                            <div class="col-md-12">
+                                <div class="dashboard-counters-label">
+                                    Human Factors
+                                </div>
+                                <span class="d-block" id="humanFactor">
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row margin-top-20">
+                            <div class="col-md-12">
+                                <div class="dashboard-counters-label">
+                                    Job Factors
+                                </div>
+                                <span class="d-block" id="jobFactors">
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row margin-top-20">
+                            <div class="col-md-12">
+                                <div class="dashboard-counters-label">
+                                    Control Management Failure
+                                </div>
+                                <span class="d-block" id="controlManagementFailure">
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-tab d-block d-md-none d-lg-none d-xl-none">
+        <a id="tab-1" class="tab-1 mobileTabClick active">
+            <svg width="19" height="22" viewBox="0 0 21 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                <path d="M20.4848 1.34377C20.4884 1.07278 20.247 0.875 19.9824 0.875H1.38007C1.11443 0.875 0.875 1.07323 0.875 1.34289V22.6571C0.875 22.9265 1.11414 23.125 1.38007 23.125H19.9799C20.2456 23.125 20.485 22.9268 20.485 22.6571L20.4848 1.34377ZM20.4848 1.34377C20.4848 1.34412 20.4848 1.34448 20.4848 1.34483L20.3598 1.34289L20.4848 1.34289V1.34377ZM19.4769 22.1892H1.88765V1.81074H19.4769V22.1892Z" fill="#000000" stroke="#000000" stroke-width="0.25" />
+                <path d="M4.63485 18.2247C4.70813 18.1538 4.80728 18.114 4.91042 18.1145L15.5725 18.1147C15.7861 18.1155 15.959 18.2841 15.9599 18.4924C15.9602 18.5929 15.9196 18.6896 15.847 18.7609C15.7744 18.8323 15.6756 18.8726 15.5725 18.8731H4.91043C4.80676 18.8734 4.70709 18.8335 4.63381 18.762C4.56053 18.6904 4.51955 18.5934 4.5199 18.4924C4.52025 18.3918 4.56175 18.2955 4.63485 18.2247Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.63485 14.826C4.70813 14.7551 4.80728 14.7153 4.91042 14.7158L15.5725 14.716C15.7861 14.7168 15.959 14.8855 15.9599 15.0937C15.9602 15.1942 15.9196 15.2909 15.847 15.3622C15.7744 15.4336 15.6756 15.4739 15.5725 15.4744H4.91043C4.80676 15.4748 4.70709 15.4348 4.63381 15.3634C4.56053 15.2918 4.51955 15.1948 4.5199 15.0937C4.52025 14.9931 4.56175 14.8968 4.63485 14.826Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.64647 11.4274C4.72715 11.3564 4.83632 11.3166 4.94989 11.3171L11.1333 11.3173C11.3685 11.3182 11.5589 11.4868 11.5599 11.695C11.5603 11.7956 11.5155 11.8922 11.4356 11.9635C11.3557 12.0349 11.2469 12.0752 11.1333 12.0757H4.94989C4.83575 12.0761 4.726 12.0361 4.64532 11.9647C4.56464 11.8931 4.51952 11.7961 4.5199 11.695C4.52028 11.5944 4.56598 11.4981 4.64647 11.4274Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.64647 8.02892C4.72715 7.95798 4.83632 7.9182 4.94989 7.91871L11.1333 7.91888C11.3685 7.91973 11.5589 8.08834 11.5599 8.29657C11.5603 8.39713 11.5155 8.49379 11.4356 8.56507C11.3557 8.6365 11.2469 8.6768 11.1333 8.6773H4.94989C4.83575 8.67764 4.726 8.63769 4.64532 8.56625C4.56464 8.49464 4.51952 8.39763 4.5199 8.29657C4.52028 8.19601 4.56598 8.09968 4.64647 8.02892Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                <path d="M4.64647 4.63023C4.72715 4.5593 4.83632 4.51952 4.94989 4.52002L16.4133 4.5202C16.6485 4.52105 16.8389 4.68966 16.8399 4.89789C16.8403 4.99845 16.7955 5.09511 16.7156 5.16638C16.6357 5.23782 16.5269 5.27811 16.4133 5.27862H4.94989C4.83575 5.27896 4.726 5.23901 4.64532 5.16757C4.56464 5.09595 4.51952 4.99895 4.5199 4.89788C4.52028 4.79733 4.56598 4.701 4.64647 4.63023Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+            </svg>
+            Details
+        </a>
+        <a id="tab-2" class="tab-2 mobileTabClick">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                <path d="M8.57825 22L8.05305 18.5279C7.70292 18.4111 7.29443 18.2215 6.82759 17.9589C6.36074 17.6963 5.92308 17.3996 5.51459 17.069L2.30504 18.557L0 14.5013L2.94695 12.3422C2.90805 12.1477 2.87887 11.9337 2.85942 11.7003C2.83997 11.4668 2.83024 11.2334 2.83024 11C2.83024 10.8249 2.83997 10.611 2.85942 10.3581C2.87887 10.1052 2.90805 9.86207 2.94695 9.62865L0 7.4695L2.30504 3.44297L5.54377 4.90186C5.87445 4.62953 6.26348 4.36207 6.71088 4.09947C7.15827 3.83687 7.59593 3.63749 8.02387 3.50133L8.57825 0H13.1008L13.626 3.47215C14.0539 3.62776 14.4819 3.83201 14.9098 4.08488C15.3378 4.33775 15.7268 4.61008 16.0769 4.90186L19.374 3.44297L21.6499 7.4695L18.6446 9.62865C18.6835 9.86207 18.7175 10.0955 18.7467 10.3289C18.7759 10.5623 18.7905 10.786 18.7905 11C18.7905 11.1945 18.7759 11.4085 18.7467 11.6419C18.7175 11.8753 18.6835 12.1185 18.6446 12.3714L21.6207 14.5013L19.3448 18.557L16.0769 17.069C15.7268 17.3802 15.3426 17.6622 14.9244 17.9151C14.5062 18.168 14.0734 18.3625 13.626 18.4987L13.1008 22H8.57825ZM10.7958 14.2387C11.6905 14.2387 12.454 13.9226 13.0862 13.2905C13.7184 12.6583 14.0345 11.8948 14.0345 11C14.0345 10.1052 13.7184 9.34173 13.0862 8.70955C12.454 8.07737 11.6808 7.76127 10.7666 7.76127C9.8718 7.76127 9.10831 8.07737 8.47613 8.70955C7.84394 9.34173 7.52785 10.1052 7.52785 11C7.52785 11.8948 7.84394 12.6583 8.47613 13.2905C9.10831 13.9226 9.88152 14.2387 10.7958 14.2387ZM10.7666 12.9549C10.2219 12.9549 9.75995 12.7653 9.38064 12.3859C9.00133 12.0066 8.81167 11.5447 8.81167 11C8.81167 10.4554 9.00133 9.99337 9.38064 9.61406C9.75995 9.23475 10.2219 9.04509 10.7666 9.04509C11.3112 9.04509 11.7781 9.23475 12.1671 9.61406C12.5561 9.99337 12.7507 10.4554 12.7507 11C12.7507 11.5447 12.5561 12.0066 12.1671 12.3859C11.7781 12.7653 11.3112 12.9549 10.7666 12.9549ZM9.57029 20.7162H12.0504L12.4881 17.4483C13.1105 17.2927 13.6795 17.0641 14.195 16.7626C14.7104 16.4611 15.2113 16.0769 15.6976 15.6101L18.7613 16.9231L19.9284 14.8806L17.2149 12.8674C17.2927 12.5367 17.3559 12.2157 17.4045 11.9045C17.4531 11.5933 17.4775 11.2918 17.4775 11C17.4775 10.6693 17.458 10.3581 17.4191 10.0663C17.3802 9.77454 17.3121 9.46331 17.2149 9.13263L19.9576 7.11936L18.7905 5.04775L15.6976 6.38992C15.2891 5.94253 14.798 5.54377 14.2241 5.19363C13.6503 4.8435 13.0716 4.61981 12.4881 4.52255L12.0796 1.28382H9.57029L9.19098 4.52255C8.52962 4.65871 7.93634 4.87754 7.41114 5.17905C6.88594 5.48055 6.38992 5.88417 5.92308 6.38992L2.85942 5.04775L1.69231 7.11936L4.40584 9.07427C4.30858 9.3855 4.2405 9.70159 4.20159 10.0225C4.16269 10.3435 4.14324 10.6693 4.14324 11C4.14324 11.3307 4.16269 11.6468 4.20159 11.9483C4.2405 12.2498 4.29885 12.5659 4.37666 12.8966L1.69231 14.8806L2.85942 16.9231L5.8939 15.6101C6.36074 16.0964 6.86649 16.4903 7.41114 16.7918C7.95579 17.0933 8.54907 17.3218 9.19098 17.4775L9.57029 20.7162Z" fill="#000000" />
+                <path d="M13 11C13 12.1046 11.8807 13 10.5 13C9.11929 13 8 12.1046 8 11C8 9.89543 9.11929 9 10.5 9C11.8807 9 13 9.89543 13 11Z" fill="#000000" />
+            </svg>
+            Actions
+        </a>
+	</div>
+
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/inspectionActionsList.bundle.js"></script>
+}
+
+

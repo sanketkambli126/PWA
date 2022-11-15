@@ -1,0 +1,231 @@
+﻿
+<div class="modal fade p-0 modal-events modelManoeuvring" id="modelManoeuvring" role="dialog" aria-labelledby="modelManoeuvring" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="">
+        <div class="modal-content">
+            <div class="modal-header header-background header-padding modaldetails-design">
+                <div class="col-md-11 pl-0">
+                    <div class="common-sub-heading-black headerManoeuvringShowmorewrapper">
+                        <span class="headerManoeuvring">
+                            <div class="common-small-heading" id="manoEventName"></div>
+                        </span>
+                        <div class="common-small-heading">
+                            <span class="common-heading-green"><div><span id="manoVesselName"></span></div></span>
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading"><span class="head">From  </span><span id="manoFromDate" class="value"></span></span>
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading"><span class="head">To  </span><span id="manoToDate" class="value"></span></span>
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading">
+                                <span class="head">Distance (nm)  </span><span id="manoDistance" class="value"></span>
+                            </span>
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading">
+                                <span class="head">Manoeuvring </span><span id="manoeuvring" class="value"></span>
+                            </span>
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading">
+                                <span class="head">Security Level  </span><span id="manoSecurityLevel" class="value"></span>
+                            </span>
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading">
+                                <span class="head">Off Hire  </span><span id="manoOffHire" class="value"></span>
+                            </span>
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading">
+                                <span class="head">Off Hire Type  </span><span id="manoOffHireType" class="value"></span>
+                            </span>
+                            <span class="d-none d-md-inline-block dividerline">|</span>
+                            <span class="common-small-heading">
+                                <span class="head">LOP Issued / Received  </span><span id="manoLOP" class="value"></span>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body new-background padding-20 filters-popup-scroller">
+                <div class="scroller">
+
+                    <div class="row background-padding no-gutters">
+                        <div class="col-12 col-md-12 col-lg-2 col-xl-2 pl-0 ">
+                            <div class="common-custom-card two-column-layout rowSection1" id="vesseldraft">
+                                <div class="counters-heading border-none">
+                                    <div>
+                                        <span>Vessel Draft (m)</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Fore
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-8 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanManoForeDraft"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Mid.
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-8 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanManoMidDraft"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Aft.
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-8 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanManoAftDraft"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Mean
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-8 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanManoMeanDraft"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6 col-xl-6 padding0">
+                            <div class="common-custom-card rowSection1 mobile-pad-0 table-common-design">
+                                <div class="counters-heading border-none position-relative">
+                                    <div>
+                                        <span>Waste Consumption</span>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtwaste" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                            <thead id="tblManoWasteThead">
+                                            </thead>
+                                            <tbody id="tblManoWasteTbody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-4 col-xl-4 pr-0">
+                            <div class="common-custom-card rowSection1 mobile-pad-0 table-common-design">
+                                <div class="counters-heading border-none position-relative">
+                                    <div>
+                                        <span>Fresh Water Detais</span>
+                                    </div>
+                                </div>
+                                <div class="table-responsive compact-table">
+                                    <table style="width: 100%;" id="dtFreshWater" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                        <thead id="tblManoFreshWaterThead">
+                                        </thead>
+                                        <tbody id="tblManoFreshWaterTbody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row background-padding no-gutters">
+                        <div class="col-12 col-md-12 col-lg-8 col-xl-8 pl-0">
+                            <div class="common-custom-card rowSection2 mobile-pad-0 table-common-design">
+                                <div class="counters-heading border-none position-relative">
+                                    <div>
+                                        <span>Fuel Consumption</span>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtmanofuelcons" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                            <thead id="tblManoFuelConsumptionThead">
+                                            </thead>
+                                            <tbody id="tblManoFuelConsumptionTbody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-4 col-xl-4 pr-0">
+                            <div class="common-custom-card two-column-layout rowSection2 table-common-design mobile-pad-0 mb-3 mb-md-3 mb-lg-3 mb-xl-0" id="manoRunninghours">
+                                <div class="counters-heading border-none position-relative">
+                                    <div>
+                                        <span>Running Hours (<span id="spanManoRunnigpowerCount">0</span>)</span>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtManorunninghours" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                            <thead>
+                                                <tr>
+                                                    <th>Components</th>
+                                                    <th>Past Hrs</th>
+                                                    <th>Current Reading</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row background-padding no-gutters">
+                        <div class="col-12 col-md-12 col-lg-8 col-xl-8 pl-0">
+                            <div class="common-custom-card rowSection3 mobile-pad-0 table-common-design mb-2 mb-md-0">
+                                <div class="counters-heading border-none position-relative">
+                                    <div>
+                                        <span>Lube Oil</span>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtmanolubeoil" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                            <thead id="tblManoLubeOilThead">
+                                            </thead>
+                                            <tbody id="tblManoLubeOilTbody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-4 col-xl-4 pr-0">
+                            <div class="common-custom-card two-column-layout rowSection3 mb-0">
+                                <div class="counters-heading border-none">
+                                    <div>
+                                        <span>Comments</span>
+                                    </div>
+                                </div>
+                                <p id="manoComments" class="open-sans-font details-common"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

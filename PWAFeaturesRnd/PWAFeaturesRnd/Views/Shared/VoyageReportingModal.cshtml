@@ -1,0 +1,429 @@
+﻿<div class="modal fade page-popup-design-2 allvesselmodal apply-loader modalBadWeatherPopup" id="modalBadweather" tabindex="-1" role="dialog" aria-labelledby="modalBadweather" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="box-shadow:none;">
+        <div class="modal-content">
+            <div class="modal-header p-0">
+                <div class="common-custom-card mb-0 w-100 pb-0">
+                    <div class="counters-heading border-none">
+                        <div>
+                            <span>
+                                Bad Weather Details Dated <span id="spanBadWeatherSpaDate" class="d-block d-md-inline-block"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pl-0 pr-0 pt-0">
+                <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtbadweatherlist" class="table table-hover table-striped table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Charter</th>
+                                    <th>Max</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade page-popup-design-2 allvesselmodal apply-loader modalOffHirePopup" id="modalOffHire" tabindex="-1" role="dialog" aria-labelledby="modalOffHire" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-width-ipad modal-margin" role="document" style="box-shadow:none;">
+        <div class="modal-content">
+            <div class="modal-header p-0">
+                <div class="common-custom-card mb-0 w-100 pb-0">
+                    <div class="counters-heading border-none">
+                        <div>
+                            <span>
+                                Off - Hire Details
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pl-0 pr-0 pt-0">
+                <div class="common-custom-card mobile-pad-0 table-common-design pb-0 pt-0 mb-0">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtOffHireList" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                            <thead>
+                                <tr>
+                                    <th>Reason</th>
+                                    <th>Delay</th>
+                                    <th>Off Hire</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Off Hire Type</th>
+                                    <th>Comments</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modalPortWeatherDetails" tabindex="-1" role="dialog" aria-labelledby="modalPortWeatherDetails" aria-hidden="true">
+    <div class="modal-dialog modal-lg apply-loader modalPortWeatherDetailsPopup" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Weather Details</h5>
+                <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body background-padding">
+                <div class="card-title mb-2">CHARTER DETAILS</div>
+                <div class="row">
+                    <div class="col-4 col-md-4 col-lg-2 py-1">
+                        <label class="custom-label"> Swell Length</label>
+                    </div>
+                    <div class="col-8 col-md-8 col-lg-2 py-1">
+                        <span id="spanSwellLength"></span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-2 py-1">
+                        <label class="custom-label">Wind Force</label>
+                    </div>
+                    <div class="col-8 col-md-8 col-lg-4 py-1">
+                        <span id="spanWindForce"></span>
+                    </div>
+                </div>
+                <div class="card-title mt-3 mb-2">BAD WEATHER DETAILS</div>
+                <div class="table-responsive compact-table">
+                    <table style="width: 100%;" id="dtWeatherList" class="table table-hover table-bordered cardview row-sm">
+                        <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Date</th>
+                                <th>Swell Length</th>
+                                <th>Wind Force</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAgentDetail" tabindex="-1" role="dialog" aria-labelledby="modalAgentDetail" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agent Details</h5>
+                <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive compact-table">
+                    <table style="width: 100%;" id="dtPortAgentDetails" class="table table-hover table-bordered cardview row-sm">
+                        <thead>
+                            <tr>
+                                <th>Agent</th>
+                                <th>Address</th>
+                                <th>Telephone</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDelayDetails" tabindex="-1" role="dialog" aria-labelledby="modalDelayDetails" aria-hidden="true">
+    <div class="modal-dialog modal-lg apply-loader modalDelayDetailsPopup" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delay</h5>
+                <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive compact-table">
+                    <table style="width: 100%;" id="dtDelayList" class="table table-hover table-bordered cardview row-sm">
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>Delay</th>
+                                <th>Off-Hire</th>
+                                <th>From</th>
+                                <th>To</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade apply-loader" id="modalPortdetails" tabindex="-1" role="dialog" aria-labelledby="modalPortdetails" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-lg portaleartdetails modal-dialog-centered modal-dialog-top-mobile" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="header">
+                    <i class="fa fa-anchor text-green-anchor d-inline-block"></i>
+                    <div class="d-inline-block align-middle">
+                        <span id="" class="align-middle">Port Services</span>
+                        <small id="spanPortFullName" class="align-middle d-block"></small>
+                    </div>
+                </div>
+                <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="body-layout">
+                    <div class="clearfix topsectionport">
+                        <div class="float-left mr-common">
+                            <div class="clearfix">
+                                <div class="p-head widthcountry w-auto">
+                                    Country
+                                </div>
+                                <div class="p-value">
+                                    <img id="imgCountryFlag" class="mr-1" width="25" />
+                                    <span id="spanCountryName"></span>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="p-head widthlattitude w-auto">
+                                    Latitude
+                                </div>
+                                <div class="p-value">
+                                    <span id="spanFullLatitude"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="float-left mr-common">
+                            <div class="clearfix">
+                                <div class="p-head">
+                                    UN/Loc Code
+                                </div>
+                                <div class="p-value">
+                                    <span id="spanUnlocode"></span>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="p-head">
+                                    Longitude
+                                </div>
+                                <div class="p-value">
+                                    <span id="spanFullLongitude"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="float-left wp-mobile-100">
+                            <div class="clearfix">
+                                <div class="p-head w-auto widthkeyhub">
+                                    Key Hub
+                                </div>
+                                <div class="p-value">
+                                    <span id="spanIsKeyHubPort"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-card pt-3">
+                        <div class="alertitleport">Alert (<span id="spanAlertCount">0</span>)</div>
+                        <div class="accordationdesign">
+                            <div id="accordionAlert" class="accordion-wrapper">
+
+                            </div>
+                        </div>
+                        
+
+                        <!--Do Not Delete -->
+                        <!--Accordion Stencil for Port Alert -- Start -->
+                        <!--
+                        <div id="accordion" class="accordion-wrapper mt-5">
+                            <div class="card">
+                                <div id="headingOne" class="card-header w-100 bg-light py-2 px-3">
+                                    <button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block w-100">
+                                        <h6 class="m-0 p-0">
+                                            <i class="fa fa-exclamation-circle text-red float-right"></i>
+                                            <i class="fa fa-check text-green float-right"></i>
+                                            <i class="fa fa-globe float-right text-black mr-3 ml-2"></i>
+                                            <i class="fa fa-anchor float-right text-black mr-3 ml-2"></i>
+                                            <span class="mr-2">MAR 11 Port Alert MAR 11 Port Alert MAR 11 Port Alert</span>
+                                        </h6>
+                                    </button>
+                                </div>
+
+                                <div data-parent="#accordion" id="collapseOne1" class="collapse">
+                                    <div class="card-body">
+                                        <div class="card-title mb-2">DETAILS</div>
+
+                                        <div class="row">
+                                            <div class="col-5 col-md-4 col-lg-6 py-1">
+                                                <label class="custom-label">Description</label>
+                                            </div>
+                                            <div class="col-7 col-md-8 col-lg-6 py-1">
+                                                <span class="text-red float-md-right">Country Wide Alert</span>
+                                            </div>
+                                            <div class="col-12 col-md-12 py-1">
+                                                <div class="scroller">
+                                                    We note your vesel is currently heading towards Chile.
+                                                    The attached MAR11 from covers potential deficiencies that frequently been raised during port state control inscpectiob and in some cases
+                                                    let to detention. We update this form regularly basis our latest operational trends. it is critical that you and your team to go through there items very carefully before
+                                                    arrival and send completed checklist to Vessel Control Group.If defective items are found then please copy to your DPA.The sooner a problem is known, the easier it is to resolve.
+                                                </div>
+                                            </div>
+
+                                            <div class="col-5 col-md-4 col-lg-3 py-1">
+                                                <label class="custom-label">Acknowledged By</label>
+                                            </div>
+                                            <div class="col-7 col-md-8 col-lg-3 py-1">
+                                                <span>Vibhavari Gorakh</span>
+                                            </div>
+                                            <div class="col-5 col-md-4 col-lg-1 py-1">
+                                                <label class="custom-label">Role</label>
+                                            </div>
+                                            <div class="col-7 col-md-8 col-lg-5 py-1">
+                                                <span> Information Systems Department</span>
+                                            </div>
+                                            <div class="col-5 col-md-4 col-lg-3 py-1">
+                                                <label class="custom-label">Acknowledged Date</label>
+                                            </div>
+                                            <div class="col-7 col-md-8 col-lg-3 py-1">
+                                                <span> 25 Feb 2021</span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="card-title mt-3 mb-2">Attachments & Links (<span id="spanAttachmentsAndLinksCount">0</span>)</div>
+                                        <div class="table-responsive compact-table">
+                                            <table style="width: 100%;" id="dtportservicelist" class="table table-hover table-bordered cardview row-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>&nbsp;</th>
+                                                        <th>Created Date</th>
+                                                        <th>Title</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div id="headingTwo" class="card-header w-100 bg-light py-2 px-3">
+                                    <button type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block  w-100">
+                                        <h6 class="m-0 p-0">
+                                            <i class="fa fa-exclamation-circle text-red float-right"></i>
+                                            <i class="fa fa-anchor float-right text-black mr-3 ml-2"></i>
+                                            <span class="mr-2">MAR 11 Port Alert</span>
+                                        </h6>
+                                    </button>
+                                </div>
+                                <div data-parent="#accordion" id="collapseOne2" class="collapse">
+                                    <div class="card-body">
+                                        <div class="card-title mb-2">DETAILS</div>
+
+                                        <div class="row">
+                                            <div class="col-5 col-md-4 col-lg-6 py-1">
+                                                <label class="custom-label">Description</label>
+                                            </div>
+                                            <div class="col-7 col-md-8 col-lg-6 py-1">
+                                                <span class="text-red float-md-right">Country Wide Alert</span>
+                                            </div>
+                                            <div class="col-12 col-md-12 py-1">
+                                                <div class="scroller">
+                                                    We note your vesel is currently heading towards Chile.
+                                                    The attached MAR11 from covers potential deficiencies that frequently been raised during port state control inscpectiob and in some cases
+                                                    let to detention. We update this form regularly basis our latest operational trends. it is critical that you and your team to go through there items very carefully before
+                                                    arrival and send completed checklist to Vessel Control Group.If defective items are found then please copy to your DPA.The sooner a problem is known, the easier it is to resolve.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-title mt-3 mb-2">Attachments & Links (<span id="spanAttachmentsAndLinksCount">0</span>)</div>
+                                        <div class="table-responsive compact-table">
+                                            <table style="width: 100%;" id="dtportservicelist" class="table table-hover table-bordered cardview row-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>&nbsp;</th>
+                                                        <th>Created Date</th>
+                                                        <th>Title</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                        <!--Accordion Stencil for Port Alert -- End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade page-popup-design-2 allvesselmodal" id="modalAttachmentsDescription" tabindex="-1" role="dialog" aria-labelledby="modalAttachmentsDescription" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="box-shadow:none;">
+        <div class="modal-content">
+            <div class="modal-header p-0">
+                <div class="common-custom-card mb-0 w-100 pb-0 background-transparent">
+                    <div class="counters-heading border-none">
+                        <div>
+                            <span id="">
+                                Description
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="close p-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pl-0 pr-0 pt-0">
+                <div class="common-custom-card pb-0 pt-0 mb-0">
+                    <div id="divWebLink">
+                        <div class="subheadingpopup">
+                            Web Link
+                        </div>
+                        <span id="spanAttachmentsLink">-</span>
+                        <div class="subheadingpopup mt-3">
+                            Description
+                        </div>
+                        <span id="spanAttachmentsDescription">-</span>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

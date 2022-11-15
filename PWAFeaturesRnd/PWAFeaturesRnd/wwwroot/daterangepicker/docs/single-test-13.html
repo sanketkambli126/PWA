@@ -1,0 +1,91 @@
+<!DOCTYPE  html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Caleran - Date Range Picker</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet">
+    <link href="../build/css/caleran.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="../build/vendor/jquery.min.js"></script>
+    <script src="../build/vendor/moment.min.js"></script>
+    <script src="../build/vendor/jquery.hammer.js"></script>
+    <script src="../build/js/caleran.min.js"></script>
+    <!-- end caleran includes -->
+</head>
+
+<body>
+    <div class="well well-sm" style="overflow: auto;">
+        <div style="display: flex;">
+            <input type="text" id="caleran">
+            <input type="hidden" id="caleran-2">
+        </div>
+    </div>
+    <script>
+        var userLanguage = navigator.language || navigator.userLanguage;
+        if (userLanguage == "en") userLanguage = "fr";
+        $("#caleran").caleran({
+            target: $("#caleran-2"),
+            locale: userLanguage,
+            startDate: moment().weekday(0 - 1),
+            endDate: moment().weekday(5),
+            rangeOrientation: "vertical",
+            showOn: "left",
+            autoAlign: true,
+            showHeader: false,
+            autoCloseOnSelect: true,
+            calendarCount: 1,
+            oninit: function (elem) {
+                elem.$elem.val(
+                    elem.config.startDate.clone()
+                    .locale(elem.config.locale)
+                    .format(elem.config.format)
+                );
+            },
+            onrangeselect: function(elem, range){
+                elem.$elem.val(
+                    elem.config.startDate.clone()
+                    .locale(elem.config.locale)
+                    .format(elem.config.format)
+                );
+            },
+            onfirstselect: function (elem, start) {
+                if (start.day() == 6) {
+                    elem.config.startDate = moment(start).startOf("week").add(6, "days");
+                    elem.config.endDate = moment(start).endOf("week").add(6, "days");
+                } else {
+                    elem.config.startDate = moment(start).startOf("week").add(-1, "days");
+                    elem.config.endDate = moment(start).endOf("week").add(-1, "days");
+                }
+                elem.globals.endSelected = true;
+                elem.globals.startSelected = false;
+                elem.globals.hoverDate = null;
+                elem.$elem.find(".caleran-apply").removeAttr("disabled");
+                elem.updateInput();
+                elem.$elem.val(
+                    elem.config.startDate.clone()
+                    .locale(elem.config.locale)
+                    .format(elem.config.format)
+                );
+            },
+            ranges: [
+                {
+                    title: "Cette Semaine",
+                    startDate: moment().day() == 6 ? moment().startOf("week").add(6, "days") : moment().startOf("week").add(-1, "days"),
+                    endDate: moment().day() == 6 ? moment().endOf("week").add(6, "days") : moment().endOf("week").add(-1, "days"),
+                }, {
+                    title: "Semaine prochaine",
+                    startDate: moment().day() == 6 ? moment().startOf("week").add(13, "days") : moment().startOf("week").add(6, "days"),
+                    endDate: moment().day() == 6 ? moment().endOf("week").add(13, "days") : moment().endOf("week").add(6, "days"),
+                }, {
+                    title: "Semaine passée",
+                    startDate: moment().day() == 6 ? moment().startOf("week").add(-1, "days") : moment().startOf("week").add(-8, "days"),
+                    endDate: moment().day() == 6 ? moment().endOf("week").add(-1, "days") : moment().endOf("week").add(-8, "days"),
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>

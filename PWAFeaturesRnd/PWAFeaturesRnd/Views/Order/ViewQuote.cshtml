@@ -1,0 +1,694 @@
+﻿@{
+	Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+	View Quote
+}
+
+@section ContentSection
+{
+
+	<div class="app-main__outer fixed-page-header">
+		<div class="app-main__inner background-padding">
+			<div class="app-page-title header-shadow">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+						<div>
+							View Quote
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card content-pane margin-bottom-custom">
+				<div class="card-body">
+					<div id="smartwizardViewQuote" class="forms-wizard-alt">
+						<ul class="forms-wizard">
+							<li>
+								<a href="#stepQuoteDetails">
+									<em>1</em><span>Quote Details</span>
+								</a>
+							</li>
+							<li>
+								<a href="#stepLineDetails">
+									<em>2</em><span>Line Details</span>
+								</a>
+							</li>
+							<li>
+								<a href="#stepNotesAndSummary">
+									<em>3</em><span>Notes and Summary</span>
+								</a>
+							</li>
+						</ul>
+
+						<div class="form-wizard-content">
+							<div id="stepQuoteDetails">
+
+								<div class="row">
+									<div class="col-12 col-lg-8">
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Supplier Name
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0 max-width-sm-100">
+															<input type="text" class="form-control-sm form-control" value="GLASS SERVICES " readonly>
+														</div>
+													</div>
+												</div>
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Currency
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0" style="width:150px;">
+															<input type="text" class="form-control-sm form-control" value="USD" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Port
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0 max-width-sm-100">
+															<input type="text" class="form-control-sm form-control" disabled>
+															<div class="input-group-append">
+																<span class="input-group-text">
+																	<i class="fa fa-search"></i>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+
+										</div>
+
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Supplier Reference
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0" style="width:200px;">
+															<input type="text" class="form-control-sm form-control" value="BY EMAIL" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Date Received
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0" style="width:150px;">
+															<div class="input-group-prepend datepicker-trigger-deliveryDate">
+																<div class="input-group-text">
+																	<i class="fa fa-calendar-alt"></i>
+																</div>
+															</div>
+															<input type="text" class="form-control form-control-sm" data-toggle="datepicker-icon-deliveryDate" disabled />
+														</div>
+													</div>
+												</div>
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Freight / Delivery Cost
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0" style="width:150px;">
+															<input type="number" class="form-control-sm form-control text-right" value="0.00" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Discount
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0" style="width:180px;">
+															<input type="number" class="form-control-sm form-control text-right" value="0.00" disabled>
+															<div class="input-group-append">
+																<span class="input-group-text">
+																	%
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="position-relative form-check">
+															<input name="check" id="proformaRequestedCheck" type="checkbox" class="form-check-input">
+															<label for="proformaRequestedCheck" class="form-check-label">
+																Proforma Requested
+															</label>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Ex-Works Country
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0" style="width:300px;">
+															<input type="text" class="form-control-sm form-control" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Ex-Works Location
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0 max-width-sm-100">
+															<input type="text" class="form-control-sm form-control" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Default / Max. Ex-Works Days
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0" style="width:200px;">
+															<input type="number" class="form-control-sm form-control text-right" value="20" disabled>
+															<div class="input-group-append">
+																<span class="input-group-text">
+																	Days
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Valid For
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0" style="width:200px;">
+															<input type="number" class="form-control-sm form-control text-right" value="30" disabled>
+															<div class="input-group-append">
+																<span class="input-group-text">
+																	Days
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Hazardous Goods
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0" style="width:150px;">
+															<input type="text" class="form-control-sm form-control" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="row py-1">
+													<div class="col-12 col-md-4">
+														Type of Spare Parts Supplied
+													</div>
+													<div class="col-12 col-md-8">
+														<div class="input-group input-group-sm m-0" style="width:300px;">
+															<input type="text" class="form-control-sm form-control" readonly>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+									</div>
+
+									<div class="col-12 col-lg-4">
+
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<partial name="supplierDetailsPartialView" />
+											</div>
+										</div>
+
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<partial name="quoteDetailsPartialView" />
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-body">
+												<partial name="orderLineDetailPartialView" />
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+							<div id="stepLineDetails">
+								<div class="row">
+									<div class="col-12 col-lg-8">
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<div class="table-responsive compact-table">
+													<table style="width: 100%;" id="" class="table table-hover table-bordered cardview row-sm">
+														<thead>
+															<tr>
+																<th class="d-none d-sm-table-cell">
+																	#
+																</th>
+																<th>
+																	Part Name
+																</th>
+																<th>
+																	Makers Reference
+																</th>
+																<th>
+																	Qty Enq
+																</th>
+																<th>
+																	Supplier Qty
+																</th>
+																<th>
+																	UOM
+																</th>
+																<th>
+																	Unit Price
+																</th>
+																<th>
+																	Discount (%)
+																</th>
+																<th>
+																	Sub Total
+																</th>
+																<th>
+																	Ex Days
+																</th>
+																<th class="d-none d-sm-table-cell">
+																	Notes
+																</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td class="d-none d-sm-table-cell">
+																	1
+																</td>
+																<td class="tdblock">
+																	<label>Part Name</label><br />
+																	<i class="fa fa-fw d-inline-block d-sm-none mr-1" aria-hidden="true"></i> <span class="d-inline-block d-sm-none">1</span> GASKET
+																</td>
+																<td class="tdblock">
+																	<label>Makers Reference</label><br />
+																	VSE-150 ; Pos. 905
+																</td>
+																<td class="td-w-auto">
+																	<label>Qty Enq</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>Supplier Qty</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>UOM</label><br />
+																	PCS
+																</td>
+																<td>
+																	<label>Unit Price</label><br />
+																	10
+																</td>
+																<td>
+																	<label>Discount (%)</label><br />
+																	0.00
+																</td>
+																<td>
+																	<label>Sub Total</label><br />
+																	20
+																</td>
+																<td>
+																	<label>Ex Days</label><br />
+																	20
+																</td>
+																<td class="d-none d-sm-table-cell">
+																	<i class="fa fa-fw" aria-hidden="true"></i>
+																</td>
+															</tr>
+															<tr>
+																<td class="d-none d-sm-table-cell">
+																	2
+																</td>
+																<td class="tdblock">
+																	<label>Part Name</label><br />
+																	<i class="fa fa-fw d-inline-block d-sm-none mr-1" aria-hidden="true"></i> <span class="d-inline-block d-sm-none">2</span> BEARING WASHER
+																</td>
+																<td class="tdblock">
+																	<label>Makers Reference</label><br />
+																	VSE-150 ; Pos. 152
+																</td>
+																<td class="td-w-auto">
+																	<label>Qty Enq</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>Supplier Qty</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>UOM</label><br />
+																	PCS
+																</td>
+																<td>
+																	<label>Unit Price</label><br />
+																	10
+																</td>
+																<td>
+																	<label>Discount (%)</label><br />
+																	0.00
+																</td>
+																<td>
+																	<label>Sub Total</label><br />
+																	20
+																</td>
+																<td>
+																	<label>Ex Days</label><br />
+																	20
+																</td>
+																<td class="d-none d-sm-table-cell">
+																	<i class="fa fa-fw" aria-hidden="true"></i>
+																</td>
+															</tr>
+															<tr>
+																<td class="d-none d-sm-table-cell">
+																	3
+																</td>
+																<td class="tdblock">
+																	<label>Part Name</label><br />
+																	<i class="fa fa-fw d-inline-block d-sm-none mr-1" aria-hidden="true"></i> <span class="d-inline-block d-sm-none">3</span> BALL BEARING (6310 C3)
+																</td>
+																<td class="tdblock">
+																	<label>Makers Reference</label><br />
+																	VSE-150 ; Pos. 201
+																</td>
+																<td class="td-w-auto">
+																	<label>Qty Enq</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>Supplier Qty</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>UOM</label><br />
+																	PCS
+																</td>
+																<td>
+																	<label>Unit Price</label><br />
+																	10
+																</td>
+																<td>
+																	<label>Discount (%)</label><br />
+																	0.00
+																</td>
+																<td>
+																	<label>Sub Total</label><br />
+																	20
+																</td>
+																<td>
+																	<label>Ex Days</label><br />
+																	20
+																</td>
+																<td class="d-none d-sm-table-cell">
+																	<i class="fa fa-fw" aria-hidden="true"></i>
+																</td>
+															</tr>
+															<tr>
+																<td class="d-none d-sm-table-cell">
+																	4
+																</td>
+																<td class="tdblock">
+																	<label>Part Name</label><br />
+																	<i class="fa fa-fw d-inline-block d-sm-none mr-1" aria-hidden="true"></i> <span class="d-inline-block d-sm-none">4</span> GREASE NIPPLE
+																</td>
+																<td class="tdblock">
+																	<label>Makers Reference</label><br />
+																	VSE-150 ; Pos. 210
+																</td>
+																<td class="td-w-auto">
+																	<label>Qty Enq</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>Supplier Qty</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>UOM</label><br />
+																	PCS
+																</td>
+																<td>
+																	<label>Unit Price</label><br />
+																	10
+																</td>
+																<td>
+																	<label>Discount (%)</label><br />
+																	0.00
+																</td>
+																<td>
+																	<label>Sub Total</label><br />
+																	20
+																</td>
+																<td>
+																	<label>Ex Days</label><br />
+																	20
+																</td>
+																<td class="d-none d-sm-table-cell">
+																	<i class="fa fa-fw" aria-hidden="true"></i>
+																</td>
+															</tr>
+															<tr>
+																<td class="d-none d-sm-table-cell">
+																	5
+																</td>
+																<td class="tdblock">
+																	<label>Part Name</label><br />
+																	<i class="fa fa-fw d-inline-block d-sm-none mr-1" aria-hidden="true"></i> <span class="d-inline-block d-sm-none">5</span> GREASE FITTING
+																</td>
+																<td class="tdblock">
+																	<label>Makers Reference</label><br />
+																	VSE-150 ; Pos. 211
+																</td>
+																<td class="td-w-auto">
+																	<label>Qty Enq</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>Supplier Qty</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>UOM</label><br />
+																	PCS
+																</td>
+																<td>
+																	<label>Unit Price</label><br />
+																	10
+																</td>
+																<td>
+																	<label>Discount (%)</label><br />
+																	0.00
+																</td>
+																<td>
+																	<label>Sub Total</label><br />
+																	20
+																</td>
+																<td>
+																	<label>Ex Days</label><br />
+																	20
+																</td>
+																<td class="d-none d-sm-table-cell">
+																	<i class="fa fa-fw" aria-hidden="true"></i>
+																</td>
+															</tr>
+															<tr>
+																<td class="d-none d-sm-table-cell">
+																	6
+																</td>
+																<td class="tdblock">
+																	<label>Part Name</label><br />
+																	<i class="fa fa-fw d-inline-block d-sm-none mr-1" aria-hidden="true"></i> <span class="d-inline-block d-sm-none">6</span> GLAND PACKING
+																</td>
+																<td class="tdblock">
+																	<label>Makers Reference</label><br />
+																	VSE-150 ; Pos. 501
+																</td>
+																<td class="td-w-auto">
+																	<label>Qty Enq</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>Supplier Qty</label><br />
+																	2
+																</td>
+																<td class="td-w-auto">
+																	<label>UOM</label><br />
+																	PCS
+																</td>
+																<td>
+																	<label>Unit Price</label><br />
+																	10
+																</td>
+																<td>
+																	<label>Discount (%)</label><br />
+																	0.00
+																</td>
+																<td>
+																	<label>Sub Total</label><br />
+																	20
+																</td>
+																<td>
+																	<label>Ex Days</label><br />
+																	20
+																</td>
+																<td class="d-none d-sm-table-cell">
+																	<i class="fa fa-fw" aria-hidden="true"></i>
+																</td>
+															</tr>
+
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+									<div class="col-12 col-lg-4">
+
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<partial name="supplierDetailsPartialView" />
+											</div>
+										</div>
+
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<partial name="quoteDetailsPartialView" />
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-body">
+												<partial name="orderLineDetailPartialView" />
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div id="stepNotesAndSummary">
+								<div class="row">
+									<div class="col-12 col-lg-8">
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<div class="row py-1">
+													<div class="col-12 col-md-2">
+														All Items Quoted
+													</div>
+													<div class="col-12 col-md-10">
+														<span class="text-success">Yes</span>
+													</div>
+												</div>
+												<div class="row py-1">
+													<div class="col-12 col-md-2">
+														Quote Status
+													</div>
+													<div class="col-12 col-md-10">
+														<div class="custom-radio custom-control custom-control-inline">
+															<input checked="checked" class="custom-control-input" id="SubmitForAuthorisation" name="QuoteStatus" type="radio" value="SubmitForAuthorisation" disabled>
+															<label class="custom-control-label" for="SubmitForAuthorisation">Submit For Authorisation</label>
+														</div>
+														<div class="custom-radio custom-control custom-control-inline">
+															<input class="custom-control-input" id="AwaitingTechnicalDetails" name="QuoteStatus" type="radio" value="AwaitingTechnicalDetails" disabled>
+															<label class="custom-control-label" for="AwaitingTechnicalDetails">Awaiting Technical Details</label>
+														</div>
+													</div>
+												</div>
+												<div class="row py-1">
+													<textarea class="form-control form-control-sm" data-html="true" rows="20" disabled>
+Supply the glass compliance to the glass and installation -3774 $
+Note :
+3 technicians required traveling to the ship, travel and accomadation to be arrange by owners.
+Time production : 4 weeks after approval
+
+													</textarea>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+									<div class="col-12 col-lg-4">
+
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<partial name="supplierDetailsPartialView" />
+											</div>
+										</div>
+
+										<div class="card margin-bottom-custom">
+											<div class="card-body">
+												<partial name="quoteDetailsPartialView" />
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-body">
+												<partial name="orderLineDetailPartialView" />
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="divider"></div>
+					<div class="clearfix">
+						<a id="" href="/Order/Details" class="btn-shadow float-left btn btn-link">Cancel</a>
+						<button type="button" id="next-btnViewQuote" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>
+						<button type="button" id="prev-btnViewQuote" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Previous</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+}
+
+@section ScriptSection
+{
+	<script src="~/assets/scripts/viewQuote.bundle.js"></script>
+}

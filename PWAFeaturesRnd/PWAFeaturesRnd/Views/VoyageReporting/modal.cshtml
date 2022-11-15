@@ -1,0 +1,272 @@
+﻿@model VoyageReportingRequestViewModel
+
+<div class="modal fade" id="modalAgentDetails" tabindex="-1" role="dialog" aria-labelledby="modalAgentDetails" aria-hidden="true">
+	<div class="modal-dialog modal-lg apply-loader modelagentdetailspopup" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="agentdetails">Port Call Agent Details</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body background-padding">
+				<div class="card-title">
+					<a 
+					   href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.EncryptedVesselDetail)">
+						<span id="spanAgentDetailsVesselName">&nbsp;</span>
+					</a> |
+					<span>
+						<b>
+							IMO
+							<span class="custom-label" id="spanAgentDetailsImoNumber">&nbsp;</span>
+						</b>
+						<i id="infoAgentDetailsVesselDetails" class="fa fa-info-circle mr-1" data-html="true" data-toggle="tooltip" data-placement="bottom"></i>
+					</span>
+				</div>
+
+				<div class="card">
+					<div class="card-header card-header-tab-animation">
+						<ul id="ulAgentTabList" class="nav">
+						</ul>
+					</div>
+					<div class="card-body">
+						<textarea class='copyfrom' tabindex='-1' aria-hidden='true'></textarea>
+						<div id="divAgentTabContent" class="tab-content">
+						</div>
+					</div>
+				</div>
+
+				<!--Do Not Delete -->
+				<!--Tab Stencil for Agent Details - Start -->
+				<!--
+				<div class="card mt-2">
+					<div class="card-header card-header-tab-animation">
+						<ul class="nav">
+							<li class="nav-item"><a data-toggle="tab" href="#tab-agentDetails-agent1" id="Agent11" class="nav-link nav-link-teal active">AGENT 1 </a></li>
+							<li class="nav-item"><a data-toggle="tab" href="#tab-agentDetails-agent2" id="Agent21" class="nav-link nav-link-teal">AGENT 2 </a></li>
+							<li class="nav-item"><a data-toggle="tab" href="#tab-agentDetails-agent3" id="Agent31" class="nav-link nav-link-teal">AGENT 3 </a></li>
+						</ul>
+					</div>
+					<div class="card-body">
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab-agentDetails-agent1" role="tabpanel">
+								<div class="font-weight-bold">
+									<span class="float-right">
+										<a href="javascript: void(0);" class="ml-1 text-teal"> <i class="fa fa-copy" id="btnAgentDetailsCopy3"></i> </a>
+									</span>
+									<span id="spanCmpName">ISS - ABERTEEN </span>
+									(<span id="spanAgentType">Charter</span>)
+								</div>
+								<div class="row">
+									<div class="mt-2 col-12 col-md-7">
+										<div class="row">
+											<div class="col-12 col-md-12 py-1">
+												<span id="spanCmpAddr">Suite G.01, Ground Floor, Bayview Tower1753-1765 Botany Rd Banksmeadow NSW 2019Australia</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12 col-md-12 py-1">
+												<span id="spanCmpTown">Sydney</span>
+												<span id="spanCmpState">Maharashtra </span>
+												<span id="spanCmpPostCode">400004</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12 col-md-12 py-1">
+												<span id="spanCntDesc">Australia</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Fax
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<span id="spanCmpFax">
+													212 522 451834
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Mobile
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<span id="spanCmpMobile">
+													59347898
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Telephone
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<span id="spanCmpTelephone">
+													5446898976
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Telex
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<span id="spanCmpTelex">
+													bbjhjgf
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Email
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<a id="aCmpEmail" href="mailto:GBGRC@ISS-Shipping.com">
+													GBGRC@ISS-Shipping.com
+												</a>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Website
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<a id="aCmpWww" href="https://www.google.com">
+													www.google.com
+												</a>
+											</div>
+										</div>
+									</div>
+									<div class="mt-2 col-12 col-md-5"> <div class="font-weight-bold">Notes</div> <div> <textarea id="textareaAgentNotes" class="form-control form-control-sm mt-2" rows="9" readonly>Test Notes</textarea> </div> </div>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab-agentDetails-agent2" role="tabpanel">
+								<div>
+									<span class="float-right"><i class="fa fa-copy ml-1"></i></span>
+									<span class="font-weight-bold">ISS - Sydney </span>
+									(<span id="spanAgentType"> Charter</span>)
+								</div>
+								<div class="row">
+									<div class="mt-2 col-12 col-md-7">
+										<div class="row">
+											<div class="col-12 col-md-12 py-1">
+												<span id="spanCmpAddr">Suite G.01, Ground Floor, Bayview Tower1753-1765 Botany Rd Banksmeadow NSW 2019Australia</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12 col-md-12 py-1">
+												<span id="spanCmpTown">Sydney</span>
+												<span id="spanCmpState">Maharashtra </span>
+												<span id="spanCmpPostCode">400004</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12 col-md-12 py-1">
+												<span id="spanCntDesc">Australia</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Fax
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<span id="spanCmpFax">
+													212 522 451834
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Mobile
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<span id="spanCmpMobile">
+													59347898
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Telephone
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<span id="spanCmpTelephone">
+													5446898976
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Telex
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<span id="spanCmpTelex">
+													bbjhjgf
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Email
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<a id="aCmpEmail" href="mailto:GBGRC@ISS-Shipping.com" class="card-link">
+													GBGRC@ISS-Shipping.com
+												</a>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 col-md-3 py-1">
+												<label class="custom-label">
+													Website
+												</label>
+											</div>
+											<div class="col-9 col-md-9 py-1">
+												<a id="aCmpWww" href="www.google.com" class="card-link">
+													www.google.com
+												</a>
+											</div>
+										</div>
+									</div>
+									<div class="mt-2 col-12 col-md-5">
+										<div class="font-weight-bold">Notes</div>
+										<div>
+											<textarea id="textareaAgentNotes" class="form-control form-control-sm mt-2" rows="9" readonly></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					-->
+				<!--Tab Stencil for Agent Details - Start -->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,103 @@
+﻿<div class="app-drawer-wrapper width-350px top-61px">
+	<div class="drawer-content-wrapper">
+		<div class="scrollbar-container">
+			<div class="drawer-heading" id="notesHeading">
+				<h4>Add / Edit My Notes</h4>
+				<div class="btn-actions-pane-right text-capitalize actions-icon-btn">
+
+					<button type="button" class="drawer-nav-btn mr-5 close closeButton">
+						<span aria-hidden="true"> <i class="fa fa-trash-alt"></i></span>
+					</button>
+
+					<button type="button" class="drawer-nav-btn hamburger hamburger--elastic is-active no-shadow">
+						<span class="hamburger-box"><span class="hamburger-inner"></span></span>
+					</button>
+				</div>
+			</div>
+			<div class="drawer-heading" id="memosHeading">
+				<h4>Add / Edit Memos</h4>
+				<div class="btn-actions-pane-right text-capitalize actions-icon-btn">
+
+					<button type="button" class="drawer-nav-btn mr-5 close closeButton">
+						<span aria-hidden="true"> <i class="fa fa-trash-alt"></i></span>
+					</button>
+
+					<button type="button" class="drawer-nav-btn hamburger hamburger--elastic is-active no-shadow">
+						<span class="hamburger-box"><span class="hamburger-inner"></span></span>
+					</button>
+				</div>
+			</div>
+			<div class="drawer-section" >
+				<form id="notesForm">
+					<div class="position-relative form-group">
+						<label>Vessel</label>
+						<select name="select" class="form-control form-control-sm">
+							<option value="">Sichem Amethyst</option>
+							<option value="">Sichem Eagle</option>
+							<option value="">Sichem Marseille</option>
+						</select>
+					</div>
+
+					<div class="position-relative form-group">
+						<label>Title</label>
+						<input type="text" class="form-control-sm form-control">
+					</div>
+
+					<div class="position-relative form-group">
+						<label>Message</label>
+						<textarea class="form-control form-control-sm" rows="4"></textarea>
+					</div>
+
+					<div class="position-relative form-group">
+						<label>Reminder</label>
+						<div class="input-group">
+							<button type="button" class="btn btn-teal" id="reportrangenotes">
+								<i class="fa fa-calendar pr-1"></i>
+								<span> Add Reminder</span>
+								<i class="fa pl-1 fa-caret-down"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+				<form id="memosForm">
+					<div class="position-relative form-group">
+						<label>Vessel</label>
+						<select name="select" class="form-control form-control-sm">
+							<option value="">Sichem Amethyst</option>
+							<option value="">Sichem Eagle</option>
+							<option value="">Sichem Marseille</option>
+						</select>
+					</div>
+
+					<div class="position-relative form-group">
+						<label>To</label>
+						<select name="select" class="form-control form-control-sm">
+							<option value="">Invoice Hub</option>
+							<option value="">To 1</option>
+						</select>
+					</div>
+
+					<div class="position-relative form-group">
+						<label>Category</label>
+						<select name="select" class="form-control form-control-sm">
+							<option value="">For Information only</option>
+							<option value="">Category 1</option>
+						</select>
+					</div>
+
+					<div class="position-relative form-group">
+						<label>Title</label>
+						<input type="text" class="form-control-sm form-control">
+					</div>
+
+					<div class="position-relative form-group">
+						<label>Message</label>
+						<textarea class="form-control form-control-sm" rows="4"></textarea>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="app-drawer-overlay d-none animated fadeIn"></div>

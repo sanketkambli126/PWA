@@ -1,0 +1,174 @@
+﻿@model CertificateDetailViewModel
+
+@{
+	Layout = "~/Views/Shared/base.cshtml";
+}
+
+
+@section Title
+{
+	Certificate Details
+}
+
+
+@section ContentSection
+{
+	@Html.HiddenFor(m => m.VesselId)
+	@Html.HiddenFor(m => m.VesselCertificateId)
+	@Html.HiddenFor(m => m.MessageDetailsJSON)
+	@Html.HiddenFor(m => m.IsFromViewRecord)
+
+	<div class="app-main__outer fixed-page-header">
+		<div class="app-main__inner background-padding new-background common-border-radius  mobile-tab-bottom-padding">
+			<div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="margin-left-35 width-70">
+                        <div class="common-sub-heading-black pr-0">
+                            <span class="header">
+                                @if (Model.IsFromViewRecord == true)
+                                {
+                                    <span class="common-small-heading">
+                                        @Model.VesselName
+                                    </span>
+                                }
+                                else
+                                {
+                                    <a class="common-heading-green"
+                                       href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.VesselId)">@Model.VesselName</a>
+                                }
+                            </span>
+                                <div class="">
+                                    <span class="common-small-heading">
+                                        <div><span id="certifcateNameModel"> @Model.CertificateName </span></div>
+                                    </span>
+                                    <span class="common-small-heading">
+                                        <span class="d-none d-md-inline-block">|</span>
+                                        <div>Issued  : <span id="issuedDateModel">@Model.IssueDate</span></div>
+                                    </span>
+                                    <span class="common-small-heading">
+                                        <span class="d-none d-md-inline-block">|</span>
+                                        <div>Issued By  : <span id="issuedByModel">@Model.IssuedBy</span></div>
+                                    </span>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="page-title-actions mt-0 mt-lg-0 mobile-padding-0 left-fixed-ipad">
+                        <partial name="DiscussionAndNotesCountButton" />
+                    </div>
+                    <div class="dropdown mobile-dropdown-title d-block d-md-none d-lg-none d-xl-none">
+                        <button type="button" id="mobileactiontoggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-dark-grey text-white btn-export btn-shadow">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="mobileActiondropdown">
+                            <ul class="nav flex-column">
+                                <li id="baseDiscussionMobile" class="d-none">
+                                    <a class="nav-link discussionAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>Discussions (<span class="baseDiscussionCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                                <li id="baseNotesMobile" class="d-none">
+                                    <a class="nav-link noteAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>My Notes (<span class="baseNotesCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+			</div>
+
+			<div class="content-pane">
+				<div id="tabdivhide">
+					<div class="margin-bottom-custom mt-0 tab-new-design tab-new-design-2 position-relative" id="">
+						<div class="card-body p-0">
+							<div class="tab-content mb-0 p-0">
+								<div class="tab-pane active tab-box-1" id="tab-orderDetails-Summary" role="tabpanel">
+									<div class="common-custom-card two-column-layout">
+										<div class="counters-heading border-none">
+											<div>
+												<span>Notes</span>
+											</div>
+										</div>
+										<p id="notesModel" class="open-sans-font details-common">@Model.Notes</p>
+									</div>
+									<div class="common-custom-card mobile-pad-0">
+										<div class="table-common-design">
+											<div class="clearfix">
+												<div class="counters-heading border-none position-relative border-table-title">
+													<div class="">
+														<span>Renewal History</span>
+													</div>
+												</div>
+											</div>
+											<div class="compact-table">
+												<table id="dtRenewalHistory" class="table table-hover table-bordered cardview row-sm">
+													<thead>
+														<tr>
+															<th></th>
+															<th>Issued By</th>
+															<th>Issued</th>
+															<th>Expiry</th>
+															<th>Location</th>
+															<th>Updated By</th>
+															<th>Updated</th>
+														</tr>
+													</thead>
+												</table>
+											</div>
+										</div>
+									</div>
+									<div class="common-custom-card mobile-pad-0">
+										<div class="table-common-design">
+											<div class="clearfix">
+												<div class="counters-heading border-none position-relative border-table-title">
+													<div>
+														<span>Change Logs</span>
+													</div>
+												</div>
+											</div>
+											<div class="compact-table">
+												<table style="width: 100%;" id="dtChangelogs" class="table table-hover table-bordered cardview row-sm">
+													<thead>
+														<tr>
+															<th>Local Date</th>
+															<th>Updated By</th>
+															<th>Action</th>
+															<th>Remarks</th>
+														</tr>
+													</thead>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="loading-indicator d-none">
+			<div class="loader bg-transparent no-shadow p-0">
+				<div class="ball-spin-fade-loader">
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+					<div class="bg-teal"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+
+@section ScriptSection
+{
+	<script src="~/assets/scripts/certificateDetails.bundle.js"></script>
+}

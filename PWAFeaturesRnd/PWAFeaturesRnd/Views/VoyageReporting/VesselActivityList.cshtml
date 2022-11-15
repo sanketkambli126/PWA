@@ -1,0 +1,581 @@
+﻿@model VoyageReportingRequestViewModel
+
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Vessel Activity List - @Model.VesselName
+}
+
+
+@section ContentSection
+{
+
+    @Html.HiddenFor(m => m.FromDate)
+    @Html.HiddenFor(m => m.ToDate)
+    @Html.HiddenFor(m => m.EncryptedVesselDetail)
+    @Html.HiddenFor(m => m.MenuType)
+    @Html.HiddenFor(m => m.VesselName)
+    @Html.HiddenFor(m => m.PositionListId)
+
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding new-background common-border-radius">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="margin-left-35">
+                        <div class="">
+                            <a class="common-heading-green"
+                               href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.EncryptedVesselDetail)">@Model.VesselName</a>
+                        </div>
+                        <div class="common-sub-heading-black">
+                            Vessel Activity
+                        </div>
+                    </div>
+                    <div class="page-title-actions">
+                        <div class="mr-1 mb-mobile-3 datepicker-mobile-design" id="">
+                            <button class="btn btn btn-shadow btn-info date-picker-text-bold iconsdatepicker" id="dtrvesselpositionlist" name="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-pane" id="divContentPane">
+                @if (Model.ScheduleActivities.Any())
+                {
+                    <div class="counter-heading-large">
+                        <div>
+                            <span>Scheduled Activities</span>
+                        </div>
+                    </div>
+                    @foreach (var item in @Model.ScheduleActivities)
+                    {
+                        if (item.IsSeaPassageEvent)
+                        {
+                            <div>
+                                <partial name="VesselActivitySeaPassagePartialView" model='new VesselActivitySeaPassageViewModel {
+                            Activity = item.ActivityName,
+                            ChartererNo = item.CharterNumber,
+                           VoyageNo = item.VoyageNumber,
+                           FromStatus = item.FromStatus,
+                           ToStatus = item.ToStatus,
+                           FromDate = item.FromDate,
+                           ToDate = item.ToDate,
+                           LastReportedEvent = item.LastReportEventDate,
+                           ActivityId = item.ActivityId,
+                           HasFromPortAlert = item.HasFromPortAlert,
+                           HasToPortAlert = item.HasToPortAlert,
+                           FromPortRequestUrl = item.FromRequestURL,
+                            ToPortRequestUrl = item.ToRequestURL,
+                            EncryptedVesselDetail = item.EncryptedVesselDetail,
+                            RequestUrl = item.RequestURL,
+                            ChannelCount = item.ChannelCount,
+                            NotesCount = item.NotesCount,
+                            MessageDetailsJSON = item.MessageDetailsJSON
+                            }'>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <partial name="VesselActivityPortPartialView" model='new VesselActivityPortPartialViewModel {Activity = item.ActivityName,
+                                ChartererNo = item.CharterNumber,
+                               VoyageNo = item.VoyageNumber,
+                             FromStatus = item.FromStatus,
+                           ToStatus = item.ToStatus,
+                           FromDate = item.FromDate,
+                           ToDate = item.ToDate,
+                          LastReportedEvent = item.LastReportEventDate,
+                          PortCountry = item.FromPortCountryName,
+                          PortKeyHub = item.FromPortIsKeyHubPort,
+                          PortLatitude = item.FromPortLat,
+                          PortLocCode = item.FromPortUNLocode,
+                          PortLongitude = item.FromPortLong,
+                          PortName = item.FromPort,
+                          PosStatus1 = item.EospStatus,
+                          PosStatus2 = item.BerthStatus,
+                          PosStatus3 = item.UnBerthStatus,
+                          PosStatus4 = item.FaopStatus,
+                          PosDate1 = item.EospDate,
+                          PosDate2 = item.BerthedDate,
+                          PosDate3 = item.UnBerthedDate,
+                          PosDate4 = item.FaopDate,
+                          AgentCount = item.AgentCount,
+                          Agent1Name = item.Agent1Name,
+                          Agent2Name = item.Agent2Name,
+                          Agent3Name = item.Agent3Name,
+                          Agent1Type = item.Agent1Type,
+                          Agent2Type = item.Agent2Type,
+                          Agent3Type = item.Agent3Type,
+                        IsPortAlert = item.HasFromPortAlert,
+                        PortId = item.FromPortId,
+                        PortRequestUrl = item.FromRequestURL,
+                        RequestUrl = item.RequestURL,
+                        EncryptedVesselDetail = item.EncryptedVesselDetail,
+                            ChannelCount = item.ChannelCount,
+                            NotesCount = item.NotesCount,
+                            MessageDetailsJSON = item.MessageDetailsJSON
+                      }'>
+                            </div>
+                        }
+                    }
+                }
+                @if (Model.CurrentActivity != null)
+                {
+                    <div class="current-activity-active">
+                        <div class="inner-current">
+                            <div class="counter-heading-large">
+                                <div>
+                                    <span>Current Activity</span>
+                                </div>
+                            </div>
+                            @if (Model.CurrentActivity.IsSeaPassageEvent)
+                            {
+
+                                <div>
+                                    <partial name="VesselActivitySeaPassagePartialView" model='new VesselActivitySeaPassageViewModel {Activity = Model.CurrentActivity.ActivityName,
+                                        ChartererNo = Model.CurrentActivity.CharterNumber,
+                                        VoyageNo = Model.CurrentActivity.VoyageNumber,
+                                         FromStatus = Model.CurrentActivity.FromStatus,
+                                           ToStatus = Model.CurrentActivity.ToStatus,
+                                           FromDate = Model.CurrentActivity.FromDate,
+                                           ToDate = Model.CurrentActivity.ToDate,
+                                        LastReportedEvent = Model.CurrentActivity.LastReportEventDate,
+                                        CurrentVoyageClassName = "currentActivity",
+                                        ActivityId = Model.CurrentActivity.ActivityId,
+                                        HasFromPortAlert = Model.CurrentActivity.HasFromPortAlert,
+                                           HasToPortAlert = Model.CurrentActivity.HasToPortAlert,
+                                 FromPortRequestUrl = Model.CurrentActivity.FromRequestURL,
+                                ToPortRequestUrl = Model.CurrentActivity.ToRequestURL,
+                                RequestUrl = Model.CurrentActivity.RequestURL,
+                                EncryptedVesselDetail = Model.CurrentActivity.EncryptedVesselDetail,
+                                ChannelCount = Model.CurrentActivity.ChannelCount,
+                                NotesCount = Model.CurrentActivity.NotesCount,
+                                MessageDetailsJSON = Model.CurrentActivity.MessageDetailsJSON,
+                                FromAgentRequestURL = Model.CurrentActivity.FromAgentRequestURL,
+                                ToAgentRequestURL = Model.CurrentActivity.ToAgentRequestURL,
+                                FromPort = Model.CurrentActivity.FromPort,
+                                ToPort = Model.CurrentActivity.ToPort 
+                                }'>
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div>
+                                    <partial name="VesselActivityPortPartialView" model='new VesselActivityPortPartialViewModel { Activity = Model.CurrentActivity.ActivityName,
+                            ChartererNo = Model.CurrentActivity.CharterNumber,
+                           VoyageNo = Model.CurrentActivity.VoyageNumber,
+                            FromStatus = Model.CurrentActivity.FromStatus,
+                           ToStatus = Model.CurrentActivity.ToStatus,
+                           FromDate = Model.CurrentActivity.FromDate,
+                           ToDate = Model.CurrentActivity.ToDate,
+                          LastReportedEvent = Model.CurrentActivity.LastReportEventDate,
+                          PortCountry = Model.CurrentActivity.FromPortCountryName,
+                          PortKeyHub = Model.CurrentActivity.FromPortIsKeyHubPort,
+                          PortLatitude = Model.CurrentActivity.FromPortLat,
+                          PortLocCode = Model.CurrentActivity.FromPortUNLocode,
+                          PortLongitude = Model.CurrentActivity.FromPortLong,
+                          PortName = Model.CurrentActivity.FromPort,
+                          PosStatus1 = Model.CurrentActivity.EospStatus,
+                          PosStatus2 = Model.CurrentActivity.BerthStatus,
+                          PosStatus3 = Model.CurrentActivity.UnBerthStatus,
+                          PosStatus4 = Model.CurrentActivity.FaopStatus,
+                          PosDate1 = Model.CurrentActivity.EospDate,
+                          PosDate2 = Model.CurrentActivity.BerthedDate,
+                          PosDate3 = Model.CurrentActivity.UnBerthedDate,
+                          PosDate4 = Model.CurrentActivity.FaopDate,
+                          AgentCount = Model.CurrentActivity.AgentCount,
+                          Agent1Name = Model.CurrentActivity.Agent1Name,
+                          Agent2Name = Model.CurrentActivity.Agent2Name,
+                          Agent3Name = Model.CurrentActivity.Agent3Name,
+                          Agent1Type = Model.CurrentActivity.Agent1Type,
+                          Agent2Type = Model.CurrentActivity.Agent2Type,
+                          Agent3Type = Model.CurrentActivity.Agent3Type,
+                        IsPortAlert = Model.CurrentActivity.HasFromPortAlert,
+                      PortId = Model.CurrentActivity.FromPortId,
+                          PortRequestUrl = Model.CurrentActivity.FromRequestURL,
+                          RequestUrl = Model.CurrentActivity.RequestURL,
+                          EncryptedVesselDetail = Model.CurrentActivity.EncryptedVesselDetail,
+                            ChannelCount = Model.CurrentActivity.ChannelCount,
+                            NotesCount = Model.CurrentActivity.NotesCount,
+                            MessageDetailsJSON = Model.CurrentActivity.MessageDetailsJSON}'>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                @if (Model.PreviousActivities.Any())
+                {
+                    <div class="counter-heading-large">
+                        <div>
+                            <span>Previous Activities</span>
+                        </div>
+                    </div>
+                    @foreach (var item in @Model.PreviousActivities)
+                    {
+                        if (item.IsSeaPassageEvent)
+                        {
+                            <div>
+                                <partial name="VesselActivitySeaPassagePartialView" model='new VesselActivitySeaPassageViewModel {Activity = item.ActivityName,
+                            ChartererNo = item.CharterNumber,
+                            VoyageNo = item.VoyageNumber,
+                                FromStatus = item.FromStatus,
+                            ToStatus = item.ToStatus,
+                            FromDate = item.FromDate,
+                            ToDate = item.ToDate,
+                            LastReportedEvent = item.LastReportEventDate,
+                            ActivityId = item.ActivityId,
+                            HasFromPortAlert = item.HasFromPortAlert,
+                           HasToPortAlert = item.HasToPortAlert,
+                            FromPortRequestUrl = item.FromRequestURL,
+                            ToPortRequestUrl = item.ToRequestURL,
+                            EncryptedVesselDetail = item.EncryptedVesselDetail,
+                            RequestUrl = item.RequestURL,
+                            ChannelCount = item.ChannelCount,
+                            NotesCount = item.NotesCount,
+                            MessageDetailsJSON = item.MessageDetailsJSON}'>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div>
+                                <partial name="VesselActivityPortPartialView" model='new VesselActivityPortPartialViewModel { Activity = item.ActivityName,
+                            ChartererNo = item.CharterNumber,
+                           VoyageNo = item.VoyageNumber,
+                            FromStatus = item.FromStatus,
+                           ToStatus = item.ToStatus,
+                           FromDate = item.FromDate,
+                           ToDate = item.ToDate,
+                          LastReportedEvent = item.LastReportEventDate,
+                          PortCountry = item.FromPortCountryName,
+                          PortKeyHub = item.FromPortIsKeyHubPort,
+                          PortLatitude = item.FromPortLat,
+                          PortLocCode = item.FromPortUNLocode,
+                          PortLongitude = item.FromPortLong,
+                          PortName = item.FromPort,
+                          PosStatus1 = item.EospStatus,
+                          PosStatus2 = item.BerthStatus,
+                          PosStatus3 = item.UnBerthStatus,
+                          PosStatus4 = item.FaopStatus,
+                          PosDate1 = item.EospDate,
+                          PosDate2 = item.BerthedDate,
+                          PosDate3 = item.UnBerthedDate,
+                          PosDate4 = item.FaopDate,
+                          AgentCount = item.AgentCount,
+                          Agent1Name = item.Agent1Name,
+                          Agent2Name = item.Agent2Name,
+                          Agent3Name = item.Agent3Name,
+                          Agent1Type = item.Agent1Type,
+                          Agent2Type = item.Agent2Type,
+                          Agent3Type = item.Agent3Type,
+                        IsPortAlert = item.HasFromPortAlert,
+                      PortId = item.FromPortId,
+                      PortRequestUrl = item.FromRequestURL,
+                      RequestUrl = item.RequestURL,
+                      EncryptedVesselDetail = item.EncryptedVesselDetail,
+                            ChannelCount = item.ChannelCount,
+                            NotesCount = item.NotesCount,
+                            MessageDetailsJSON = item.MessageDetailsJSON}'>
+                            </div>
+                        }
+                    }
+                }
+
+                @if (!(Model.ScheduleActivities.Any() || Model.CurrentActivity != null || Model.PreviousActivities.Any()))
+                {<div>No details available.</div>}
+            </div>
+        </div>
+
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Modal
+{
+    <partial name="modal" />
+    <partial name="VoyageReportingModal" />
+
+    <div class="modal fade" id="modalOffHireDetails" tabindex="-1" role="dialog" aria-labelledby="modalOffHireDetails" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Off - Hire</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtOffHireList" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th>Activity</th>
+                                    <th>Offhire Duration</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalDelayDetails" tabindex="-1" role="dialog" aria-labelledby="modalDelayDetails" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delay</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtDelayList" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th>Activity</th>
+                                    <th>Delay Duration</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalWeatherDetails" tabindex="-1" role="dialog" aria-labelledby="modalWeatherDetails" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Weather Details</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body background-padding">
+                    <div class="card-title mb-2">CHARTER DETAILS</div>
+                    <div class="row">
+                        <div class="col-4 col-md-4 col-lg-2 py-1">
+                            <label class="custom-label"> Swell Length</label>
+                        </div>
+                        <div class="col-8 col-md-8 col-lg-2 py-1">
+                            <span id="spanSwellLength"></span>
+                        </div>
+                        <div class="col-4 col-md-4 col-lg-2 py-1">
+                            <label class="custom-label">Wind Force</label>
+                        </div>
+                        <div class="col-8 col-md-8 col-lg-4 py-1">
+                            <span id="spanWindForce"></span>
+                        </div>
+                    </div>
+                    <div class="card-title mt-3 mb-2">BAD WEATHER DETAILS</div>
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtWeatherList" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th>Event Name</th>
+                                    <th>Date</th>
+                                    <th>Swell Length</th>
+                                    <th>Wind Force</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCharterDetails" tabindex="-1" role="dialog" aria-labelledby="modalCharterDetails" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Charter Activity</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body background-padding">
+                    <div class="card-title mb-2">CHARTER DETAILS</div>
+                    <div class="row">
+                        <div class="col-5 col-md-4 col-lg-2 py-1">
+                            <label class="custom-label">Charterer Name</label>
+                        </div>
+                        <div class="col-7 col-md-8 col-lg-4 py-1">
+                            <span id="spanChartererName"></span>
+                        </div>
+                        <div class="col-5 col-md-4 col-lg-2 py-1">
+                            <label class="custom-label">Voyage No.</label>
+                        </div>
+                        <div class="col-7 col-md-8 col-lg-4 py-1">
+                            <span id="spanVoyageNumber"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 col-md-4 col-lg-2 py-1">
+                            <label class="custom-label">Charter No.</label>
+                        </div>
+                        <div class="col-7 col-md-8 col-lg-4 py-1">
+                            <span id="spanChartererNumber"></span>
+                        </div>
+                        <div class="col-5 col-md-4 col-lg-2 py-1">
+                            <label class="custom-label">Trade</label>
+                        </div>
+                        <div class="col-7 col-md-8 col-lg-4 py-1">
+                            <span id="spanTrade"></span>
+                        </div>
+                    </div>
+                    <div id="divCharterRequirement">
+                        <div class="card-title mt-3 mb-2">CHARTER REQUIREMENTS - DAILY AVERAGE</div>
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtCharterRequirementList" class="table table-hover table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Cht. Ballast</th>
+                                        <th>Cht. Loaded</th>
+                                        <th>Actual</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="portdetails" tabindex="-1" role="dialog" aria-labelledby="portdetails"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agentdetails">Port Services</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body port-service">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card-title mb-1">San Vicente, CHL</div>
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-lg-2 pr-0"><b>Country :</b> <div class="flag CL small inline-block"></div> Chile</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0 pl-mobile-0"><b>UN/Loc Code :</b> CLSVE</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0"><b>Latitude :</b> 36&deg;,42.00'S</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0 pl-mobile-0"><b>Longitude : </b> 73&deg;,8.00'W</div>
+                                <div class="col-6 col-md-6 col-lg-2pr-mobile-0 pr-mobile-0"><b>Key Hub :</b> No</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-card pt-3">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="card-title mb-1">ALERT (1)</div>
+                                <div class="card-body py-0 px-0 pb-2 port-service-alert-popup">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" role="tab" id="headingOne">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                MAR 11 Port Alert
+                                                            </a>
+                                                            <i class="fa fa-exclamation-circle text-danger float-right mr-3"></i><i class="fa fa-anchor float-right mr-2"></i>
+                                                        </h4>
+
+                                                    </div>
+                                                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                        <div class="panel-body">
+                                                            <div class="card-title mb-2">DETAILS</div>
+                                                            <div class="mb-2"><b>Title </b> MAR 11 Port Alert</div>
+                                                            <div class="mb-2"><b>Description </b></div>
+                                                            <div class="scroller">
+                                                                <div class="">
+                                                                    <p class="mb-1">
+                                                                        We note your vesel is currently heading towards Chile.
+                                                                    </p>
+                                                                    <p class="mb-0">
+                                                                        The attached MAR11 from covers potential deficiencies that frequently been raised during port state control inscpectiob and in some cases
+                                                                        let to detention. We update this form regularly basis our latest operational trends. it is critical that you and your team to go through there items very carefully before
+                                                                        arrival and send completed checklist to Vessel Control Group.If defective items are found then please copy to your DPA.The sooner a problem is known, the easier it is to resolve.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <hr />
+                                                            <div class="mb-2"><b>Attachments & Links (0)</b></div>
+                                                            <div class="row">
+                                                                <div class="col-12 col-md-12 col-lg-8">
+                                                                    <table style="width: 100%;" id="dtportservicelist" class="table table-hover table-bordered cardview row-sm mb-0">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Created Date</th>
+                                                                                <th>Title</th>
+                                                                                <th>Description</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/vesselPositionList.bundle.js"></script>
+}
+

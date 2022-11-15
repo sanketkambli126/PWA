@@ -1,0 +1,44 @@
+﻿@model NewMessageParametersViewModel
+@{
+
+    //Layout = null;
+}
+
+@section Title
+{
+    Notification Create Channel
+}
+
+
+@section ContentSection
+{
+    <div class="apply-loader new-discussion-layout">
+        <input type="hidden" id="createChannelView" value="1" />
+        <input type="hidden" id="OpenCreateNewChannel" value="True" />
+
+        @if (Model != null && Model != null)
+        {
+            @Html.Hidden("CategoryId", Model.CategoryId)
+            @Html.Hidden("ContextPayload", Model.ContextPayload)
+            @Html.Hidden("DefaultMessage", Model.DefaultMessage)
+            @Html.Hidden("VesselId", Model.VesselId)
+            @Html.Hidden("VesselName", Model.VesselName)
+            @Html.Hidden("ReferenceIdentifier", Model.ReferenceIdentifier)
+            @Html.Hidden("OpenCreateNewChannel", "True")
+            @Html.Hidden("IsStandaloneCreateChannel", Model.IsStandaloneCreateChannel)
+            @Html.Hidden("EncryptedNoteId", Model.EncryptedNoteId)
+        }
+        <div class="iframepartial">
+            <partial name="CreateDiscussionPartial" />
+        </div>
+    </div>
+
+    <partial name="NotificationModel" />
+
+}
+
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/notification.bundle.js"></script>
+}

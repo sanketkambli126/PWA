@@ -1,0 +1,200 @@
+﻿
+<div class="header-dots">
+    <div class="vesseldropdowntopheader" data-toggle="modal" data-target="#modalSendEmail" id="vesselandfleetsectiondesktop">
+        <img src="~/images/veseltopiconnew.svg" class="vesselselect" />
+        <span class="spanfleetSelectionTitle"></span>
+        <span class="spanvesselCount"></span>
+        @*<img src="~/images/arrowvessel.svg" class="vesselarrow" />*@
+        <div class="vesselarrow">
+            <img src="~/images/headersearchicon.svg" />
+        </div>
+    </div>
+
+    <button type="button" id="btnToggleDemoMode" class="p-0 mr-1 btn btnToggleDemoMode d-none" >
+        <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+            <i class="demo-icon flag large DE"></i>
+            <span class="headericonnames">Demo</span>
+        </span>
+    </button>
+
+    <div class="dropdown notification-head-drop">
+        <a class="p-0 mr-1 btn btn-link aBaseNotification" id="topmenubarvchatsection">
+            <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+                <i class="message-icon flag large DE"></i>
+                <span class="headericonnames">V.Chat</span>
+                <span class="alert-notify notificationAlert" id="notificationAlert"></span>
+                <span class="badge badge-dot badge-dot-sm badge-teal">Notifications</span>
+            </span>
+        </a>
+        <div tabindex="-1" role="menu" aria-hidden="true"
+             class="dropdown-menu-md rm-pointers dropdown-menu dropdown-menu-right p-0 m-0 border-0">
+            <div class="dropdown-menu-header mb-0 notify-header-panel">
+                <div class="scroller dashboard-section-2 mb-0" style="height:215px;">
+                    <div class="clearfix">
+                        <h1 class="tab-body-header float-left">Alerts (5)</h1>
+                        <h6 class="float-right"><a href='javascript:void(0);'><i class="fa fa-fw" aria-hidden="true" title=""></i> Edit Alerts</a></h6>
+                    </div>
+
+                    <div class="alerts-list">
+                        <div class="">
+                            <div class="list">
+                                <div class="">
+                                    <div class="row no-gutters">
+                                        <div class="col-8 col-md-8 col-lg-8 col-xl-8">
+                                            <h1 class="alerts-head">Check Order</h1>
+                                            <a href="javascript:void(0)">PO 4251 - 01237</a>
+                                        </div>
+                                        <div class="col-4 col-md-4 col-lg-4 col-xl-4 alerts-right-align">
+                                            <div class="alerts-time">Today</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="">
+                                    <div class="row no-gutters">
+                                        <div class="col-8 col-md-8 col-lg-8 col-xl-8">
+                                            <h1 class="alerts-head">Check Order</h1>
+                                            <a href="javascript:void(0)">PO 4251 - 01237</a>
+                                        </div>
+                                        <div class="col-4 col-md-4 col-lg-4 -xl-4 alerts-right-align">
+                                            <div class="alerts-time">Today</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="">
+                                    <div class="row no-gutters">
+                                        <div class="col-8 col-lg-8 col-xl-8">
+                                            <h1 class="alerts-head">Check Order</h1>
+                                            <a href="javascript:void(0)">PO 4251 - 01237</a>
+                                        </div>
+                                        <div class="col-4 col-md-4 col-lg-4 col-xl-4 alerts-right-align">
+                                            <div class="alerts-time">Today</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="">
+                                    <div class="row no-gutters">
+                                        <div class="col-8 col-md-8 col-lg-8 col-xl-8">
+                                            <h1 class="alerts-head">Check Order</h1>
+                                            <a href="javascript:void(0)">PO 4251 - 01237</a>
+                                        </div>
+                                        <div class="col-4 col-md-4 col-lg-4 -xl-4 alerts-right-align">
+                                            <div class="alerts-time">Today</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list">
+                                <div class="">
+                                    <div class="row no-gutters">
+                                        <div class="col-8 col-md-8 col-lg-8 col-xl-8">
+                                            <h1 class="alerts-head">Check Order</h1>
+                                            <a href="javascript:void(0)">PO 4251 - 01237</a>
+                                        </div>
+                                        <div class="col-4 col-md-4 col-lg-4 col-xl-4 alerts-right-align">
+                                            <div class="alerts-time">Today</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <a href="/Approval/List" class="p-0 mr-1 btn btn-link aBaseApproval">
+            <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+                <i class="approve-icon flag large DE"></i>
+                <span class="headericonnames">Approvals</span>
+                <span class="badge badge-dot badge-dot-sm badge-teal">Approvals</span>
+            </span>
+        </a>
+    </div>
+
+    <button type="button" class="p-0 mr-1 btn btn-open-options">
+        <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+            @*<i class="text-teal fa fa-sticky-note "></i>*@
+            <span class="notes-icon flag large DE"></span>
+            <span class="headericonnames">My Notes</span>
+            <span class="badge badge-dot badge-dot-sm badge-tale">Notes</span>
+        </span>
+    </button>
+    <button type="button" id="btnTaskNotifications" class="p-0 mr-1 btn btnTaskNotifications" data-toggle="modal" data-target="#modalTaskMessageNotifications">
+        <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+            <span class="alerts-icon flag large DE"></span>
+            <span class="alert-notify spanalertscount d-none" id="">0</span>
+            <span class="headericonnames">Notification</span>
+        </span>
+    </button>
+    @*<button type="button" class="p-0 mr-1 btn" data-toggle="modal" data-target="#settings">
+            <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+                <span class="icon-wrapper-bg bg-teal"></span>
+                <i class="text-teal fa fa-fw" aria-hidden="true" title=""></i>
+            </span>
+        </button>*@
+
+    <partial name="_Portals" />
+</div>
+
+<div class="header-btn-lg p-0">
+    <div class="widget-content p-0">
+        <div class="widget-content-wrapper">
+            <div class="widget-content-left">
+                <div class="btn-group">
+                    <div class="dropdown" id="headerdropdown">
+                        <a class="dropdown-toggle hover-none btn p-0" data-toggle="dropdown" href="#">
+                            <img width="38" class="rounded-circle d-inline-block d-md-none"  src="~/assets/images/avatars/user.png" alt="">
+                            <img src="~/assets/images/user-info-arrow.png" class="user-arrow d-inline-block" />
+                            <div class="header-user-info">
+                                <div class="name">@Context.Session.GetString(@Constants.UserNameSessionKey)</div>
+                                <span class="divUserClientName type">@Context.Session.GetString(@Constants.UserClientNameSessionKey)</span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right user-logout pb-0" role="menu" aria-labelledby="dLabel">
+                            <li>
+                                <div class="dropdown-menu-header">
+                                    <a href="javascript:void(0)" id="closelogoutpanel"><span aria-hidden="true" class="close-logout userDropdownClose" >×</span></a>
+                                    <div class="row no-gutters">
+                                        <div class="col-12 col-md-12 col-xl-12">
+                                            <div class="user">
+                                                <span>User</span>
+                                                <div class="username">@Context.Session.GetString(@Constants.UserNameSessionKey)</div>
+                                            </div>
+                                            <div class="organization">
+                                                <span>Organisation</span>
+                                                <div class="org divSubHeadUserClientName">@Context.Session.GetString(@Constants.UserClientNameSessionKey)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="link-logout">
+                                    <a href="@string.Concat(AppSettings.ManageAccountURL)" target="_blank" class="">
+                                        Manage Account
+                                    </a>
+                                    <a href="javascript:void(0);" data-toggle="modal" class="preferenceHeaderRight" data-target="#preference">
+                                        My Preferences
+                                    </a>
+                                    @Html.ActionLink("Logout", "Logout", "AuthCode", null, new { @class = "btn btn-dark-grey text-white btn-shadow hover-blue w-100 open-sans-font mb-0" })
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,220 @@
+﻿@model VesselActivityPortPartialViewModel
+<div class="common-custom-card pt-0 pb-0 font-family-open-sans" data-type="Port" data-activity="@Model.ActivityId" data-hasPortAlert="@Model.IsPortAlert" data-portId="@Model.PortId">
+    <div class="row">
+        <div class="col-md-3 col-lg-3 col-xl-3">
+            <div class="vessel-activity-port-details inner-padding height-100-percent">
+                <a href="/VoyageReporting/PortCallLocationEvent?VoyageReportingRequestUrl=@Model.RequestUrl&VesselId=@Model.EncryptedVesselDetail" class="hover-none">
+                    <h1>@Model.Activity</h1>
+                </a>
+                <div class="clearfix mb-2">
+                    <div class="dashboard-counters-label mr-1">
+                        @Model.FromStatus
+                    </div>
+                    <div class="dashboard-counters">
+                        <span id="" class="font-weight-600">@(Model.FromDate.HasValue ? @Model.FromDate.Value.ToString("d MMM yyyy, HH:mm") : "")</span>
+                        @if (!string.IsNullOrEmpty(Model.ToStatus))
+                        {
+                            <span><img src="~/images/ETA.png" class="ml-1" /></span>
+                        }
+                    </div>
+                    <div class="dashboard-counters-label mr-1">
+                        @Model.ToStatus
+                    </div>
+                    <div class="dashboard-counters">
+                        <span id="" class="font-weight-600">@(Model.ToDate.HasValue ? @Model.ToDate.Value.ToString("d MMM yyyy, HH:mm") : "")</span>
+                    </div>
+                </div>
+                <div class="row mb-2 mb-md-0 mb-lg-2">
+                    <div class="col-6 col-md-12 col-lg-6 col-xl-6">
+                        <div class="dashboard-counters-label mr-0 float-none">
+                            Charterer No
+                        </div>
+                        <div class="dashboard-counters text-break">
+                            <span id="">
+                                @Model.ChartererNo
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-12 col-lg-6 col-xl-6">
+                        <div class="dashboard-counters-label mr-0 float-none">
+                            Voyage No.
+                        </div>
+                        <div class="dashboard-counters">
+                            <span id="">
+                                @Model.VoyageNo
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 col-md-12 col-lg-6 col-xl-6">
+                        <div class="dashboard-counters-label mr-0 float-none">
+                            Event Date
+                        </div>
+                        <div class="dashboard-counters">
+                            <span id="">
+                                @(Model.LastReportedEvent.HasValue ? @Model.LastReportedEvent.Value.ToString("d MMM yyyy, HH:mm") : "")
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-12 col-lg-6 col-xl-6">
+                        @if (Model.ChannelCount > 0 || Model.NotesCount > 0)
+                        {
+                            <div class="dashboard-counters-label mr-0 float-none">
+                                Chat/Notes
+                            </div>
+
+                            <div class="table-discussionnotes">
+                                @if (Model.ChannelCount > 0)
+                                {
+                                    <span class="discussion-drop discussionListAnchorOnClickVoyageList cursor-pointer" data-messagejson="@Model.MessageDetailsJSON" data-toggle="tooltip" data-placement="top" title="Discussion">
+                                        <img style="height:16px;" src="/images/message-black.svg" />
+                                        <span id="@string.Concat("baseChannelCount", Model.ActivityId)" class="baseDiscussionCountCommon">@Model.ChannelCount</span>
+                                    </span>
+                                }
+                                @if (Model.NotesCount > 0)
+                                {
+                                    <span class="notes-drop noteListAnchorOnClick cursor-pointer" data-messagejson="@Model.MessageDetailsJSON" data-toggle="tooltip" data-placement="top" title="Notes">
+                                        <img style="height:15px;" src="/images/notes-black.svg" />
+                                        <span class="baseNotesCountCommon">@Model.NotesCount</span>
+                                    </span>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xl-6">
+            <div class="port-activity-detail inner-padding height-100-percent">
+                <h1 class="vessel-position-h1">Port Info</h1>
+                <h6 class="mb-2 d-inline-block mt-0">@Model.PortName</h6>
+                @if (Model.IsPortAlert)
+                {
+                    <div class="apply-loader portAlertSection anchorPortAlertCls cursor-pointer d-inline-block ml-1" data-url="@Model.PortRequestUrl">
+                        <i class="fa fa-anchor icon-red"></i> <sup class="icon-red">★</sup>
+                        @*<div class="dashboard-counters-label mr-0 float-none  mt-3">
+                                &nbsp;Port Alert (<span class="spanAlertCount"></span>)
+                            </div>
+                            <div class="port-message-red mt-1">
+
+                            </div>*@
+                    </div>
+
+                }
+                <div class="row">
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-2">
+                        <div class="dashboard-counters-label mr-0 float-none">
+                            Country
+                        </div>
+                        <div class="dashboard-counters">
+                            <span id="">
+                                @Model.PortCountry
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-2">
+                        <div class="dashboard-counters-label mr-0 float-none">
+                            UN/Loc Code
+                        </div>
+                        <div class="dashboard-counters">
+                            <span id="">
+                                @Model.PortLocCode
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-2">
+                        <div class="dashboard-counters-label mr-0 float-none">
+                            Key Hub
+                        </div>
+                        <div class="dashboard-counters">
+                            <span id="">
+                                @Model.PortKeyHub
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-2">
+                        <div class="dashboard-counters-label mr-0 float-none">
+                            Latitude
+                        </div>
+                        <div class="dashboard-counters">
+                            <span id="">
+                                @Model.PortLatitude
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-2">
+                        <div class="dashboard-counters-label mr-0 float-none">
+                            Longitude
+                        </div>
+                        <div class="dashboard-counters">
+                            <span id="">
+                                @Model.PortLongitude
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-xl-3">
+            <div class="agents-activity-details inner-padding height-100-percent sceduledactiv">
+                @if (Model.AgentCount > 0)
+                {
+                    <a href="javascript:void(0);" class="agentlink showFromAgentDetails1 mb-1" data-encryptedposid="@Model.PortRequestUrl" data-portname="@Model.PortName">
+                        <img src="~/images/agenticon.svg" />
+                        <span class="align-middle">Agents</span>
+                    </a>
+                }
+                <div class="">
+                    <h1 class="vessel-position-h1">Scheduled Activity</h1>
+                    <div class="row mb-2 mb-md-0 mb-lg-2">
+                        <div class="col-6 col-md-12 col-lg-6 col-xl-6">
+                            <div class="dashboard-counters-label mr-0 float-none">
+                                @Model.PosStatus1
+                            </div>
+                            <div class="dashboard-counters">
+                                <span>
+                                    @Model.PosDate1
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-12 col-lg-6 col-xl-6">
+                            <div class="dashboard-counters-label mr-0 float-none">
+                                @Model.PosStatus2
+                            </div>
+                            <div class="dashboard-counters">
+                                <span>
+                                    @Model.PosDate2
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-md-12 col-lg-6 col-xl-6">
+                            <div class="dashboard-counters-label mr-0 float-none">
+                                @Model.PosStatus3
+                            </div>
+                            <div class="dashboard-counters">
+                                <span>
+                                    @Model.PosDate3
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-12 col-lg-6 col-xl-6">
+                            <div class="dashboard-counters-label mr-0 float-none">
+                                @Model.PosStatus4
+                            </div>
+                            <div class="dashboard-counters">
+                                <span>
+                                    @Model.PosDate4
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

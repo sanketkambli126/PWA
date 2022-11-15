@@ -1,0 +1,75 @@
+﻿@model NotificationMobileChatDetailViewModel
+@{
+
+	Layout = "~/Views/Shared/_ChatLayout.cshtml";
+}
+
+@section Title
+{
+	Notification Mobile Chat
+}
+
+@section ContentSection
+{
+
+	@Html.HiddenFor(x => x.ChannelId)
+	@Html.HiddenFor(x => x.IsOneToOneChat)
+	@Html.HiddenFor(x => x.ParticipantCount)
+	@Html.HiddenFor(x => x.VesselId)
+	@Html.HiddenFor(x => x.VesselName)
+	@Html.Hidden("hdnSessionStorageDetails", Model.SessionStorageDetails)
+	@Html.Hidden("hdnIsFromOtherSource", Model.IsFromOtherSource)
+	@Html.Hidden("hdnIsFilterChange", Model.IsFilterChange)
+
+	<div class="notification-mobile-chat apply-loader d-block d-md-none">
+		<input type="hidden" id="hdnCurrentPageNumber" />
+		<input type="hidden" id="hdnHasNextPage" value="true" />
+		<input type="hidden" id="hdnSelectedChannelId" />
+		<div class="chat-header">
+            <div class="clearfix">
+                <h1 class="float-none float-md-left title">
+                    @Model.Title
+                </h1>
+                <h3 class="d-block d-md-none mobilevesselname"> @Model.VesselName</h3>                
+                <img src="~/images/DashboardIcons/vessel-flag.png" class="d-none d-md-block float-right" />
+                <h2 class="d-none d-md-block float-right vesselname">
+                    @Model.VesselName
+                    <span>@Model.VesselIMONumber</span>
+                </h2>
+                <a href="/Notification/NotificationMobileInfo/?request=@Model.NotificationMobileParticipantURL" class="chat-participant"><img src="~/images/participantmobile.svg" width="18" class="d-inline-block d-md-none" /><span class="align-middle activeParticipantCount"> </span></a>
+                <a id="aViewRecord" class="mobileInfoIcon btn search-btn btn-teal text-white btn-shadow m-0 chat-mobile-info">
+                    @*<img src="~/images/chat-mobile-info.jpg" class="d-block d-md-none chat-mobile-info" />*@
+                    <i class="fa fa-external-link-square-alt"></i><span class="open-sans-font bold-text ml-2">View</span>
+                </a>
+            </div>
+		</div>
+		<div class="chat-list scroller apply-loader" id="divChatMessages">
+			<ul id="messageSection">
+			</ul>
+			<div class="fixedElement d-none" id="divNewMessageAlert"><span>New Message</span></div>
+		</div>
+		<div class="fixed-mesage-box">
+			<button id="sendMessage" class="btn p-0" ontouchstart>
+				<img src="~/images/message-mobile-image.svg" />
+			</button>
+			<button id="btnAttachMessage" class="btn p-0">
+				<div class="file-upload">
+					<label for="inputMessageAttachments">
+						<img src="~/images/attach-message-mobile.png" />
+					</label>
+					<input id="inputMessageAttachments" type="file" multiple>
+				</div>
+			</button>
+			<textarea class="form-control" rows="2" placeholder="New Message.." id="messageText"></textarea>
+			<div id="divMessageAttachemnts" class="message-attachments d-none apply-loader loader-height">
+			</div>
+		</div>
+	</div>
+}
+
+
+@section ScriptSection
+{
+	<script src="~/assets/scripts/notificationMobileChatDetail.bundle.js"></script>
+}
+

@@ -1,0 +1,23 @@
+﻿@model List<OverrideDimensionVesselResponseViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<h1>ACTIVE OVERRIDES</h1>
+<div class="action-overridelist">
+    @foreach (var item in Model)
+    {
+        <div class="actionlist">
+            <div class="clearfix">
+                <div class="float-left firstcol">
+                    <h2>@item.OverrideDimension</h2>
+                    <span class="breadcrums">@item.ParentModelDimensionDescription  &nbsp;>&nbsp;  @item.ModelDimensionDescription</span>
+                </div>
+                <div class="float-right float-md-left">
+                    <a href="/Sentinel/FleetVesselList?fleetRequest=@item.FleetRequest&VesselFilters=@item.EncryptedVesselListRequest"><span class="vsno">@item.VesselCount</span></a>
+                    <img src="~/images/sentinelimages/offc-vessels.svg" width="22" />
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

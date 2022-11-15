@@ -1,0 +1,121 @@
+﻿@using Microsoft.AspNetCore.DataProtection
+@model VesselModelValueDetailViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="card-header" id="heading-@Model.ModelDimensionId">
+    <input type="hidden" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.CategoryGraphDetail)" name="hdnCategoryGraphDetail" id="hdnCategoryGraphDetail-@Model.ModelDimensionId" />
+    <button class="btn btn-link customAccordionHeader categoryHeader expandCollapseArrow collapsed" data-modeldimensionid="@Model.ModelDimensionId" data-vesselid="@Model.EncryptedVesselId">
+        <div class="sentinelpanel">
+            @if (Model.ModelDimensionName.Equals(Constants.Certificates))
+            {
+                <div class="panelicon-width"><img class="sicon" src="~/images/sentinelimages/scertificate-@(Model.ModelValueColor).svg" /></div>
+            }
+            @if (Model.ModelDimensionName.Equals(Constants.CrewStrength))
+            {
+                <div class="panelicon-width"><img class="sicon" src="~/images/sentinelimages/screw-@(Model.ModelValueColor).svg" /></div>
+            }
+            @if (Model.ModelDimensionName.Equals(Constants.Environmental))
+            {
+                <div class="panelicon-width"><img class="sicon" src="~/images/sentinelimages/senviornment-@(Model.ModelValueColor).svg" /></div>
+            }
+            @if (Model.ModelDimensionName.Equals(Constants.HazOcc))
+            {
+                <div class="panelicon-width"><img class="sicon" src="~/images/sentinelimages/shazoc-@(Model.ModelValueColor).svg" /></div>
+            }
+            @if (Model.ModelDimensionName.Equals(Constants.Inspections))
+            {
+                <div class="panelicon-width"><img class="sicon" src="~/images/sentinelimages/sinspection-@(Model.ModelValueColor).svg" /></div>
+            }
+            @if (Model.ModelDimensionName.Equals(Constants.PMSDefects))
+            {
+                <div class="panelicon-width"><img class="sicon" src="~/images/sentinelimages/spms-@(Model.ModelValueColor).svg" /></div>
+            }
+            @if (Model.ModelDimensionName.Equals(Constants.Management))
+            {
+                <div class="panelicon-width"><img class="sicon" src="~/images/sentinelimages/smanagement-@(Model.ModelValueColor).svg" /></div>
+            }
+            @if (Model.ModelDimensionName.Equals(Constants.OPEXProcurement))
+            {
+                <div class="panelicon-width"><img class="sicon" src="~/images/sentinelimages/sopex-@(Model.ModelValueColor).svg" /></div>
+            }
+            @if (Model.ModelDimensionName == Constants.SafetyCulture)
+            {
+                <div class="panelicon-width"><img class="sicon" src="~/images/sentinelimages/ssafetyculture-@(Model.ModelValueColor).svg" /></div>
+            }
+            @if (Model.ModelDimensionName.Equals(Constants.ShipSureUsage))
+            {
+                <div class="panelicon-width"><img class="sicon" src="~/images/sentinelimages/sshipsure-@(Model.ModelValueColor).svg" /></div>
+            }
+            <h1 class="stxt-@Model.ModelValueColor">@Model.ModelDimensionName</h1>
+            @if (Model.ModelValue.HasValue)
+            {
+                <div class="scorevessel stxt-@Model.ModelValueColor">@Model.ModelValue/5</div>
+            }
+            else
+            {
+                <div class="scorevessel dashcolor">-</div>
+            }
+            @if (Model.HasActiveOverride)
+            {
+                <img src="~/images/sentinelimages/s-cycle.svg" class="scycle" data-toggle="tooltip" data-placement="bottom" title="Active Override(s)"/>
+            }
+            else
+            {
+                <img class="scycle" />
+            }
+            @{
+                var day = Model.LatestHistoryDate.GetValueOrDefault().Day;
+                var month = Model.LatestHistoryDate.GetValueOrDefault().ToString("MMMM");
+                string ordinal;
+
+                switch (Model.LatestHistoryDate.GetValueOrDefault().Day)
+                {
+                    case 1:
+                    case 21:
+                    case 31:
+                        ordinal = "st";
+                        break;
+                    case 2:
+                    case 22:
+                        ordinal = "nd";
+                        break;
+                    case 3:
+                    case 23:
+                        ordinal = "rd";
+                        break;
+                    default:
+                        ordinal = "th";
+                        break;
+                }
+            }
+            @if (Model.ModelDimensionValueDifference < 0)
+            {
+                <div class="scoredate">
+                    <h3 class="stxt-red">
+                        <img src="~/images/sentinelimages/score-down.svg" /> <span>@Math.Abs(Model.ModelDimensionValueDifference.Value)</span>
+                    </h3>
+                    <h2 class="stxt-red"> from @day<sup>@ordinal</sup> @month</h2>
+                </div>
+            }
+            else if (Model.ModelDimensionValueDifference > 0)
+            {
+                <div class="scoredate">
+                    <h3 class="stxt-green">
+                        <img src="~/images/sentinelimages/score-up.svg" /> <span>@Model.ModelDimensionValueDifference</span>
+                    </h3>
+                    <h2 class="stxt-green"> from @day<sup>@ordinal</sup> @month</h2>
+                </div>
+            }
+            else
+            {
+                <div class="scoredate">
+                    <h2 class="dashcolor">-</h2>
+                </div>
+            }
+            <div class="graph">
+                <canvas id="categoryGraph-@Model.ModelDimensionId" width="220" height="45"></canvas>
+            </div>
+        </div>
+    </button>
+</div>

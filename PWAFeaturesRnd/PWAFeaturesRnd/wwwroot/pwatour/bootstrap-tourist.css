@@ -1,0 +1,351 @@
+/* ========================================================================
+ * Bootstrap Tourist
+ * Copyright FFS 2019
+ * @ IGreatlyDislikeJavascript on Github
+ *
+ * z indexes:
+ *				1110 - backdrop (black bg)
+ *				1111 - highlight & tour element ()set by js)
+ *				1112 - prevent
+ *				1113 - popover
+ */
+
+.tour-backdrop {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /*position: fixed;*/
+    position: absolute;
+    box-sizing: content-box;
+    z-index: 1110;
+    background-color: #000;
+    opacity: 0.8;
+    -ms-filter: "alpha(opacity=90)";
+    filter: alpha(opacity=90);
+    display: none !important;
+}
+
+.tour-backdrop-animation {
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    -ms-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    transition: all .3s ease-out;
+}
+
+.tour-prevent {
+    position: absolute;
+    z-index: 1112;
+    opacity: 0.20;
+    filter: alpha(opacity=20);
+}
+
+.tour-highlight {
+    box-sizing: content-box;
+    position: absolute;
+    z-index: 1110;
+    background-color: #FFF;
+    background-color: rgba(255,255,255,.9);
+}
+
+.tour-highlight-animation {
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    -ms-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    transition: all .3s ease-out;
+}
+
+.tour-highlight-element {
+    position: relative;
+    z-index: 1111 !important;
+}
+
+.tour-tour[class*="tour-"] {
+    z-index: 100;
+}
+
+    .tour-tour[class*="tour-"] .popover-navigation {
+        padding: 0px 15px 15px 15px;
+        overflow: hidden;
+    }
+
+        .tour-tour[class*="tour-"] .popover-navigation *[data-role="end"] {
+            float: right;
+        }
+
+        .tour-tour[class*="tour-"] .popover-navigation *[data-role="prev"],
+        .tour-tour[class*="tour-"] .popover-navigation *[data-role="next"],
+        .tour-tour[class*="tour-"] .popover-navigation *[data-role="end"] {
+            cursor: pointer;
+        }
+
+            .tour-tour[class*="tour-"] .popover-navigation *[data-role="prev"].disabled,
+            .tour-tour[class*="tour-"] .popover-navigation *[data-role="next"].disabled,
+            .tour-tour[class*="tour-"] .popover-navigation *[data-role="end"].disabled {
+                cursor: default;
+            }
+
+    .tour-tour[class*="tour-"].orphan {
+        position: fixed;
+        margin-top: 0;
+    }
+
+        .tour-tour[class*="tour-"].orphan .arrow {
+            display: none;
+        }
+
+.tour-behind {
+    z-index: -1;
+}
+
+.tour-zindexFix {
+    z-index: 1029;
+}
+
+.tour-tour {
+    font-family: "Open Sans" !important;
+    width: 300px;
+    border: 3px solid #019ea8;
+    box-shadow: 0 0.46875rem 2.1875rem rgb(4 9 20 / 3%), 0 0.9375rem 1.40625rem rgb(4 9 20 / 3%), 0 0.25rem 0.53125rem rgb(4 9 20 / 5%), 0 0.125rem 0.1875rem rgb(4 9 20 / 3%);
+    transition: opacity .2s ease;
+}
+
+    .tour-tour .popover-header {
+        border: 0;
+        font-weight: 600;
+        font-size: 1rem;
+        padding-bottom: 0;
+        color: #000000;
+        padding: 15px 15px 0px 15px;
+        text-align: center;
+    }
+
+    .tour-tour .popover-body {
+        font-weight: 400;
+        font-size: 0.875rem;
+        padding: 15px 15px 30px 15px;
+        text-align: center;
+    }
+
+    .tour-tour .btn-group .btn:first-child {
+        border: 0;
+        padding-left: 0px;
+        font-size: 0.813rem;
+    }
+
+    .tour-tour .btn-group .btn:nth-child(2) {
+        border: 0;
+        font-size: 0.813rem;
+        color: #019ea8;
+        font-weight: 600;
+    }
+
+    .tour-tour .btn-group .btn:first-child {
+        background-color: transparent;
+        color: #019ea8;
+        font-weight: 600;
+    }
+
+    .tour-tour .btn-group .btn:nth-child(2):hover,
+    .tour-tour .btn-group .btn:nth-child(2):active,
+    .tour-tour .btn-group .btn:nth-child(2):focus,
+    .tour-tour .btn-group .btn:nth-child(2):active:focus {
+        color: #037b83;
+        background-color: transparent;
+    }
+
+    .tour-tour .btn[data-role="end"],
+    .tour-tour .btn[data-role="end"]:hover,
+    .tour-tour .btn[data-role="end"]:active,
+    .tour-tour .btn[data-role="end"]:active:focus {
+        font-size: 0.875rem;
+        font-weight: 600;
+        background-color: #019ea8;
+        color: #ffffff;
+        padding: 5px 16px;
+        border: 1px solid #019ea8;
+    }
+
+        .tour-tour .btn[data-role="end"]:hover {
+            background-color: #037b83;
+            border: 1px solid #037b83;
+        }
+
+    .tour-tour:not([data-placement^="top"]).show {
+        animation: fade-in2 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+    }
+
+    .tour-tour.show {
+        opacity: 1;
+    }
+
+.tour-tour {
+    display: block;
+    max-width: 320px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    word-spacing: normal;
+    white-space: normal;
+    line-break: auto;
+    font-size: .875rem;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 10px;
+}
+
+    .tour-tour .arrow {
+        position: absolute;
+        display: block;
+        width: 1rem;
+        height: 0.5rem;
+        margin: 0 0.3rem;
+    }
+
+        .tour-tour .arrow::before, .tour-tour .arrow::after {
+            position: absolute;
+            display: block;
+            content: "";
+            border-color: transparent;
+            border-style: solid;
+        }
+
+    .tour-tour.bs-popover-bottom .arrow::after,
+    .tour-tour.bs-popover-auto[x-placement^="bottom"] .arrow::after {
+        border-bottom-color: #fff;
+    }
+
+    .tour-tour.bs-popover-bottom .arrow::before,
+    .tour-tour.bs-popover-auto[x-placement^="bottom"] .arrow::before {
+        top: -2px;
+        border-bottom-color: rgba(1,158,168,1);
+    }
+
+    .tour-tour.bs-popover-top .arrow::before,
+    .tour-tour.bs-popover-auto[x-placement^="top"] .arrow::before {
+        bottom: 0;
+        border-top-color: rgba(0,0,0,0.25);
+    }
+
+    .tour-tour.bs-popover-top .arrow::after,
+    .tour-tour.bs-popover-auto[x-placement^="top"] .arrow::after {
+        bottom: 1px;
+        border-top-color: #fff;
+    }
+
+    .tour-tour.bs-popover-right .arrow::before,
+    .tour-tour.bs-popover-auto[x-placement^="right"] .arrow::before {
+        left: -6px;
+        border-right-color: rgba(1,158,168,1)
+    }
+
+    .tour-tour.bs-popover-right .arrow::after,
+    .tour-tour.bs-popover-auto[x-placement^="right"] .arrow::after {
+        left: -3px;
+        border-right-color: #fff;
+    }
+
+    .tour-tour iframe {
+        width: 100%;
+        height: 180px;
+        margin-top: 20px;
+    }
+
+    .tour-tour .popover-header img {
+        margin: 0 auto;
+        width: 35px;
+        margin-bottom: 15px;
+    }
+
+    .tour-tour.tour-tour-8 .popover-header img,
+    .tour-tour.tour-tour-2 .popover-header img {
+        width: 30px;
+    }
+
+
+.tourdesign .modal-body {
+    text-align: center;
+    padding: 50px 0px;
+}
+
+    .tourdesign .modal-body img {
+        width: 50px;
+        margin-bottom: 35px;
+    }
+
+    .tourdesign .modal-body h1 {
+        margin: 0px;
+        font-size: 1.563rem;
+        color: #000000;
+        margin-bottom: 35px;
+    }
+
+.tourdesign .modal-dialog {
+    border: 0;
+    box-shadow: none;
+    width: 370px;
+}
+
+.tourdesign .modal-content {
+    border: 5px solid #019ea8;
+    border-radius: 50px;
+}
+
+.tourdesign .modal-body .btntour {
+    background-color: #019ea8;
+    border: 1px solid #019ea8;
+    font-size: 1.25rem;
+    color: #ffffff;
+    font-weight: 400;
+    padding: 6px 29px;
+    border-radius: 30px;
+}
+
+    .tourdesign .modal-body .btntour:hover {
+        background-color: #037b83;
+        border: 1px solid #037b83;
+    }
+
+@media only screen and (max-width:767px) {
+    .tour-tour {
+        position: absolute !important;
+        left: 0px !important;
+        top: 0px !important;
+        width: 250px !important;
+        min-width: 250px !important;
+    }
+
+        .tour-tour .popover-header img {
+            margin: 0 auto;
+            margin-bottom: 10px;
+            width: 30px;
+        }
+
+        .tour-tour .popover-body {
+            font-weight: 400;
+            font-size: 0.813rem;
+            padding: 10px 15px 15px 15px;
+            text-align: center;
+        }
+
+        .tour-tour.tour-tour-2 .popover-header img {
+            width: 20px;
+        }
+
+        .tour-tour .popover-header {
+            font-size: 15px;
+        }
+
+        .tour-tour .arrow {
+            display: block !important;
+        }
+}

@@ -1,0 +1,103 @@
+﻿<div class="discussion-form apply-loader notification-createchat">
+    <div class="vessel-list-patch">
+        <div class="row no-gutters">
+            <div class="col-md-12 col-xl-12 col-xl-12">
+                <div class="row mx-auto no-gutters">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                        <h1>Vessel</h1>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-xl-9 vessel-search">
+                        <select id="cboNotificationVesselSearch" class="form-control form-control-sm">
+                            <option>Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mx-auto no-gutters d-none divAreaDropdowncls" id="divAreaDropdown">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                        <h1>Area</h1>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-xl-9 vessel-search">
+                        <select type="select" id="cboAreaSelection" class="custom-select" disabled>
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="forms-section">
+        <div class="row no-gutters">
+            <div class="col-md-12 col-xl-12 col-xl-12">
+                <div class="row mx-auto no-gutters">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                        <h1>Participants <span class="redconfirm">*</span></h1>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-xl-9">
+                        <div class="row mx-auto no-gutters mb-0">
+                            <div class="col-6 col-md-5 col-lg-3 col-xl-3 d-none" id="btnSearchParticipants">
+                                <a href="javascript:void(0)" id="btnSearchParticipants" class="search-more-users" data-toggle="modal">
+                                    <img src="~/images/key-contacts.svg" />
+                                    Key Contacts
+                                </a>
+                                @*data-toggle="modal" data-target="#searchparticipant"*@
+                            </div>
+                            <div class="col-xl-12 participant-design">
+                                <select id="participantdropdown" class="form-control" multiple="multiple">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mx-auto no-gutters">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                        <h1>Subject <span class="redconfirm">*</span></h1>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-xl-9">
+                        <input type="text" class="form-control" id="txtSubject" maxlength="100" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="row mx-auto no-gutters">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                        <h1 class="">Message <span class="redconfirm">*</span></h1>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-xl-9">
+                        <textarea class="form-control scroller-message" rows="7" id="txtMessage" placeholder="" maxlength="1000"></textarea>
+                    </div>
+                </div>
+                <div class="row mx-auto no-gutters">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                        <h1>Attachments</h1>
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-xl-9">
+                        <div class="file-upload">
+                            <label for="inputChannelAttachments">
+                                <img src="~/images/attachment.png" /> 
+                                <span class="align-middle">Add Attachment </span>
+                            </label>
+                            <input id="inputChannelAttachments" type="file" multiple />
+                        </div>
+                        <div id="divNewChannelAttachemnts" class="d-inline apply-loader loader-height" style="height:20px">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mx-auto no-gutters lastrow">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+
+                    </div>
+                    <div class="col-md-9 col-lg-9 col-xl-9">
+                        <div class="clearfix creadiscussbottomfix">
+                            <a href="javascript:void(0);" id="cancel" class="btn-cancelsecondarybtn btn float-left" ontouchstart>Cancel</a>
+                            <button class="btn btn-discussion  float-right" id="btn-discussion">Send</button>
+                            <a href="javascript:void(0);" id="btn-SaveAsDraft" class="cancel float-right mr-3" ontouchstart>Save As Draft</a>
+                            <input type="hidden" value="Yes" id="hdnIsAllowDrafrtConfBox" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

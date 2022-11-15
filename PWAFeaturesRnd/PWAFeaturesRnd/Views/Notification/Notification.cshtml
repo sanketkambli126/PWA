@@ -1,0 +1,244 @@
+﻿@model NotificationViewModel
+
+@{
+
+    Layout = "~/Views/Shared/_ChatLayout.cshtml";
+}
+
+@section Title
+{
+    Notification
+}
+
+@section CSSSection{
+    <style type="text/css">
+        @@media only screen and (min-width: 1441px) {
+            .app-main, .app-header .large-screen {
+                width: 100% !important;
+            }
+
+            .fixed-mesage-box textarea,
+            .message-attachments {
+                width: 87%;
+            }
+
+            .fixed-mesage-box.edit-message textarea {
+                width: 91%;
+            }
+
+            .right-chat .message-attachments {
+                width: 91%;
+            }
+
+            .fixed-mesage-box.edit-message #editMessageConfirm {
+                right: 28px;
+            }
+        }
+
+        .chat-header .chatflag {
+            margin-right: 55px;
+            width: 42px;
+            height: 21px;
+        }
+    </style>
+}
+
+@section ContentSection
+{
+
+
+    <div id="divMainChatContainer" class="notification-box apply-loader open-sans-font w-100">
+        <div class="row mx-auto no-gutters height-row ">
+            <div class="col-md-3 col-lg-3 col-xl-3">
+                <input type="hidden" id="hdnChatCurrentPageNumber" value="1" />
+                <input type="hidden" id="hdnChatHasNextPage" value="true" />
+                @Html.HiddenFor(m => m.IsSearchClicked)
+                @Html.HiddenFor(m => m.SearchText)
+                @Html.HiddenFor(m => m.OpenCreateNewChannel)
+                @Html.Hidden("hdnChannelListCount", Model.ChannelList.Count)
+                @Html.Hidden("hdnSessionStorageDetails", Model.SessionStorageDetails)
+                @Html.Hidden("hdnClearSessionStorage", Model.ClearSessionStorage)
+                @Html.Hidden("hdnIsFilterChange", Model.IsFilterChange)
+
+                @*@Html.Hidden("NotificationWebToken", (object)ViewBag.NotificationWebToken )
+                    @Html.Hidden("NotificationUserId", (object)ViewBag.NotificationUserId )
+                    @Html.Hidden("NotificationApplicationId", (object)ViewBag.NotificationApplicationId)
+                    @Html.Hidden("SignalRURL", (object)ViewBag.SignalRURL )
+                    @Html.Hidden("NotificationRoles", (object)ViewBag.NotificationRoles)*@
+
+                @if (Model != null && Model.NewMessageDetails != null)
+                {
+                    @Html.Hidden("CategoryId", Model.NewMessageDetails.CategoryId)
+                    @Html.Hidden("ContextPayload", Model.NewMessageDetails.ContextPayload)
+                    @Html.Hidden("DefaultMessage", Model.NewMessageDetails.DefaultMessage)
+                    @Html.Hidden("VesselId", Model.NewMessageDetails.VesselId)
+                    @Html.Hidden("VesselName", Model.NewMessageDetails.VesselName)
+                }
+
+                <input type="hidden" id="hdnCurrentPageNumber" />
+                <input type="hidden" id="hdnIsChannelPageScrolled" value="false" />
+                <input type="hidden" id="hdnHasNextPage" value="true" />
+                <input type="hidden" id="hdnIsNewChannelSelected" value="false" />
+                <div class="discussion clearfix">
+                    <div id="divChannelHeader">
+                        <h1 class="float-left"><img src="~/images/v-chat.svg" width="29" />&nbsp; V.Chat</h1>
+                        <a href="javascript:void(0);" id="channelSearch" class="float-right mr-0"> <img src="~/images/searchchat.svg" /></a>
+                        <input type="hidden" id="hdnSelectedChannelId" value="0" />
+                        <a href="javascript:void(0);" id="plus-sign" class="float-right  d-none d-md-block"><img src="~/images/new-discuss.png" /></a>
+                        <a href="/Notification/NotificationMobileDiscussion" id="plus-sign" class="float-right d-block d-md-none"><img src="~/images/new-discuss.png" /></a>
+                    </div>
+                    <div id="divSearchChannel" class="discussion-form search-form d-none">
+                        <div class="row no-gutters mb-0">
+                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                <input type="text" placeholder="Vessel/Subject/Participants" name="search" id="inputSearchChannel" class="form-control" autocomplete="off">
+                                <div class="buttonsearch">
+                                    <button type="button" id="btnCloseSearch" class="close opacity-1 float-none" aria-label="Close" style="">
+                                        @*<span aria-hidden="true">&times;</span>*@
+                                        <img src="~/images/searchcross.svg" width="10" />
+                                    </button>
+                                    <button type="submit" id="btnSeachChannel" class="btn p-0 m-0 border-0"><img src="~/images/searchmobile.svg" width="17" height="18" /></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="divChatContainerSection" class="discussion-list scroller">
+                    <div class="">
+                        <ul class="nav nav-pills" id="chatsection" role="tablist" aria-orientation="vertical">
+                            <li class="nav-item new-discussion-highlight d-none d-md-block" id="li_0">
+                                <div class="row mx-auto no-gutters">
+                                    <div class="col-md-12">
+                                        <h1 class="currentchat newdiscussion">New Discussion</h1>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        @*<ul class="d-none chat-paged-loader">
+
+                            </ul>*@
+                    </div>
+                </div>
+                <div class="discussion-list-name participant-list d-block d-md-block">
+                    <div class="row mx-auto no-gutters">
+                        <div class="col-2 col-md-4 col-lg-3 col-xl-2 my-auto">
+                            <div class="initialname green-name" id="currentUserShortName"></div>
+                        </div>
+                        <div class="col-10 col-md-8 col-lg-9 col-xl-10 my-auto">
+                            <div class="right-chat">
+                                <div class="chat-name" id="currentUserName"></div>
+                                <div class="type" id="currentUserPrimaryRoleName"></div>
+                            </div>
+                        </div>
+                        @*<div class="col-3 col-md-12 col-lg-12 col-xl-3">
+                                <span class="available">Available</span> <span class="online"></span>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 col-lg-9 col-xl-9 apply-loader new-discussion-layout">
+                <div class="new-discussion scroller">
+                    <div class="chat-header pb-3 discussion-header">
+                        <div class="clearfix">
+                            <h1 class="" id="DraftTitle">
+                                New Discussion
+                            </h1>
+                        </div>
+                    </div>
+                    <partial name="CreateDiscussionPartial" />
+                </div>
+
+            </div>
+            <div class="col-md-6 col-lg-6 col-xl-7 chat-layout">
+                <div class="tab-content d-none d-md-block" id="chatsectionContent">
+                    <div class="tab-pane active" id="one-tab" role="tabpanel">
+                        <div class="chat-header">
+                            <div class="clearfix">
+                                <h1 class="float-none float-md-left" id="messageTitle">
+                                    -
+                                </h1>
+                                <h3 class="d-block d-md-none"> Blue Whiskey</h3>
+                                <div class="float-right chatflag">
+                                    <img src="~/images/DashboardIcons/vessel-flag.png" id="notificationVesselFlag" />
+                                </div>
+                                <h2 class="d-none d-md-block float-right" id="messageVesselName">
+                                    -
+                                </h2>
+                                <img src="~/images/chat-mobile-info.jpg" class="d-block d-md-none chat-mobile-info" />
+                            </div>
+                        </div>
+
+                        <div class="chat-list scroller apply-loader" id="divChatMessages">
+
+                            <ul id="messageSection">
+                            </ul>
+
+                            <div class="fixedElement d-none" id="divNewMessageAlert"><span>New Message</span></div>
+                        </div>
+                        <div class="fixed-mesage-box">
+                            <button id="sendMessage" class="btn p-0">
+                                <img src="~/images/message-mobile-image.svg" width="19" />
+                            </button>
+                            <button id="btnAttachMessage" class="btn p-0">
+                                <div class="file-upload">
+                                    <label for="inputMessageAttachments">
+                                        <img src="~/images/attach-message-mobile.png" />
+                                    </label>
+                                    <input id="inputMessageAttachments" type="file" multiple>
+                                </div>
+                            </button>
+                            <textarea class="form-control scroller " rows="2" placeholder="New Message.." id="meessageText"></textarea>
+                            <div id="divMessageAttachemnts" class="message-attachments d-none apply-loader loader-height">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3 col-xl-2 chat-layout">
+                <div class="record-section d-none d-md-block">
+                    <div id="divRecordSection" class="record-scroller scroller additionalDetails recordLevelDetails d-none">
+
+
+                    </div>
+                    <div class="viewrecord additionalDetails recordLevelDetails d-none">
+                        <a id="aViewRecord" class="btn search-btn btn-teal text-white btn-shadow my-1">
+                            <i class="fa fa-external-link-square-alt"></i><span class="open-sans-font bold-text ml-2">View Record</span>
+                        </a>
+                    </div>
+                    @*</div>*@
+                <div class="position-relative participantdesktop">
+                    <h1>Participants (<span id="spanParticipantsCount">0</span>)</h1>
+                    <div class="participant-list participant-list-height participant-list-dynamic scroller p-0">
+                        <div class="apply-loader participant-list-height" id="divParticipantSection">
+                            <ul id="participantSection">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="addparticipant d-none">
+                        <a id="btnAddParticipant" href="javascript:void(0)" class="btn btn-teal text-white btn-shadow m-0">
+                            <span class="material-symbols-rounded personadd">
+                                person_add
+                            </span>
+                            <span class="open-sans-font bold-text">Add</span>
+                        </a>
+                    </div>
+                </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+@section ScriptSection
+														{
+    <script src="~/assets/scripts/notification.bundle.js"></script>
+}
+
+@section Modal{
+    <partial name="NotificationModel" />
+}
+

@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+@section Title
+{
+    @RenderSection("Title")
+}
+
+@section CSSSection
+{
+    @RenderSection("CSSSection", false)
+}
+
+@section ContentSection
+{
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar closed-sidebar-mobile closed-sidebar">
+        <partial name="header" />
+        <partial name="NotesView" />
+
+        <div class="app-main">
+
+            <partial name="sidebar" data="dashboards-analytics" />
+            @RenderSection("ContentSection")
+
+
+            <!--Floating Icon Back to Top-->
+            <div class="fabicondiv">
+                <a href="javascript:void(0);" class="addfixed" id="addlistcircle" data-toggle="tooltip" data-placement="top" title="">
+                    @*<span>+</span>*@
+                    <img src="~/images/plus.png" />
+                </a>
+            </div>
+            <div class="fabicondiv">
+                <div class="add-list">
+                    <a href="javascript:void(0);" id="closed" class="m-0"><i class="icon ion-android-add"></i></a>
+                    <div class="create">
+                        <h1><img src="~/images/fab-my-notes.svg" class="fabnotes" /> My Notes</h1>
+                        @*<a href="javascript:void(0);"> <img src="~/images/add-notify.png" /> Alert</a>*@
+                        <a id="aBaseGeneralNote" href="javascript:void(0);" class="btn-open-options"> <img src="~/images/fab-plus-icon.svg" /> New Note</a>
+                        <a id="aBaseRecordLevelNote" href="javascript:void(0);" class="btn-open-options d-none"> <img src="~/images/fab-plus-icon.svg" /> New Note about this item</a>
+                    </div>
+                    <div class="create mb-0 fabchatr">
+                        <h1><img src="~/images/fab-v-chat.svg" class="fabchat" /> V.Chat</h1>
+                        <a id="aBaseGeneralMessage" href="javascript:void(0);"> <img src="~/images/fab-plus-icon.svg" /> New Discussion</a>
+                        <a id="aBaseRecordLevelMessage" href="javascript:void(0);" class="d-none"> <img src="~/images/fab-plus-icon.svg" /> New Discussion about this item</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Reminder alert-->
+        <div class="reminderAlert">
+            <div class="remindersection remindersectionhead">
+                <div class="span-reminder mb-0">
+                    <span aria-hidden="true" class="close-reminder aReminderClose">×</span>
+                    <img src="~/images/reminder.png" />&nbsp;&nbsp;Reminder
+                </div>
+
+            </div>
+            <div class="notesReminderAlertContainer scroller">
+
+            </div>
+        </div>
+    </div>
+
+    @*<partial name="DetailedNotesView" />*@
+    <partial name="DetailedNotesView" />
+
+}
+
+
+@section ScriptSection
+{
+    @RenderSection("ScriptSection", false)
+}
+
+
+@section Modal
+{
+    <partial name="model" />
+    @RenderSection("Modal", false)
+}

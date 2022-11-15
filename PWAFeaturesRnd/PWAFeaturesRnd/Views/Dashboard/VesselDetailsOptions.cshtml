@@ -1,0 +1,1759 @@
+﻿@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+@section Title
+{
+    Vessel Details
+}
+
+@section ContentSection
+{
+    <div class="app-main__outer vessel-details options">
+        <div class="app-main__inner background-padding">
+            <div class="tabs-animation">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-8">
+                        <div id="cdVesselDetail" class="card margin-bottom-custom widget-chart">
+                            <div class="row">
+                                <div class="col-md-5 col-lg-4"> <img src="~/images/vessel-image.jpg" /></div>
+                                <div class="col-md-7 col-lg-8">
+                                    <div class="widget-chart p-0">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="main-card mb-0 card">
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item">
+                                                            <div class="widget-content p-0">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left">
+                                                                        <div class="widget-heading"><span class="top-heading">Trident Amethyst</span>,<br />9354571, FRA</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="widget-content p-0">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left">
+                                                                        <div class="row">
+                                                                            <div class="col-4 col-md-4">
+                                                                                <div class="widget-heading opacity-1">Type</div>
+                                                                                <div class="widget-subheading">Tanker-Crude</div>
+                                                                            </div>
+                                                                            <div class="col-4 col-md-4">
+                                                                                <div class="widget-heading opacity-1">Built Date</div>
+                                                                                <div class="widget-subheading mb-0">16 Jun 2008</div>
+                                                                            </div>
+                                                                            <div class="col-4 col-md-4">
+                                                                                <div class="widget-heading opacity-1">Age</div>
+                                                                                <div class="widget-subheading mb-0">12 Years</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="widget-content p-0">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left">
+                                                                        <div class="row">
+                                                                            <div class="col-4 col-md-4">
+                                                                                <div class="widget-heading opacity-1">Master</div>
+                                                                                <div class="widget-subheading">A.Prosin</div>
+                                                                            </div>
+                                                                            <div class="col-8 col-md-8">
+                                                                                <div class="widget-heading opacity-1">Chief Engineer</div>
+                                                                                <div class="widget-subheading mb-0">S.Majorkovs</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-xl-4">
+                        <div id="cdRecentActivity" class="card widget-chart margin-bottom-custom">
+                            <h6 class="text-uppercase font-size-md mb-2" style="text-align: left; font-size: 16px; opacity: .8; font-weight: 500;">
+                                RECENT ACTIVITY
+                            </h6>
+                            <div class="scroll-area-xs" style="height:293px;">
+                                <div class="scrollbar-container ps text-left">
+                                    <div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--animate vertical-timeline--one-column mt-3">
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element-icon bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h4 class="timeline-title">Vessel Arriving at Rotterdam <div class="badge badge-danger ml-2">NEW</div></h4>
+                                                    <p>
+                                                        Expected arrival time:
+                                                        <span class="text-success">11.30 AM GMT</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element-icon bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h4 class="timeline-title">
+                                                        Incident occurred
+
+                                                    </h4>
+                                                    <p>
+                                                        Oil leakage
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element-icon bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h4 class="timeline-title">
+                                                        Accidents occurred
+
+                                                    </h4>
+                                                    <p>
+                                                        Crew member suffered injury
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element-icon bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h4 class="timeline-title">
+                                                        Document uploaded
+                                                        @*<div class="badge badge-danger ml-2">NEW</div>*@
+                                                    </h4>
+                                                    <p>
+                                                        Compliance document has been updated
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element-icon bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h4 class="timeline-title">
+                                                        Vessel Arriving to Antwerp
+                                                        @*<div class="badge badge-danger ml-2">NEW</div>*@
+                                                    </h4>
+                                                    <p>
+                                                        Expected departure time:
+                                                        <span class="text-success">12.30 AM GMT</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element-icon bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h4 class="timeline-title">
+                                                        Accidents occurred
+
+                                                    </h4>
+                                                    <p>
+                                                        Crew member suffered injury
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="card margin-bottom-custom card card-hover-shadow-2x">
+                        <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                            <div class="w-100">
+                                <span> CURRENT VOYAGE DETAILS</span>
+                                <a href="javascript:void(0)" class="float-right text-white ml-3 f-16 close-new"> <i class="fa fa-times"></i></a>
+                                <a href="/Vessel/VesselPositionList" class="float-right text-white active-link ml-3"> <i class="fa fa-external-link-alt"></i></a>
+                                <div class="common-toggle-section float-right">
+                                    <div class="toggle">
+                                        <input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="light">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur">
+                            <div class="sea-passage-graph-box">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="vessel-details vessel-graph-box">
+                                            <div class="widget-chart">
+                                                <div class="main-card mb-0 card">
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item">
+                                                            <div class="widget-content p-0">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left">
+                                                                        <div class="row">
+                                                                            <div class="col-12 col-md-4 col-lg-2">
+                                                                                <div class="widget-heading opacity-1">Charterer's Name</div>
+                                                                                <div class="widget-subheading opacity-1">Mjolner Shipping LLC</div>
+                                                                            </div>
+                                                                            <div class="col-12 col-md-4 col-lg-2">
+                                                                                <div class="widget-heading opacity-1">Charter No.</div>
+                                                                                <div class="widget-subheading opacity-1">5206/hateh2/VC/04/3</div>
+                                                                            </div>
+                                                                            <div class="col-12 col-md-4 col-lg-2">
+                                                                                <div class="widget-heading opacity-1">Voyage Number</div>
+                                                                                <div class="widget-subheading opacity-1"><a href="/Vessel/SeaPassage">129</a></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item">
+                                                            <div class="widget-content p-0">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left">
+                                                                        <div class="clearfix">
+                                                                            <div class="from-section float-left">
+                                                                                <div class="widget-heading"><i class="pe-7s-map-marker" aria-hidden="true" title="" style="font-weight: bold;"></i> From</div>
+
+                                                                                <span class="widget-subheading opacity-1">FAOP CHL - SAN VICENTRE <a href='javascript: void(0);' data-target='#portdetails' data-toggle='modal' class='icon-hover-underline-none'> <i class='fa fa-anchor icon-red ml-1'></i><sup class='icon-red'>&#9733;</sup></a></span>
+                                                                                <span class="time widget-numbers fsize-1 mb-0">23 APR 2020 08:00</span>
+                                                                            </div>
+
+                                                                            <div class="to-section float-right">
+                                                                                <div class="widget-heading"><i class="pe-7s-map-marker" aria-hidden="true" title="" style="font-weight: bold;"></i> To</div>
+
+                                                                                <span class="widget-subheading opacity-1">ETA ECU - ESMERALDAS</span>
+                                                                                <span class="time widget-numbers fsize-1 mb-0">05 MAY 2020 19:58</span>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 col-lg-12 graph-indicator mt-3">
+                                                                                <div class="row">
+                                                                                    <div class="col-12 col-md-12 col-lg-12 speed-indicator mt-1">
+                                                                                        <div class="progress-bar-animated-alt progress">
+                                                                                            <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                                                                                                <span class="widget-numbers fsize-1 mt-0 mb-0 total-covered">Total Distance Covered - 566.00NM</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <a class="text-black" href="javascript:void(0);" data-target="#badweather" data-toggle="modal">
+                                                                                            <div class="progress-bar bg-default bg-purple-speed" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" style="left: 10%;"></div>
+                                                                                        </a>
+                                                                                        <a class="text-black" href="javascript:void(0);" data-target="#offhiredetails" data-toggle="modal">
+                                                                                            <div class="progress-bar bg-default bg-stop" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" style="left: 40%;"></div>
+                                                                                        </a>
+                                                                                        <div class="progress-bar bg-default" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" style="left: 50%;" data-toggle="tooltip" data-placement="bottom" title="<b>AT SEA</b><br>27&deg;,41.00' S 76&deg;,28.00' W<br>1,802.00 nm remaining" data-html="true"></div>
+                                                                                    </div>
+                                                                                    <div class="col-12 col-md-12 col-lg-12 text-right total-distance">
+                                                                                        <span class="widget-numbers fsize-1 mt-2 mb-2">Total Distance - 1,802.00 NM</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-12">
+                    <div class="margin-bottom-custom card card-hover-shadow-2x height-equal" id="cdCharteresOrder">
+                        <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                            <div class="w-100">
+                                <span> CHARTERER'S ORDER </span>
+                              
+                                <a href="/Vessel/VesselPositionList" class="float-right text-white active-link ml-3"> <i class="fa fa-external-link-alt"></i></a>
+                                <div class="common-toggle-section float-right">
+                                    <div class="toggle">
+                                        <input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="light">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur pb-0">
+                            <div class="widget-content-left">
+                                <div class="row mt-2">
+                                    <div class="col-12 col-md-6">
+                                        <div class="widget-numbers fsize-3 mt-0 mb-2 w-100">
+                                            <div class="widget-chart-flex align-items-center charter-chart" id="divSpeedRadialChart">
+                                                <div id="speedRadialChart">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="widget-numbers fsize-3 mt-0 mb-2 w-100">
+                                            <div class="widget-chart-flex align-items-stretch">
+                                                <canvas id="barChartLSFO" class="charter-fuel-chart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-12" id="cdCertificate">
+                    <div class="margin-bottom-custom card card-hover-shadow-2x height-equal">
+                        <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                            <div class="w-100">
+                                <span> CERTIFICATES </span>
+                              
+                                <a href="/Certificate/List" class="float-right text-white active-link  ml-3"> <i class="fa fa-external-link-alt"></i></a>
+                                <div class="common-toggle-section">
+                                    <div class="toggle">
+                                        <input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="light">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur">
+                            <div class="widget-content-left">
+                                <div class="row">
+                                    <div class="col-6 col-md-6 col-lg-6">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span>OVERDUE</span>
+                                                <div class="widget-progress-wrapper my-3">
+                                                    <div class="progress-bar-animated-alt progress">
+                                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="widget-numbers fsize-3 my-0">
+                                                    <a href="/Certificate/List" class="text-danger">1</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-6 col-lg-6">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span>EXPIRING IN 30 DAYS</span>
+                                                <div class="widget-progress-wrapper mt-3 mb-3">
+                                                    <div class="progress-bar-animated-alt progress">
+                                                        <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="widget-numbers mt-2 fsize-3 mb-0 w-100">
+                                                    <a href="/Certificate/List" class="text-purple"> 12 </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-6 col-lg-6">
+                                        <div class="mb-0 w-100 mt-3">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span class="d-block d-sm-none mt-3"></span>
+                                                <span>WITHIN SURVEY <br /> RANGE</span>
+                                                <div class="widget-progress-wrapper mt-3 mb-3">
+                                                    <div class="progress-bar-animated-alt progress">
+                                                        <div class="progress-bar bg-amber" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="widget-numbers mt-2 fsize-3 mb-0 w-100">
+                                                    <a href="/Certificate/List" class="text-amber"> 7 </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-6 col-lg-6">
+                                        <div class="mb-0 w-100 mt-3">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span class="d-block d-sm-none mt-3"></span>
+                                                <span><br class="d-sm-block d-xl-none" /><br class="d-none d-lg-block" />TOTAL ACTIVE</span>
+                                                <div class="widget-progress-wrapper mt-3 mb-3">
+                                                    <div class="progress-bar-animated-alt progress">
+                                                        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="widget-numbers mt-2 fsize-3 mb-0 w-100">
+                                                    <a href="/Certificate/List" class="text-primary"> 60 </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-12">
+                    <div class="margin-bottom-custom card card-hover-shadow-2x height-equal">
+                        <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                            <div class="w-100">
+                                <span> OPEN ORDERS </span>
+                              
+                                <a href="/PurchaseOrder/List" class="float-right text-white active-link ml-3"> <i class="fa fa-external-link-alt"></i></a>
+                                <div class="common-toggle-section">
+                                    <div class="toggle">
+                                        <input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="light">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur">
+                            <div class="widget-content-left">
+                                <div class="row">
+                                    <div class="col-6 col-md-3 col-lg-4">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span>IN PROCESS</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-black" href="/PurchaseOrder/List">29</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-4">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span>ORD</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-black" href="/PurchaseOrder/List">6 </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-4">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span class="d-block d-sm-none mt-3"></span>
+                                                <span>DISPATCHED</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-black" href="/PurchaseOrder/List">35</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-4">
+                                        <div class="mb-0 w-100 mt-3">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span class="d-block d-sm-none mt-3"></span>
+                                                <span>AUTH. Enq.</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-black" href="/PurchaseOrder/List">35 </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3 col-lg-8">
+                                        <div class="mb-0 w-100 mt-3">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span class="d-block d-sm-none mt-3"></span>
+                                                <span>RECEIVED (30 DAYS)</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-black" href="/PurchaseOrder/List">15 </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="margin-bottom-custom card height-equal card-hover-shadow-2x" id="divCommercial">
+                        <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                            <div class="w-100">
+                                <span> COMMERCIAL </span>
+                              
+                                <div class="common-toggle-section">
+                                    <div class="toggle">
+                                        <input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="light">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur">
+                            <div class="row  widget-content-left">
+                                <div class="col-6 col-md-6 col-lg-3">
+                                    <div class="mb-0 w-100">
+                                        <div class="widget-chart-flex align-items-center">
+                                            <span>Off HIRE HRS</span>
+                                            <div class="widget-numbers fsize-3 w-100">
+                                                <a class="text-black offHireHrsClicked" href="javascript:void(0);" data-target="#offHireHrsModal" data-toggle="modal"> 15:30</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-6">
+                                    <div class="mb-0 w-100">
+                                        <div class="widget-chart-flex align-items-center">
+                                            <span>RIGHTSHIP</span>
+                                            <div class="widget-numbers fsize-3 w-100">
+                                                <span class="text-black"> 4 </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="margin-bottom-custom card height-equal card-hover-shadow-2x">
+                        <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                            <div class="w-100">
+                                <span> CREW </span>
+                              
+                                <a href="/CrewList/Index" class="float-right text-white active-link ml-3"> <i class="fa fa-external-link-alt"></i></a>
+                                <div class="common-toggle-section">
+                                    <div class="toggle">
+                                        <input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="light">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur">
+                            <div class="widget-content-left">
+                                <div class="row mt-2">
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span>ONBOARD</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-black" href="/CrewList/Index">3 </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span>OVERDUE</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-danger" href="/CrewList/Index">5</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span class="d-block d-sm-none mt-3"></span>
+                                                <span>UNPLANNED BERTH</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-black" href="/CrewList/Index">0</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="mb-0 w-100 mt-3">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span class="d-block d-sm-none mt-3"></span>
+                                                <span>TOP 4 SIGN ON</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-black" href="/CrewList/Index">0</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="mb-0 w-100 mt-3">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span class="d-block d-sm-none mt-3"></span>
+                                                <span>OFFICER PROM/NEW HIRE</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-black" href="/CrewList/Index">2</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="mb-0 w-100 mt-3">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span class="d-block d-sm-none mt-3"></span>
+                                                <span><br class="d-block d-sm-none" />MEDICAL SIGN OFF</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-black" href="/CrewList/Index">0</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="margin-bottom-custom card height-equal card-hover-shadow-2x">
+                        <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                            <div class="w-100">
+                                <span> Opex (USD) </span>
+                              
+                                <a href="/Finance/GridView" class="float-right text-white active-link ml-3"> <i class="fa fa-external-link-alt"></i></a>
+                                <div class="common-toggle-section">
+                                    <div class="toggle">
+                                        <input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="light">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur">
+                            <div class="widget-content-left">
+                                <div class="row">
+                                    <div class="col-12 col-md-12 col-lg-12">
+                                        <div class="widget-numbers mt-2 fsize-3 mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center" style="height:75px">
+                                                <canvas name="barChartOpex"></canvas>
+                                            </div>
+                                            <div class="widget-content p-0">
+                                                <div class="widget-content-left ml-2">
+                                                    <div class="row">
+                                                        <div class="col-4 col-md-4 col-lg-4">
+                                                            <div class="widget-numbers fsize-1 w-100">
+                                                                <div class="widget-chart-flex align-items-center">
+                                                                    <span class="title mb-0 text-uppercase">Budget</span>
+                                                                    <div class="text-black">
+                                                                        1,332K
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 col-md-4 col-lg-4">
+                                                            <div class="widget-numbers fsize-1 w-100">
+                                                                <div class="widget-chart-flex align-items-center">
+                                                                    <span class="title mb-0 text-uppercase">Total</span>
+                                                                    <div class="text-black">
+                                                                        <span data-toggle="tooltip" data-html="true" data-placement="bottom" title="Actuals = 905K <br/> Accrual = 39K">945K</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 col-md-4 col-lg-4">
+                                                            <div class="widget-numbers fsize-1 w-100">
+                                                                <div class="widget-chart-flex align-items-center">
+                                                                    <span class="title mb-0 text-uppercase">Variance</span>
+                                                                    <div class="text-success">
+                                                                        386K
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <div class="margin-bottom-custom card height-equal card-hover-shadow-2x">
+                        <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                            <div class="w-100">
+                                <span> DEFECT MANAGER </span>
+                              
+                                <a href="/Dashboard/ViewDefectsList" class="float-right text-white active-link ml-3"> <i class="fa fa-external-link-alt"></i></a>
+                                <div class="common-toggle-section">
+                                    <div class="toggle">
+                                        <input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="light">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur">
+                            <div class="widget-content-left">
+                                <div class="widget-heading text-uppercase"></div>
+                                <div class="row defect-row">
+                                    <div class="col-12 col-md-4 col-lg-4 right-border">
+                                        <div class="widget-title opacity-5 text-uppercase subtitle">Due / Overdue</div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-4 col-lg-6">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>DUE (JUL)</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-amber" href="/Dashboard/ViewDefectsList">0 </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-4 col-lg-6">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>OD</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-danger" href="/Dashboard/ViewDefectsList">4 </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 col-lg-5 right-border">
+                                        <div class="widget-title opacity-5 subtitle text-uppercase">Tech. Defects In Last 30 Days</div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-4 col-lg-6">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>OPEN</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-danger" href="/Dashboard/ViewDefectsList">5</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-4 col-lg-6">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>CLOSED</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/Dashboard/ViewDefectsList">0</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 col-lg-3">
+                                        <div class="widget-title opacity-5 subtitle text-uppercase">Off Hire Required</div>
+                                        <div class="row">
+                                            <div class="col-6 col-md-4 col-lg-12">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>TOTAL</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-danger" href="/Dashboard/ViewDefectsList">2</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row mt-md-4 mt-lg-4 defect-row">
+                                    <div class="col-md-6 col-lg-8">
+                                        <div class="widget-title opacity-5 subtitle text-uppercase">Defects With Open Orders</div>
+                                        <div class="row">
+                                            <div class="col-6 col-md-4 col-lg-12">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>TOTAL</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-danger" href="/Dashboard/ViewDefectsList">2</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <div class="margin-bottom-custom card height-equal card-hover-shadow-2x">
+                        <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                            <div class="w-100">
+                                <span> PMS </span>
+                              
+                                <a href="/Dashboard/ViewPPMList" class="float-right text-white active-link ml-3"> <i class="fa fa-external-link-alt"></i></a>
+                                <div class="common-toggle-section">
+                                    <div class="toggle">
+                                        <input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="light">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur">
+                            <div class="widget-content-left">
+                                <div class="row mt-2">
+                                    <div class="col-4 col-md-4 col-lg-4">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span><br class="d-block d-sm-none" />CURRENT</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-black" href="#">1 </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-4 col-lg-4">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span><br class="d-block d-sm-none" />OVD (JUN)</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-danger" href="#">9 </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-4 col-lg-4 px-1">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span>OVD <br class="d-block d-sm-none" />(PRIOR)</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-danger" href="#">4 </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row mt-md-4 mt-lg-4 defect-row">
+                                    <div class="col-4 col-md-4 col-lg-4">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span class="d-block d-sm-none mt-3"></span>
+                                                <span>TOTAL OVD</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-danger" href="#">4 </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <span class="d-block d-sm-none mt-3"></span>
+                                                <span>CRITICAL OVD</span>
+                                                <div class="widget-numbers fsize-3 w-100">
+                                                    <a class="text-danger" href="#">4 </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <div class="margin-bottom-custom card height-equal card-hover-shadow-2x">
+                        <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                            <div class="w-100">
+                                <span> INSPECTION </span>
+                              
+                                <a href="/Inspection/List/?Inspection=@ViewBag.InspectionURL&VesselId=@ViewBag.VesselId" class="float-right text-white active-link ml-3"> <i class="fa fa-external-link-alt"></i></a>
+                                <div class="common-toggle-section">
+                                    <div class="toggle">
+                                        <input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="light">
+                                    </div>
+                                </div>
+                                <button class="btn float-right text-white px-0 py-0 mr-4 common-date-white" id="reportrange">
+                                    <i class="fa fa-calendar pr-1"></i>
+                                    <span></span>
+                                    <i class="fa pl-1 fa-caret-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur">
+                            <div class="widget-content-left">
+                                <div class="widget-heading text-uppercase"></div>
+                                <div class="row defect-row">
+                                    <div class="col-md-6 col-xl-6 right-border">
+                                        <div class="widget-title opacity-5 text-uppercase subtitle">OMV</div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-4 col-lg-4 pr-0">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span><br class="d-none d-lg-block">INSPECTIONS</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-amber" href="#">0 </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-4 col-lg-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span><br class="d-none d-lg-block">DEF RATE</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="#">0.00</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-4 col-lg-5 pr-0">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span><br class="d-none d-lg-block">AVG. INSP. RISK</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-danger" href="#">0</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="widget-title opacity-5 text-uppercase subtitle">CURRENT INSP. &amp; AUDITS </div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-4 col-lg-5">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span><br class="d-none d-lg-block">DUE</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-amber" href="/Inspection/List/?Inspection=@ViewBag.InspectionURL&VesselId=@ViewBag.VesselId">1 </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 col-md-4 col-lg-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span><br class="d-none d-lg-block">OD</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-danger" href="/Inspection/List/?Inspection=@ViewBag.InspectionURL&VesselId=@ViewBag.VesselId">4 </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-md-4 mt-lg-4 defect-row">
+                                    <div class="col-md-6 col-xl-6 right-border">
+                                        <div class="widget-title opacity-5 subtitle text-uppercase">O/S INSPECTIONS</div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-4 col-lg-4">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>WITH FIND. O/S</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-amber" href="/Inspection/List/?Inspection=@ViewBag.InspectionURL&VesselId=@ViewBag.VesselId">3</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-4 col-lg-4">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>WITH FIND. O/D</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-danger" href="/Inspection/List/?Inspection=@ViewBag.InspectionURL&VesselId=@ViewBag.VesselId">3</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-4 col-lg-4">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>PENDING CLOSURE</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-danger" href="/Inspection/List/?Inspection=@ViewBag.InspectionURL&VesselId=@ViewBag.VesselId">6</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="widget-title opacity-5 subtitle text-uppercase">O/S AUDITS</div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-4 col-lg-4">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>WITH FIND. O/S</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-amber" href="/Inspection/List/?Inspection=@ViewBag.InspectionURL&VesselId=@ViewBag.VesselId">1</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-4 col-lg-4">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>WITH FIND. O/D</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-danger" href="/Inspection/List/?Inspection=@ViewBag.InspectionURL&VesselId=@ViewBag.VesselId">1</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-4 col-lg-4">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>PENDING CLOSURE</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-danger" href="/Inspection/List/?Inspection=@ViewBag.InspectionURL&VesselId=@ViewBag.VesselId">1</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-md-4 mt-lg-4 defect-row">
+                                    <div class="col-md-6 col-xl-6 right-border">
+                                        <div class="widget-title opacity-5 subtitle text-uppercase">O/S FINDINGS</div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-6">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>OUTSTANDING</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <span class="text-amber">4</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-6">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>OVERDUE</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <span class="text-danger">4</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-6">
+                                        <div class="widget-title opacity-5 text-uppercase subtitle">
+                                            PORT STATE CONTROL
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-4 col-lg-5">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>DET</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-danger" href="/Inspection/List/?Inspection=@ViewBag.InspectionURL&VesselId=@ViewBag.VesselId">1 </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 col-md-4 col-lg-7">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>DEF RATE</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            1.00
+                                                            @*<a class="text-black" href="/Inspection/List">0</a>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <div class="margin-bottom-custom card height-equal card-hover-shadow-2x">
+                        <div class="card-header text-uppercase bg-secondary text-white height-30px">
+                            <div class="w-100">
+                                <span>HAZOCC</span>
+                              
+                                <a href="/HazOcc/List" class="float-right text-white active-link  ml-3"> <i class="fa fa-external-link-alt"></i></a>
+                                <div class="common-toggle-section">
+                                    <div class="toggle">
+                                        <input type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="light">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur">
+                            <div class="widget-content-left">
+                                <div class="row">
+                                    <div class="col-12 col-md-5 col-lg-4 border-sm">
+                                        <div class="widget-title opacity-5 text-uppercase subtitle">OPEN ITEMS</div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-4 col-lg-6">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+
+                                                        <span><br class="d-none d-lg-block">ITEMS</span>
+                                                        <span class="d-none d-lg-block mt-lg-1"></span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">6 </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-4 col-lg-6">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+
+                                                        <span><br class="d-none d-lg-block">OFFICE REV</span>
+                                                        <span class="d-none d-lg-block mt-lg-1"></span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">4 </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-7 col-lg-8 border-sm-last">
+                                        <div class="widget-title opacity-5 subtitle text-uppercase">INCIDENTS</div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-3 col-lg-4 col-xl-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>VERY SERIOUS</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">1</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span><br class="d-none d-lg-block">SERIOUS</span>
+                                                        <span class="d-none d-lg-block mt-lg-1"></span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">1</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-3 col-lg-4 col-xl-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span><br class="d-sm-block d-lg-block">MODERATE</span>
+                                                        <span class="d-none d-lg-block mt-lg-1"></span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">1</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span><br class="d-sm-block d-lg-block">MINOR</span>
+                                                        <span class="d-none d-lg-block mt-lg-1"></span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">4</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    
+
+                                </div>
+                                <div class="row mt-md-4 mt-lg-4 defect-row">
+                                    <div class="col-md-12 col-lg-12 border-sm-last">
+                                        <div class="widget-title opacity-5 subtitle text-uppercase">CREW ACCIDENTS</div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-2 col-lg-3 col-xl-2">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>FATAL</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">4</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-2 col-lg-3 col-xl-2">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>LWC</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">2</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-2 col-lg-3 col-xl-2">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>RWC</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">2</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-2 col-lg-3 col-xl-2">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span class="d-block d-sm-none mt-3"></span>
+                                                        <span>MTC</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">3</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-2 col-lg-3 col-xl-2">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span class="d-block d-sm-none mt-3"></span>
+                                                        <span>FAC</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">3</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-md-4 mt-lg-4 defect-row">
+                                    <div class="col-md-12 col-lg-4 border-sm">
+                                        <div class="widget-title opacity-5 subtitle text-uppercase">STATISTICS</div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-4 col-lg-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>LTI</span>
+                                                        <span class="d-none d-lg-block mt-lg-one3"></span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">4</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-4 col-lg-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>TRC</span>
+                                                        <span class="d-none d-lg-block mt-lg-one3"></span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">5</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-4 col-lg-6">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>MEXPHS</span>
+                                                        <span class="d-none d-lg-block mt-lg-one3"></span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="javascript:void(0);" data-target="#mExpHrsModal" data-toggle="modal">0</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-8 border-sm-last">
+                                        <div class="widget-title opacity-5 subtitle text-uppercase"> Near Miss & Safety Observation </div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-3 col-lg-4 col-xl-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>SAFE ACTS</span>
+                                                        <span class="d-none d-lg-block mt-lg-one3"></span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">3</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>NEAR MISS</span>
+                                                        <span class="d-none d-lg-block mt-lg-one3"></span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">4</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-3 col-lg-4 col-xl-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span class="d-block d-sm-none mt-3"></span>
+                                                        <span>UNSAFE ACTS</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">6</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span class="d-block d-sm-none mt-3"></span>
+                                                        <span>UNSAFE COND</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">5</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                                <div class="row mt-md-4 mt-lg-4 defect-row">
+                                    <div class="col-md-12 col-lg-4">
+                                        <div class="widget-title opacity-5 subtitle text-uppercase">PASSENGER ACCIDENTS</div>
+                                        <div class="row">
+                                            <div class="col-4 col-md-2 col-lg-4">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span>FATAL</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">2</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-2 col-lg-4">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        @*<span class="d-block d-sm-none mt-3"></span>*@
+                                                        <span>MTC</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">2</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-2 col-lg-4">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        @*<span class="d-block d-sm-none mt-3"></span>*@
+                                                        <span>FAC</span>
+                                                        <div class="widget-numbers fsize-3 w-100">
+                                                            <a class="text-black" href="/HazOcc/List">3</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/vesselDetail.bundle.js"></script>
+}
+
+@section Modal
+{
+    <div class="modal fade" id="offHireHrsModal" tabindex="-1" role="dialog" aria-labelledby="offHireHrs" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="clearfix w-100">
+                        <h5 class="modal-title float-left">Off Hire Hrs</h5>
+                        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <button class="btn btn-primary pull-right mr-3 off-hire-date" id="dtroffhire">
+                            <i class="fa fa-calendar pr-1"></i>
+                            <span></span>
+                            <i class="fa pl-1 fa-caret-down"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtOffHireHrsList" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th width="180px">Reason</th>
+                                    <th width="70px">Delay</th>
+                                    <th width="90px">Off - Hire</th>
+                                    <th width="140px">From</th>
+                                    <th width="140px">To</th>
+                                    <th width="180px">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="tdblock"><label>Reason</label><br />Commercial Reason</td>
+                                    <td><label>Delay</label><br />02:45</td>
+                                    <td><label>Off - Hire</label><br />Yes</td>
+                                    <td><label>From</label><br />27 Apr 2020 12:00</td>
+                                    <td><label>To</label><br />27 Apr 2020 14:45</td>
+                                    <td class="tdblock"><label>Description</label><br /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mExpHrsModal" tabindex="-1" role="dialog" aria-labelledby="mExpHrs" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Exposure Hours Calculation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body background-padding">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Management Start
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="input-group input-group-sm m-0">
+                                        <div class="input-group-prepend datepicker-trigger-managementStart">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar-alt"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm" data-toggle="datepicker-icon-managementStart" />
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Management End
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="input-group input-group-sm m-0">
+                                        <div class="input-group-prepend datepicker-trigger-managementEnd">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar-alt"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm" data-toggle="datepicker-icon-managementEnd" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button type="button" class="btn btn-primary float-right" data-dismiss="modal">Calculate</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-2">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Calculation Start From
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    24 Sep 2019
+                                </div>
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Calculation End
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    23 Sep 2020
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Days used in Calc
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    366
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Average Crew Number
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="row">
+                                        <div class="col-4 col-md-4">
+                                            22
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                            <i class="fa fa-info-circle ml-2" title="No of crew getting from vessel detail-Average Crew compliment and if Avg Crew compliment is blank, use LSA capacity value. If LSA capacity is blank, use default value 20 for calculation. " data-toggle="tooltip" data-placement="bottom"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Average PAX Number
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="row">
+                                        <div class="col-4 col-md-4">
+                                            0
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                            <i class="fa fa-info-circle ml-2" title="Avg passenger coming from voyage reporting (From 24 Sep 2019 to 23 Sep 2020) " data-toggle="tooltip" data-placement="bottom"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Exposure Hours
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <input name="radio-ExposureHours" type="radio" value="1,000,000" checked />
+                                    1,000,000
+                                </div>
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Time Period
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <input name="radio-TimePeriod" type="radio" value="24" checked />
+                                    24
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <input name="radio-ExposureHours" type="radio" value="200,000" />
+                                    200,000
+                                </div>
+                                <div class="col-6 col-md-3 font-weight-bold">
+
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <input name="radio-TimePeriod" type="radio" value="12" />
+                                    12 hours
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Crew Exp Hours
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="row">
+                                        <div class="col-4 col-md-4">
+                                            0.1932
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                            <i class="fa fa-info-circle ml-2" title="Avg Crew X Days used in calc X 24 hours /1.000,000 " data-toggle="tooltip" data-placement="bottom"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Passenger Exp Hours
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="row">
+                                        <div class="col-4 col-md-4">
+                                            0.0000
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                            <i class="fa fa-info-circle ml-2" title="Avg PAX X Days used in calc X 24 hours /1.000,000 " data-toggle="tooltip" data-placement="bottom"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="badweather" tabindex="-1" role="dialog" aria-labelledby="badweather" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bad Weather Details For Dated 23 Apr 2020</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtbadweatherlist" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Charter</th>
+                                    <th>Max</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="offhiredetails" tabindex="-1" role="dialog" aria-labelledby="badweather" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Off - Hire Details</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtOffHireList" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th>Reason</th>
+                                    <th>Delay</th>
+                                    <th>Off - Hire</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="portdetails" tabindex="-1" role="dialog" aria-labelledby="portdetails"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agentdetails">Port Services</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body port-service">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card-title mb-1">San Vicente, CHL</div>
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-lg-2 pr-0"><b>Country :</b> <div class="flag CL small inline-block"></div> Chile</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0 pl-mobile-0"><b>UN/Loc Code :</b> CLSVE</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0"><b>Latitude :</b> 36&deg;,42.00'S</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0 pl-mobile-0"><b>Longitude : </b> 73&deg;,8.00'W</div>
+                                <div class="col-6 col-md-6 col-lg-2pr-mobile-0 pr-mobile-0"><b>Key Hub :</b> No</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-card pt-3">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="card-title mb-1">ALERT (1)</div>
+                                <div class="card-body py-0 px-0 pb-2 port-service-alert-popup">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" role="tab" id="headingOne">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                MAR 11 Port Alert
+                                                            </a>
+                                                            <i class="fa fa-exclamation-circle text-danger float-right mr-3"></i><i class="fa fa-anchor float-right mr-2"></i>
+                                                        </h4>
+
+                                                    </div>
+                                                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                        <div class="panel-body">
+                                                            <div class="card-title mb-2">DETAILS</div>
+                                                            <div class="mb-2"><b>Title </b> MAR 11 Port Alert</div>
+                                                            <div class="mb-2"><b>Description </b></div>
+                                                            <div class="scroller">
+                                                                <div class="">
+                                                                    <p class="mb-1">
+                                                                        We note your vesel is currently heading towards Chile.
+                                                                    </p>
+                                                                    <p class="mb-0">
+                                                                        The attached MAR11 from covers potential deficiencies that frequently been raised during port state control inscpectiob and in some cases
+                                                                        let to detention. We update this form regularly basis our latest operational trends. it is critical that you and your team to go through there items very carefully before
+                                                                        arrival and send completed checklist to Vessel Control Group.If defective items are found then please copy to your DPA.The sooner a problem is known, the easier it is to resolve.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <hr />
+                                                            <div class="mb-2"><b>Attachments & Links (0)</b></div>
+                                                            <div class="row">
+                                                                <div class="col-12 col-md-12 col-lg-8">
+                                                                    <table style="width: 100%;" id="dtportservicelist" class="table table-hover table-bordered cardview row-sm mb-0">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Created Date</th>
+                                                                                <th>Title</th>
+                                                                                <th>Description</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

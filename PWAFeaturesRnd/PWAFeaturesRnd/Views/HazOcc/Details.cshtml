@@ -1,0 +1,674 @@
+﻿@model HazOccDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+
+
+@section Title
+{
+    HazOcc Details
+}
+
+
+@section ContentSection
+{
+    @Html.HiddenFor(m => m.EncryptedIdentifier)
+    @Html.HiddenFor(m => m.EncryptedVesselId)
+    @Html.HiddenFor(m => m.VesselType)
+    @Html.HiddenFor(m => m.CategoryId)
+
+    @Html.HiddenFor(m => m.IsAccident)
+    @Html.HiddenFor(m => m.IsIncident)
+    @Html.HiddenFor(m => m.IsObservation)
+    @Html.HiddenFor(m => m.IsNearMiss)
+    @Html.HiddenFor(m => m.IsIllness)
+
+    @Html.HiddenFor(m => m.IsPassengerIllness)
+    @Html.HiddenFor(m => m.IsCrewIllness)
+    @Html.HiddenFor(m => m.IsThirdPartyIllness)
+
+    @Html.HiddenFor(m => m.StatusKPI)
+    @Html.HiddenFor(m => m.MessageDetailsJSON)
+    @Html.HiddenFor(m => m.ActiveMobileTabClass)
+    @Html.HiddenFor(m => m.IsFromViewRecord)
+
+    <input type="hidden" id="hdnParentReportId" />
+
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding new-background common-border-radius mobile-tab-bottom-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+
+                    <div class="margin-left-35 width-70">
+                        <div class="common-sub-heading-black headershowmorewrapper">
+                            <span class="header">
+                                @if (Model.IsFromViewRecord == true)
+                                {
+                                    <span class="common-small-heading">
+                                        @Model.VesselName
+                                    </span>
+                                }
+                                else
+                                {
+                                    <a class="common-heading-green"
+                                       href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.EncryptedVesselId)">@Model.VesselName</a>
+                                }
+                            </span>
+
+                            <div class="common-small-heading">
+                                <span id="spanJobName" class="common-sub-heading-black"> @Model.ShipReferenceNumber - @Model.Type</span>
+
+                                <span class="d-none d-md-inline-block">|</span>
+                                <span class="common-small-heading"><div>@Model.Category - <span id="">@Model.Class</span></div></span>
+
+                                <span class="d-none d-md-inline-block">|</span>
+                                <span class="common-small-heading"><div>Status:  <span id="spanHeadStatus" class="">@Model.Status </span></div></span>
+
+                                @if (Model.IsAwaitingCompletionLabelVisible)
+                                {
+                                    <span class="d-none d-md-inline-block">|</span>
+                                    <span class="common-small-heading"><div><span id="" class="common-sub-heading-red">Awaiting Completion Comments</span></div></span>
+                                }
+                                @if (Model.ShowReopenComment)
+                                {
+                                    <span class="d-none d-md-inline-block">|</span>
+                                    <span class="common-small-heading">
+                                        <div>
+                                            <span id="" class="common-sub-heading-red"> Reopened by office</span>
+                                            <a href="javascript:void(0)" data-toggle="modal" id="" data-target="#ModelReopenComment">
+                                                <img src="~/images/resceduled-history.png" />
+                                            </a>
+                                        </div>
+                                    </span>
+                                }
+                                @if (Model.IsSubmissionCommentVisible)
+                                {
+                                    <span class="d-none d-md-inline-block">|</span>
+                                    <span class="common-small-heading"><div><span id="" class="common-sub-heading-amber">@Model.SubmissionComment</span></div></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-title-actions mt-0 mt-lg-0 mobile-padding-0 left-fixed-ipad">
+                        <partial name="DiscussionAndNotesCountButton" />
+                    </div>
+                    <div class="dropdown mobile-dropdown-title d-block d-md-none d-lg-none d-xl-none">
+                        <button type="button" id="mobileactiontoggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-dark-grey text-white btn-export btn-shadow">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="mobileActiondropdown">
+                            <ul class="nav flex-column">
+                                <li id="baseDiscussionMobile" class="d-none">
+                                    <a class="nav-link discussionAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>Discussions (<span class="baseDiscussionCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                                <li id="baseNotesMobile" class="d-none">
+                                    <a class="nav-link noteAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>My Notes (<span class="baseNotesCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-pane">
+                <div id="tabdivhide">
+                    <div class="margin-bottom-custom mt-0 tab-new-design tab-new-design-2 position-relative" id="">
+                        @if (!Model.IsObservation && !Model.IsIllness)
+                        {
+                            <div class="card-header card-header-tab-animation hide-mobile">
+                                <ul class="nav nav-justified">
+                                    <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-1" href="#tab-hazoccdetails-Summary" class="dropdown-tab-1 active nav-link tabSummary mobileTabClick">SUMMARY</a></li>
+                                    <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-2" href="#tab-hazoccdetails-EventDetails" class="dropdown-tab-2 nav-link eventdetails tabEvent mobileTabClick">EVENT DETAILS</a></li>
+                                    <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-3" href="#tab-hazoccdetails-Findings" class="dropdown-tab-3 nav-link tabFinding mobileTabClick">FINDINGS</a></li>
+                                    <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-4" href="#tab-hazoccdetails-Actions" class="dropdown-tab-4 nav-link tabAction mobileTabClick">ACTIONS</a></li>
+                                </ul>
+                            </div>
+                        }
+                        else if (Model.IsIllness)
+                        {
+                            <div class="card-header card-header-tab-animation hide-mobile">
+                                <ul class="nav nav-justified">
+                                    <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-1" href="#tab-hazoccdetails-Summary" class="active nav-link tabSummary  dropdown-tab-1 mobileTabClick">SUMMARY</a></li>
+                                    <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-2" href="#tab-hazoccdetails-EventDetails" class="nav-link eventdetails tabEvent dropdown-tab-2 mobileTabClick">PERSONAL DETAILS</a></li>
+                                    @if (!Model.IsThirdPartyIllness)
+                                    {
+                                        <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-3" href="#tab-hazoccdetails-Findings" class="nav-link tabFinding dropdown-tab-3 mobileTabClick">TREATMENT</a></li>
+                                        <li class="nav-item tab-sm"><a data-toggle="tab" id="dropdown-tab-4" href="#tab-hazoccdetails-Actions" class="nav-link tabAction dropdown-tab-4 mobileTabClick">DOCTOR'S REPORT</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                        <div class="card-body p-0">
+                            <div class="tab-content mb-0 p-0">
+                                <div class="tab-pane active tab-box-1" id="tab-hazoccdetails-Summary" role="tabpanel">
+                                    <div class="row">
+                                        @if (Model.IsAccident)
+                                        {
+                                            <partial name="_AccidentSummaryView" />
+                                        }
+                                        else if (Model.IsIncident)
+                                        {
+                                            <partial name="_IncidentSummaryView" />
+                                        }
+                                        else if (Model.IsObservation)
+                                        {
+                                            <partial name="_ObservationSummaryView" />
+                                        }
+                                        else if (Model.IsNearMiss)
+                                        {
+                                            <partial name="_NearMissSummaryView" />
+                                        }
+                                        else if (Model.IsPassengerIllness || Model.IsCrewIllness || Model.IsThirdPartyIllness)
+                                        {
+                                            <partial name="_IllnessSummaryView" />
+                                        }
+
+                                        @if (!Model.IsIllness)
+                                        {
+                                            <div class="col-12 col-md-12 col-lg-12">
+                                                <div class="common-custom-card mobile-pad-0 mb-0">
+                                                    <div class="counters-heading border-none ml-3 ml-md-0">
+                                                        <div class="jsacolumnshideshow">
+                                                            <a href="javascript:void(0)" class="active " id="defectDetails"><span>Defect Details</span> (<span id="spanDefectDetailsCount">0</span>)</a>
+                                                            <span class="divide-jsa"></span>
+                                                            <a href="javascript:void(0)" id="insuranceClaims"><span>Insurance Claims</span> (<span id="spanInsuranceClaimsCount">0</span>)</a>
+                                                        </div>
+                                                    </div>
+                                                    <div id="defectsdetailsdiv">
+                                                        <div class="table-common-design">
+                                                            <div class="table-responsive compact-table">
+                                                                <table style="width: 100%;" id="dtdefectdetails" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Defect No.</th>
+                                                                            <th>Title</th>
+                                                                            <th>Current Due Date</th>
+                                                                            <th>Date Completed</th>
+                                                                            <th>Planned For</th>
+                                                                            <th>Requisitions</th>
+                                                                            <th>Status</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="insuranceclaimsdiv">
+                                                        <div class="table-common-design">
+                                                            <div class="compact-table">
+                                                                <table style="width: 100%;" id="dtInsuranceClaims" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Claim No.</th>
+                                                                            <th>Name</th>
+                                                                            <th>Claim Type</th>
+                                                                            <th>Report Date</th>
+                                                                            <th>Open Date</th>
+                                                                            <th>Close Date</th>
+                                                                            <th>System Area</th>
+                                                                            <th>Cost (USD)</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="tab-pane tab-box-2 hide-mobile" id="tab-hazoccdetails-EventDetails" role="tabpanel">
+                                    <div class="row">
+                                        @if (Model.IsAccident)
+                                        {
+                                            <partial name="_AccidentEventView" />
+                                        }
+                                        else if (Model.IsIncident)
+                                        {
+                                            <partial name="_IncidentEventView" />
+                                        }
+                                        else if (Model.IsNearMiss)
+                                        {
+                                            <partial name="_NearMissEventView" />
+                                        }
+                                        else if (Model.IsPassengerIllness)
+                                        {
+                                            <partial name="_PersonalDetailsView" />
+                                        }
+                                        else if (Model.IsCrewIllness)
+                                        {
+                                            <partial name="_CrewPersonalDetailsView" />
+                                        }
+                                        else if (Model.IsThirdPartyIllness)
+                                        {
+                                            <partial name="_ThirdPartyIllnessDetailsView" />
+                                        }
+                                    </div>
+                                </div>
+                                <div class="tab-pane tab-box-3 hide-mobile" id="tab-hazoccdetails-Findings" role="tabpanel">
+                                    <div class="row">
+                                        @if (Model.IsPassengerIllness)
+                                        {
+                                            <partial name="_TreatmentView" />
+                                        }
+                                        else if (Model.IsCrewIllness)
+                                        {
+                                            <partial name="_CrewTreatmentView" />
+                                        }
+                                        else
+                                        {
+                                            <div class="col-12 col-md-4 col-lg-4 col-xl-4">
+                                                <div class="common-custom-card height-equal-findings">
+                                                    <div class="counters-heading border-none">
+                                                        <div>
+                                                            <span>Ships Findings</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix hazoc-list-margin">
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                                <div class="dashboard-counters">
+                                                                    <span id="">
+                                                                        Analysis
+                                                                    </span>
+                                                                </div>
+                                                                <div class="open-sans-font details-common mr-0 mb-0" id="divShipsFindingAnalysis">
+                                                                    -
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                                <div class="dashboard-counters  mt-2">
+                                                                    <span id="">
+                                                                        Evaluations/Conclusions
+                                                                    </span>
+                                                                </div>
+                                                                <div class="open-sans-font details-common mr-0 mb-0" id="divShipsFindingEvaluations">
+                                                                    -
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-4 col-lg-4 col-xl-4">
+                                                <div class="common-custom-card height-equal-findings">
+                                                    <div class="counters-heading border-none">
+                                                        <div>
+                                                            <span>Investigation Findings</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix hazoc-list-margin scrollerheightcomments">
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                                <div class="dashboard-counters">
+                                                                    <span id="">
+                                                                        Analysis
+                                                                    </span>
+                                                                </div>
+                                                                <div class="open-sans-font details-common mr-0 mb-0 scroller px-0" id="divInvestigationAnalysis">
+                                                                    -
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                                <div class="dashboard-counters mt-2">
+                                                                    <span id="">
+                                                                        Evaluation/Conclusion
+                                                                    </span>
+                                                                </div>
+                                                                <div class="open-sans-font details-common mr-0 mb-0 scroller px-0" id="divInvestigationEveluation">
+                                                                    -
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-4 col-lg-4 col-xl-4">
+                                                <div class="common-custom-card height-equal-findings mb-0">
+                                                    <div class="counters-heading border-none">
+                                                        <div>
+                                                            <span>Causation</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix hazoc-list-margin">
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                                <div class="dashboard-counters">
+                                                                    <span id="">
+                                                                        Root Causes
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="sub-section mt-1 ml-2">
+                                                            <div id="divFindingRootCases"></div>
+                                                        </div>
+                                                        <div class="row mt-3">
+                                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                                <div class="dashboard-counters">
+                                                                    <span id="">
+                                                                        Direct Causes
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="sub-section mt-1 ml-2">
+                                                            <div id="divFindingDirectCases"></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="tab-pane tab-box-4 hide-mobile" id="tab-hazoccdetails-Actions" role="tabpanel">
+                                    <div class="row">
+                                        @if (Model.IsPassengerIllness)
+                                        {
+                                            <partial name="_DoctorReportView" />
+                                        }
+                                        else if (Model.IsCrewIllness)
+                                        {
+                                            <partial name="_CrewDoctorReportView" />
+                                        }
+                                        else
+                                        {
+                                            <div class="col-12 col-md-8 col-lg-8 col-xl-9">
+                                                <div class="table-common-design">
+                                                    <div class="common-custom-card height-equal-actions mobile-pad-0">
+                                                        <div class="counters-heading border-none position-relative">
+                                                            <div>
+                                                                <span>Reschedule History</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="table-responsive compact-table">
+                                                            <table style="width: 100%;" id="dtactionsrescedule" class="table table-hover table-striped table-bordered table-fixed-layout cardview row-sm">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Status</th>
+                                                                        <th>Date Created</th>
+                                                                        <th>Actions to be Taken</th>
+                                                                        <th>Due Date</th>
+                                                                        <th>Closure Date of Action</th>
+                                                                        <th>Action Taken</th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-4 col-lg-4 col-xl-3">
+                                                <div class="common-custom-card height-equal-actions mb-0">
+                                                    <div class="counters-heading border-none">
+                                                        <div>
+                                                            <span>Causation</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix hazoc-list-margin">
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                                <div class="dashboard-counters">
+                                                                    <span id="">
+                                                                        Root Causes
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="sub-section mt-1 ml-2">
+                                                            <div id="divActionRootCases"></div>
+                                                        </div>
+                                                        <div class="row mt-3">
+                                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                                <div class="dashboard-counters">
+                                                                    <span id="">
+                                                                        Direct Causes
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="sub-section mt-1 ml-2">
+                                                            <div id="divActionDirectCases"></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-tab mobile-dropdown-tab d-block d-md-none d-lg-none d-xl-none">
+        <button type="button" class="dropdown-toggle wp-mobile-100" data-flip="false" id="dropdowntabbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a href="javascript:void(0)" class="active dropdowntabtitle">SUMMARY</a>  <i class="fa fa-fw dropdown-rotate" aria-hidden="true"></i>
+        </button>
+
+        @if (!Model.IsObservation && !Model.IsIllness)
+        {
+            <div class="dropdown-menu" id="dropdowntablist">
+                <ul class="p-0 mb-0">
+                    <li class="active">
+                        <a href="javascript:void(0)" id="dropdown-tab-1" class="dropdown-tab-1 tabSummary mobileTabClick">
+                            <svg width="19" height="22" viewBox="0 0 21 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                                <path d="M20.4848 1.34377C20.4884 1.07278 20.247 0.875 19.9824 0.875H1.38007C1.11443 0.875 0.875 1.07323 0.875 1.34289V22.6571C0.875 22.9265 1.11414 23.125 1.38007 23.125H19.9799C20.2456 23.125 20.485 22.9268 20.485 22.6571L20.4848 1.34377ZM20.4848 1.34377C20.4848 1.34412 20.4848 1.34448 20.4848 1.34483L20.3598 1.34289L20.4848 1.34289V1.34377ZM19.4769 22.1892H1.88765V1.81074H19.4769V22.1892Z" fill="#000000" stroke="#000000" stroke-width="0.25" />
+                                <path d="M4.63485 18.2247C4.70813 18.1538 4.80728 18.114 4.91042 18.1145L15.5725 18.1147C15.7861 18.1155 15.959 18.2841 15.9599 18.4924C15.9602 18.5929 15.9196 18.6896 15.847 18.7609C15.7744 18.8323 15.6756 18.8726 15.5725 18.8731H4.91043C4.80676 18.8734 4.70709 18.8335 4.63381 18.762C4.56053 18.6904 4.51955 18.5934 4.5199 18.4924C4.52025 18.3918 4.56175 18.2955 4.63485 18.2247Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                                <path d="M4.63485 14.826C4.70813 14.7551 4.80728 14.7153 4.91042 14.7158L15.5725 14.716C15.7861 14.7168 15.959 14.8855 15.9599 15.0937C15.9602 15.1942 15.9196 15.2909 15.847 15.3622C15.7744 15.4336 15.6756 15.4739 15.5725 15.4744H4.91043C4.80676 15.4748 4.70709 15.4348 4.63381 15.3634C4.56053 15.2918 4.51955 15.1948 4.5199 15.0937C4.52025 14.9931 4.56175 14.8968 4.63485 14.826Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                                <path d="M4.64647 11.4274C4.72715 11.3564 4.83632 11.3166 4.94989 11.3171L11.1333 11.3173C11.3685 11.3182 11.5589 11.4868 11.5599 11.695C11.5603 11.7956 11.5155 11.8922 11.4356 11.9635C11.3557 12.0349 11.2469 12.0752 11.1333 12.0757H4.94989C4.83575 12.0761 4.726 12.0361 4.64532 11.9647C4.56464 11.8931 4.51952 11.7961 4.5199 11.695C4.52028 11.5944 4.56598 11.4981 4.64647 11.4274Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                                <path d="M4.64647 8.02892C4.72715 7.95798 4.83632 7.9182 4.94989 7.91871L11.1333 7.91888C11.3685 7.91973 11.5589 8.08834 11.5599 8.29657C11.5603 8.39713 11.5155 8.49379 11.4356 8.56507C11.3557 8.6365 11.2469 8.6768 11.1333 8.6773H4.94989C4.83575 8.67764 4.726 8.63769 4.64532 8.56625C4.56464 8.49464 4.51952 8.39763 4.5199 8.29657C4.52028 8.19601 4.56598 8.09968 4.64647 8.02892Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                                <path d="M4.64647 4.63023C4.72715 4.5593 4.83632 4.51952 4.94989 4.52002L16.4133 4.5202C16.6485 4.52105 16.8389 4.68966 16.8399 4.89789C16.8403 4.99845 16.7955 5.09511 16.7156 5.16638C16.6357 5.23782 16.5269 5.27811 16.4133 5.27862H4.94989C4.83575 5.27896 4.726 5.23901 4.64532 5.16757C4.56464 5.09595 4.51952 4.99895 4.5199 4.89788C4.52028 4.79733 4.56598 4.701 4.64647 4.63023Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            </svg>
+                            Summary
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" id="dropdown-tab-2" class="dropdown-tab-2 tabEvent mobileTabClick">
+                            <svg width="19" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                                <path d="M13.2464 18.4058C12.5121 18.4058 11.8986 18.1594 11.4058 17.6667C10.913 17.1739 10.6667 16.5604 10.6667 15.8261C10.6667 15.0918 10.913 14.4783 11.4058 13.9855C11.8986 13.4928 12.5121 13.2464 13.2464 13.2464C13.9807 13.2464 14.5942 13.4976 15.087 14C15.5797 14.5024 15.8261 15.1111 15.8261 15.8261C15.8261 16.5604 15.5797 17.1739 15.087 17.6667C14.5942 18.1594 13.9807 18.4058 13.2464 18.4058ZM1.62319 22C1.17874 22 0.797101 21.8358 0.478261 21.5072C0.15942 21.1787 0 20.8019 0 20.3768V3.65217C0 3.20773 0.15942 2.82609 0.478261 2.50725C0.797101 2.18841 1.17874 2.02899 1.62319 2.02899H3.7971V0H5.21739V2.02899H14.3478V0H15.7391V2.02899H17.913C18.3575 2.02899 18.7391 2.18841 19.058 2.50725C19.3768 2.82609 19.5362 3.20773 19.5362 3.65217V20.3768C19.5362 20.8019 19.3768 21.1787 19.058 21.5072C18.7391 21.8358 18.3575 22 17.913 22H1.62319ZM1.62319 20.7246H17.913C18.0097 20.7246 18.0918 20.686 18.1594 20.6087C18.2271 20.5314 18.2609 20.4541 18.2609 20.3768V8.92754H1.27536V20.3768C1.27536 20.4541 1.30918 20.5314 1.37681 20.6087C1.44444 20.686 1.52657 20.7246 1.62319 20.7246ZM1.27536 7.65217H18.2609V3.65217C18.2609 3.55556 18.2271 3.47343 18.1594 3.4058C18.0918 3.33816 18.0097 3.30435 17.913 3.30435H1.62319C1.52657 3.30435 1.44444 3.33816 1.37681 3.4058C1.30918 3.47343 1.27536 3.55556 1.27536 3.65217V7.65217Z" fill="black" />
+                            </svg>
+                            Event Details
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" id="dropdown-tab-3" class="dropdown-tab-3 tabFinding mobileTabClick">
+                            <svg width="20" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                                <path d="M1.52287 19.8245C1.10589 19.8245 0.747837 19.6704 0.448702 19.3622C0.149567 19.054 0 18.7005 0 18.3016V3.37206C0 2.95509 0.131438 2.59703 0.394314 2.2979C0.65719 1.99876 0.915534 1.8492 1.16935 1.8492H6.66255C6.75319 1.32344 6.99794 0.883807 7.39679 0.530284C7.79563 0.176761 8.267 0 8.81088 0C9.33663 0 9.79893 0.176761 10.1978 0.530284C10.5966 0.883807 10.8504 1.32344 10.9592 1.8492H16.4524C16.8694 1.8492 17.2274 1.99876 17.5266 2.2979C17.8257 2.59703 17.9753 2.95509 17.9753 3.37206V9.78986H16.7787V3.37206C16.7787 3.28142 16.747 3.19984 16.6836 3.12732C16.6201 3.0548 16.5431 3.01854 16.4524 3.01854H13.5426V6.03708H4.45983V3.01854H1.52287C1.43222 3.01854 1.35517 3.0548 1.29172 3.12732C1.22827 3.19984 1.19654 3.28142 1.19654 3.37206V18.3016C1.19654 18.3923 1.22827 18.4693 1.29172 18.5328C1.35517 18.5962 1.43222 18.6279 1.52287 18.6279H8.02225V19.8245H1.52287ZM19.3894 22L16.3164 18.9271C15.9539 19.2171 15.5595 19.4166 15.1335 19.5253C14.7075 19.6341 14.2769 19.6885 13.8418 19.6885C12.7178 19.6885 11.7569 19.2942 10.9592 18.5056C10.1615 17.7169 9.76267 16.7515 9.76267 15.6094C9.76267 14.4672 10.1615 13.5019 10.9592 12.7132C11.7569 11.9246 12.7268 11.5303 13.869 11.5303C14.993 11.5303 15.9539 11.9291 16.7515 12.7268C17.5492 13.5245 17.9481 14.4854 17.9481 15.6094C17.9481 16.0445 17.8892 16.4841 17.7713 16.9283C17.6535 17.3725 17.4495 17.7577 17.1595 18.0841L20.2596 21.157L19.3894 22ZM13.8418 18.492C14.6576 18.492 15.3465 18.2155 15.9085 17.6625C16.4705 17.1096 16.7515 16.4252 16.7515 15.6094C16.7515 14.8117 16.4705 14.1273 15.9085 13.5562C15.3465 12.9852 14.6667 12.6996 13.869 12.6996C13.0532 12.6996 12.3642 12.9806 11.8022 13.5426C11.2402 14.1047 10.9592 14.7936 10.9592 15.6094C10.9592 16.4252 11.2402 17.1096 11.8022 17.6625C12.3642 18.2155 13.0441 18.492 13.8418 18.492ZM9.1644 3.04574C9.43634 3.04574 9.66749 2.95056 9.85785 2.7602C10.0482 2.56984 10.1434 2.34775 10.1434 2.09394C10.1434 1.822 10.0482 1.59085 9.85785 1.40049C9.66749 1.21014 9.43634 1.11496 9.1644 1.11496C8.89246 1.11496 8.66584 1.21014 8.48455 1.40049C8.30326 1.59085 8.21261 1.81294 8.21261 2.06675C8.21261 2.35682 8.30326 2.5925 8.48455 2.77379C8.66584 2.95509 8.89246 3.04574 9.1644 3.04574Z" fill="black" />
+                            </svg>
+                            Findings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" id="dropdown-tab-4" class="dropdown-tab-4 tabAction mobileTabClick">
+                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                                <path d="M8.57825 22L8.05305 18.5279C7.70292 18.4111 7.29443 18.2215 6.82759 17.9589C6.36074 17.6963 5.92308 17.3996 5.51459 17.069L2.30504 18.557L0 14.5013L2.94695 12.3422C2.90805 12.1477 2.87887 11.9337 2.85942 11.7003C2.83997 11.4668 2.83024 11.2334 2.83024 11C2.83024 10.8249 2.83997 10.611 2.85942 10.3581C2.87887 10.1052 2.90805 9.86207 2.94695 9.62865L0 7.4695L2.30504 3.44297L5.54377 4.90186C5.87445 4.62953 6.26348 4.36207 6.71088 4.09947C7.15827 3.83687 7.59593 3.63749 8.02387 3.50133L8.57825 0H13.1008L13.626 3.47215C14.0539 3.62776 14.4819 3.83201 14.9098 4.08488C15.3378 4.33775 15.7268 4.61008 16.0769 4.90186L19.374 3.44297L21.6499 7.4695L18.6446 9.62865C18.6835 9.86207 18.7175 10.0955 18.7467 10.3289C18.7759 10.5623 18.7905 10.786 18.7905 11C18.7905 11.1945 18.7759 11.4085 18.7467 11.6419C18.7175 11.8753 18.6835 12.1185 18.6446 12.3714L21.6207 14.5013L19.3448 18.557L16.0769 17.069C15.7268 17.3802 15.3426 17.6622 14.9244 17.9151C14.5062 18.168 14.0734 18.3625 13.626 18.4987L13.1008 22H8.57825ZM10.7958 14.2387C11.6905 14.2387 12.454 13.9226 13.0862 13.2905C13.7184 12.6583 14.0345 11.8948 14.0345 11C14.0345 10.1052 13.7184 9.34173 13.0862 8.70955C12.454 8.07737 11.6808 7.76127 10.7666 7.76127C9.8718 7.76127 9.10831 8.07737 8.47613 8.70955C7.84394 9.34173 7.52785 10.1052 7.52785 11C7.52785 11.8948 7.84394 12.6583 8.47613 13.2905C9.10831 13.9226 9.88152 14.2387 10.7958 14.2387ZM10.7666 12.9549C10.2219 12.9549 9.75995 12.7653 9.38064 12.3859C9.00133 12.0066 8.81167 11.5447 8.81167 11C8.81167 10.4554 9.00133 9.99337 9.38064 9.61406C9.75995 9.23475 10.2219 9.04509 10.7666 9.04509C11.3112 9.04509 11.7781 9.23475 12.1671 9.61406C12.5561 9.99337 12.7507 10.4554 12.7507 11C12.7507 11.5447 12.5561 12.0066 12.1671 12.3859C11.7781 12.7653 11.3112 12.9549 10.7666 12.9549ZM9.57029 20.7162H12.0504L12.4881 17.4483C13.1105 17.2927 13.6795 17.0641 14.195 16.7626C14.7104 16.4611 15.2113 16.0769 15.6976 15.6101L18.7613 16.9231L19.9284 14.8806L17.2149 12.8674C17.2927 12.5367 17.3559 12.2157 17.4045 11.9045C17.4531 11.5933 17.4775 11.2918 17.4775 11C17.4775 10.6693 17.458 10.3581 17.4191 10.0663C17.3802 9.77454 17.3121 9.46331 17.2149 9.13263L19.9576 7.11936L18.7905 5.04775L15.6976 6.38992C15.2891 5.94253 14.798 5.54377 14.2241 5.19363C13.6503 4.8435 13.0716 4.61981 12.4881 4.52255L12.0796 1.28382H9.57029L9.19098 4.52255C8.52962 4.65871 7.93634 4.87754 7.41114 5.17905C6.88594 5.48055 6.38992 5.88417 5.92308 6.38992L2.85942 5.04775L1.69231 7.11936L4.40584 9.07427C4.30858 9.3855 4.2405 9.70159 4.20159 10.0225C4.16269 10.3435 4.14324 10.6693 4.14324 11C4.14324 11.3307 4.16269 11.6468 4.20159 11.9483C4.2405 12.2498 4.29885 12.5659 4.37666 12.8966L1.69231 14.8806L2.85942 16.9231L5.8939 15.6101C6.36074 16.0964 6.86649 16.4903 7.41114 16.7918C7.95579 17.0933 8.54907 17.3218 9.19098 17.4775L9.57029 20.7162Z" fill="#000000" />
+                                <path d="M13 11C13 12.1046 11.8807 13 10.5 13C9.11929 13 8 12.1046 8 11C8 9.89543 9.11929 9 10.5 9C11.8807 9 13 9.89543 13 11Z" fill="#000000" />
+                            </svg>
+                            Actions
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        }
+        else if (Model.IsIllness)
+        {
+            <div class="dropdown-menu" id="dropdowntablist">
+                <ul class="p-0 mb-0">
+                    <li class="active">
+                        <a href="javascript:void(0)" id="dropdown-tab-1" class="dropdown-tab-1 tabSummary mobileTabClick">
+                            <svg width="19" height="22" viewBox="0 0 21 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                                <path d="M20.4848 1.34377C20.4884 1.07278 20.247 0.875 19.9824 0.875H1.38007C1.11443 0.875 0.875 1.07323 0.875 1.34289V22.6571C0.875 22.9265 1.11414 23.125 1.38007 23.125H19.9799C20.2456 23.125 20.485 22.9268 20.485 22.6571L20.4848 1.34377ZM20.4848 1.34377C20.4848 1.34412 20.4848 1.34448 20.4848 1.34483L20.3598 1.34289L20.4848 1.34289V1.34377ZM19.4769 22.1892H1.88765V1.81074H19.4769V22.1892Z" fill="#000000" stroke="#000000" stroke-width="0.25" />
+                                <path d="M4.63485 18.2247C4.70813 18.1538 4.80728 18.114 4.91042 18.1145L15.5725 18.1147C15.7861 18.1155 15.959 18.2841 15.9599 18.4924C15.9602 18.5929 15.9196 18.6896 15.847 18.7609C15.7744 18.8323 15.6756 18.8726 15.5725 18.8731H4.91043C4.80676 18.8734 4.70709 18.8335 4.63381 18.762C4.56053 18.6904 4.51955 18.5934 4.5199 18.4924C4.52025 18.3918 4.56175 18.2955 4.63485 18.2247Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                                <path d="M4.63485 14.826C4.70813 14.7551 4.80728 14.7153 4.91042 14.7158L15.5725 14.716C15.7861 14.7168 15.959 14.8855 15.9599 15.0937C15.9602 15.1942 15.9196 15.2909 15.847 15.3622C15.7744 15.4336 15.6756 15.4739 15.5725 15.4744H4.91043C4.80676 15.4748 4.70709 15.4348 4.63381 15.3634C4.56053 15.2918 4.51955 15.1948 4.5199 15.0937C4.52025 14.9931 4.56175 14.8968 4.63485 14.826Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                                <path d="M4.64647 11.4274C4.72715 11.3564 4.83632 11.3166 4.94989 11.3171L11.1333 11.3173C11.3685 11.3182 11.5589 11.4868 11.5599 11.695C11.5603 11.7956 11.5155 11.8922 11.4356 11.9635C11.3557 12.0349 11.2469 12.0752 11.1333 12.0757H4.94989C4.83575 12.0761 4.726 12.0361 4.64532 11.9647C4.56464 11.8931 4.51952 11.7961 4.5199 11.695C4.52028 11.5944 4.56598 11.4981 4.64647 11.4274Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                                <path d="M4.64647 8.02892C4.72715 7.95798 4.83632 7.9182 4.94989 7.91871L11.1333 7.91888C11.3685 7.91973 11.5589 8.08834 11.5599 8.29657C11.5603 8.39713 11.5155 8.49379 11.4356 8.56507C11.3557 8.6365 11.2469 8.6768 11.1333 8.6773H4.94989C4.83575 8.67764 4.726 8.63769 4.64532 8.56625C4.56464 8.49464 4.51952 8.39763 4.5199 8.29657C4.52028 8.19601 4.56598 8.09968 4.64647 8.02892Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                                <path d="M4.64647 4.63023C4.72715 4.5593 4.83632 4.51952 4.94989 4.52002L16.4133 4.5202C16.6485 4.52105 16.8389 4.68966 16.8399 4.89789C16.8403 4.99845 16.7955 5.09511 16.7156 5.16638C16.6357 5.23782 16.5269 5.27811 16.4133 5.27862H4.94989C4.83575 5.27896 4.726 5.23901 4.64532 5.16757C4.56464 5.09595 4.51952 4.99895 4.5199 4.89788C4.52028 4.79733 4.56598 4.701 4.64647 4.63023Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                            </svg>
+                            Summary
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" id="dropdown-tab-2" class="dropdown-tab-2 tabEvent mobileTabClick">
+                            <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                                <path d="M1.68811 0H12.504C12.6429 0 12.7762 0.0550823 12.8744 0.153457L17.7909 5.07034C17.8893 5.16855 17.9443 5.30182 17.9443 5.44074V20.3121C17.9443 21.2427 17.1872 22 16.2565 22H1.68778C0.75717 22 -8.96454e-05 21.2429 -8.96454e-05 20.3121L7.24792e-05 1.68795C7.24792e-05 0.757171 0.757206 7.85592e-05 1.68777 7.85592e-05L1.68811 0ZM13.028 1.78836V4.27649C13.028 4.62944 13.3152 4.91663 13.6681 4.91663L16.1564 4.91679L13.028 1.78836ZM1.04797 20.3121C1.04797 20.665 1.33518 20.9522 1.68811 20.9522L16.2568 20.9524C16.6099 20.9524 16.8969 20.6652 16.8969 20.3122V5.96435H13.668C12.7374 5.96435 11.9802 5.20722 11.9802 4.27648V1.04755H1.68778C1.33466 1.04755 1.04764 1.33476 1.04764 1.6877L1.04797 20.3121Z" fill="#000000" />
+                                <path d="M12.8682 5V1.5L16.3682 5H12.8682Z" fill="#000000" />
+                                <path d="M9 12.8698C8.43558 12.8698 7.97546 12.6899 7.61963 12.3302C7.2638 11.9705 7.08589 11.5054 7.08589 10.9349C7.08589 10.3643 7.2638 9.89922 7.61963 9.53953C7.97546 9.17985 8.43558 9 9 9C9.56442 9 10.0245 9.17985 10.3804 9.53953C10.7362 9.89922 10.9141 10.3643 10.9141 10.9349C10.9141 11.5054 10.7362 11.9705 10.3804 12.3302C10.0245 12.6899 9.56442 12.8698 9 12.8698ZM5 17V15.7597C5 15.4289 5.0818 15.1457 5.2454 14.9101C5.409 14.6744 5.61759 14.4946 5.87117 14.3705C6.4274 14.1225 6.9591 13.9364 7.46626 13.8124C7.97342 13.6884 8.48466 13.6264 9 13.6264C9.51534 13.6264 10.0245 13.6904 10.5276 13.8186C11.0307 13.9468 11.5603 14.1349 12.1166 14.3829C12.3783 14.4987 12.591 14.6744 12.7546 14.9101C12.9182 15.1457 13 15.4289 13 15.7597V17H5ZM5.83436 16.1566H12.1656V15.7721C12.1656 15.6398 12.1268 15.5137 12.0491 15.3938C11.9714 15.2739 11.8753 15.185 11.7607 15.1271C11.2454 14.8791 10.773 14.7075 10.3436 14.6124C9.91411 14.5173 9.46626 14.4698 9 14.4698C8.53374 14.4698 8.0818 14.5173 7.64417 14.6124C7.20654 14.7075 6.73415 14.8791 6.22699 15.1271C6.11247 15.185 6.01841 15.2739 5.94479 15.3938C5.87117 15.5137 5.83436 15.6398 5.83436 15.7721V16.1566ZM9 12.0264C9.31084 12.0264 9.56851 11.923 9.77301 11.7163C9.97751 11.5096 10.0798 11.2491 10.0798 10.9349C10.0798 10.6207 9.97751 10.3602 9.77301 10.1535C9.56851 9.94677 9.31084 9.84341 9 9.84341C8.68916 9.84341 8.43149 9.94677 8.22699 10.1535C8.0225 10.3602 7.92025 10.6207 7.92025 10.9349C7.92025 11.2491 8.0225 11.5096 8.22699 11.7163C8.43149 11.923 8.68916 12.0264 9 12.0264Z" fill="#000000" stroke="#000000" stroke-width="0.2" />
+                            </svg>
+                            Personal Details
+                        </a>
+                    </li>
+                    @if (!Model.IsThirdPartyIllness)
+                    {
+                        <li>
+                            <a href="javascript:void(0)" id="dropdown-tab-3" class="dropdown-tab-3 tabFinding mobileTabClick">
+                                <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                                    <path d="M10.6135 17.6H11.9811V14.0324H15.5486V12.6946H11.9811V9.12703H10.6135V12.6946H7.04595V14.0324H10.6135V17.6ZM1.72432 22C1.24865 22 0.842342 21.8315 0.505405 21.4946C0.168468 21.1577 0 20.7514 0 20.2757V5.88649C0 5.41081 0.168468 5.0045 0.505405 4.66757C0.842342 4.33063 1.24865 4.16216 1.72432 4.16216H7.13514V1.72432C7.13514 1.24865 7.3036 0.842342 7.64054 0.505405C7.97748 0.168468 8.38378 0 8.85946 0H13.7351C14.2108 0 14.6171 0.168468 14.9541 0.505405C15.291 0.842342 15.4595 1.24865 15.4595 1.72432V4.16216H20.8703C21.3459 4.16216 21.7523 4.33063 22.0892 4.66757C22.4261 5.0045 22.5946 5.41081 22.5946 5.88649V20.2757C22.5946 20.7514 22.4261 21.1577 22.0892 21.4946C21.7523 21.8315 21.3459 22 20.8703 22H1.72432ZM1.72432 20.6622H20.8703C20.9694 20.6622 21.0586 20.6225 21.1378 20.5432C21.2171 20.464 21.2568 20.3748 21.2568 20.2757V5.88649C21.2568 5.78739 21.2171 5.6982 21.1378 5.61892C21.0586 5.53964 20.9694 5.5 20.8703 5.5H1.72432C1.62523 5.5 1.53604 5.53964 1.45676 5.61892C1.37748 5.6982 1.33784 5.78739 1.33784 5.88649V20.2757C1.33784 20.3748 1.37748 20.464 1.45676 20.5432C1.53604 20.6225 1.62523 20.6622 1.72432 20.6622ZM8.47297 4.16216H14.1216V1.72432C14.1216 1.62522 14.082 1.53604 14.0027 1.45676C13.9234 1.37748 13.8342 1.33784 13.7351 1.33784H8.85946C8.76036 1.33784 8.67117 1.37748 8.59189 1.45676C8.51261 1.53604 8.47297 1.62522 8.47297 1.72432V4.16216ZM1.33784 20.6622V5.5V20.6622Z" fill="black" />
+                                </svg>
+                                Treatment
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" id="dropdown-tab-4" class="dropdown-tab-4 tabAction mobileTabClick">
+                                <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                                    <path d="M8.44828 17V13.5517H5V12.4483H8.44828V9H9.55172V12.4483H13V13.5517H9.55172V17H8.44828Z" fill="black" />
+                                    <path d="M1.53529 22C1.09412 22 0.727941 21.8382 0.436765 21.5147C0.145588 21.1912 0 20.7843 0 20.2941V3.70588C0 3.21569 0.145588 2.80882 0.436765 2.48529C0.727941 2.16176 1.09412 2 1.53529 2H6.88235C6.97059 1.43137 7.21324 0.955882 7.61029 0.573529C8.00735 0.191176 8.47059 0 9 0C9.52941 0 9.99265 0.191176 10.3897 0.573529C10.7868 0.955882 11.0294 1.43137 11.1176 2H16.4647C16.9059 2 17.2721 2.16176 17.5632 2.48529C17.8544 2.80882 18 3.21569 18 3.70588V20.2941C18 20.7843 17.8544 21.1912 17.5632 21.5147C17.2721 21.8382 16.9059 22 16.4647 22H1.53529ZM1.53529 20.6765H16.4647C16.5529 20.6765 16.6324 20.6373 16.7029 20.5588C16.7735 20.4804 16.8088 20.3922 16.8088 20.2941V3.70588C16.8088 3.60784 16.7735 3.51961 16.7029 3.44118C16.6324 3.36274 16.5529 3.32353 16.4647 3.32353H14.5324V5.76471H3.46765V3.32353H1.53529C1.44706 3.32353 1.36765 3.36274 1.29706 3.44118C1.22647 3.51961 1.19118 3.60784 1.19118 3.70588V20.2941C1.19118 20.3922 1.22647 20.4804 1.29706 20.5588C1.36765 20.6373 1.44706 20.6765 1.53529 20.6765ZM9 3.47059C9.26471 3.47059 9.48971 3.36765 9.675 3.16176C9.86029 2.95588 9.95294 2.70588 9.95294 2.41176C9.95294 2.09804 9.86029 1.84314 9.675 1.64706C9.48971 1.45098 9.26471 1.35294 9 1.35294C8.73529 1.35294 8.51029 1.45098 8.325 1.64706C8.13971 1.84314 8.04706 2.09804 8.04706 2.41176C8.04706 2.70588 8.13971 2.95588 8.325 3.16176C8.51029 3.36765 8.73529 3.47059 9 3.47059Z" fill="black" />
+                                </svg>
+                                Doctor's Report
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+}
+@section Modal
+{
+    <div class="modal fade p-0" id="ModelHierarchyExplorerMapping" role="dialog" aria-labelledby="ModelHierarchyExplorerMapping" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding">
+                    <div class="col-md-11 pl-0">
+                        <div class="">
+                            <div class="common-heading-green"><span>Equipment Failure Causing Incident</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background padding-20">
+                    <div class="table-common-design icon-padding">
+                        <div class="common-custom-card mobile-pad-0">
+                            <div class="counters-heading border-none">
+                                <div class="">
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="table-responsive compact-table">
+                                <table style="width: 100%;" id="dtHierarchyExplorerMapping" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout ">
+                                    <thead>
+                                        <tr>
+                                            <th>Component Name</th>
+                                            <th>Hierarchy</th>
+                                            <th>Maker</th>
+                                            <th>Model</th>
+                                            <th>Designer</th>
+                                            <th>Position</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade p-0" id="ModelReopenComment" role="dialog" aria-labelledby="ModelReopenComment" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding">
+                    <div class="col-md-11 pl-0">
+                        <div class="">
+                            <div class="common-heading-green"><span>Reopen Comments</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background padding-20">
+                    <div class="common-custom-card background-padding">
+                        <div class="counters-heading border-none">
+                            <div>
+                                <span>Comment</span>
+                            </div>
+                        </div>
+                        <p class="open-sans-font details-common"> @Model.ReopenComments </p>
+                    </div>
+
+                    <div class="common-custom-card background-padding">
+                        <div class="row">
+                            <div class="col-12 col-md-3 col-lg-3 col-xl-3">
+                                <div class="dashboard-counters-label mr-0">
+                                    Authorized By
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-9 col-lg-9 col-xl-9">
+                                <div class="dashboard-counters">
+                                    <span id="">
+                                        @Model.ReopenAuthorisedBy
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection
+{
+    <script src="~/assets/scripts/hazOccDetails.bundle.js"></script>
+}

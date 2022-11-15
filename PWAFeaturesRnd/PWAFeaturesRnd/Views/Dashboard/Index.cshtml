@@ -1,0 +1,1781 @@
+﻿@model DashboardViewModel
+
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Vessel Dashboard
+}
+
+@section ContentSection
+{
+    <div class="app-main__outer">
+        <div class="app-main__inner white-background new-background">
+            <div class="row vessel-top-section">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 hide-ipad-pro">
+                    @*map*@
+                    <div class="dashboard-row-cardLayout mt-0  equal-margin-bottom">
+                        <div id="generalMapdesktop">
+                        </div>
+                        @*<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+                            </script>
+                            <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtkdm4T14Ry_RJkMZo7LJK96Lio1I5uIw&callback=initMap"></script>*@
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <div class="main-card card">
+                                <div id="carouselExampleControls2" class="carousel slide carousel-fade" data-ride="carousel">
+                                    <div class="carousel-inner" id="carInner">
+                                        <div class="carousel-item active">
+                                            <img id="carImg1" class="d-block w-100" src="~/images/Image1.png" alt="First slide">
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <h6>Ocean Technologies Group acquires Marlins and enters into strategic partnership with V.Group</h6>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img id="carImg2" class="d-block w-100" src="~/images/Image2.png" alt="Second slide">
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <h5>V.Group repatriates more than 7,000 stranded seafarers</h5>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img id="carImg3" class="d-block w-100" src="~/images/Image3.jpg" alt="Third slide">
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <h5>Chief engineer praised as ‘Goal zero hero’ by Shell Americas</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-7 padding-mobile-15 fixed-padding-0">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 visible-ipad-pro equal-margin-bottom">
+                            @*map*@
+                            <div class="dashboard-row-cardLayout mt-0  equal-margin-bottom">
+                                <div id="generalMap">
+                                </div>
+                                @*<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+                                    </script>
+                                    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtkdm4T14Ry_RJkMZo7LJK96Lio1I5uIw&callback=initMap"></script>*@
+                            </div>
+                            <div class="">
+                                <div class="">
+                                    <div class="main-card card">
+                                        <div id="carouselExampleControls2" class="carousel slide carousel-fade" data-ride="carousel">
+                                            <div class="carousel-inner" id="carInner">
+                                                <div class="carousel-item active">
+                                                    <img id="carImg1" class="d-block w-100" src="~/images/Image1.png" alt="First slide">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <h6>Ocean Technologies Group acquires Marlins and enters into strategic partnership with V.Group</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img id="carImg2" class="d-block w-100" src="~/images/Image2.png" alt="Second slide">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <h5>V.Group repatriates more than 7,000 stranded seafarers</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img id="carImg3" class="d-block w-100" src="~/images/Image3.jpg" alt="Third slide">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <h5>Chief engineer praised as ‘Goal zero hero’ by Shell Americas</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-background equal-margin-bottom">
+                        <div class="dashboard-card-layout">
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-lg-3 col-xl-3">
+                                    @*<div class="mobile-fixed-layout">
+                                        <i class="fa fa-circle fa-7x" aria-hidden="true"></i>
+                                        <img src="" id="imageid" />
+                                    </div>*@
+                                    <span class="dashboard-company-name-header d-block mt-2">
+                                        SEA
+                                    </span>
+                                    <span class="dashboard-header-subtitle d-block">
+                                        Fleet Overview
+                                    </span>
+                                </div>
+                                <div class="col-12 col-md-9 col-lg-9 col-xl-9 navigation-box">
+                                    <div class="clearfix mb-35 mobile-bottom-10 navigation-seas">
+                                        <div class="float-left ns-width">
+                                            <div class="">
+                                                <div class="dashboard-counters">
+                                                    <a href="#" data-toggle="modal" data-target="#modVesselList" class="text-red">10</a>
+                                                </div>
+                                                <div class="dashboard-counters-label">
+                                                    Off Hire
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left ns-width">
+                                            <div class="">
+                                                <div class="dashboard-counters">
+                                                    <a href="#" class="text-red">10</a>
+                                                </div>
+                                                <div class="dashboard-counters-label">
+                                                    Serious Incident
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mobile-top-5 ns-width mobile-top-20">
+
+                                            <div class="">
+                                                <div class="dashboard-counters">
+                                                    <a href="#" class="text-yellow">10</a>
+                                                </div>
+                                                <div class="dashboard-counters-label">
+                                                    PSC Det.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mobile-top-5 ns-width mobile-top-20">
+                                            <div class="">
+                                                <div class="dashboard-counters">
+                                                    <a href="#" class="text-yellow">10</a>
+                                                </div>
+                                                <div class="dashboard-counters-label">
+                                                    PSC Def.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix mb-35 mobile-bottom-10 navigation-seas">
+                                        <div class="float-left ns-width  mobile-top-20">
+                                            <div class="">
+                                                <div class="dashboard-counters">
+                                                    <a href="#" class="text-yellow">10</a>
+                                                </div>
+                                                <div class="dashboard-counters-label">
+                                                    Over Budget
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left ns-width mobile-top-20">
+                                            <div class="">
+                                                <div class="dashboard-counters">
+                                                    <a href="#" class="text-red">10</a>
+                                                </div>
+                                                <div class="dashboard-counters-label">
+                                                    Overdue Cert.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mobile-top-5 ns-width mobile-top-20">
+
+                                            <div class="">
+                                                <div class="dashboard-counters">
+                                                    <a href="#" class="text-red">10</a>
+                                                </div>
+                                                <div class="dashboard-counters-label">
+                                                    Last Insp <br class="mobile-block-320" />(4-6 M)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mobile-top-5 ns-width mobile-top-20">
+                                            <div class="">
+                                                <div class="dashboard-counters">
+                                                    <a href="#" class="text-red">10</a>
+                                                </div>
+                                                <div class="dashboard-counters-label">
+                                                    Last Insp <br class="mobile-block-320" />(&lt;6 M)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix navigation-seas ">
+                                        <div class="float-left ns-width mobile-top-20">
+                                            <div class="">
+                                                <div class="dashboard-counters">
+                                                    <a href="#" class="text-yellow">05</a>
+                                                </div>
+                                                <div class="dashboard-counters-label">
+                                                    LTIF
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left ns-width mobile-top-20">
+                                            <div class="">
+                                                <div class="dashboard-counters">
+                                                    <a href="#" class="text-red">10</a>
+                                                </div>
+                                                <div class="dashboard-counters-label">
+                                                    Vetting
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mobile-top-5 ns-width mobile-top-20">
+
+                                            <div class="">
+                                                <div class="dashboard-counters">
+                                                    <a href="#" class="text-red">2</a>
+                                                </div>
+                                                <div class="dashboard-counters-label">
+                                                    Rightship (&lt;3)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="dashboard-background equal-margin-bottom">
+                        <div class="dashboard-card-layout">
+                            <div class="clearfix mb-35">
+                                <div class="dashboard-header-counters-label">
+                                    <img src="~/images/open-orders.png" class="width-23" />
+                                    <span>Procurement</span>
+                                </div>
+                            </div>
+                            <div class="open clearfix">
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters" id="InProcessCount"></a>
+                                    </div>
+
+                                    <div class="dashboard-counters-label">
+                                        In Progress
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters" id="AuthorisationCount"></a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Auth. Enq.
+                                    </div>
+                                </div>
+                                <div class="float-left mobile-top-20">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters" id="OrderedCount"></a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Ordered
+                                    </div>
+                                </div>
+                                <div class="float-left mobile-top-20">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters" id="DeliveryOnTheWayCount"></a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Dispatched
+                                    </div>
+                                </div>
+                                <div class="float-left mobile-top-20">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters" id="RecievedIn30DaysCount"></a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Received<br class="mobile-block-320" /> (30 Days)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="equal-margin-bottom">
+                        <div class="row">
+                            <div class="col-12 col-md-8 col-lg-8 col-xl-8 ipad-mb-35 pr-0">
+                                <div class="dashboard-inner-row dashboard-card-layout equal-height-hazzoc-defect">
+                                    <div class="mb-35">
+                                        <div class="dashboard-header-counters-label">
+                                            <img src="~/images/hazzoc.png" class="width-33" />
+                                            <span>HazOcc</span>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix hazzoc">
+                                        <div class="float-left">
+                                            <div>
+                                                <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">2</a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Open
+                                            </div>
+                                        </div>
+                                        <div class="float-left">
+                                            <div>
+                                                <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Accidents
+                                            </div>
+                                        </div>
+                                        <div class="float-left mobile-top-20">
+                                            <div>
+                                                <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Incidents
+                                            </div>
+                                        </div>
+                                        <div class="float-left  mobile-top-20">
+                                            <div>
+                                                <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                NM & SO
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="dashboard-inner-row dashboard-card-layout equal-height-hazzoc-defect">
+                                    <div class="mb-35">
+                                        <div class="dashboard-header-counters-label">
+                                            <img src="~/images/defect-manager.png" class="width-33" />
+                                            <span>Defect</span>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix hazzoc">
+
+                                        <div class="float-left">
+                                            <div>
+                                                <a href="/Dashboard/ViewPPMList" class="dashboard-counters  text-red">2</a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Due
+                                            </div>
+                                        </div>
+
+                                        <div class="float-left">
+                                            <div>
+                                                <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                OD (Jan)
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-6 col-xl-6 ipad-mb-35 equal-margin-bottom pr-0">
+                            <div class="dashboard-inner-row dashboard-card-layout equal-height-pms-crew">
+                                <div class="mb-35">
+                                    <div class="dashboard-header-counters-label">
+                                        <img src="~/images/pms.png" class="width-23" />
+                                        <span>PMS</span>
+                                    </div>
+                                </div>
+                                <div class="clearfix hazzoc">
+
+                                    <div class="float-left">
+                                        <div>
+                                            <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-yellow">2</a>
+                                        </div>
+                                        <div class="dashboard-counters-label">
+                                            Due
+                                        </div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div>
+                                            <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">3</a>
+                                        </div>
+                                        <div class="dashboard-counters-label">
+                                            OD (Prior)
+                                        </div>
+                                    </div>
+                                    <div class="float-left mobile-top-20">
+                                        <div>
+                                            <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">3</a>
+                                        </div>
+                                        <div class="dashboard-counters-label">
+                                            OD (Jan)
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                            <div class="dashboard-inner-row dashboard-card-layout equal-height-pms-crew equal-margin-bottom">
+                                <div class="mb-35 ">
+                                    <div class="dashboard-header-counters-label">
+                                        <img src="~/images/Crew.png" class="width-33" />
+                                        <span>Crewing</span>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix hazzoc crew">
+
+                                    <div class="float-left">
+                                        <div>
+                                            <a href="/Dashboard/ViewPPMList" class="dashboard-counters">2</a>
+                                        </div>
+                                        <div class="dashboard-counters-label">
+                                            OverDue
+                                        </div>
+                                    </div>
+                                    <div class="float-left">
+                                        <div>
+                                            <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                        </div>
+                                        <div class="dashboard-counters-label">
+                                            Unplanned <br /> Berth
+                                        </div>
+                                    </div>
+                                    <div class="float-left mobile-top-20">
+                                        <div>
+                                            <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                        </div>
+                                        <div class="dashboard-counters-label">
+                                            Medical <br />Sign Off
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="">
+            <div class="dashboard-all-vessel-bg mt-0">
+                <div class="header-label">
+                    All Vessels
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-6 col-xl-4 pr-0">
+                        <div class="dashboard-vessel-section-bg">
+                            <div class="mb-35">
+                                <div>
+                                    <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link float-right">
+                                        @*<i class="pe-7s-menu btn-icon-wrapper"></i>*@
+                                        <img src="~/images/Vships_Burger.png" />
+                                    </button>
+                                    <div tabindex="-1" role="menu" aria-hidden="true" style="width:130px" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-edit"> </i><span>Certificates</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-chart-line"> </i><span>Cost Analysis</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-credit-card"> </i><span>Purchasing</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-cogs"> </i><span>Maintenance</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-users"> </i><span>Crewing</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-eye"> </i><span>Inspection</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-search"> </i><span>Vetting</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-exclamation-circle"> </i><span>Defects</span></button>
+                                    </div>
+                                </div>
+
+                                <a href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.VesselId)" class="heading-v">
+                                    <span class="dashboard-vessel-name-header">
+                                        @AppSettings.VesselName1
+                                    </span>
+                                </a>
+                                <br />
+                                <span class="dashboard-vessel-name-sub-header">
+                                    9354571, FRA
+                                </span>
+                            </div>
+                            <div class="clearfix margin-bottom-25 top1section">
+
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last 3 Mths = 0.00 hours">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Off Hire
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last Month = 0 <br/>Last 3 Mths = 0">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Serious Incident
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="#" class="dashboard-counters text-red">10</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Overdue Cert.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 top1section">
+
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last 3 Mths Ratio = 0.00">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        PSC Def.
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last Month = 0 <br/>Last 3 Mths = 0">
+
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        PSC Det.
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <span class="dashboard-counters text-success" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Between 0 - 4 Mths = No <br/>Between 4 - 6 Mths = No <br/>Over 6 Mths = Yes">
+                                        30
+                                    </span>
+                                    <div class="dashboard-counters-label">
+                                        Last Insp (Weeks)
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 top1section">
+
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last 3 Mths = 0.00">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        LTIF
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="OMV Findings N/A">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Vetting
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-danger align-bottom">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Rightship
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="row margin-bottom-25">
+                                <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 sm-margin-bottom-25">
+                                    <div class="">
+                                        <div class="dashboard-header-counters-label align-self-center">
+                                            <img src="~/images/opex.png" class="width-33" />
+                                            <span>Financials</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-2">
+                                            <canvas name="barChartOpex" width="300" height="55"></canvas>
+                                        </div>
+
+                                    </div>
+                                    <div class="clearfix opex-graph">
+
+                                        <div class="float-left">
+                                            <div class="dashboard-counters">
+                                                <span class="budget-color-dashboard">1332</span>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Budget
+                                            </div>
+                                        </div>
+                                        <div class="float-left">
+                                            <div class="dashboard-counters">
+                                                <span class="actual-color-blue-dashboard"> 945</span>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Total
+                                            </div>
+                                        </div>
+                                        <div class="float-left">
+                                            <div class="dashboard-counters">
+                                                <span class="variance-color-dashboard"> 386</span>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Variance
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-11 col-sm-12 col-md-5 col-lg-5 col-xl-5 dashboard-vertical-divider pr-0">
+                                    <div class="margin-bottom-25" style="margin-bottom: 15px !important;">
+
+                                        <div class="dashboard-header-counters-label align-self-center">
+                                            <img src="~/images/defect-manager.png" class="width-33" />
+                                            <span>Defects</span>
+                                        </div>
+                                    </div>
+                                    <div class="defect-box">
+
+                                        <div class="section-1 mobile-bottom-0">
+                                            <div>
+                                                <a href="/Dashboard/ViewDefectsList" class="dashboard-counters">
+                                                    2
+                                                </a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Due
+                                            </div>
+                                        </div>
+                                        <div class="section-1">
+                                            <div>
+                                                <a href="/Dashboard/ViewDefectsList" class="dashboard-counters">
+                                                    10
+                                                </a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                OD
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label align-self-center">
+                                    <img src="~/images/hazzoc.png" class="width-33" />
+                                    <span>HazOcc</span>
+                                </div>
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 hazzoc-box">
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Open
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Accidents
+                                    </div>
+                                </div>
+                                <div class="float-left mobile-top-20">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Incidents
+                                    </div>
+                                </div>
+                                <div class="float-left mobile-top-20">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        NM & SO
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label">
+                                    <img src="/images/Crew.png" class="width-33 mr-2"> Crewing
+                                </div>
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 crew-box-1">
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        OverDue
+                                    </div>
+                                </div>
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Unplanned Berth
+                                    </div>
+                                </div>
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Medical Sign Off
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label">
+                                    <img src="/images/pms.png" class="width-23">
+                                    <span>PMS</span>
+                                </div>
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 hazzoc-box pms-box">
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-yellow">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Due
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        OD <br class="mobile-block-767" />(Prior)
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        OD <br class="mobile-block-767" />(Jan)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label align-self-center">
+                                    <img src="/images/open-orders.png" class="width-23"> <span>Procurement</span>
+                                </div>
+                            </div>
+                            <div class="clearfix margin-bottom-25 orders-box">
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">29</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        In Progress
+                                    </div>
+                                </div>
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">6</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Ordered
+                                    </div>
+                                </div>
+
+                                <div class="float-left mobile-top-20">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Dispatched
+                                    </div>
+                                </div>
+
+                                <div class="float-left mobile-top-20 top-1024">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Auth. Enq.
+                                    </div>
+                                </div>
+
+                                <div class="float-left mt-2 mobile-top-20">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Received<br class="mobile-425-block" /> (30 Days)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-right">
+                                <button class="btn see-vessel-button">see vessel dashboard</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-6 col-xl-4 ipad-768-margin-top-25 pr-0">
+                        <div class="dashboard-vessel-section-bg">
+                            <div class="mb-35">
+                                <div>
+                                    <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link float-right">
+                                        @*<i class="pe-7s-menu btn-icon-wrapper"></i>*@
+                                        <img src="~/images/Vships_Burger.png" />
+                                    </button>
+                                    <div tabindex="-1" role="menu" aria-hidden="true" style="width:130px" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-edit"> </i><span>Certificates</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-chart-line"> </i><span>Cost Analysis</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-credit-card"> </i><span>Purchasing</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-cogs"> </i><span>Maintenance</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-users"> </i><span>Crewing</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-eye"> </i><span>Inspection</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-search"> </i><span>Vetting</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-exclamation-circle"> </i><span>Defects</span></button>
+                                    </div>
+                                </div>
+
+                                <a href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.VesselIdCorinthianPhoenix)" class="heading-v">
+                                    <span class="dashboard-vessel-name-header">
+                                        @AppSettings.VesselName2
+                                    </span>
+                                </a>
+                                <br />
+                                <span class="dashboard-vessel-name-sub-header">
+                                    9354571, FRA
+                                </span>
+                            </div>
+                            <div class="clearfix margin-bottom-25 top1section">
+
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last 3 Mths = 0.00 hours">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Off Hire
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last Month = 0 <br/>Last 3 Mths = 0">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Serious Incident
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="#" class="dashboard-counters text-red">10</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Overdue Cert.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 top1section">
+
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last 3 Mths Ratio = 0.00">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        PSC Def.
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last Month = 0 <br/>Last 3 Mths = 0">
+
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        PSC Det.
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <span class="dashboard-counters text-success" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Between 0 - 4 Mths = No <br/>Between 4 - 6 Mths = No <br/>Over 6 Mths = Yes">
+                                        30
+                                    </span>
+                                    <div class="dashboard-counters-label">
+                                        Last Insp (Weeks)
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 top1section">
+
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last 3 Mths = 0.00">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        LTIF
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="OMV Findings N/A">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Vetting
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-danger align-bottom">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Rightship
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="row margin-bottom-25">
+                                <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 sm-margin-bottom-25">
+                                    <div class="">
+                                        <div class="dashboard-header-counters-label align-self-center">
+                                            <img src="~/images/opex.png" class="width-33" />
+                                            <span>Financials</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-2">
+                                            <canvas name="barChartOpex" width="300" height="55"></canvas>
+                                        </div>
+
+                                    </div>
+                                    <div class="clearfix opex-graph">
+
+                                        <div class="float-left">
+                                            <div class="dashboard-counters">
+                                                <span class="budget-color-dashboard">1332</span>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Budget
+                                            </div>
+                                        </div>
+                                        <div class="float-left">
+                                            <div class="dashboard-counters">
+                                                <span class="actual-color-blue-dashboard"> 945</span>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Total
+                                            </div>
+                                        </div>
+                                        <div class="float-left">
+                                            <div class="dashboard-counters">
+                                                <span class="variance-color-dashboard"> 386</span>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Variance
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-11 col-sm-12 col-md-5 col-lg-5 col-xl-5 dashboard-vertical-divider pr-0">
+                                    <div class="margin-bottom-25" style="margin-bottom: 15px !important;">
+
+                                        <div class="dashboard-header-counters-label align-self-center">
+                                            <img src="~/images/defect-manager.png" class="width-33" />
+                                            <span>Defects</span>
+                                        </div>
+                                    </div>
+                                    <div class="defect-box">
+
+                                        <div class="section-1 mobile-bottom-0">
+                                            <div>
+                                                <a href="/Dashboard/ViewDefectsList" class="dashboard-counters">
+                                                    2
+                                                </a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Due
+                                            </div>
+                                        </div>
+                                        <div class="section-1">
+                                            <div>
+                                                <a href="/Dashboard/ViewDefectsList" class="dashboard-counters">
+                                                    10
+                                                </a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                OD
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label align-self-center">
+                                    <img src="~/images/hazzoc.png" class="width-33" />
+                                    <span>HazOcc</span>
+                                </div>
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 hazzoc-box">
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Open
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Accidents
+                                    </div>
+                                </div>
+                                <div class="float-left mobile-top-20">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Incidents
+                                    </div>
+                                </div>
+                                <div class="float-left mobile-top-20">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        NM & SO
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label">
+                                    <img src="/images/Crew.png" class="width-33 mr-2"> Crewing
+                                </div>
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 crew-box-1">
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        OverDue
+                                    </div>
+                                </div>
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Unplanned Berth
+                                    </div>
+                                </div>
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Medical Sign Off
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label">
+                                    <img src="/images/pms.png" class="width-23">
+                                    <span>PMS</span>
+                                </div>
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 hazzoc-box pms-box">
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-yellow">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Due
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        OD<br class="mobile-block-767" /> (Prior)
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        OD<br class="mobile-block-767" />(Jan)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label align-self-center">
+                                    <img src="/images/open-orders.png" class="width-23"> <span>Procurement</span>
+                                </div>
+                            </div>
+                            <div class="clearfix margin-bottom-25 orders-box">
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">29</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        In Progress
+                                    </div>
+                                </div>
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">6</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Ordered
+                                    </div>
+                                </div>
+
+                                <div class="float-left mobile-top-20">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Dispatched
+                                    </div>
+                                </div>
+
+                                <div class="float-left mobile-top-20 top-1024">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Auth. Enq.
+                                    </div>
+                                </div>
+
+                                <div class="float-left mt-2 mobile-top-20">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Received <br class="mobile-425-block" />(30 Days)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-right">
+                                <button class="btn see-vessel-button">see vessel dashboard</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-6 col-xl-4 ipad-pro-1024-margin-top-25">
+                        <div class="dashboard-vessel-section-bg">
+                            <div class="mb-35">
+                                <div>
+                                    <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link float-right">
+                                        @*<i class="pe-7s-menu btn-icon-wrapper"></i>*@
+                                        <img src="~/images/Vships_Burger.png" />
+                                    </button>
+                                    <div tabindex="-1" role="menu" aria-hidden="true" style="width:130px" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-edit"> </i><span>Certificates</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-chart-line"> </i><span>Cost Analysis</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-credit-card"> </i><span>Purchasing</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-cogs"> </i><span>Maintenance</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-users"> </i><span>Crewing</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-eye"> </i><span>Inspection</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-search"> </i><span>Vetting</span></button>
+                                        <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon fa fa-exclamation-circle"> </i><span>Defects</span></button>
+                                    </div>
+                                </div>
+
+                                <a href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.VesselIdSpiritDiscovery)" class="heading-v">
+                                    <span class="dashboard-vessel-name-header">
+                                        @AppSettings.VesselName3
+                                    </span>
+                                </a>
+                                <br />
+                                <span class="dashboard-vessel-name-sub-header">
+                                    9354571, FRA
+                                </span>
+                            </div>
+                            <div class="clearfix margin-bottom-25 top1section">
+
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last 3 Mths = 0.00 hours">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Off Hire
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last Month = 0 <br/>Last 3 Mths = 0">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Serious Incident
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="#" class="dashboard-counters text-red">10</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Overdue Cert.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 top1section">
+
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last 3 Mths Ratio = 0.00">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        PSC Def.
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last Month = 0 <br/>Last 3 Mths = 0">
+
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        PSC Det.
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <span class="dashboard-counters text-success" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Between 0 - 4 Mths = No <br/>Between 4 - 6 Mths = No <br/>Over 6 Mths = Yes">
+                                        30
+                                    </span>
+                                    <div class="dashboard-counters-label">
+                                        Last Insp (Weeks)
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 top1section">
+
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="Last 3 Mths = 0.00">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        LTIF
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-success align-bottom" data-toggle="tooltip" data-html="true" data-placement="bottom" title="OMV Findings N/A">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Vetting
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div class="min-height-26">
+                                        <div class="badge badge-dot badge-danger align-bottom">
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Rightship
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="row margin-bottom-25">
+                                <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 sm-margin-bottom-25">
+                                    <div class="">
+                                        <div class="dashboard-header-counters-label align-self-center">
+                                            <img src="~/images/opex.png" class="width-33" />
+                                            <span>Financials</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-2">
+                                            <canvas name="barChartOpex" width="300" height="55"></canvas>
+                                        </div>
+
+                                    </div>
+                                    <div class="clearfix opex-graph">
+
+                                        <div class="float-left">
+                                            <div class="dashboard-counters">
+                                                <span class="budget-color-dashboard">1332</span>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Budget
+                                            </div>
+                                        </div>
+                                        <div class="float-left">
+                                            <div class="dashboard-counters">
+                                                <span class="actual-color-blue-dashboard"> 945</span>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Total
+                                            </div>
+                                        </div>
+                                        <div class="float-left">
+                                            <div class="dashboard-counters">
+                                                <span class="variance-color-dashboard"> 386</span>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Variance
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-11 col-sm-12 col-md-5 col-lg-5 col-xl-5 dashboard-vertical-divider pr-0">
+                                    <div class="margin-bottom-25" style="margin-bottom: 15px !important;">
+
+                                        <div class="dashboard-header-counters-label align-self-center">
+                                            <img src="~/images/defect-manager.png" class="width-33" />
+                                            <span>Defects</span>
+                                        </div>
+                                    </div>
+                                    <div class="defect-box">
+
+                                        <div class="section-1 mobile-bottom-0">
+                                            <div>
+                                                <a href="/Dashboard/ViewDefectsList" class="dashboard-counters">
+                                                    2
+                                                </a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                Due
+                                            </div>
+                                        </div>
+                                        <div class="section-1 ">
+                                            <div>
+                                                <a href="/Dashboard/ViewDefectsList" class="dashboard-counters">
+                                                    10
+                                                </a>
+                                            </div>
+                                            <div class="dashboard-counters-label">
+                                                OD
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label align-self-center">
+                                    <img src="~/images/hazzoc.png" class="width-33" />
+                                    <span>HazOcc</span>
+                                </div>
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 hazzoc-box">
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Open
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Accidents
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Incidents
+                                    </div>
+                                </div>
+                                <div class="float-left mobile-top-20">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        NM & SO
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label">
+                                    <img src="/images/Crew.png" class="width-33 mr-2"> Crewing
+                                </div>
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 crew-box-1">
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        OverDue
+                                    </div>
+                                </div>
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Unplanned Berth
+                                    </div>
+                                </div>
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Medical Sign Off
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label">
+                                    <img src="/images/pms.png" class="width-23">
+                                    <span>PMS</span>
+                                </div>
+                            </div>
+
+                            <div class="clearfix margin-bottom-25 hazzoc-box pms-box">
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-yellow">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Due
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        OD <br class="mobile-block-767" />(Prior)
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/Dashboard/ViewPPMList" class="dashboard-counters text-red">3</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        OD <br class="mobile-block-767" />(Jan)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 dashboard-horizontal-divider margin-bottom-25">
+                            </div>
+
+                            <div class="margin-bottom-25">
+                                <div class="dashboard-header-counters-label align-self-center">
+                                    <img src="/images/open-orders.png" class="width-23"> <span>Procurement</span>
+                                </div>
+                            </div>
+                            <div class="clearfix margin-bottom-25 orders-box">
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">29</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        In Progress
+                                    </div>
+                                </div>
+
+                                <div class="float-left">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">6</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Ordered
+                                    </div>
+                                </div>
+
+                                <div class="float-left mobile-top-20">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Dispatched
+                                    </div>
+                                </div>
+
+                                <div class="float-left mobile-top-20 top-1024">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Auth. Enq.
+                                    </div>
+                                </div>
+
+                                <div class="float-left mt-2 mobile-top-20">
+                                    <div>
+                                        <a href="/PurchaseOrder/List/?purchaseOrderRequest=@ViewBag.PurchaseOrderURL&VesselId=@ViewBag.VesselId" class="dashboard-counters">2</a>
+                                    </div>
+                                    <div class="dashboard-counters-label">
+                                        Received <br class="mobile-425-block" />(30 Days)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-right">
+                                <button class="btn see-vessel-button">see vessel dashboard</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+}
+
+@section Modal
+{
+    <!-- Modal -->
+
+    <div class="modal fade" id="modAddNotes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea name="text" id="taAddNote" class="form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnSaveNotes" class="btn btn-primary" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modEditNotes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModal">Edit Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea name="text" id="taEditNote" class="form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnSaveEditNotes" class="btn btn-primary" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modVesselList" tabindex="-1" role="dialog" aria-labelledby="VesselListModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="VesselListModal">Off Hire Vessels</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table style="width: 100%;" id="dtVesselList" class="table table-hover table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Vessel</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- feedback modal -->
+    <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Send Feedback</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">
+                        <textarea name="text" rows="4" id="exampleText" class="form-control" placeholder="Enter Text"></textarea>
+                    </p>
+                </div>
+                <div class="modal-footer text-right">
+
+                    <a href="#" class="btn btn-secondary">Send</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+@section ScriptSection
+{
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtkdm4T14Ry_RJkMZo7LJK96Lio1I5uIw&callback=initMap"></script>
+    <script src="~/assets/scripts/dashboard.bundle.js"></script>
+}

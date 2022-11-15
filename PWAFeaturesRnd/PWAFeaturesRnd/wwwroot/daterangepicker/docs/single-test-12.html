@@ -1,0 +1,149 @@
+
+<!DOCTYPE  html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        Caleran - Date Range Picker
+    </title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet" />
+    <link href="../build/css/caleran.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="../build/vendor/jquery.min.js"></script>
+    <script src="../build/vendor/moment.min.js"></script>
+    <script src="../build/vendor/jquery.hammer.js"></script>
+    <script src="../build/js/caleran.min.js"></script>
+    <!-- end caleran includes -->
+</head>
+
+<body>
+    <div class="well well-sm" style="overflow: auto;">
+        <div style='display: flex;'>
+            <div>Start Date:
+                <input type="text" id="caleran-ex-6-5-start" />
+            </div>
+            <div style='margin-left:20px;'>End Date:
+                <input type="text" id="caleran-ex-6-5-end" />
+            </div>
+        </div>
+        <br>
+        <button type="button" onclick="changeInputs();">Change Inputs</button>
+    </div>
+    <script type="text/javascript">
+        var startDate, endDate, startInstance, endInstance;
+        var fillInputs = function () {
+            startInstance.$elem.val(startDate ? startDate.locale(startInstance.config.format).format(startInstance.config.format) : "");
+            endInstance.$elem.val(endDate ? endDate.locale(endInstance.config.format).format(endInstance.config.format) : "");
+        };
+        var changeInputs = function () {
+            startDate = moment().add(-1, "days");
+            endDate = moment().add(2, "days");
+            fillInputs();
+        };
+        $("#caleran-ex-6-5-start").caleran({
+            startEmpty: $("#caleran-ex-6-5-start").val() === "",
+            startDate: $("#caleran-ex-6-5-start").val(),
+            endDate: $("#caleran-ex-6-5-end").val(),
+            enableKeyboard: false,
+            oninit: function (instance) {
+                startInstance = instance;
+                if (!instance.config.startEmpty && instance.config.startDate) {
+                    instance.$elem.val(instance.config.startDate.locale(instance.config.format).format(instance.config.format));
+                    startDate = instance.config.startDate.clone();
+                }
+            },
+            onbeforeshow: function (instance) {
+                if (startDate) {
+                    startInstance.config.startDate = startDate;
+                    endInstance.config.startDate = startDate;
+                }
+                if (endDate) {
+                    startInstance.config.endDate = endDate.clone();
+                    endInstance.config.endDate = endDate.clone();
+                }
+                fillInputs();
+                instance.updateHeader();
+                instance.reDrawCells();
+            },
+            onfirstselect: function (instance, start) {
+                startDate = start.clone();
+                startInstance.globals.startSelected = false;
+                startInstance.hideDropdown();
+                endInstance.showDropdown();
+                endInstance.config.minDate = startDate.clone();
+                endInstance.config.startDate = startDate.clone();
+                endInstance.config.endDate = null;
+                endInstance.globals.startSelected = true;
+                endInstance.globals.endSelected = false;
+                endInstance.globals.firstValueSelected = true;
+                endInstance.setDisplayDate(start);
+                if (endDate && startDate.isAfter(endDate)) {
+                    endInstance.globals.endDate = endDate.clone();
+                }
+                endInstance.updateHeader();
+                endInstance.reDrawCells();
+                fillInputs();
+            },
+            onrangeselect: function(instance, range){
+                startDate = range.startDate.clone();
+                endDate = range.endDate.clone();
+            },
+            ondraw: function(instance){
+                if(startInstance && endInstance){
+                    fillInputs();
+                }
+            }
+        });
+        $("#caleran-ex-6-5-end").caleran({
+            startEmpty: $("#caleran-ex-6-5-end").val() === "",
+            startDate: $("#caleran-ex-6-5-start").val(),
+            endDate: $("#caleran-ex-6-5-end").val(),
+            enableKeyboard: false,
+            autoCloseOnSelect: true,
+            oninit: function (instance) {
+                endInstance = instance;
+                if (!instance.config.startEmpty && instance.config.endDate) {
+                    instance.$elem.val(instance.config.endDate.locale(instance.config.format).format(instance.config.format));
+                    endDate = instance.config.endDate.clone();
+                }
+            },
+            onbeforeshow: function (instance) {
+                if (startDate) {
+                    startInstance.config.startDate = startDate;
+                    endInstance.config.startDate = startDate;
+                }
+                if (endDate) {
+                    startInstance.config.endDate = endDate.clone();
+                    endInstance.config.endDate = endDate.clone();
+                }
+                fillInputs();
+                instance.updateHeader();
+                instance.reDrawCells();
+            },
+            onafterselect: function (instance, start, end) {
+                startDate = start.clone();
+                endDate = end.clone();
+                endInstance.hideDropdown();
+                startInstance.config.endDate = endDate.clone();
+                startInstance.globals.firstValueSelected = true;
+                fillInputs();
+                endInstance.globals.startSelected = true;
+                endInstance.globals.endSelected = false;
+            },
+            onrangeselect: function(instance, range){
+                startDate = range.startDate.clone();
+                endDate = range.endDate.clone();
+            },
+            ondraw: function(instance){
+                if(startInstance && endInstance){
+                    fillInputs();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

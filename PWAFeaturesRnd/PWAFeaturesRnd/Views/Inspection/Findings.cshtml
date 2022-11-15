@@ -1,0 +1,576 @@
+﻿@model PWAFeaturesRnd.ViewModels.Inspection.InspectionFindingRequestViewModel
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Findings
+}
+
+@section ContentSection
+{
+    @Html.HiddenFor(m => m.EncryptedInspectionId)
+    @Html.HiddenFor(m => m.EncryptedVesselId)
+    @Html.HiddenFor(m => m.IsFromViewRecord)
+    @Html.HiddenFor(m => m.ActiveMobileTabClass)
+    <div class="app-main__outer fixed-page-header inspect-table">
+        <div class="app-main__inner background-padding new-background common-border-radius mobile-tab-bottom-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper new-heading-design">
+                    <div class="margin-left-35">
+                        <div class="common-sub-heading-black headershowmorewrapper">
+                            <span class="header">
+                                <span class="breadcurmdeactive">
+                                    @if (Model.IsFromViewRecord == true)
+                                    {
+                                        <span> Inspections</span>
+                                    }
+                                    else
+                                    {
+                                        <a href="javascript:void(0)" id="inspectionHeader">Inspections</a>
+                                    }
+                                    
+                                </span>
+                                <span class="breadcurmdeactive arrow-bread"> > </span>
+                                <span class="common-sub-heading-black pr-0">@Model.InspectionName</span>
+                            </span>
+                            <div class="common-small-heading">
+                                <span>
+                                    @if (Model.IsFromViewRecord == true)
+                                    {
+                                        <span class="common-small-heading">
+                                            @Model.VesselName
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <a class="common-heading-green"
+                                           href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.VesselId)">@Model.VesselName</a>
+                                    }
+                                </span>
+
+                                <span class="d-none d-md-inline-block ml-1 mr-1">|</span>
+                                <span class="common-small-heading"><div>Company: <span id="HeadingCompany"> </span></div></span>
+                                <span class="d-none d-md-inline-block ml-1 mr-1">|</span>
+                                <span class="common-small-heading"><div>Location: <span id="HeadingLocation"></span></div></span>
+                                <span class="d-none d-md-inline-block ml-1 mr-1 detained">|</span>
+                                <span class="common-small-heading detained">
+                                    <div>
+                                        <span class="common-sub-heading-red">
+                                            <img src="/images/detained.png" class="ml-1 mr-2" /> <span id="HeadingDetainedDay"></span>
+                                        </span>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-title-actions mobile-fixed-right left-fixed-ipad">
+                        <partial name="DiscussionAndNotesCountButton" />
+                        @if (!String.IsNullOrWhiteSpace(Model.TplId))
+                        {
+                            <button id="" class="btn btn-dark-grey text-white btn-shadow hover-blue mr-1 btnDownloadReportOpen hide-mobile">
+                                <img src="~/images/Download-doc-hover.png" class="m-0 align-top" />
+                                <span class="open-sans-font bold-text ml-2">Download Inspection Report</span>
+                            </button>
+                            <button data-toggle="tooltip" title="Inspection Summary Report" data-placement="bottom" class="btn btn-dark-grey text-white btn-export btn-shadow hover-blue hide-mobile btnExport">
+                                <i class="fa fa-fw" aria-hidden="true"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            <button data-toggle="tooltip" title="Inspection Summary Report" data-placement="bottom" class="btn btn-dark-grey text-white btn-export btn-shadow hover-blue hide-mobile btnExport">
+                                <i class="fa fa-fw" aria-hidden="true"></i>
+                            </button>
+                        }
+                        <button class="btn btn-dark-grey text-white btn-shadow hover-blue ml-1 hide-mobile btnInspectionClosure">
+                            <img src="~/images/CloseInpsectionWhite.png" width="16" class="m-0 align-top" /><span class="open-sans-font bold-text ml-2">Close Inspection</span>
+                        </button>
+
+                        <div class="dropdown mobile-dropdown-title d-block d-md-none d-lg-none d-xl-none">
+                            <button id="mobiletoggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-dark-grey text-white btn-export btn-shadow">
+                                <span class="btn-icon-wrapper">
+                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
+                                </span>
+                            </button>
+                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="mobileActiondropdown">
+                                <ul class="nav flex-column">
+                                    <li id="baseDiscussionMobile" class="d-none">
+                                        <a class="nav-link discussionAnchorOnClick">
+                                            <i class="fa fa-fw" aria-hidden="true" title=""></i><span>Discussions (<span class="baseDiscussionCountCommon">0</span>)</span>
+                                        </a>
+                                    </li>
+                                    <li id="baseNotesMobile" class="d-none">
+                                        <a class="nav-link noteAnchorOnClick">
+                                            <i class="fa fa-fw" aria-hidden="true" title=""></i><span>My Notes (<span class="baseNotesCountCommon">0</span>)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link btnExport" title="Export to excel">
+                                            <i class="fa fa-fw" aria-hidden="true"></i><span> Export to excel</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link btnInspectionClosure">
+                                            <img src="~/images/CloseInpsectionGray.png" /> <span>Close Inspection</span>
+                                        </a>
+                                    </li>
+                                    @if (!String.IsNullOrWhiteSpace(Model.TplId))
+                                    {
+                                        <li>
+                                            <a class="nav-link btnDownloadReportOpen" title="Download" data-placement="bottom">
+                                                <img src="/images/Download-doc-black.png" class=""><span> Download Inspection Report</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="card content-pane budget-summary">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0" id="">
+                        @Model.InspectionName - @Model.OccuredDate
+                    </h5>
+                    </div>
+                </div>*@
+            <div class="content-pane budget-summary">
+                <div class="row tab-box-1">
+                    <div class="col-12 col-md-5 col-lg-5 col-xl-5">
+                        <div class="common-custom-card height-equal finding-card">
+                            <div class="row">
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-5">
+                                    <div class="wp-100">
+                                        <div class="">
+                                            <div class="counters-heading border-none">
+                                                <div class="w-100">
+                                                    <span>Details</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 col-md-4 col-lg-3 col-xl-6">
+                                                    <div class="dashboard-counters-label">
+                                                        Start Date
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-md-8 col-lg-9 col-xl-6">
+                                                    <a id="startDate" class="dashboard-counters color-black">
+
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 col-md-4 col-lg-3 col-xl-6">
+                                                    <div class="dashboard-counters-label">
+                                                        End Date
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-md-8 col-lg-9 col-xl-6">
+                                                    <a id="endDate" class="dashboard-counters color-black">
+
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 col-md-4 col-lg-3 col-xl-6">
+                                                    <div class="dashboard-counters-label">
+                                                        Next Due
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-md-8 col-lg-9 col-xl-6">
+                                                    <a id="nextDue" class="dashboard-counters color-black">
+
+                                                    </a>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-5">
+                                    <div class="wp-100">
+                                        <div class="">
+                                            <div class="counters-heading border-none  d-none d-md-none d-lg-none d-xl-block">
+                                                <div class="w-100">
+                                                    <span>&nbsp;</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 col-md-4 col-lg-3 col-xl-4">
+                                                    <div class="dashboard-counters-label">
+                                                        Location
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-md-8 col-lg-9 col-xl-8">
+                                                    <a id="location" class="dashboard-counters color-black">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 col-md-4 col-lg-3 col-xl-4">
+                                                    <div class="dashboard-counters-label">
+                                                        Where
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-md-8 col-lg-9 col-xl-8">
+                                                    <a id="where" class="dashboard-counters color-black">
+
+                                                    </a>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-7 col-lg-7 col-xl-7">
+                        <div class="common-custom-card height-equal finding-card">
+                            <div class="row">
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-4">
+                                    <div class="wp-100">
+                                        <div class="">
+                                            <div class="counters-heading border-none">
+                                                <div class="w-100">
+                                                    <span>Inspector</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 col-md-3 col-lg-2 col-xl-4">
+                                                    <div class="dashboard-counters-label">
+                                                        Entity
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-md-9 col-lg-10 col-xl-8">
+                                                    <span id="entity" class="dashboard-counters color-black">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 col-md-3 col-lg-2 col-xl-4">
+                                                    <div class="dashboard-counters-label">
+                                                        Inspector
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-md-9 col-lg-10 col-xl-8">
+                                                    <span id="inspectorName" class="dashboard-counters color-black">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 col-md-3 col-lg-2 col-xl-4">
+                                                    <div class="dashboard-counters-label">
+                                                        Rank
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-md-9 col-lg-10 col-xl-8">
+                                                    <span id="rank" class="dashboard-counters color-black mobile-bottom-0">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12  col-xl-8">
+                                    <div class="wp-100">
+                                        <div class="">
+                                            <div class="counters-heading border-none  d-none d-md-none d-lg-none d-xl-block">
+                                                <div class="w-100">
+                                                    <span>&nbsp;</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 col-md-3 col-lg-2 col-xl-3">
+                                                    <div class="dashboard-counters-label">
+                                                        Company
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-md-9 col-lg-10 col-xl-9">
+                                                    <span id="company" class="dashboard-counters color-black">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 col-md-3 col-lg-2 col-xl-3">
+                                                    <div class="dashboard-counters-label">
+                                                        Department
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-md-9 col-lg-10 col-xl-5">
+                                                    <span id="department" class="dashboard-counters color-black">
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-card card margin-bottom-custom table-common-design table-design-finding hide-mobile tab-box-2" id="findingslist">
+                <div class="common-custom-card mobile-pad-0 mb-0 pr-0 pl-0">
+                    <div class="tab-content">
+                        <div class="clearfix"></div>
+                        <div class="tab-grid">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    @Html.HiddenFor(m => m.InspectionUrl)
+                                    @Html.HiddenFor(m => m.IsPscVisible)
+                                    @Html.HiddenFor(m => m.IsOMVType)
+                                    @Html.HiddenFor(m => m.IsCausesSectionVisible)
+                                    @Html.HiddenFor(m => m.InspectionFindingFilter)
+                                    @Html.HiddenFor(m => m.VesselId)
+                                    @Html.HiddenFor(m => m.InspectionName)
+                                    @Html.HiddenFor(m => m.OccuredDate)
+                                    @Html.HiddenFor(m => m.VesselName)
+                                    @Html.HiddenFor(m => m.IsAllSelected)
+                                    @Html.HiddenFor(m => m.IsFindingOutstanding)
+                                    @Html.HiddenFor(m => m.IsFindingOverdue)
+                                    @Html.HiddenFor(m => m.IsPendingClosure)
+                                    @Html.HiddenFor(m => m.IsClosed)
+                                    @Html.HiddenFor(m => m.IsShowDetained)
+                                    @Html.HiddenFor(m => m.IsDue)
+                                    @Html.HiddenFor(m => m.IsOverdue)
+                                    @Html.HiddenFor(m => m.strInspectionTypeIds)
+                                    @Html.HiddenFor(m => m.InspectionFilter)
+                                    @Html.HiddenFor(m => m.InDays)
+                                    @Html.HiddenFor(m => m.IsInspection)
+                                    @Html.HiddenFor(m => m.InspectionType)
+                                    @Html.HiddenFor(m => m.MessageDetailsJSON)
+                                    <div class="counters-heading border-none findings-header">
+                                        <div class="">
+                                            <span>Findings</span>
+                                        </div>
+                                    </div>
+                                    <div class="data-grid-right">
+                                        <div class="">
+                                            <div class="radio-button-design">
+                                                <div id="rbCrewStatus" rad>
+                                                    <div class="custom-radio custom-control custom-control-inline">
+                                                        <input class="custom-control-input" id="csall" name="selFindingStatus" type="radio" value="AllFindings" checked>
+                                                        <label class="custom-control-label" for="csall">All (<span id="AllFindingLabelCount"></span>)</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-control custom-control-inline">
+                                                        <input class="custom-control-input" id="cscleared" name="selFindingStatus" type="radio" value="Cleared">
+                                                        <label class="custom-control-label" for="cscleared">Cleared (<span id="ClearedLabelCount"></span>)</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-control custom-control-inline">
+                                                        <input class="custom-control-input" id="csoutstanding" name="selFindingStatus" type="radio" value="Outstanding">
+                                                        <label class="custom-control-label" for="csoutstanding">Open (<span id="OutstandingLabelCount"></span>)</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-control custom-control-inline">
+                                                        <input class="custom-control-input" id="csover" name="selFindingStatus" type="radio" value="Overdue">
+                                                        <label for="csover" class="custom-control-label">Overdue (<span id="OverdueLabelCount"></span>)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtfindings" class="table table-hover  cardview row-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th class="table-header-icon-align" data-toggle="tooltip" data-placement="top" title="Discussion"><img style="height:16px;" src="/images/message-black.svg" /></th>
+                                                    <th class="table-header-icon-align" data-toggle="tooltip" data-placement="top" title="Notes"><img style="height:15px;" src="/images/notes-black.svg" /></th>
+                                                    <th>Chat/Notes</th>
+                                                    <th>Ves Ref</th>
+                                                    <th>Chapter / Insp.Ref No</th>
+                                                    <th>Type or Category</th>
+                                                    @*<th>Description</th>*@
+                                                    <th>Correction Action Assigned To</th>
+                                                    <th>System / Area</th>
+                                                    <th>Due Date</th>
+                                                    <th>Date Cleared</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="loading-indicator d-none">
+                <div class="loader bg-transparent no-shadow p-0">
+                    <div class="ball-spin-fade-loader">
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="mobile-tab d-block d-md-none d-lg-none d-xl-none">
+         <a id="tab-1" class="tab-1 mobileTabClick active">
+             <svg width="19" height="22" viewBox="0 0 21 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+                 <path d="M20.4848 1.34377C20.4884 1.07278 20.247 0.875 19.9824 0.875H1.38007C1.11443 0.875 0.875 1.07323 0.875 1.34289V22.6571C0.875 22.9265 1.11414 23.125 1.38007 23.125H19.9799C20.2456 23.125 20.485 22.9268 20.485 22.6571L20.4848 1.34377ZM20.4848 1.34377C20.4848 1.34412 20.4848 1.34448 20.4848 1.34483L20.3598 1.34289L20.4848 1.34289V1.34377ZM19.4769 22.1892H1.88765V1.81074H19.4769V22.1892Z" fill="#000000" stroke="#000000" stroke-width="0.25" />
+                 <path d="M4.63485 18.2247C4.70813 18.1538 4.80728 18.114 4.91042 18.1145L15.5725 18.1147C15.7861 18.1155 15.959 18.2841 15.9599 18.4924C15.9602 18.5929 15.9196 18.6896 15.847 18.7609C15.7744 18.8323 15.6756 18.8726 15.5725 18.8731H4.91043C4.80676 18.8734 4.70709 18.8335 4.63381 18.762C4.56053 18.6904 4.51955 18.5934 4.5199 18.4924C4.52025 18.3918 4.56175 18.2955 4.63485 18.2247Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                 <path d="M4.63485 14.826C4.70813 14.7551 4.80728 14.7153 4.91042 14.7158L15.5725 14.716C15.7861 14.7168 15.959 14.8855 15.9599 15.0937C15.9602 15.1942 15.9196 15.2909 15.847 15.3622C15.7744 15.4336 15.6756 15.4739 15.5725 15.4744H4.91043C4.80676 15.4748 4.70709 15.4348 4.63381 15.3634C4.56053 15.2918 4.51955 15.1948 4.5199 15.0937C4.52025 14.9931 4.56175 14.8968 4.63485 14.826Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                 <path d="M4.64647 11.4274C4.72715 11.3564 4.83632 11.3166 4.94989 11.3171L11.1333 11.3173C11.3685 11.3182 11.5589 11.4868 11.5599 11.695C11.5603 11.7956 11.5155 11.8922 11.4356 11.9635C11.3557 12.0349 11.2469 12.0752 11.1333 12.0757H4.94989C4.83575 12.0761 4.726 12.0361 4.64532 11.9647C4.56464 11.8931 4.51952 11.7961 4.5199 11.695C4.52028 11.5944 4.56598 11.4981 4.64647 11.4274Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                 <path d="M4.64647 8.02892C4.72715 7.95798 4.83632 7.9182 4.94989 7.91871L11.1333 7.91888C11.3685 7.91973 11.5589 8.08834 11.5599 8.29657C11.5603 8.39713 11.5155 8.49379 11.4356 8.56507C11.3557 8.6365 11.2469 8.6768 11.1333 8.6773H4.94989C4.83575 8.67764 4.726 8.63769 4.64532 8.56625C4.56464 8.49464 4.51952 8.39763 4.5199 8.29657C4.52028 8.19601 4.56598 8.09968 4.64647 8.02892Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+                 <path d="M4.64647 4.63023C4.72715 4.5593 4.83632 4.51952 4.94989 4.52002L16.4133 4.5202C16.6485 4.52105 16.8389 4.68966 16.8399 4.89789C16.8403 4.99845 16.7955 5.09511 16.7156 5.16638C16.6357 5.23782 16.5269 5.27811 16.4133 5.27862H4.94989C4.83575 5.27896 4.726 5.23901 4.64532 5.16757C4.56464 5.09595 4.51952 4.99895 4.5199 4.89788C4.52028 4.79733 4.56598 4.701 4.64647 4.63023Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+             </svg>
+             Details
+         </a>
+         <a id="tab-2" class="tab-2 mobileTabClick">
+             <svg width="20" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+                 <path d="M1.52287 19.8245C1.10589 19.8245 0.747837 19.6704 0.448702 19.3622C0.149567 19.054 0 18.7005 0 18.3016V3.37206C0 2.95509 0.131438 2.59703 0.394314 2.2979C0.65719 1.99876 0.915534 1.8492 1.16935 1.8492H6.66255C6.75319 1.32344 6.99794 0.883807 7.39679 0.530284C7.79563 0.176761 8.267 0 8.81088 0C9.33663 0 9.79893 0.176761 10.1978 0.530284C10.5966 0.883807 10.8504 1.32344 10.9592 1.8492H16.4524C16.8694 1.8492 17.2274 1.99876 17.5266 2.2979C17.8257 2.59703 17.9753 2.95509 17.9753 3.37206V9.78986H16.7787V3.37206C16.7787 3.28142 16.747 3.19984 16.6836 3.12732C16.6201 3.0548 16.5431 3.01854 16.4524 3.01854H13.5426V6.03708H4.45983V3.01854H1.52287C1.43222 3.01854 1.35517 3.0548 1.29172 3.12732C1.22827 3.19984 1.19654 3.28142 1.19654 3.37206V18.3016C1.19654 18.3923 1.22827 18.4693 1.29172 18.5328C1.35517 18.5962 1.43222 18.6279 1.52287 18.6279H8.02225V19.8245H1.52287ZM19.3894 22L16.3164 18.9271C15.9539 19.2171 15.5595 19.4166 15.1335 19.5253C14.7075 19.6341 14.2769 19.6885 13.8418 19.6885C12.7178 19.6885 11.7569 19.2942 10.9592 18.5056C10.1615 17.7169 9.76267 16.7515 9.76267 15.6094C9.76267 14.4672 10.1615 13.5019 10.9592 12.7132C11.7569 11.9246 12.7268 11.5303 13.869 11.5303C14.993 11.5303 15.9539 11.9291 16.7515 12.7268C17.5492 13.5245 17.9481 14.4854 17.9481 15.6094C17.9481 16.0445 17.8892 16.4841 17.7713 16.9283C17.6535 17.3725 17.4495 17.7577 17.1595 18.0841L20.2596 21.157L19.3894 22ZM13.8418 18.492C14.6576 18.492 15.3465 18.2155 15.9085 17.6625C16.4705 17.1096 16.7515 16.4252 16.7515 15.6094C16.7515 14.8117 16.4705 14.1273 15.9085 13.5562C15.3465 12.9852 14.6667 12.6996 13.869 12.6996C13.0532 12.6996 12.3642 12.9806 11.8022 13.5426C11.2402 14.1047 10.9592 14.7936 10.9592 15.6094C10.9592 16.4252 11.2402 17.1096 11.8022 17.6625C12.3642 18.2155 13.0441 18.492 13.8418 18.492ZM9.1644 3.04574C9.43634 3.04574 9.66749 2.95056 9.85785 2.7602C10.0482 2.56984 10.1434 2.34775 10.1434 2.09394C10.1434 1.822 10.0482 1.59085 9.85785 1.40049C9.66749 1.21014 9.43634 1.11496 9.1644 1.11496C8.89246 1.11496 8.66584 1.21014 8.48455 1.40049C8.30326 1.59085 8.21261 1.81294 8.21261 2.06675C8.21261 2.35682 8.30326 2.5925 8.48455 2.77379C8.66584 2.95509 8.89246 3.04574 9.1644 3.04574Z" fill="black" />
+             </svg>
+             Findings
+         </a>
+	</div>
+
+}
+
+@section Modal
+{
+    <div class="modal fade p-0" id="modalDownloadInspectionReport" role="dialog" aria-labelledby="modalDownloadInspectionReport" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding">
+                    <div class="col-md-11 pl-0">
+                        <div class="">
+                            <div class="common-heading-green">Inspection Report</div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background padding-20">
+                    <div class="common-custom-card background-padding mb-0">
+                        <div class="row">
+                            <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                <div class="dashboard-counters-label mr-0 w-auto">
+                                    Report Type
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-7 col-lg-7 col-xl-7 common-form-design">
+                                <div class="row">
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="radio-button-design ml-0 mb-2">
+                                            <div class="custom-radio custom-control custom-control-inline mr-0">
+                                                <input class="custom-control-input" id="radioSummaryReport" name="reportType" type="radio" value="Summary" checked>
+                                                <label class="custom-control-label" for="radioSummaryReport">Summary</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="radio-button-design ml-0 mb-2">
+                                            <div class="custom-radio custom-control custom-control-inline  mr-0">
+                                                <input class="custom-control-input" id="radioDetailReport" name="reportType" type="radio" value="Detail">
+                                                <label class="custom-control-label" for="radioDetailReport">Detail</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="radio-button-design ml-0 mb-2">
+                                            <div class="custom-radio custom-control custom-control-inline  mr-0">
+                                                <input class="custom-control-input" id="radioQaDetailReport" name="reportType" type="radio" value="QaDetail">
+                                                <label class="custom-control-label" for="radioQaDetailReport">QA Detail</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 col-md-5 col-lg-5 col-xl-5 my-auto">
+                                <div class="dashboard-counters-label mr-0 w-auto align-top">
+                                    Format
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-7 col-lg-7 col-xl-7 common-form-design">
+                                <div class="dashboard-counters w-auto" id="">
+                                    <select id="selFormat" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer common-form-design">
+                    <button type="button" id="btnDownloadReport" class="btn search-btn" aria-disabled="true">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade open-sans-font successpopup warningpopup" id="inspectionClosureActionModal" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="inspectionClosureActionModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body">
+                    <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                    <h2>Confirmation</h2>
+                    <h1>Are you sure you want to close this inspection?</h1>
+                    <button class="btn btn-cancelsecondarybtn no-btn clickEventDisable btn-no" data-dismiss="modal" id="noInspectionClosureAction">Cancel</button>
+                    <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="yesInspectionClosureAction">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade open-sans-font successpopup" id="inspectionSuccessModal" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="inspectionSuccessModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                    <h1>Inspection closed successfully.</h1>
+                    <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="btnCloseInspectionSuccessOk">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade open-sans-font successpopup warningpopup" id="modelInspectionClosureActionAlert" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="modelInspectionClosureActionAlert" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body">
+                    <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                    <h2>Alert</h2>
+                    <h1 id="spanAlertMessage"></h1>
+                    <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/inspectionFindingsList.bundle.js"></script>
+}
+

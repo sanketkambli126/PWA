@@ -1,0 +1,1980 @@
+﻿@model VesselDetailViewModel
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+@section Title
+{
+    Vessel Details
+}
+
+@section ContentSection
+{
+    @Html.HiddenFor(m => m.VesselId)
+    @Html.HiddenFor(m => m.IsTypeIdRequired)
+    @Html.HiddenFor(m => m.VoyageReportingRequestUrl)
+    <div class="app-main__outer vessel-details">
+        <div class="app-main__inner white-background new-background">
+            <div class="tabs-animation">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-8 pr-10 vessel-details-new-padding">
+                        <div id="cdVesselDetail" class="card margin-bottom-custom widget-chart custom-card mb-35 vessel-details-border height-equal">
+                            <div class="row mb-4">
+                                <div class="col-md-12 col-lg-12">
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">
+                                                    <span class="top-heading" id="spanVesselName">	 </span>
+                                                    <br />
+                                                    <span class="top-sub-heading" id="spanVesselImo"></span>
+                                                    <span class="top-sub-heading" id="spanVesselFlag"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-lg-4 mr-70 mb-35  pr-0"> <img id="imgvesselpicture" class="vessel-image"/></div>
+                                <div class="vessel-name-box mb-35">
+                                    <div class="widget-chart p-0">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="main-card mb-0 card">
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item border-none pb-0">
+                                                            <div class="widget-content p-0">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left">
+                                                                        <div class="vessel-info-section">
+                                                                            <div class="widget-heading opacity-1">
+                                                                                <span id="spanVesselType"></span>
+                                                                            </div>
+                                                                            <div class="widget-subheading">Type</div>
+                                                                            <div class="clearfix">
+                                                                                <div class="info-box float-left mr-35">
+                                                                                    <div class="widget-heading opacity-1">
+                                                                                        <span id="spanVesselBuiltDate"></span>
+                                                                                    </div>
+                                                                                    <div class="widget-subheading mb-0">Built Date</div>
+                                                                                </div>
+                                                                                <div class="float-left mr-35">
+                                                                                    <div class="widget-heading opacity-1">
+                                                                                        <span id="spanVesselAge"></span>
+                                                                                    </div>
+                                                                                    <div class="widget-subheading mb-0">Age</div>
+                                                                                </div>
+                                                                                @*<div class="float-left mr-35">
+                                                                                    <div class="widget-heading opacity-1">
+                                                                                        <span id="spanRightship">0</span>
+                                                                                    </div>
+                                                                                    <div class="widget-subheading mb-0">Rightship</div>
+                                                                                </div>*@
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item border-none ">
+                                                            <div class="widget-content p-0">
+                                                                <div class="widget-content-wrapper">
+                                                                    <div class="widget-content-left">
+                                                                        <div class="vessel-info-section">
+                                                                            <div class="widget-heading opacity-1">
+                                                                                <span id="spanVesselMaster"></span>
+                                                                            </div>
+                                                                            <div class="widget-subheading">Master</div>
+                                                                            <div class="widget-heading opacity-1">
+                                                                                <span id="spanVesselChiefEngg"></span>
+                                                                            </div>
+                                                                            <div class="widget-subheading mb-0">Chief Engineer</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-xl-4">
+                        <div id="cdRecentActivity" class="card custom-card margin-bottom-custom height-equal">
+                            <span class="card-title">
+                                <img src="~/images/Schedule.png" class="width-23" />
+                                <span>Recent Activity</span>
+                            </span>
+                            <div class="scroll-area-xs" style="height:320px;padding-bottom: 25px;">
+                                <div class="scrollbar-container ps text-left">
+                                    <div class="vertical-time-simple vertical-without-time vertical-timeline--animate vertical-timeline--one-column pt-0">
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h6 class="timeline-sub-title">Vessel Arriving at Rotterdam <div class="badge badge-danger ml-2">NEW</div></h6>
+                                                    <p class="timeline-title">
+                                                        ETA&nbsp;:
+                                                        <span class="text-success">11.30 AM GMT</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h6 class="timeline-sub-title">
+                                                        Incident Occurred
+                                                    </h6>
+                                                    <p class="timeline-title">
+                                                        Oil leakage
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h6 class="timeline-sub-title">
+                                                        Accidents Occurred
+                                                    </h6>
+                                                    <p class="timeline-title">
+                                                        Crew member suffered injury
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h6 class="timeline-sub-title">
+                                                        Document Uploaded
+                                                    </h6>
+                                                    <p class="timeline-title">
+                                                        Compliance document has been updated
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h6 class="timeline-sub-title">
+                                                        Vessel Arriving to Antwerp
+                                                    </h6>
+                                                    <p class="timeline-title">
+                                                        Expected departure time:
+                                                        <span class="text-success">12.30 AM GMT</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                            <div>
+                                                <span class="vertical-timeline-element bounce-in"></span>
+                                                <div class="vertical-timeline-element-content bounce-in">
+                                                    <h4 class="timeline-sub-title">
+                                                        Accidents Occurred
+                                                    </h4>
+                                                    <p class="timeline-title">
+                                                        Crew member suffered injury
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <div class="margin-bottom-custom card custom-card">
+                            <div class="card-title border-none current-voyage">
+                                <img src="~/images/location.png" class="width-22" /> <span> Current Voyage</span>
+                                <a id="aCurrentVoyageViewMore" class="float-right btn-transition btn btn-outline-success view-more">View More</a>
+                            </div>
+                            <div class="">
+                                <div class="sea-passage-graph-box">
+                                    <div class="">
+                                        <div class="">
+                                            <div class="vessel-details vessel-graph-box">
+                                                <div class="widget-chart p-0 mb-35">
+                                                    <div class="mb-0">
+                                                        <ul class="list-group list-group-flush">
+                                                            <li class="list-group-item">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left">
+                                                                            <div class="clearfix current-vessel-box">
+                                                                                <div class="float-left mr-35">
+                                                                                    <div class="widget-heading opacity-1" id="spanCharterName"></div>
+                                                                                    <div class="widget-subheading">Charterer's Name</div>
+                                                                                </div>
+                                                                                <div class="float-left mr-35 mobile-top-20">
+                                                                                    <div class="widget-heading opacity-1">
+                                                                                        <a id="aCharterNavigation">
+                                                                                            <span id="spanCharterNo"></span>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div class="widget-subheading">Charter No.</div>
+                                                                                </div>
+                                                                                <div class="float-left mr-35 mobile-top-20">
+                                                                                    <div class="widget-heading opacity-1">
+                                                                                        <span id="spanVoyageNumber"></span>
+                                                                                    </div>
+                                                                                    <div class="widget-subheading">Voyage Number</div>
+                                                                                </div>
+
+                                                                                <div class="float-left mr-35 mobile-top-20">
+                                                                                    <div class="widget-heading opacity-1">
+                                                                                        <span id="spanEospDate"></span>
+                                                                                    </div>
+                                                                                    <div class="widget-subheading">
+                                                                                        <span id="spanEospDateHeader"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="float-left mr-35 mobile-top-20">
+                                                                                    <div class="widget-heading opacity-1">
+                                                                                        <span id="spanBerthDate"></span>
+                                                                                    </div>
+                                                                                    <div class="widget-subheading">
+                                                                                        <span id="spanBerthDateHeader"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="float-left mr-35 mobile-top-20">
+                                                                                    <div class="widget-heading opacity-1">
+                                                                                        <span id="spanUnBerthDate"></span>
+                                                                                    </div>
+                                                                                    <div class="widget-subheading">
+                                                                                        <span id="spanUnBerthDateHeader"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="float-left mr-35 mobile-top-20">
+                                                                                    <div class="widget-heading opacity-1">
+                                                                                        <span id="spanFaopDate"></span>
+                                                                                    </div>
+                                                                                    <div class="widget-subheading">
+                                                                                        <span id="spanFaopDateHeader"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-group-item border-none pb-0">
+                                                                <div class="widget-content p-0">
+                                                                    <div class="widget-content-wrapper">
+                                                                        <div class="widget-content-left">
+                                                                            <partial name="SeaPassagePartialView" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-12 pr-10 vessel-details-new-padding" id="divCharterersOrder">
+                    <div class="margin-bottom-custom card custom-card charterer-box" id="cdCharteresOrder">
+                        <div class="card-title border-none">
+                            <div class="">
+                                <img src="~/images/open-orders.png" class="width-22" /> <span class="titlee"> Charterer's Order</span>
+                                <a id="aCharterersOrderExternal" class="float-right btn-transition btn btn-outline-success view-more">View More</a>
+                            </div>
+                        </div>
+                        <div class="pr blur pb-0">
+                            <div class="widget-content-left">
+                                <div class="row mt-2">
+                                    <div class="col-12 col-md-6">
+                                        <div class="widget-numbers fsize-3 mt-0 mb-2 w-100">
+                                            <div class="widget-chart-flex align-items-center charter-chart" id="divSpeedRadialChart">
+                                                <div id="seaPassageSpeedRadialChart">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="widget-numbers fsize-3 mt-0 mb-2 w-100">
+                                            <div class="widget-chart-flex align-items-stretch">
+                                                <canvas id="fuel-consuption" class="charter-fuel-chart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-12 certificates" id="cdCertificate">
+                    <div class="row">
+                        <div class="col-12 col-md-12" id="colCertificate">
+                            <div class="margin-bottom-custom card custom-card equal-height-CertificateOpenOrder" id="cardCertificate">
+                                <div class="card-title border-none">
+                                    <div class="">
+                                        <a id="aCertificateTitle"><img src="~/images/Certificates.png" class="width-22" /><span class="dashboard-vessel-name-header">  Certificates</span></a>
+                                        <a id="aCertificateExternal" class="float-right btn-transition btn btn-outline-success view-more">View More</a>
+                                    </div>
+                                </div>
+                                <div class="pr blur pb-0">
+                                    <div class="widget-content-left">
+                                        <div class="row">
+                                            <div class="col-6 col-md-6 col-lg-2 pr-20">
+                                                <div class="mb-35 w-100 mobile-bottom-20 certificate-total">
+                                                    <div class="align-items-center certificate-total-count">
+                                                        <a id="aCertificateTotalActive" class="text-blue"> <span id="spanCertificateTotalActive">0</span> </a>
+                                                    </div>
+                                                    <span class="counters-label">Total Active</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-6 col-lg-3 pr-20">
+                                                <div class="mb-35 w-100 mobile-bottom-20 certificate-prg-bar-margin-top">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-progress-wrapper mb-3">
+                                                            <div class="progress-bar-animated-alt progress">
+                                                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" id="prgBarCertificateOverdue">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-numbers fsize-3 my-0 counters">
+                                                            <a id="aCertificateOverdue" class="text-red"><span id="spanCertificateOverdue">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Overdue</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-6 col-lg-3 pr-20">
+                                                <div class="mb-35 w-100 mobile-bottom-20 certificate-prg-bar-margin-top">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-progress-wrapper mb-3 mobile-margin-top-0">
+                                                            <div class="progress-bar-animated-alt progress">
+                                                                <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" id="prgBarCertificateExpiringIn30Days">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-numbers mt-2 fsize-3 mb-0 w-100 counters">
+                                                            <a id="aCertificateExpiringIn30Days" class="text-purple"><span id="spanCertificateExpiringIn30Days">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Expiring In 30 Days</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-6 col-lg-3 pr-20">
+                                                <div class="mb-35 w-100 mobile-bottom-0 certificate-prg-bar-margin-top">
+                                                    <div class="widget-chart-flex align-items-center">
+
+                                                        <div class="widget-progress-wrapper mb-3 mobile-top-0">
+                                                            <div class="progress-bar-animated-alt progress">
+                                                                <div class="progress-bar bg-yellow" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" id="prgBarCertificateWithinSurveyRange">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-numbers mt-2 mb-0 w-100 counters">
+                                                            <a id="aCertificateWithinSurveyRange" class="text-yellow"> <span id="spanCertificateWithinSurveyRange">0</span> </a>
+                                                        </div>
+                                                        <span class="counters-label">Within Survey Range</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12" id="colOpenOrder">
+                            <div class="margin-bottom-custom card custom-card equal-height-CertificateOpenOrder" id="cardOpenOrder">
+                                <div class="card-title border-none">
+                                    <div class="w-100">
+                                        <a id="aPOTitle"><img src="~/images/open-orders.png" class="width-22" /><span class="dashboard-vessel-name-header">  Procurement</span></a>
+                                        <a id="aPOViewMore" class="float-right btn-transition btn btn-outline-success view-more">View More</a>
+                                    </div>
+                                </div>
+                                <div class="pr blur pb-0">
+                                    <div class="widget-content-left">
+                                        <div class="row ml-0 open-vessel-box">
+                                            <div class="mb-35 mr-35 mobile-bottom-20">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a id="aPOInProcess" class="text-black">
+                                                                <span id="spanPoInProcess"></span>
+                                                            </a>
+                                                        </div>
+                                                        <span class="counters-label">In Progress</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-35 mr-35 mobile-bottom-20">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a id="aPOOrdered" class="text-black">
+                                                                <span id="spanPoOrdered"></span>
+                                                            </a>
+                                                        </div>
+                                                        <span class="counters-label">ORD</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-35 mr-35 mobile-bottom-20">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a id="aPODispateched" class="text-black">
+                                                                <span id="spanPoDispatched"> </span>
+                                                            </a>
+                                                        </div>
+                                                        <span class="counters-label">Dispatched</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-35 mr-35 mobile-bottom-0">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a id="aPOAuthEnq" class="text-black">
+                                                                <span id="spanPoAuthEnq"> </span>
+                                                            </a>
+                                                        </div>
+                                                        <span class="counters-label">Auth. Enq.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-35  mobile-bottom-0">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a id="aPOReieved" class="text-black">
+                                                                <span id="spanPoRecieved"> </span>
+                                                            </a>
+                                                        </div>
+                                                        <span class="counters-label">Received<br /> (30 Days)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                @*<div class="col-lg-4 col-md-12 col-xl-3 pr-10 vessel-details-new-padding">
+                        <div class="margin-bottom-custom card custom-card height-equal" id="divCommercial">
+                            <div class="card-title border-none">
+                                <div class="">
+                                    <img src="~/images/Entity.png" class="width-22 mr-2" /> <span> Commercial</span>
+                                </div>
+                            </div>
+                            <div class="widget-content pr blur pb-0 px-0 py-0">
+                                <div class="widget-content-left commercial-vessel-box">
+                                    <div class="box">
+                                        <div class="mb-35 mr-0  mobile-bottom-0">
+                                            <div class="mb-0 w-100">
+                                                <div class="widget-chart-flex align-items-center">
+                                                    <div class="widget-numbers fsize-3 w-100 counters">
+                                                        <a class="text-black offHireHrsClicked" href="javascript:void(0);" data-target="#offHireHrsModal" data-toggle="modal"> 15:30</a>
+                                                    </div>
+                                                    <span class="counters-label">Off Hire Hrs</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box">
+                                        <div class="mb-35 mr-0  mobile-bottom-0">
+                                            <div class="mb-0 w-100">
+                                                <div class="widget-chart-flex align-items-center">
+                                                    <div class="widget-numbers fsize-3 w-100 counters">
+                                                        <span class="text-black"> 4 </span>
+                                                    </div>
+                                                    <span class="counters-label">Rightship</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="col-lg-6 col-md-6 col-xl-6 pr-10 vessel-details-new-padding" id="creww">
+                    <div class="margin-bottom-custom card custom-card height-equal">
+                        <div class="card-title border-none">
+                            <div class="w-100">
+                                 <a id="aCrewTitle"><img src="~/images/Crew.png" class="width-22 mr-2" /><span class="dashboard-vessel-name-header"> Crewing</span></a>
+                                <a id="aCrewViewMore" class="float-right btn-transition btn btn-outline-success view-more">
+                                    View More
+                                </a>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur pb-0 px-0 py-0">
+                            <div class="widget-content-left">
+                                <div class="clearfix crew-vs-box">
+                                    <div class="float-left mb-35 mr-35 mobile-bottom-20">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <div class="widget-numbers fsize-3 w-100 counters">
+                                                    <a class="text-black" id="aOnboardURL">
+                                                        <span id="spanCrewOnboard"></span>
+                                                    </a>
+                                                </div>
+                                                <span class="counters-label">Onboard</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mb-35 mr-35 mobile-bottom-20">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <div class="widget-numbers fsize-3 w-100 counters">
+                                                    <a class="text-red" id="aOverDueURL">
+                                                        <span id="spanCrewOverdue"></span>
+                                                    </a>
+                                                </div>
+                                                <span title="Overdue Contract + 30 Days" data-toggle="tooltip" data-placement="bottom" class="counters-label">Overdue</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mr-35 mb-35 mobile-bottom-20">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <div class="widget-numbers fsize-3 w-100 counters">
+                                                    <a class="text-black" id="aUnplannedBerth">
+                                                        <span id="spanCrewUnplannedBerth"></span>
+                                                    </a>
+                                                </div>
+                                                <span class="counters-label">Unplanned Berth</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mr-35 mb-35 mobile-bottom-20">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <div class="widget-numbers fsize-3 w-100 counters">
+                                                    <a class="text-black" id="aTop4SignOn">
+                                                        <span id="spanCrewTop4SignOn"></span>
+                                                    </a>
+                                                </div>
+                                                <span class="counters-label">Top 4 <br class="mobile-br-320" /> Sign On</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="clearfix crew-vs-box">
+                                    <div class="float-left mb-35">
+                                        <div class="mb-0 w-100">
+                                            <div class="widget-chart-flex align-items-center">
+                                                <div class="widget-numbers fsize-3 w-100 counters">
+                                                    <a class="text-black" id="aMedicalSignOff">
+                                                        <span id="spanCrewMedicalSignOff"></span>
+                                                    </a>
+                                                </div>
+                                                <span class="counters-label">Medical Sign Off</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xl-6">
+                    <div class="margin-bottom-custom card custom-card height-equal">
+                        <div class="card-title border-none">
+                            <div class="w-100">
+                                <a id="aOpexTitle"><img src="~/images/opex.png" class="width-22" /><span class="dashboard-vessel-name-header">  Financials </span></a> &nbsp; <span id="spanDashboardDrillDownDate"></span> &nbsp; (<span id="spanDashboardCostCurrency"></span>)
+                                <a id="aOpexViewMore" class="float-right btn-transition btn btn-outline-success view-more">View More</a>
+                            </div>
+                        </div>
+                        <div class="pr blur pb-0">
+                            <div class="widget-content-left">
+                                <div class="">
+                                    <div class="">
+                                        <div class="widget-numbers fsize-3 w-100">
+                                            <div class="widget-chart-flex align-items-center" style="height:73px">
+                                                <canvas name="barChartOpex" style="margin-left:-7px;margin-top:-15px;"></canvas>
+                                            </div>
+                                            <div class="widget-content p-0">
+                                                <div class="widget-content-left">
+                                                    <div class="clearfix opex-vesssel-box">
+                                                        <div class="float-left mr-35 mb-35 mobile-bottom-20">
+                                                            <div class="widget-numbers fsize-1 w-100 counters">
+                                                                <div class="widget-chart-flex align-items-center">
+                                                                    <div class="budget-color">
+                                                                        <span id="spanOpexBudget"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="counters-label">Budget</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-left mr-35 mb-35 mobile-bottom-20">
+                                                            <div class="widget-numbers fsize-1 w-100 counters">
+                                                                <div class="widget-chart-flex align-items-center">
+                                                                    <div class="actual-color">
+                                                                        <span id="spanOpexActual"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="counters-label">Actuals</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-left mr-35 mb-35 mobile-bottom-20">
+                                                            <div class="widget-numbers fsize-1 w-100 counters">
+                                                                <div class="widget-chart-flex align-items-center">
+                                                                    <div class="accrual-color">
+                                                                        <span id="spanOpexAccrual"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="counters-label">Accrual</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-left mr-35 mb-35 mobile-bottom-0">
+                                                            <div class="widget-numbers fsize-1 w-100 counters">
+                                                                <div class="widget-chart-flex align-items-center">
+                                                                    <div class="text-black">
+                                                                        <span id="spanOpexTotal"> </span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="counters-label">Total</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-left mr-35 mb-35 mobile-bottom-0">
+                                                            <div class="widget-numbers fsize-1 w-100 counters">
+                                                                <div class="widget-chart-flex align-items-center">
+                                                                    <div id="divOpexVariance" class="">
+                                                                        <span id="spanOpexVariance"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="counters-label">Variance</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="margin-bottom-custom card custom-card height-equal-open-order-pms">
+                        <div class="card-title border-none defect-manager">
+                            <div class="w-100">
+                                  <a id="aDefectTitle"><img src="~/images/defect-manager.png" class="width-22" /><span class="dashboard-vessel-name-header">Defect Manager</span></a>
+                                <a id="aDefectViewMore" class="float-right btn-transition btn btn-outline-success view-more">View More</a>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur pb-0 px-0 py-0">
+                            <div class="widget-content-left defect-component">
+                                <div class="clearfix defect-row defect-vessel-row">
+                                    <div class="float-left mr-70 mb-35 mobile-bottom-20">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-yellow" id="aDefectDue"><span id="spanDefectDue"></span> </a>
+                                                        </div>
+                                                        <span class="counters-label">Due (Jul)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-0 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="aDefectOD"> <span id="spanDefectOD"></span> </a>
+                                                        </div>
+                                                        <span class="counters-label">OD</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading">Due / Overdue</div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mr-70 mb-35 mobile-bottom-20">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="aDefectOpen"> <span id="spanDefectOpen"></span></a>
+                                                        </div>
+                                                        <span class="counters-label">Open</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-0 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" id="aDefectClosed"> <span id="spanDefectClosed"></span></a>
+                                                        </div>
+                                                        <span class="counters-label">Closed</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading">Tech. Defects <br />(In Last 30 Days)</div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mr-70 mb-35 mobile-bottom-0">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="aDefectOffHireReq"> <span id="spanDefectOffHireReq"></span></a>
+                                                        </div>
+                                                        <span class="counters-label">Total</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="clearfix mt-2">
+                                            <div class="counters-heading">Off Hire <br />Required</div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mb-35 mobile-bottom-0">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="aDefectOpenOrders"> <span id="spanDefectOpenOrders"></span></a>
+                                                        </div>
+                                                        <span class="counters-label">Total</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading">Defects With <br />Open Orders</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="margin-bottom-custom card custom-card height-equal-open-order-pms">
+                        <div class="card-title border-none">
+                            <div class="w-100">
+                                <a href="/PlannedMaintenance/List/?PlannedMaintenance=@ViewBag.PlannedMaintenanceUrl&VesselId=@ViewBag.VesselId"><img src="~/images/pms.png" class="width-22" /><span class="dashboard-vessel-name-header"> PMS</span></a>
+                                <a href="/PlannedMaintenance/List/?PlannedMaintenance=@ViewBag.PlannedMaintenanceUrl&VesselId=@ViewBag.VesselId"
+                                   class="float-right btn-transition btn btn-outline-success view-more">View More</a>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur pb-0 px-0 py-0">
+                            <div class="widget-content-left">
+                                @*<div class="row">
+                                    <div class="mr-70 mb-35">
+                                *@
+                                <div class="clearfix pms-vessel-box">
+
+
+                                    <div class="float-left mr-70 mb-35 mobile-bottom-20">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-yellow" id="CriticalDone"><span id="spanCriticalDone">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Done</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="CriticalDue"><span id="spanCriticalDue">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Due</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component  mobile-top-20">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="CriticalOverDue"><span id="spanCriticalOverDue">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">OD(Feb)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-0 component  mobile-top-20">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="CriticalOverDuePrior"><span id="spanCriticalOverDuePrior">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">OD(Prior to Feb)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading">Critical WO<br />Due/Overdue (Feb 2021)</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="float-left mr-70 mb-35 mobile-bottom-20">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-yellow" id="NonCriticalDone"><span id="spanNonCriticalDone">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Done</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="NonCriticalDue"><span id="spanNonCriticalDue">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Due</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component  mobile-top-20">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="NonCriticalOverDue"><span id="spanNonCriticalOverDue">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">OD(Feb)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-0 component  mobile-top-20">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="NonCriticalOverDuePrior"><span id="spanNonCriticalOverDuePrior">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">OD(Prior to Feb)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading">Non Critical WO<br />Due/Overdue (Feb 2021)</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="float-left mr-70 mb-35 mobile-bottom-20">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-yellow" id="ShipsWOPlanned"><span id="spanShipsWOPlanned">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Planned</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-0 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="ShipsWODone"><span id="spanShipsWODone">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Done</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading">Ships WO <br /> &nbsp;</div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mr-70 mb-35 mobile-bottom-20">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-0 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-yellow" id="RescWOApproved"><span id="spanRescWOApproved">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Apvd.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading">RESC. WO</div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mr-70 mb-35 mobile-bottom-20">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-yellow" id="SparesBelowTechMin"><span id="spanSparesBelowTechMin">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Tech Min.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-0 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="SparesBelowOprMin"><span id="spanSparesBelowOprMin">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Opr Min.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading">Spares Below</div>
+                                        </div>
+                                    </div>
+
+
+
+                                    @*<div class="float-left mb-35 mr-35 mobile-bottom-20">
+                                            <div class="mb-0 w-100">
+                                                <div class="widget-chart-flex align-items-center">
+                                                    <div class="widget-numbers fsize-3 w-100 counters">
+                                                        <a class="text-black" href="/PlannedMaintenance/List/?PlannedMaintenance=@ViewBag.PlannedMaintenanceUrl&VesselId=@ViewBag.VesselId">1 </a>
+                                                    </div>
+                                                    <span class="counters-label">Current</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mb-35 mr-35 mobile-bottom-20">
+                                            <div class="mb-0 w-100">
+                                                <div class="widget-chart-flex align-items-center">
+                                                    <div class="widget-numbers fsize-3 w-100 counters">
+                                                        <a class="text-red" href="/PlannedMaintenance/List/?PlannedMaintenance=@ViewBag.PlannedMaintenanceUrl&VesselId=@ViewBag.VesselId">9 </a>
+                                                    </div>
+                                                    <span class="counters-label">OVD (Jun)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mb-35 mr-35 mobile-bottom-20 mobile-top-20">
+                                            <div class="mb-0 w-100">
+                                                <div class="widget-chart-flex align-items-center">
+                                                    <div class="widget-numbers fsize-3 w-100 counters">
+                                                        <a class="text-red" href="/PlannedMaintenance/List/?PlannedMaintenance=@ViewBag.PlannedMaintenanceUrl&VesselId=@ViewBag.VesselId">4 </a>
+                                                    </div>
+                                                    <span class="counters-label">OVD (Prior)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mb-35 mr-35 mobile-bottom-0 mobile-top-20">
+                                            <div class="mb-0 w-100">
+                                                <div class="widget-chart-flex align-items-center">
+
+                                                    <div class="widget-numbers fsize-3 w-100 counters">
+                                                        <a class="text-red" href="/PlannedMaintenance/List/?PlannedMaintenance=@ViewBag.PlannedMaintenanceUrl&VesselId=@ViewBag.VesselId">4 </a>
+                                                    </div>
+                                                    <span class="counters-label">Total OVD</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mb-35 mr-35 mobile-bottom-0 mobile-top-20">
+                                            <div class="mb-0 w-100">
+                                                <div class="widget-chart-flex align-items-center">
+
+                                                    <div class="widget-numbers fsize-3 w-100 counters">
+                                                        <a class="text-red" href="#">4 </a>
+                                                    </div>
+                                                    <span class="counters-label">Critical OVD</span>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                </div>
+                                @*
+                                        </div>
+                                    </div>*@
+                                @*<span class="d-lg-none d-xl-block pt-4 mt-2"></span>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="margin-bottom-custom card custom-card">
+                        <div class="card-title border-none">
+                            <div class="">
+                                 <a id="aInspectionTitle"><img src="~/images/Inspection.png" class="width-22" /><span class="dashboard-vessel-name-header"> Inspections and Ratings</span></a>
+                                <a id="inspectionAll" class="float-right btn-transition btn btn-outline-success view-more">View More</a>
+                            </div>
+                        </div>
+                        <div class="pr blur pb-0">
+                            <div class="clearfix widget-content-left inspection-datepicker-flex-direction">
+                                <div class="float-left text-center mr-70 date">
+                                    <div class="text-left">
+                                        <button class="btn inspection-text-left pl-0" id="inspectionDatepicker">
+                                            <img src="~/images/Vships_Calendar.png" />
+                                        </button>
+                                    </div>
+                                    <div class=" text-left">
+                                        <span id="spanInspectionCurrentDateFilter"></span>
+                                    </div>
+                                    <div class=" text-left">
+                                        <span class="width-45">From : </span><span id="spanInspectionFromDate" class="width-75"></span>
+                                    </div>
+                                    <div class=" text-left">
+                                        <span class="width-45">To : </span><span id="spanInspectionToDate" class="width-75"></span>
+                                    </div>
+                                </div>
+                                <div class="float-left inspection-component">
+                                    <div class="clearfix">
+                                        <div class="float-left mr-70 mb-35 mobile-bottom-20 planning-insp-audit-section top-section">
+                                            <div class="clearfix">
+                                                <div class="float-left mr-35 component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="w-100 counters">
+                                                                <button class="btn-square border-0 btn text-yellow p-0" id="btnInspectionPlanningDue" data-toggle="modal" data-target="#modalInspectionPlanning">
+                                                                    <span class="fsize-3 widget-numbers counters" id="spanInspectionDueCount">0</span>
+                                                                </button>
+                                                            </div>
+                                                            <span class="counters-label">Due</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class=" w-100 counters">
+                                                                <button class="btn-square border-0 btn text-red p-0" id="btnInspectionPlanningOverDueDue" data-toggle="modal" data-target="#modalInspectionPlanning">
+                                                                    <span class="widget-numbers fsize-3 counters" id="spanInspectionOverdueCount">0</span>
+                                                                </button>
+                                                            </div>
+                                                            <span class="counters-label">OD</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 mobile-top-1024">
+                                                <div class="counters-heading">Planning Insp. &amp; Audits</div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mr-70 mb-35 mobile-bottom-20 inspection-section middle-section">
+                                            <div class="clearfix">
+                                                <div class="float-left mr-35 component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <a class="text-yellow" id="InspectionFindingOutstanding"><span id="spanInspectionFindingOutstandingCount">0</span></a>
+                                                            </div>
+                                                            <span class="counters-label">With O/S Findings</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left mr-35 component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <a class="text-red" id="InspectionFindingOverdue"><span id="spanInspectionFindingOverdueCount"> 0</span></a>
+                                                            </div>
+                                                            <span class="counters-label">With O/D Findings</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left component mobile-top-20">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <a class="text-red" id="PendingClosure"><span id="spanPendingClosureCount">0 </span></a>
+                                                            </div>
+                                                            <span class="counters-label">Pending Closure</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <div class="counters-heading">Inspection</div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mb-35 mobile-bottom-20 port-state-control-section right-section">
+                                            <div class="clearfix">
+                                                <div class="float-left mr-35 component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <a class="text-red" id="PSCDetaintion"><span id="spanPSCDetaintionCount">0</span> </a>
+                                                            </div>
+                                                            <span class="counters-label">DET</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <span id="spanPSCDefectRate">0 </span>
+                                                            </div>
+                                                            <span class="counters-label">DEF Rate</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <div class="counters-heading">Port State Control</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+
+                                        <div class="float-left mr-70 mb-35 mobile-bottom-20 os-finding-section-2 top-section">
+                                            <div class="clearfix">
+                                                <div class="float-left mr-35 component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <span class="text-yellow"><span id="spanTotalOutstandingFindingCount1">0 </span></span>
+                                                            </div>
+                                                            <span class="counters-label">Outstanding</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <span class="text-red"><span id="spanTotalOverdueFindingCount1">0</span></span>
+                                                            </div>
+                                                            <span class="counters-label">Overdue</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <div class="counters-heading">O/S Findings</div>
+                                            </div>
+                                        </div>
+                                        <div class="float-left mr-70 mb-35 mobile-bottom-20 audit-section middle-section">
+                                            <div class="clearfix">
+                                                <div class="float-left mr-35 component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <a class="text-yellow" id="InspectionAuditFindingOutstanding"><span id="spanInspectionAuditFindingOutstandingCount">0 </span></a>
+                                                            </div>
+                                                            <span class="counters-label">With O/S Findings</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left mr-35 component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <a class="text-red" id="InspectionAuditFindingOverdue"><span id="spanInspectionAuditFindingOverdueCount">0 </span></a>
+                                                            </div>
+                                                            <span class="counters-label">With O/D Findings</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left component mobile-top-20">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <a class="text-red" id="AuditPendingClosure"><span id="spanAuditPendingClosureCount"> 0</span></a>
+                                                            </div>
+                                                            <span class="counters-label">Pending Closure</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <div class="counters-heading">Audits</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="float-left mb-35 omv-section right-section mobile-bottom-0 pb-0 border-0">
+                                            <div class="clearfix">
+                                                <div class="float-left mr-35 component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <a class="text-yellow" id="TotalOmvInspection"><span id="spanTotalOmvInspectionCount"> 0</span> </a>
+                                                            </div>
+                                                            <span class="counters-label">Inspections</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left mr-35 component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <a class="text-black"><span id="spanOMVDefectRate"> 0</span></a>
+                                                            </div>
+                                                            <span class="counters-label">DEF Rate</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="float-left component mobile-top-20">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <a class="text-red"><span id="spanOMVInspectionAverageRisk">0 </span></a>
+                                                            </div>
+                                                            <span class="counters-label">Avg. Insp. Risk</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" mt-2">
+                                                <div class="counters-heading">OMV</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="float-left mr-70 mb-35 mobile-bottom-20 ratings-section-2 top-section">
+                                            <div class="clearfix">
+                                                <div class="float-left component">
+                                                    <div class="mb-0 w-100">
+                                                        <div class="widget-chart-flex align-items-center">
+                                                            <div class="widget-numbers fsize-3 w-100 counters">
+                                                                <span><span id="spanRightship">0 </span></span>
+                                                            </div>
+                                                            <span class="counters-label">Rightship</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <div class="counters-heading">Ratings</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="margin-bottom-custom card custom-card">
+                        <div class="card-title border-none">
+                            <div class="w-100">
+                                <a href="/HazOcc/List"><img src="~/images/hazzoc.png" class="width-22" /><span class="dashboard-vessel-name-header">HazOcc</span></a>
+                                <a href="/HazOcc/List" class="float-right btn-transition btn btn-outline-success view-more">View More</a>
+                            </div>
+                        </div>
+                        <div class="widget-content pr blur pb-0 px-0 py-0">
+                            <div class="widget-content-left hazocc-component">
+                                <div class="clearfix ml-0">
+                                    <div class="float-left mr-70 mb-35 mobile-bottom-20 top-section">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" id="OpenItems"><span id="spanOpenItems">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Items</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" id="OfficeRev"><span id="spanOfficeRev">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Office Rev</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left component open-item-blank">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black"><span></span></a>
+                                                        </div>
+                                                        <span class="counters-label"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <span class="counters-heading"><br class="ot-blank-header" />Open Items</span>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mr-70 mb-35 middle-section">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" id="IncidentVerySerious"><span id="spanIncidentVerySerious">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Very Serious</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="IncidentSerious"><span id="spanIncidentSerious">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Serious</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component mobile-top-20">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-yellow" id="IncidentModerate"><span id="spanIncidentModerate">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Moderate</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left component mobile-top-20">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" id="IncidentMinor"><span id="spanIncidentMinor">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Minor</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading"><br class="incdt-blank-header" />Incidents</div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mb-35 mobile-bottom-20 right-section">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" id="CrewAccidentFatal"><span id="spanCrewAccidentFatal">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Fatal</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-yellow" id="CrewAccidentLWC"><span id="spanCrewAccidentLWC">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">LWC</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component mobile-top-20">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" id="CrewAccidentRWC"><span id="spanCrewAccidentRWC">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">RWC</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component mobile-top-20 ">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="CrewAccidentMTC"><span id="spanCrewAccidentMTC">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">MTC</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left component ">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <span class="d-block d-sm-none mt-3"></span>
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="CrewAccidentFAC"><span id="spanCrewAccidentFAC">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">FAC</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading"><br class="ca-blank-header" />Crew Accidents</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="clearfix">
+                                    <div class="float-left mr-70 mb-35 mobile-bottom-20 top-section">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" id="StatisticsLTI"><span id="spanStatisticsLTI">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">LTI</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" id="StatisticsTRC"><span id="spanStatisticsTRC">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">TRC</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left component mobile-top-20">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" href="javascript:void(0);" data-target="#mExpHrsModal" data-toggle="modal"><span id="spanStatisticsMEXPHS">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">MEXPHS</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading"><br class="stat-blank-header" />Statistics</div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mr-70 mb-35 mobile-bottom-20 middle-section">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-green" id="NearMissSafeActs"><span id="spanNearMissSafeActs">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Safe Acts</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0 w-100">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-yellow" id="NearMissCount"><span id="spanNearMissCount">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Near Miss</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component mobile-top-20">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="NearMissUnsafeActs"><span id="spanNearMissUnsafeActs">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Unsafe Acts</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left component mobile-top-20">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="NearMissUnsafeCond"><span id="spanNearMissUnsafeCond">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Unsafe Cond.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading"><br class="nmso-blank-header" />Near Miss & Safety Observation </div>
+                                        </div>
+                                    </div>
+                                    <div class="float-left mb-35 mobile-bottom-0 right-section border-0 pb-0">
+                                        <div class="clearfix">
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" id="PassengerFatal"><span id="spanPassengerFatal">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">Fatal</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left mr-35 component">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-black" id="PassengerMTC"><span id="spanPassengerMTC">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">MTC</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="float-left component mobile-top-20">
+                                                <div class="mb-0">
+                                                    <div class="widget-chart-flex align-items-center">
+                                                        <div class="widget-numbers fsize-3 w-100 counters">
+                                                            <a class="text-red" id="PassengerFAC"><span id="spanPassengerFAC">0</span></a>
+                                                        </div>
+                                                        <span class="counters-label">FAC</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="counters-heading"><br class="pa-blank-header" />Passenger Accidents</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/vesselDetail.bundle.js"></script>
+}
+
+@section Modal
+{
+    <partial name="VoyageReportingModal" />
+    <div class="modal fade" id="offHireHrsModal" tabindex="-1" role="dialog" aria-labelledby="offHireHrs" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="clearfix w-100">
+                        <h5 class="modal-title float-left">Off Hire Hrs</h5>
+                        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <button class="btn btn-primary pull-right mr-3 off-hire-date" id="dtroffhire">
+                            <i class="fa fa-calendar pr-1"></i>
+                            <span></span>
+                            <i class="fa pl-1 fa-caret-down"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtOffHireHrsList" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th width="180px">Reason</th>
+                                    <th width="70px">Delay</th>
+                                    <th width="90px">Off - Hire</th>
+                                    <th width="140px">From</th>
+                                    <th width="140px">To</th>
+                                    <th width="180px">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="tdblock"><label>Reason</label><br />Commercial Reason</td>
+                                    <td><label>Delay</label><br />02:45</td>
+                                    <td><label>Off - Hire</label><br />Yes</td>
+                                    <td><label>From</label><br />27 Apr 2020 12:00</td>
+                                    <td><label>To</label><br />27 Apr 2020 14:45</td>
+                                    <td class="tdblock"><label>Description</label><br /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mExpHrsModal" tabindex="-1" role="dialog" aria-labelledby="mExpHrs" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Exposure Hours Calculation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body background-padding">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Management Start
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="input-group input-group-sm m-0">
+                                        <div class="input-group-prepend datepicker-trigger-managementStart">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar-alt"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm" data-toggle="datepicker-icon-managementStart" />
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Management End
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="input-group input-group-sm m-0">
+                                        <div class="input-group-prepend datepicker-trigger-managementEnd">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar-alt"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm" data-toggle="datepicker-icon-managementEnd" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button type="button" class="btn btn-primary float-right" data-dismiss="modal">Calculate</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-2">
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Calculation Start From
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    24 Sep 2019
+                                </div>
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Calculation End
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    23 Sep 2020
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Days used in Calc
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    366
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Average Crew Number
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="row">
+                                        <div class="col-4 col-md-4">
+                                            22
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                            <i class="fa fa-info-circle ml-2" title="No of crew getting from vessel detail-Average Crew compliment and if Avg Crew compliment is blank, use LSA capacity value. If LSA capacity is blank, use default value 20 for calculation. " data-toggle="tooltip" data-placement="bottom"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Average PAX Number
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="row">
+                                        <div class="col-4 col-md-4">
+                                            0
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                            <i class="fa fa-info-circle ml-2" title="Avg passenger coming from voyage reporting (From 24 Sep 2019 to 23 Sep 2020) " data-toggle="tooltip" data-placement="bottom"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Exposure Hours
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <input name="radio-ExposureHours" type="radio" value="1,000,000" checked />
+                                    1,000,000
+                                </div>
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Time Period
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <input name="radio-TimePeriod" type="radio" value="24" checked />
+                                    24
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <input name="radio-ExposureHours" type="radio" value="200,000" />
+                                    200,000
+                                </div>
+                                <div class="col-6 col-md-3 font-weight-bold">
+
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <input name="radio-TimePeriod" type="radio" value="12" />
+                                    12 hours
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Crew Exp Hours
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="row">
+                                        <div class="col-4 col-md-4">
+                                            0.1932
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                            <i class="fa fa-info-circle ml-2" title="Avg Crew X Days used in calc X 24 hours /1.000,000 " data-toggle="tooltip" data-placement="bottom"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-3 font-weight-bold">
+                                    Passenger Exp Hours
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="row">
+                                        <div class="col-4 col-md-4">
+                                            0.0000
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                            <i class="fa fa-info-circle ml-2" title="Avg PAX X Days used in calc X 24 hours /1.000,000 " data-toggle="tooltip" data-placement="bottom"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="badweather" tabindex="-1" role="dialog" aria-labelledby="badweather" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bad Weather Details For Dated 23 Apr 2020</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtbadweatherlist" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Charter</th>
+                                    <th>Max</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="offhiredetails" tabindex="-1" role="dialog" aria-labelledby="badweather" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Off - Hire Details</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtOffHireList" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th>Reason</th>
+                                    <th>Delay</th>
+                                    <th>Off - Hire</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="portdetails" tabindex="-1" role="dialog" aria-labelledby="portdetails"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agentdetails">Port Services</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body port-service">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card-title mb-1">San Vicente, CHL</div>
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-lg-2 pr-0"><b>Country :</b> <div class="flag CL small inline-block"></div> Chile</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0 pl-mobile-0"><b>UN/Loc Code :</b> CLSVE</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0"><b>Latitude :</b> 36&deg;,42.00'S</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0 pl-mobile-0"><b>Longitude : </b> 73&deg;,8.00'W</div>
+                                <div class="col-6 col-md-6 col-lg-2pr-mobile-0 pr-mobile-0"><b>Key Hub :</b> No</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-card pt-3">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="card-title mb-1">ALERT (1)</div>
+                                <div class="card-body py-0 px-0 pb-2 port-service-alert-popup">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" role="tab" id="headingOne">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                MAR 11 Port Alert
+                                                            </a>
+                                                            <i class="fa fa-exclamation-circle text-red float-right mr-3"></i><i class="fa fa-anchor float-right mr-2"></i>
+                                                        </h4>
+
+                                                    </div>
+                                                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                        <div class="panel-body">
+                                                            <div class="card-title mb-2">DETAILS</div>
+                                                            <div class="mb-2"><b>Title </b> MAR 11 Port Alert</div>
+                                                            <div class="mb-2"><b>Description </b></div>
+                                                            <div class="scroller">
+                                                                <div class="">
+                                                                    <p class="mb-1">
+                                                                        We note your vesel is currently heading towards Chile.
+                                                                    </p>
+                                                                    <p class="mb-0">
+                                                                        The attached MAR11 from covers potential deficiencies that frequently been raised during port state control inscpectiob and in some cases
+                                                                        let to detention. We update this form regularly basis our latest operational trends. it is critical that you and your team to go through there items very carefully before
+                                                                        arrival and send completed checklist to Vessel Control Group.If defective items are found then please copy to your DPA.The sooner a problem is known, the easier it is to resolve.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <hr />
+                                                            <div class="mb-2"><b>Attachments & Links (0)</b></div>
+                                                            <div class="row">
+                                                                <div class="col-12 col-md-12 col-lg-8">
+                                                                    <table style="width: 100%;" id="dtportservicelist" class="table table-hover table-bordered cardview row-sm mb-0">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Created Date</th>
+                                                                                <th>Title</th>
+                                                                                <th>Description</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

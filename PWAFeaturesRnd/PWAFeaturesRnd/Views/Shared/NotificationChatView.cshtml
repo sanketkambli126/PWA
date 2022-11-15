@@ -1,0 +1,58 @@
+﻿@model NotificationChatViewModel
+<!--This is PWA containers page which is hold iframe.-->
+<!--The actual chat url loaded in the iframe-->
+<!--Similar page has to be created by any app thats want to integrate the chat functionality-->
+@{
+
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Notification
+}
+
+@section CSSSection{
+    <style type="text/css">
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+        .app-container {
+            /*This is done to resolve extra space isse below iframe in chat page*/
+            min-height: 90vh !important;
+        }
+    </style>
+}
+
+@section ContentSection
+{
+    
+<div class="app-main__outer"></div>
+    <form id="notificationchatform" target="NotificationChatFrame" action="@AppSettings.NotificationChatURL" method="POST" class="d-none">
+        @Html.Hidden("urlParameter", Model.UrlParameter)
+        @Html.Hidden("isFilterChange", Model.IsFilterChange)
+    </form>
+    @Html.Hidden("hdnSessionStorageDetails", Model.SessionStorageDetails)
+    <input type="button" id="chatclosebutton" style="display:none" />
+
+    <iframe src="" id="iFrameNotificationChatFrame" name="NotificationChatFrame" class="notificationiframe" frameborder="0" style="touch-action: none;"></iframe>
+}
+@section ScriptSection
+{
+    <script src="~/assets/scripts/notificationChat.bundle.js"></script>
+    <script>
+        function chatmobileBack() {
+            document.getElementById("chatclosebutton").click();
+        }
+
+        function goTo(url) {
+            window.location.href = url;
+        }
+    </script>
+}
+
+
+
+

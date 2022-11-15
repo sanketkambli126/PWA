@@ -1,0 +1,389 @@
+﻿@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Vessel Findings
+}
+
+@section ContentSection
+{
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding new-background common-border-radius mobile-tab-bottom-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="margin-left-35">
+                        <div class="">
+                            <a class="common-heading-green" href="javscript:void(0)">ADAFERA - 2363</a>
+                        </div>
+                        <div class="common-sub-heading-black">
+                            Vessel Findings Report
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-pane">
+                <div class="common-custom-card position-relative">
+                    <div class="findingdivtop clearfix">
+                        <div class="float-left">
+                            <div class="vfindingstopheader">
+                                <h1>ACE - 4192 </h1>
+                                <h2>IMO 236578</h2>
+                            </div>
+                        </div>
+                        <div class="float-left">
+                            <div class="counters-heading border-none">
+                                <span>Inspection Details</span>
+                            </div>
+                            <div class="clearfix findreportmargin">
+                                <div class="float-left mr-common">
+                                    <div class="dashboard-counters-label mr-0">
+                                        Start Date
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">6 Apr 2020</span>
+                                    </div>
+                                </div>
+                                <div class="float-left mr-common">
+                                    <div class="dashboard-counters-label mr-0">
+                                        End Date
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">8 Apr 2020</span>
+                                    </div>
+                                </div>
+                                <div class="float-left mr-common">
+                                    <div class="dashboard-counters-label mr-0">
+                                        Location
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">In port</span>
+                                    </div>
+                                </div>
+                                <div class="float-left mr-common">
+                                    <div class="dashboard-counters-label mr-0">
+                                        Where
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">Chennai</span>
+                                    </div>
+                                </div>
+                                <div class="float-left mr-common">
+                                    <div class="dashboard-counters-label mr-0">
+                                        Operation
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">In operation </span>
+                                    </div>
+                                </div>
+                                <div class="float-left wp-mobile-100">
+                                    <div class="dashboard-counters-label mr-0">
+                                        Activity
+                                    </div>
+                                    <div class="dashboard-counters">
+                                        <span id="">Anchor Handling</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0);" class="search-filter-sidebar"><img src="~/images/vvr/editfinding.svg" /></a>
+                    </div>
+                </div>
+                <div class="findinheadervr">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <div class="counters-heading border-none">
+                                <span>Findings</span>
+                            </div>
+                        </div>
+                        <div class="float-right">
+                            <div class="">
+                                <div class="radio-button-design">
+                                    <div id="rbCrewStatus" rad="">
+                                        <div class="custom-radio custom-control custom-control-inline">
+                                            <input class="custom-control-input" id="csall" name="selFindingStatus" type="radio" value="AllFindings" checked="">
+                                            <label class="custom-control-label" for="csall">All</label>
+                                        </div>
+                                        <div class="custom-radio custom-control custom-control-inline">
+                                            <input class="custom-control-input" id="csoutstanding" name="selFindingStatus" type="radio" value="Outstanding">
+                                            <label class="custom-control-label" for="csoutstanding">Open</label>
+                                        </div>
+                                        <div class="custom-radio custom-control custom-control-inline">
+                                            <input class="custom-control-input" id="cscleared" name="selFindingStatus" type="radio" value="Cleared">
+                                            <label class="custom-control-label" for="cscleared">Cleared</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="vfindlistreapeat">
+                    <div class="common-custom-card">
+                        <div class="clearfix vfindinglist position-relative">
+                            <div class="float-left">
+                                <div class="vfindingstopheader">
+                                    <h1>V20/0026</h1>
+                                </div>
+                                <span class="vstatus vstatus-green">Cleared</span>
+                            </div>
+                            <div class="float-left">
+                                <div class="dashboard-counters-label mr-0">
+                                    Cleared Date
+                                </div>
+                                <div class="dashboard-counters">
+                                    <span id="">06 May 2020</span>
+                                </div>
+                                <div class="dashboard-counters-label mr-0">
+                                    Type of Item
+                                </div>
+                                <div class="dashboard-counters mb-0">
+                                    <span id="">Observation</span>
+                                </div>
+                            </div>
+                            <div class="float-left">
+                                <div class="dashboard-counters-label mr-0">
+                                    Chapter / Insp. Ref. No.
+                                </div>
+                                <div class="dashboard-counters">
+                                    <span id="">001</span>
+                                </div>
+                                <div class="dashboard-counters-label mr-0">
+                                    Correction Action Assigned To
+                                </div>
+                                <div class="dashboard-counters mb-0">
+                                    <span id="">Clearance by Shore Staff</span>
+                                </div>
+                            </div>
+                            <div class="float-none">
+                                <div class="dashboard-counters-label mr-0">
+                                    Description
+                                </div>
+                                <textarea class="scroller">SEA of 6 crew members are due, extended COE still unavailable. SEA of 6 crew members are due, extended COE still unavailableSEA of 6 crew members are due.</textarea>
+                            </div>
+                            <div class="float-right">
+                                <a href="javascript:void(0);"><img src="~/images/vvr/editfinding.svg" /></a>
+                                <a href="javascript:void(0);" class="addacyionslink">Add Actions</a>
+                                <a href="javascript:void(0);" class="actionslink">Actions (2)</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="common-custom-card">
+                        <div class="clearfix vfindinglist position-relative">
+                            <div class="float-left">
+                                <div class="vfindingstopheader">
+                                    <h1>V20/0026</h1>
+                                </div>
+                                <span class="vstatus vstatus-amber">Open</span>
+                            </div>
+                            <div class="float-left">
+                                <div class="dashboard-counters-label mr-0">
+                                    Cleared Date
+                                </div>
+                                <div class="dashboard-counters vred">
+                                    <span id="">06 May 2020</span>
+                                </div>
+                                <div class="dashboard-counters-label mr-0">
+                                    Type of Item
+                                </div>
+                                <div class="dashboard-counters mb-0">
+                                    <span id="">Observation</span>
+                                </div>
+                            </div>
+                            <div class="float-left">
+                                <div class="dashboard-counters-label mr-0">
+                                    Chapter / Insp. Ref. No.
+                                </div>
+                                <div class="dashboard-counters">
+                                    <span id="">001</span>
+                                </div>
+                                <div class="dashboard-counters-label mr-0">
+                                    Correction Action Assigned To
+                                </div>
+                                <div class="dashboard-counters mb-0">
+                                    <span id="">Clearance by Shore Staff</span>
+                                </div>
+                            </div>
+                            <div class="float-none">
+                                <div class="dashboard-counters-label mr-0">
+                                    Description
+                                </div>
+                                <textarea class="scroller">SEA of 6 crew members are due, extended COE still unavailable. SEA of 6 crew members are due, extended COE still unavailableSEA of 6 crew members are due.</textarea>
+                            </div>
+                            <div class="float-right">
+                                <a href="javascript:void(0);"><img src="~/images/vvr/editfinding.svg" /></a>
+                                <a href="javascript:void(0);" class="addacyionslink">Add Actions</a>
+                                <a href="javascript:void(0);" class="actionslink">Actions (2)</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="common-custom-card">
+                        <div class="clearfix vfindinglist position-relative">
+                            <div class="float-left">
+                                <div class="vfindingstopheader">
+                                    <h1>V20/0026</h1>
+                                </div>
+                                <span class="vstatus vstatus-amber">Open</span>
+                            </div>
+                            <div class="float-left">
+                                <div class="dashboard-counters-label mr-0">
+                                    Cleared Date
+                                </div>
+                                <div class="dashboard-counters vred">
+                                    <span id="">06 May 2020</span>
+                                </div>
+                                <div class="dashboard-counters-label mr-0">
+                                    Type of Item
+                                </div>
+                                <div class="dashboard-counters mb-0">
+                                    <span id="">Observation</span>
+                                </div>
+                            </div>
+                            <div class="float-left">
+                                <div class="dashboard-counters-label mr-0">
+                                    Chapter / Insp. Ref. No.
+                                </div>
+                                <div class="dashboard-counters">
+                                    <span id="">001</span>
+                                </div>
+                                <div class="dashboard-counters-label mr-0">
+                                    Correction Action Assigned To
+                                </div>
+                                <div class="dashboard-counters mb-0">
+                                    <span id="">Clearance by Shore Staff</span>
+                                </div>
+                            </div>
+                            <div class="float-none">
+                                <div class="dashboard-counters-label mr-0">
+                                    Description
+                                </div>
+                                <textarea class="scroller">SEA of 6 crew members are due, extended COE still unavailable. SEA of 6 crew members are due, extended COE still unavailableSEA of 6 crew members are due.</textarea>
+                            </div>
+                            <div class="float-right">
+                                <a href="javascript:void(0);"><img src="~/images/vvr/editfinding.svg" /></a>
+                                <a href="javascript:void(0);" class="addacyionslink">Add Actions</a>
+                                <a href="javascript:void(0);" class="actionslink">Actions (2)</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="common-custom-card">
+                        <div class="clearfix vfindinglist position-relative">
+                            <div class="float-left">
+                                <div class="vfindingstopheader">
+                                    <h1>V20/0026</h1>
+                                </div>
+                                <span class="vstatus vstatus-green">Cleared</span>
+                            </div>
+                            <div class="float-left">
+                                <div class="dashboard-counters-label mr-0">
+                                    Cleared Date
+                                </div>
+                                <div class="dashboard-counters">
+                                    <span id="">06 May 2020</span>
+                                </div>
+                                <div class="dashboard-counters-label mr-0">
+                                    Type of Item
+                                </div>
+                                <div class="dashboard-counters mb-0">
+                                    <span id="">Observation</span>
+                                </div>
+                            </div>
+                            <div class="float-left">
+                                <div class="dashboard-counters-label mr-0">
+                                    Chapter / Insp. Ref. No.
+                                </div>
+                                <div class="dashboard-counters">
+                                    <span id="">001</span>
+                                </div>
+                                <div class="dashboard-counters-label mr-0">
+                                    Correction Action Assigned To
+                                </div>
+                                <div class="dashboard-counters mb-0">
+                                    <span id="">Clearance by Shore Staff</span>
+                                </div>
+                            </div>
+                            <div class="float-none">
+                                <div class="dashboard-counters-label mr-0">
+                                    Description
+                                </div>
+                                <textarea class="scroller">SEA of 6 crew members are due, extended COE still unavailable. SEA of 6 crew members are due, extended COE still unavailableSEA of 6 crew members are due.</textarea>
+                            </div>
+                            <div class="float-right">
+                                <a href="javascript:void(0);"><img src="~/images/vvr/editfinding.svg" /></a>
+                                <a href="javascript:void(0);" class="addacyionslink">Add Actions</a>
+                                <a href="javascript:void(0);" class="actionslink">Actions (2)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui-theme-settings search-sidebar-div searchnewdesign findingsactionsearch">
+        <div class="theme-settings__inner">
+            <div class="height-100-percent">
+                <div class="theme-settings__options-wrapper height-100-percent">
+                    <div class="font-size-close close-search-panel">
+                        <span aria-hidden="true">×</span>
+                    </div>
+                    <form class="common-form-design height-100-percent" autocomplete="off">
+                        <div class="row no-gutters height-100-percent">
+                            <div class="col-12">
+                                <div class="findingactionform">
+                                    <h1>V20/0026</h1>
+                                    <h2>Add Actions</h2>
+                                    <div class="">
+                                        <label>Date<span class="formreq">*</span></label>
+                                        <input type="text" value="6 Apr 2020" id="" placeholder="Date" class="form-control">
+                                    </div>
+                                    <div class="">
+                                        <label>Action Details<span class="formreq">*</span></label>
+                                        <textarea id="" class="form-control form-select mb-0" placeholder="Enter Details"></textarea>
+                                    </div>
+                                    <div class="text-right">
+                                        <button class="btn btn-addaction">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="scroller" id="search-tab-divContent">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section Modal
+{
+
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/inspectionVVRFindings.bundle.js"></script>
+}

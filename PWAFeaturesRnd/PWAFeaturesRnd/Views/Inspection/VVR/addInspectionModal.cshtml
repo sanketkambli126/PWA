@@ -1,0 +1,211 @@
+﻿<div class="modal fade p-0 vvrmodal"  id="modalInspectionVesselVisit" role="dialog" aria-labelledby="modalInspectionVesselVisit" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document" style="max-width:820px;box-shadow: none;">
+		<div class="modal-content">
+			<div class="modal-header header-background header-padding">
+				<div class="col-md-11 pl-0">
+					<div class="common-sub-heading-black">
+						Add Inspection - Vessel Visit Report (VVR)
+					</div>
+				</div>
+				<div>
+					<button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+			</div>
+			<div class="modal-body new-background padding-20 open-sans-font">
+				<div class="common-custom-card common-form-design background-padding">
+					<div class="counters-heading border-none">
+						<div>
+							<span>Main Details</span>
+						</div>
+					</div>
+					<div class="vesseldiv">
+						<div class="row no-gutters mx-auto">
+							<div class="col-xl-6 p-0">
+								<label>Vessel<span class="formreq">*</span></label>
+								<div class="form-group mb-0 vesselmargin">
+									<select id="insecpectionVesselSearch" class="form-control form-select">
+									</select>
+								</div>
+							</div>
+							<div class="col-xl-6 p-0 dateicon">
+								<div class="row no-gutters mx-auto">
+									<div class="col-xl-6 p-0">
+										<label>Start Date<span class="formreq">*</span></label>
+										<input type="datetime" id="dtStartDate" placeholder="Start Date"  class="form-control datevvr" data-toggle="datepicker" />
+									</div>
+									<div class="col-xl-6 p-0">
+										<label class="sdatevvr">End Date<span class="formreq">*</span></label>
+										<input type="datetime" id="dtEndDate" placeholder="End Date" class="form-control datevvr sdatevvr" data-toggle="datepicker" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="locationdiv radio-button-design">
+						<div class="row no-gutters mx-auto">
+							<div class="col-xl-12 p-0">
+								<label>Location<span class="formreq">*</span></label><br />
+								<div class="custom-radio custom-control d-inline-block">
+									<input class="custom-control-input" id="InPort" checked name="Location" type="radio" value="@PosActivityTypeLookupCode.Port" data-description="In Port">
+									<label class="custom-control-label" for="InPort">In Port</label>
+								</div>
+								<div class="custom-radio custom-control  d-inline-block">
+									<input class="custom-control-input" id="Sailing" name="Location" type="radio" value="@PosActivityTypeLookupCode.Sailing" data-description="Sailing">
+									<label class="custom-control-label" for="Sailing">Sailing</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row no-gutters mx-auto">
+						<div class="col-xl-3 p-0 operationbmargin" id="operatingHeadingSection">
+							<label>Operating<span class="formreq">*</span></label>
+							<div id="operatingSection">
+								<div class="form-group mb-0">
+									<select id="operationList" placeholder="search Operation" class="form-control form-select">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-5 p-0 operationbmargin" id="operatingactivitySection">
+							<label>Activity<span class="formreq">*</span></label>
+							<div id="operatingactivitySection">
+								<div class="form-group mb-0">
+									<select id="activityTypeList" class="form-control form-select ">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-4 p-0">
+							<label id="whereHeadingSection">Where<span class="formreq">*</span></label>
+							<div id="whereSection">
+								<div class="form-group mb-0">
+									<select id="cbWhere" class="form-control form-select">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mx-auto">
+						<div class="col-xl-6 p-0">
+							<div class="portmargin d-none" id="fromPortHeadingSection">
+								<label >From Port<span class="formreq">*</span></label>
+								<div id="fromPortSection">
+									<div class="form-group mb-0">
+										<select id="cbFromPort" class="form-control form-select">
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 p-0">
+							<label id="toPortHeadingSection" class="d-none"> To Port<span class="formreq">*</span></label>
+							<div id="toPortSection" class="d-none">
+								<div class="form-group mb-0">
+									<select id="cbToPort" class="form-control form-select">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+
+                </div>
+                <div class="common-custom-card common-form-design background-padding">
+                    <div class="counters-heading border-none">
+                        <div>
+                            <span>Inspector Details</span>
+                        </div>
+                    </div>
+                    <div class="inspdetaildiv radio-button-design">
+                        <div class="row no-gutters mx-auto">
+                            <div class="col-xl-12 p-0">
+                                <div class="custom-radio custom-control  d-inline-block">
+                                    <input class="custom-control-input" id="Office" checked name="InspectorEntityType" type="radio" value="@InspectorEntity.Office" data-description="Sailing">
+                                    <label class="custom-control-label" for="Office">Office</label>
+                                </div>
+                                <div class="custom-radio custom-control  d-inline-block">
+                                    <input class="custom-control-input" id="ThirdParty" name="InspectorEntityType" type="radio" value="@InspectorEntity.ThirdParty" data-description="Sailing">
+                                    <label class="custom-control-label" for="ThirdParty">Third Party</label>
+                                </div>
+                                <div class="custom-radio custom-control d-inline-block">
+                                    <input class="custom-control-input" id="ShipStaff" name="InspectorEntityType" type="radio" value="@InspectorEntity.ShipStaff" data-description="In Port">
+                                    <label class="custom-control-label" for="ShipStaff">Ship Staff</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="vesseldiv">
+                        <div class="row no-gutters mx-auto">
+                            <div class="col-xl-6 p-0">
+                                <label>Company<span class="formreq">*</span></label>
+                                <div class="form-group mb-0 vesselmargin">
+                                    <select id="cbCompany" class="form-control form-select ">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 p-0">
+                                <label>Inspector Title/Rank<span class="formreq">*</span></label>
+                                <div class="form-group mb-0">
+                                    <input type="text" class="form-control" id="txtInspectorTitle" placeholder="Enter title/Rank">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vesseldiv">
+                        <div class="row no-gutters mx-auto">
+                            <div class="col-xl-6 p-0">
+                                <label>Inspector Forename<span class="formreq">*</span></label>
+                                <div class="form-group mb-0 vesselmargin">
+                                    <input type="text" class="form-control" id="txtInspectorForeName" placeholder="Enter forename">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 p-0">
+                                <label> Inspector Surname<span class="formreq">*</span></label>
+                                <div class="form-group mb-0">
+                                    <input type="text" class="form-control" id="txtInspectorSurName" placeholder="Enter surname">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="row no-gutters mx-auto">
+                            <div class="col-xl-6 p-0">
+                                <label> Department<span class="formreq">*</span></label>
+                                <div class="form-group mb-0 vesselmargin">
+                                    <select id="department" class="form-control form-select ">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="addinspectionfindings">
+                    <a href="javscript:void(0);" id="addfindingsmodal">
+                        <span>Add your Inspection Findings</span>
+                        <img src="~/images/vvr/addinsp.svg" />
+                    </a>
+                </div>
+            </div>
+            <div class="modal-footer common-form-design">
+                <button class="btn btn-cancelsecondarybtn vvrbtn" data-dismiss="modal" id="">Cancel</button>
+                <button class="btn btn search-btn" id="btnSaveVisit">Save</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@*Success Modal*@
+<div class="modal fade open-sans-font successpopup" id="addInspectionSuccessModal" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="addInspectionSuccessModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                <h2>Success</h2>
+                <h1 id="successModalMsg"></h1>
+                <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="btnSuccessOk">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@model OfficeViewDetailResponseViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+    <div class="card-header" id="header-@Model.OfficeId">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-@Model.OfficeId" aria-expanded="true" aria-controls="collapse-@Model.OfficeId" data-fleetrequest="@Model.FleetRequest" data-officeid="@Model.OfficeId">
+        </button>
+        <div class="sentinelpanel offcpanel">
+            <h1 data-toggle="tooltip" data-placement="bottom" data-original-title="@Model.OfficeName">@Model.OfficeName</h1>
+            @if (Model.HasActiveOverride)
+            {
+                <img src="~/images/sentinelimages/s-cycle.svg" class="soverride" />
+            }
+            else
+            {
+                <div class="soverride"></div>
+            }
+            <div class="totalvessel">
+                <img src="~/images/sentinelimages/offc-vessels.svg" />
+                <span>@Model.TotalVesselCount</span>
+            </div>
+            <div class="redscore">
+                <img src="~/images/sentinelimages/redscore.svg" />
+                <a href="/Sentinel/FleetVesselList?fleetRequest=@Model.FleetRequest&VesselFilters=@Model.EncryptedVesselListRequestRed"><span>@Model.RedVesselCount</span></a>
+            </div>
+            <div class="orangescore">
+                <img src="~/images/sentinelimages/orangescrore.svg" />
+                <a href="/Sentinel/FleetVesselList?fleetRequest=@Model.FleetRequest&VesselFilters=@Model.EncryptedVesselListRequestAmber"><span>@Model.AmberVesselCount</span></a>
+            </div>
+            <div class="greenscore">
+                <img src="~/images/sentinelimages/greenscore.svg" />
+                <a href="/Sentinel/FleetVesselList?fleetRequest=@Model.FleetRequest&VesselFilters=@Model.EncryptedFleetVesselListRequestGreen"><span>@Model.GreenVesselCount</span></a>
+            </div>
+            <div class="greyscore">
+                <img src="~/images/sentinelimages/greyscore.svg" />
+                <span>@Model.GreyVesselCount</span>
+            </div>
+        </div>
+    </div>

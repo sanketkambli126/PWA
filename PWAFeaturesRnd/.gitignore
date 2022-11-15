@@ -1,0 +1,26 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/PWAFeaturesRnd/bin/Debug/netcoreapp3.1
+/PWAFeaturesRnd/obj
+/.vscode
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/Microsoft.IdentityModel.Tokens.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/Microsoft.IdentityModel.Logging.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/Microsoft.IdentityModel.JsonWebTokens.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/System.ServiceModel.Primitives.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/System.ServiceModel.Http.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/System.ServiceModel.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/System.Security.Cryptography.Pkcs.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/System.Private.ServiceModel.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/runtimes/win/lib/netcoreapp2.1/System.Security.Cryptography.Pkcs.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/Microsoft.IdentityModel.Protocols.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/appsettings.Release.json
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/appsettings.Debug.json
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/appsettings.Production.json
+/PWAFeaturesRnd/bin/Release/netcoreapp3.1/appsettings.UAT.json
+/PWAFeaturesRnd/node_modules/.cache

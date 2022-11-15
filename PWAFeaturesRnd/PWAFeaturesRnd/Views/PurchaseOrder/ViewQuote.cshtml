@@ -1,0 +1,341 @@
+﻿@model ViewQuoteHeaderViewModel
+
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    View Quote
+}
+
+@section ContentSection
+{
+    @Html.HiddenFor(m => m.IsCompleteQuote)
+
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding new-background common-border-radius">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading margin-left-35">
+                        <div class="module-vesel-name">
+                            View Quote
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-pane">
+                @Html.Hidden("hdnSupplierOrderId", Model.ProtectedSupplierOrderId)
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="card margin-bottom-custom mb-0" id="cdSupplierDetails">
+                            <div class="card-body">
+                                <div class="card-title">Supplier Details</div>
+                                <div class="row py-1">
+                                    <div class="col-12 col-md-5">
+                                        <label class="custom-label">Requisition No.</label>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        <a href="/PurchaseOrder/Detail?PurchaseOrderRequest=@Model.ViewQuoteURL&VesselId=@Model.EncryptedVesselId">
+                                            <span>@Model.AccountingCompanyId</span>
+                                            -
+                                            <span>@Model.OrderNumber</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row py-1">
+                                    <div class="col-12 col-md-5">
+                                        <label class="custom-label">Supplier Name</label>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        @Model.SupplierName
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-12">
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-5">
+                                                <label class="custom-label">Currency</label>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                @Model.Currency
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-12">
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-5">
+                                                <label class="custom-label">Supplier Reference</label>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                @Model.SupplierReference
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-12">
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-5">
+                                                <label class="custom-label">Date Received</label>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                @Model.DateReceived
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-12">
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-5">
+                                                <label class="custom-label">Hazardous Goods</label>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                @Model.IsHazardousGoods
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row py-1">
+                                    <div class="col-12 col-md-5">
+                                        <label class="custom-label">Port</label>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        @if (Model.SupplierOrderPortName != null)
+                                        {
+                                            @if (Model.PortCountryCode != null)
+                                            {
+                                                <span>@Model.PortCountryCode - </span>
+                                            }
+                                            <span>@Model.SupplierOrderPortName</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row py-1">
+                                    <div class="col-12 col-md-5">
+                                        <label class="custom-label">Type of Spare Parts Supplied</label>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        @Model.SparePartTypeCode - @Model.SparePartName
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="card margin-bottom-custom mb-0 mt-top-768-14" id="cdQuoteDetails">
+                            <div class="card-body">
+                                <div class="card-title">Quote Details</div>
+                                <div class="row">
+                                    <div class="col-6 col-md-12">
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-5">
+                                                <label class="custom-label">Freight / Delivery Cost</label>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                @Model.DeliveryCost
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-12">
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-5">
+                                                <label class="custom-label">Discount</label>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                @Model.DiscountPercent %
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-12">
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-5">
+                                                <label class="custom-label">Proforma Requested</label>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                @Model.IsProformaRequested
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-12">
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-5">
+                                                <label class="custom-label">Ex-Works Country</label>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                @Model.ExWorkCountryId
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row py-1">
+                                    <div class="col-12 col-md-5">
+                                        <label class="custom-label">Ex-Works Location</label>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        @Model.ExWorkLocation
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-12">
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-5">
+                                                <label class="custom-label">Max. Ex-Works Days</label>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                @if (Model.MaxExWorkDays != "")
+                                                {
+                                                    <span> @Model.MaxExWorkDays Days</span>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-12">
+                                        <div class="row py-1">
+                                            <div class="col-12 col-md-5">
+                                                <label class="custom-label">Valid For</label>
+                                            </div>
+                                            <div class="col-12 col-md-7">
+                                                @Model.ValidForDays Days
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card margin-bottom-custom mb-0 mt-14-top" id="cdLineDetails">
+                    <div class="card-body">
+                        <div class="card-title">Line Details</div>
+                        <div class="table-responsive compact-table">
+                            <table style="width: 100%;" id="dtOrderLines" class="table table-hover table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            #
+                                        </th>
+                                        <th>
+                                            Part Name
+                                        </th>
+                                        <th>
+                                            Makers Reference
+                                        </th>
+                                        <th>
+                                            Qty Enq
+                                        </th>
+                                        <th>
+                                            Supplier<br /> Qty
+                                        </th>
+                                        <th>
+                                            UOM
+                                        </th>
+                                        <th>
+                                            Unit Price
+                                        </th>
+                                        <th>
+                                            Discount (%)
+                                        </th>
+                                        <th>
+                                            Sub Total
+                                        </th>
+                                        <th>
+                                            Ex Days
+                                        </th>
+                                        <th>
+                                            Notes
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card margin-bottom-custom mb-0 mt-14-top" id="cdCostDetails">
+                    <div class="card-body">
+                        <div class="card-title">Cost Details</div>
+
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <div class="row py-1">
+                                    <div class="col-3 col-md-3">
+                                        <label class="custom-label">Cost</label>
+                                    </div>
+                                    <div class="col-9 col-md-9">
+                                        @Model.Cost (@Model.Currency)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="row py-1">
+                                    <div class="col-3 col-md-3">
+                                        <label class="custom-label">Discount</label>
+                                    </div>
+                                    <div class="col-9 col-md-9">
+                                        @Model.Discount (@Model.Currency)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="row py-1">
+                                    <div class="col-3 col-md-3">
+                                        <label class="custom-label">Net Cost</label>
+                                    </div>
+                                    <div class="col-9 col-md-9">
+                                        @Model.NetCost (@Model.Currency)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card margin-bottom-custom mb-0 mt-14-top">
+                    <div class="card-body">
+                        <div class="card-title">Notes And Summary</div>
+                        <div class="row">
+                            <div class="col-5 col-md-6" id="divAllItemsQuoted">
+                                <div class="row py-1">
+                                    <div class="col-12 col-md-3">
+                                        <label class="custom-label">All Items Quoted</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                            <span id="spIsAllItemsQuoted"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-6">
+                                <div class="row py-1">
+                                    <div class="col-12 col-md-2">
+                                        <label class="custom-label">Quote Status</label>
+                                    </div>
+                                    <div class="col-12 col-md-10">
+                                        @Model.QuoteStatus
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row py-1">
+                            @Html.TextAreaFor(x => x.Notes, new { @class = "form-control form-control-sm", @rows = "20", @disabled = "disabled" })
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/viewQuote.bundle.js"></script>
+}
+}

@@ -1,0 +1,198 @@
+﻿@model PWAFeaturesRnd.ViewModels.Report.GeneralLedgerViewModel
+@{
+	Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+	General Ledger - @Model.VesselName
+}
+
+@section ContentSection
+{
+	@Html.HiddenFor(m => m.ToDate)
+	@Html.HiddenFor(m => m.FromDate)
+	@Html.HiddenFor(m => m.FinancialYearStartDate)
+	@Html.HiddenFor(m => m.CoyId)
+	@Html.HiddenFor(m => m.AccountIdTo)
+	@Html.HiddenFor(m => m.AccountIdFrom)
+	@Html.HiddenFor(m => m.AccountIds)
+
+
+	<div class="app-main__outer fixed-page-header general-ledger">
+		<div class="app-main__inner background-padding">
+			<div class="app-page-title header-shadow">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+						<div>
+							General Ledger - <a href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.VesselId)">@Model.VesselName</a>
+						</div>
+					</div>
+					<div class="page-title-actions">
+						<button data-toggle="tooltip" title="Export to excel" data-placement="bottom" class="btn btn-dark btn-shadow font-size-lg p-1 hover-blue mr-1">
+							<i class="fa fa-fw" aria-hidden="true"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="main-card content-pane">
+				<div id="accordion" class="accordion-wrapper mb-3">
+					<div class="card">
+						<div id="searchFilter" data-toggle="collapse" data-target="#collapseSearchFilter" aria-expanded="true" aria-controls="collapseOne" class="card-header text-left cursor-pointer">
+							<h5 class="card-title mb-0">Search Filter</h5>
+						</div>
+						<div data-parent="#accordion" id="collapseSearchFilter" aria-labelledby="searchFilter" class="collapse">
+							<div class="card-body">
+								<div class="col-md-12">
+									<div class="row">
+										<div class="form-group col-md-2 col-lg-2">
+											<label for="FromDate">From Date</label>
+											<input id="dpFromDate" type="text" class="form-control form-control-sm" data-toggle="datepicker" />
+										</div>
+										<div class="form-group col-md-2 col-lg-2">
+											<label for="ToDate">To Date</label>
+											<input id="dpToDate" type="text" class="form-control form-control-sm" data-toggle="datepicker" />
+										</div>
+										<div class="form-group col-md-2 col-lg-2">
+											<label for="FromDate">Year</label>
+											<select id="cbYear" asp-items="@(new SelectList(Model.YearList,"Identifier","Text"))" class="form-control form-control-sm">
+											</select>
+										</div>
+										<div class="form-group col-md-2 col-lg-2">
+											<label for="AccountingCompany">Accounting Company</label>
+											<input name="AccountingCompany" id="txtAccountingCompany" type="text" class="form-control form-control-sm">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="row">
+										<div class="form-group col-md-4 col-lg-4">
+											<label for="FromDate">Account From</label>
+											@*<select id="multi">
+													<optgroup class='def-cursor' label='Country' data-city='City'>
+														<option data-city="Athens" id="1" selected>Greece</option>
+														<option data-city="Rome" "id=" 2 ">Italy</option>
+														<option data-city="Paris " "id=" 3">France</option>
+													</optgroup>
+												</select>*@
+
+											<select id="cbFromAccountingCompany" class="form-control form-control-sm">
+												<option></option>
+											</select>
+											@*<select id="cbFromAccountingCompany" asp-items="@(new SelectList(Model.AccountList,"Identifier","Text"))" class="form-control form-control-sm">
+												</select>*@
+										</div>
+										<div class="form-group col-md-4 col-lg-4">
+											<label for="FromDate">Account To</label>
+											<select id="cbToAccountingCompany" asp-items="@(new SelectList(Model.AccountList,"Identifier","Text"))" class="form-control form-control-sm">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="row d-flow-root">
+										<div class="text-right">
+											<button id="btnSearch" type="button" class="btn btn-primary btn-lg">Search</button>
+											<button type="button" class="btn btn-secondary btn-lg">Clear</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card margin-bottom-custom">
+					<div class="card-header">
+						<h5 class="card-title mb-0">Ledger Details(100)</h5>
+						<div class="d-flow-root">
+							<div class="text-right grid-actions">
+								<select name="select" id="select-anchor" class="form-control form-control-sm">
+									<option value="#1211000">1211000 - CITIBANK LONDON - USD A/C</option>
+									<option value="#1230100">1230100 - LUBOILS</option>
+								</select>
+								<a class="cursor-pointer" id="expandAll"><i class="fa fa-fw" aria-hidden="true" title="Expand All"></i></a>
+								<a class="cursor-pointer" id="collapseAll"><i class="fa fa-fw" aria-hidden="true" title="Collapse All"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="table-responsive compact-table">
+									<table style="width: 100%;" id="dtGeneralLedger" class="table table-hover table-bordered cardview row-sm">
+										<thead>
+											<tr>
+												<th>Account</th>
+												<th>Date</th>
+												<th>Voucher No.</th>
+												<th>Type</th>
+												<th>Reference</th>
+												<th>Contra</th>
+												<th>Voyage</th>
+												<th>Text</th>
+												<th>Original Amount</th>
+												<th>CUR</th>
+												<th>Func. Amount (USD)</th>
+												<th>Func. Balance (USD)</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card margin-bottom-custom">
+					<div class="card-header">
+						<h5 class="card-title mb-0">Summary</h5>
+					</div>
+					<div class="card-body">
+						<div class="col-md-6 mt-1">
+							<div class="row">
+								<div class="table-responsive compact-table">
+									<table style="width: 100%;" id="dtGeneralLedgerSummary" class="table table-hover cardview row-sm">
+										<thead class="d-none">
+											<tr>
+												<th>Summary</th>
+												<th></th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Net Ledger Opening Balance at</td>
+												<td>@Model.OpeningBalanceDate.ToString("dd/MM/yyyy")</td>
+												<td align="right">(@Model.OpeningBalance)</td>
+											</tr>
+											<tr>
+												<td>Total Debts over period</td>
+												<td></td>
+												<td align="right">@Model.TotalDebts</td>
+											</tr>
+											<tr>
+												<td>Total Credits over period</td>
+												<td></td>
+												<td align="right">(@Model.TotalCredits)</td>
+											</tr>
+											<tr>
+												<td>Net Ledger Closing Balance at</td>
+												<td>@Model.ClosingBalanceDate.ToString("dd/MM/yyyy")</td>
+												<td align="right">(@Model.ClosingBalance)</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<a href="#" class="goto-top">Top</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section ScriptSection
+{
+	<script src="~/assets/scripts/generalLedger.bundle.js"></script>
+}

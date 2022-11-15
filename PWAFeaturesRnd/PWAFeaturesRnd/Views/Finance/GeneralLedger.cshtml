@@ -1,0 +1,379 @@
+﻿@model PWAFeaturesRnd.ViewModels.Report.GeneralLedgerViewModel
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    General Ledger - @Model.VesselName
+}
+
+@section ContentSection
+{
+    @Html.HiddenFor(m => m.ToDate)
+    @Html.HiddenFor(m => m.FromDate)
+    @Html.HiddenFor(m => m.BaseCoyCurr)
+    @Html.HiddenFor(m => m.CoyId)
+    @Html.HiddenFor(m => m.VesselName)
+    @Html.HiddenFor(m => m.VesselId)
+    @Html.HiddenFor(m => m.ChhId)
+    @Html.HiddenFor(m => m.AccountId)
+    @Html.HiddenFor(m => m.MinStartDate)
+    @Html.HiddenFor(m => m.MaxEndDate)
+    @Html.HiddenFor(m => m.AccountName)
+
+    @Html.HiddenFor(m => m.CoyFinStartDate)
+    @Html.HiddenFor(m => m.CoyFinEndDate)
+
+    @Html.HiddenFor(m => m.finStartDate)
+    @Html.HiddenFor(m => m.finEndDate)
+
+    @Html.HiddenFor(m => m.finStartMonth)
+    @Html.HiddenFor(m => m.finEndMonth)
+    @Html.HiddenFor(m => m.finPeriod)
+    @Html.HiddenFor(m => m.ActiveMobileTabClass)
+
+
+
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding new-background common-border-radius mobile-tab-bottom-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="margin-left-35">
+                        <div class="">
+                            <a class="common-heading-green"
+                               href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.VesselId)">@Model.VesselName</a>
+                        </div>
+                        <div class="common-sub-heading-black">
+                            Account Balances
+                        </div>
+                    </div>
+                    <div class="page-title-actions">
+                        <button class="btn btn-dark-grey text-white btn-shadow hover-blue mr-1 search-filter-sidebar d-md-inline-block d-none" id="divfilterhide">
+                            <i class="fa fa-filter" aria-hidden="true" title=""><span class="open-sans-font bold-text ml-2 d-none d-md-inline-block">Filter</span></i>
+                        </button>
+                        <button id="btnExport" data-toggle="tooltip" title="Export to excel" data-placement="bottom" class="btn btn-dark-grey text-white btn-export btn-shadow hover-blue mobile-fixed-right">
+                            <i class="fa fa-fw" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-pane">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-12 tab-box-1">
+                        <div class="common-custom-card height-equal title-margin-right">
+                            <div class="clearfix">
+                                <div class="float-left mr-common">
+                                    <div class="clearfix">
+                                        <div class="float-left float-md-none">
+                                            <div class="dashboard-counters-label">
+                                                Type
+                                            </div>
+                                        </div>
+                                        <div class="float-right float-md-none">
+                                            <span id="spanVesselManagementType" class="dashboard-counters">@Model.VesselManagementOfficeType</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-left mr-common">
+                                    <div class="clearfix">
+                                        <div class="float-left float-md-none">
+                                            <div class="dashboard-counters-label">
+                                                Owner
+                                            </div>
+                                        </div>
+                                        <div class="float-right float-md-none">
+                                            <span id="spanOwner" class="dashboard-counters"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-left mr-common">
+                                    <div class="clearfix">
+                                        <div class="float-left float-md-none">
+                                            <div class="dashboard-counters-label">
+                                                Fun. Cur
+                                            </div>
+                                        </div>
+                                        <div class="float-right float-md-none">
+                                            <span class="dashboard-counters" id="spanFuncCurr"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-left  mr-common">
+                                    <div class="clearfix">
+                                        <div class="float-left float-md-none">
+                                            <div class="dashboard-counters-label">
+                                                Financial Year
+                                            </div>
+                                        </div>
+                                        <div class="float-right float-md-none">
+                                            <span id="spanFinancialYearRange" class="dashboard-counters"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-left  mr-common">
+                                    <div class="clearfix">
+                                        <div class="float-left float-md-none">
+                                            <div class="dashboard-counters-label">
+                                                Mgmt. Start
+                                            </div>
+                                        </div>
+                                        <div class="float-right float-md-none">
+                                            <span id="spanMgmtStartDate" class="dashboard-counters"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-left wp-mobile-100">
+                                    <div class="clearfix">
+                                        <div class="float-left float-md-none">
+                                            <div class="dashboard-counters-label">
+                                                Ledger Cut-Off
+                                            </div>
+                                        </div>
+                                        <div class="float-right float-md-none">
+                                            <span id="spanLedgerCutOffDate" class="dashboard-counters"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-card card margin-bottom-custom table-common-design hide-mobile tab-box-2 top-box-margin" id="tablelistinspection">
+                <div class="common-custom-card mobile-pad-0 mb-0">
+                    <div class="counters-heading border-none position-relative clearfix mb-0 float-none">
+                        <div class="float-md-left">
+                            <span>Account Balances Details <span id="tblspndtrinspectionlist" class="table-title-date-filter"></span></span>
+                        </div>
+                        <div class="float-md-left filterdatadiv">
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#filterdata" class="filter-design"><i class="fa fa-filter" aria-hidden="true" title=""></i><span id="appliedFilterCount">0</span> Filter(s) applied</a><a href="javascript:void(0)" class="clear-filter" id="aRemoveFilter"><i class="fa fa-fw" aria-hidden="true" title=""></i></a>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div id="tableGrid" class="compact-table showing">
+                            <table style="width: 100%;" id="dtGeneralLedgerGrid" class="table table-hover table-striped table-bordered cardview row-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Account Code</th>
+                                        <th>Account Name</th>
+                                        <th>Account Type</th>
+                                        <th>AUX</th>
+                                        <th>CUR</th>
+                                        <th>Original Balance</th>
+                                        <th>Functional Balance (@Model.BaseCoyCurr)</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="mobile-tab d-block d-md-none d-lg-none d-xl-none">
+      <a id="tab-1" class="tab-1 mobileTabClick active">
+          <svg width="19" height="22" viewBox="0 0 21 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillstrokeactive">
+              <path d="M20.4848 1.34377C20.4884 1.07278 20.247 0.875 19.9824 0.875H1.38007C1.11443 0.875 0.875 1.07323 0.875 1.34289V22.6571C0.875 22.9265 1.11414 23.125 1.38007 23.125H19.9799C20.2456 23.125 20.485 22.9268 20.485 22.6571L20.4848 1.34377ZM20.4848 1.34377C20.4848 1.34412 20.4848 1.34448 20.4848 1.34483L20.3598 1.34289L20.4848 1.34289V1.34377ZM19.4769 22.1892H1.88765V1.81074H19.4769V22.1892Z" fill="#000000" stroke="#000000" stroke-width="0.25" />
+              <path d="M4.63485 18.2247C4.70813 18.1538 4.80728 18.114 4.91042 18.1145L15.5725 18.1147C15.7861 18.1155 15.959 18.2841 15.9599 18.4924C15.9602 18.5929 15.9196 18.6896 15.847 18.7609C15.7744 18.8323 15.6756 18.8726 15.5725 18.8731H4.91043C4.80676 18.8734 4.70709 18.8335 4.63381 18.762C4.56053 18.6904 4.51955 18.5934 4.5199 18.4924C4.52025 18.3918 4.56175 18.2955 4.63485 18.2247Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+              <path d="M4.63485 14.826C4.70813 14.7551 4.80728 14.7153 4.91042 14.7158L15.5725 14.716C15.7861 14.7168 15.959 14.8855 15.9599 15.0937C15.9602 15.1942 15.9196 15.2909 15.847 15.3622C15.7744 15.4336 15.6756 15.4739 15.5725 15.4744H4.91043C4.80676 15.4748 4.70709 15.4348 4.63381 15.3634C4.56053 15.2918 4.51955 15.1948 4.5199 15.0937C4.52025 14.9931 4.56175 14.8968 4.63485 14.826Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+              <path d="M4.64647 11.4274C4.72715 11.3564 4.83632 11.3166 4.94989 11.3171L11.1333 11.3173C11.3685 11.3182 11.5589 11.4868 11.5599 11.695C11.5603 11.7956 11.5155 11.8922 11.4356 11.9635C11.3557 12.0349 11.2469 12.0752 11.1333 12.0757H4.94989C4.83575 12.0761 4.726 12.0361 4.64532 11.9647C4.56464 11.8931 4.51952 11.7961 4.5199 11.695C4.52028 11.5944 4.56598 11.4981 4.64647 11.4274Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+              <path d="M4.64647 8.02892C4.72715 7.95798 4.83632 7.9182 4.94989 7.91871L11.1333 7.91888C11.3685 7.91973 11.5589 8.08834 11.5599 8.29657C11.5603 8.39713 11.5155 8.49379 11.4356 8.56507C11.3557 8.6365 11.2469 8.6768 11.1333 8.6773H4.94989C4.83575 8.67764 4.726 8.63769 4.64532 8.56625C4.56464 8.49464 4.51952 8.39763 4.5199 8.29657C4.52028 8.19601 4.56598 8.09968 4.64647 8.02892Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+              <path d="M4.64647 4.63023C4.72715 4.5593 4.83632 4.51952 4.94989 4.52002L16.4133 4.5202C16.6485 4.52105 16.8389 4.68966 16.8399 4.89789C16.8403 4.99845 16.7955 5.09511 16.7156 5.16638C16.6357 5.23782 16.5269 5.27811 16.4133 5.27862H4.94989C4.83575 5.27896 4.726 5.23901 4.64532 5.16757C4.56464 5.09595 4.51952 4.99895 4.5199 4.89788C4.52028 4.79733 4.56598 4.701 4.64647 4.63023Z" fill="#000000" stroke="#000000" stroke-width="0.45" />
+          </svg>
+          Overview
+      </a>
+      <a id="tab-2" class="tab-2 mobileTabClick">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="fillactive">
+              <path d="M5.34483 17.1034C5.5977 17.1034 5.81034 17.023 5.98276 16.8621C6.15517 16.7011 6.24138 16.4943 6.24138 16.2414C6.24138 15.9885 6.15517 15.7759 5.98276 15.6034C5.81034 15.431 5.5977 15.3448 5.34483 15.3448C5.06896 15.3448 4.85057 15.431 4.68965 15.6034C4.52874 15.7759 4.44828 15.9885 4.44828 16.2414C4.44828 16.5172 4.52874 16.7299 4.68965 16.8793C4.85057 17.0287 5.06896 17.1034 5.34483 17.1034ZM5.34483 11.8621C5.5977 11.8621 5.81034 11.7816 5.98276 11.6207C6.15517 11.4598 6.24138 11.2529 6.24138 11C6.24138 10.7241 6.15517 10.5057 5.98276 10.3448C5.81034 10.1839 5.5977 10.1034 5.34483 10.1034C5.06896 10.1034 4.85057 10.1897 4.68965 10.3621C4.52874 10.5345 4.44828 10.7471 4.44828 11C4.44828 11.2529 4.52874 11.4598 4.68965 11.6207C4.85057 11.7816 5.06896 11.8621 5.34483 11.8621ZM5.34483 6.62069C5.5977 6.62069 5.81034 6.54023 5.98276 6.37931C6.15517 6.21839 6.24138 6.01149 6.24138 5.75862C6.24138 5.48276 6.15517 5.26437 5.98276 5.10345C5.81034 4.94253 5.5977 4.86207 5.34483 4.86207C5.06896 4.86207 4.85057 4.94253 4.68965 5.10345C4.52874 5.26437 4.44828 5.48276 4.44828 5.75862C4.44828 6.01149 4.52874 6.21839 4.68965 6.37931C4.85057 6.54023 5.06896 6.62069 5.34483 6.62069ZM9.75862 16.7586H17.2414V15.7241H9.75862V16.7586ZM9.75862 11.5172H17.2414V10.4828H9.75862V11.5172ZM9.75862 6.27586H17.2414V5.24138H9.75862V6.27586ZM1.89655 22C1.36782 22 0.91954 21.8161 0.551724 21.4483C0.183908 21.0805 0 20.6322 0 20.1034V1.89655C0 1.36782 0.183908 0.91954 0.551724 0.551724C0.91954 0.183908 1.36782 0 1.89655 0H20.1034C20.6322 0 21.0805 0.183908 21.4483 0.551724C21.8161 0.91954 22 1.36782 22 1.89655V20.1034C22 20.6322 21.8161 21.0805 21.4483 21.4483C21.0805 21.8161 20.6322 22 20.1034 22H1.89655ZM1.89655 20.9655H20.1034C20.3103 20.9655 20.5057 20.8736 20.6897 20.6897C20.8736 20.5057 20.9655 20.3103 20.9655 20.1034V1.89655C20.9655 1.68966 20.8736 1.49425 20.6897 1.31034C20.5057 1.12644 20.3103 1.03448 20.1034 1.03448H1.89655C1.68966 1.03448 1.49425 1.12644 1.31034 1.31034C1.12644 1.49425 1.03448 1.68966 1.03448 1.89655V20.1034C1.03448 20.3103 1.12644 20.5057 1.31034 20.6897C1.49425 20.8736 1.68966 20.9655 1.89655 20.9655ZM1.03448 1.03448V20.9655V1.03448Z" fill="black" />
+          </svg>
+          List
+      </a>
+	</div>
+
+    <div class="ui-theme-settings search-sidebar-div searchnewdesign">
+        <div class="theme-settings__inner">
+            <div class="height-100-percent">
+                <div class="theme-settings__options-wrapper height-100-percent">
+                    <div class="font-size-close close-search-panel">
+                        <span aria-hidden="true">×</span>
+                    </div>
+                    <form class="common-form-design height-100-percent" autocomplete="off">
+                        <div class="row no-gutters height-100-percent">
+                            <div class="col-12">
+                                <div class="filterpanel">
+                                    <svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 11.83">
+                                        <defs>
+                                        </defs>
+                                        <g id="Text"><polygon class="cls-1" points="0 0 12 0 7.46 4.54 7.46 11.83 4.5 8.87 4.5 4.54 0 0" fill="#40ab9d" /></g>
+                                    </svg>
+                                    <h1>Filters</h1>
+                                </div>
+                            </div>
+                            <div class="col-3 col-md-3 col-lg-3 col-xl-3">
+                                <div class="nav flex-column nav-pills height-100-percent mb-0" id="search-tab-div" role="tablist" aria-orientation="vertical">
+                                    <a class="nav-link active" id="search-tabs-1" data-toggle="pill" href="#searches-tabs-1" role="tab" aria-controls="search-tabs-1" aria-selected="true">
+                                        Financial Period
+                                        <div class="filtericoncount">
+                                            <svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 11.83">
+                                                <defs>
+                                                </defs>
+                                                <g id="Text"><polygon class="cls-1" points="0 0 12 0 7.46 4.54 7.46 11.83 4.5 8.87 4.5 4.54 0 0" fill="#b3b3b3" /></g>
+                                            </svg>
+                                            <span class="filtercount" id="financialPeriodFilterCount">0</span>
+                                        </div>
+                                    </a>
+                                    <a class="nav-link" id="search-tabs-2" data-toggle="pill" href="#searches-tabs-2" role="tab" aria-controls="search-tabs-2" aria-selected="false" for="formTxtInspectionType">
+                                        Account Search
+                                        <div class="filtericoncount">
+                                            <svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 11.83">
+                                                <defs>
+                                                </defs>
+                                                <g id="Text"><polygon class="cls-1" points="0 0 12 0 7.46 4.54 7.46 11.83 4.5 8.87 4.5 4.54 0 0" fill="#b3b3b3" /></g>
+                                            </svg>
+                                            <span class="filtercount" id="accountSearchFilterCount">0</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-9 col-md-9 col-lg-9 col-xl-9">
+                                <div class="tab-content scroller" id="search-tab-divContent">
+                                    <div class="tab-pane fade show active" id="searches-tabs-1" role="tabpanel" aria-labelledby="search-tabs-1">
+                                        <div class="radio-button-design ml-0">
+                                            <label for="FinancialYearRadiosContainer">Financial Period</label>
+                                            <div class="form-group" id="FinancialYearRadiosContainer">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="dateFinancePeriod">Date Range</label>
+                                            <input type="text" class="form-control" id="dateFinancePeriod" />
+                                            <span id="spnDateRangeValidationMsg" class="txt-red d-none"> Selected range is not in financial year period.</span>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="searches-tabs-2" role="tabpanel" aria-labelledby="search-tabs-2">
+                                        <div id="divAccountSearch">
+                                            <partial name="CC_SearchFlatLookup" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-text-right search-section-bottom">
+                            <a href="#" id="btnClear" class="btn clear-btn mr-1 mr-md-2" role="button" aria-pressed="true">Clear</a>
+                            <button type="button" id="btnSearch" class="btn search-btn">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Modal
+{
+    <div class="modal fade p-0" id="filterdata" role="dialog" aria-labelledby="filterdata" aria-hidden="true">
+        <div class="modal-dialog modal-lg  modal-dialog-centered" role="document" style="max-width:850px;">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding">
+                    <div class="col-md-11 pl-0">
+                        <div class="">
+                            <div class="common-heading-green" id="">Filters Applied</div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background filters-popup-scroller">
+                    <div class="scroller">
+                        <div class="mobile-pad-0 mb-0">
+                            <div class="accordion filters-accordation" id="accordion">
+                                <div class="card pt-0" id="filterCard1">
+                                    <div class="card-header" id="heading1">
+                                        <h2 class="mb-0 w-100">
+                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#filterAccordion1" aria-expanded="true" aria-controls="filterAccordion1">
+                                                Financial Period
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div id="filterAccordion1" class="collapse show" aria-labelledby="heading1" data-parent="#accordion">
+                                        <div class="card-body common-custom-card p-0 border-0">
+                                            <div class="clearfix hazoc-list-margin">
+                                                <div class="row mx-auto" id="filterFinancialPeriodRow">
+                                                    <div class="col-3 col-md-3 col-lg-3 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0">
+                                                            Financial Period
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-9 col-md-9 col-lg-9 col-xl-10">
+                                                        <div class="dashboard-counters mt-1">
+                                                            <span id="filterFinancialPeriod">-</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mx-auto" id="filterDateRangeRow">
+                                                    <div class="col-3 col-md-3 col-lg-3 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0">
+                                                            Date Range
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-9 col-md-9 col-lg-9 col-xl-10">
+                                                        <div class="dashboard-counters mt-1">
+                                                            <span id="filterDateRange">-</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card pt-0" id="filterCard2">
+                                    <div class="card-header" id="heading2">
+                                        <h2 class="mb-0 w-100">
+                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#filterAccordion2" aria-expanded="true" aria-controls="filterAccordion2">
+                                               Account Search
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    <div id="filterAccordion2" class="collapse show" aria-labelledby="heading2" data-parent="#accordion">
+                                        <div class="card-body common-custom-card p-0 border-0">
+                                            <div class="clearfix hazoc-list-margin">
+                                                <div class="row mx-auto">
+                                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                        <div class="dashboard-counters-label"><span id="filterAccountSearch"> </span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/generalLedger.bundle.js"></script>
+}

@@ -1,0 +1,178 @@
+﻿@{
+	Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+	Planned Maintenance
+}
+
+@section ContentSection
+{
+	<div class="app-main__outer fixed-page-header">
+		<div class="app-main__inner background-padding">
+			<div class="app-page-title header-shadow">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+						<div>
+							Planned Maintenance - Sichem Amethyst
+						</div>
+					</div>
+					<div class="page-title-actions">
+						<div class="d-inline-block mr-3 mb-mobile-3">
+							<button class="btn-shadow btn btn-info" id="dtrppmlist">
+								<i class="fa fa-calendar pr-1"></i>
+								<span></span>
+								<i class="fa pl-1 fa-caret-down"></i>
+							</button>
+						</div>
+						<div class="d-inline-block dropdown mr-3">
+							<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+								<span class="btn-icon-wrapper pr-2 opacity-7">
+									<i class="fa fa-filter fa-w-20"></i>
+								</span>
+								<span id="spSubtitle">Due (32)</span>
+							</button>
+							<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+								<ul class="nav flex-column">
+									<li class="nav-item">
+										<a class="nav-link link-clicked" href="#tab-content-3" data-toggle="tab">
+											<span>
+												All (42)
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link active link-clicked" href="#tab-content-0" data-toggle="tab">
+											<span>
+												Due (32)
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link link-clicked" href="#tab-content-1" data-toggle="tab">
+											<span>
+												Overdue (for Jun) (8)
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link link-clicked" href="#tab-content-2" data-toggle="tab">
+											<span>
+												Overdue (Prior to Jun) (2)
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link link-clicked" href="#" data-toggle="tab">
+											<span>
+												Done (0)
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<button data-toggle="tooltip" title="Export to excel" data-placement="bottom" class="btn btn-dark btn-shadow font-size-lg p-1 hover-blue mr-1">
+							<i class="fa fa-fw" aria-hidden="true"></i>
+						</button>
+					</div>
+
+				</div>
+			</div>
+			<div class="main-card content-pane card margin-bottom-custom">
+				<div class="card-body">
+					<div class="tab-content">
+						<div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+							<div class="table-responsive compact-table">
+								<table style="width: 100%;" id="dtPPMDueList" class="table table-hover table-bordered cardview row-sm">
+									<thead>
+										<tr>
+											<th>Job Type</th>
+											<th>Due Date</th>
+											<th>Component Name</th>
+											<th>Job Name</th>
+											<th>Status</th>
+											<th>Interval</th>
+											<th>Resp</th>
+											<th>Left Hours</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
+							<div class="table-responsive compact-table">
+								<table style="width: 100%;" id="dtPPMMonList" class="table table-hover table-bordered cardview row-sm">
+									<thead>
+										<tr>
+											<th>Job Type</th>
+											<th>Due Date</th>
+											<th>Component Name</th>
+											<th>Job Name</th>
+											<th>Status</th>
+											<th>Interval</th>
+											<th>Resp</th>
+											<th>Left Hours</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
+							<div class="table-responsive compact-table">
+								<table style="width: 100%;" id="dtPPMPriList" class="table table-hover table-bordered cardview row-sm">
+									<thead>
+										<tr>
+											<th>Job Type</th>
+											<th>Due Date</th>
+											<th>Component Name</th>
+											<th>Job Name</th>
+											<th>Status</th>
+											<th>Interval</th>
+											<th>Resp</th>
+											<th>Left Hours</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane tabs-animation fade" id="tab-content-3" role="tabpanel">
+							<div class="table-responsive compact-table">
+								<table style="width: 100%;" id="dtPPMAllList" class="table table-hover table-bordered cardview row-sm">
+									<thead>
+										<tr>
+											<th>Job Type</th>
+											<th>Due Date</th>
+											<th>Done Date</th>
+											<th>Component Name</th>
+											<th>Job Name</th>
+											<th>Status</th>
+											<th>Interval</th>
+											<th>Resp</th>
+											<th>Left Hours</th>
+											<th>Closed Date</th>
+											<th>Class Code</th>
+											<th>Dept</th>
+											<th>Work Order Type</th>
+											<th>Report Form</th>
+											<th>ADV(+)/Od days(-)</th>
+											<th>ST Deleted</th>
+											<th>Running hours</th>
+											<th>Attachments</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section ScriptSection
+{
+	<script src="~/assets/scripts/ppmlist.bundle.js"></script>
+}

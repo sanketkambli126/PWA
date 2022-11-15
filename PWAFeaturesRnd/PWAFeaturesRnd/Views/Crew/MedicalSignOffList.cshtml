@@ -1,0 +1,125 @@
+﻿@model CrewListViewModel
+
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+@section Title
+{
+    Medical Sign off - @Model.VesselName
+}
+
+@section ContentSection
+{
+    @Html.HiddenFor(m => m.EncryptedVesselId)
+    @Html.HiddenFor(m => m.FromMedicalSignOff)
+    @Html.HiddenFor(m => m.ToMedicalSignOff)
+    @Html.HiddenFor(m => m.VesselName)
+
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding new-background common-border-radius">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="margin-left-35">
+                        <div>
+                            <a class="common-heading-green" 
+                               href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.EncryptedVesselId)">@Model.VesselName</a>
+                        </div>
+
+                        <div class="common-sub-heading-black">
+                            Crewing
+                        </div>
+                    </div>
+
+                    <div class="page-title-actions">
+                        <div class="mb-mobile-3 datepicker-mobile-design d-inline-block">
+                            <button class="btn btn btn-shadow btn-info mr-1 date-picker-text-bold iconsdatepicker" id="dateRangeMSO">
+                            </button>
+                        </div>
+                        <button id="" type="button" class="btn btn-dark-grey text-white btn-shadow  hover-blue mr-1 hide-mobile btnCrewList">Crew List</button>
+                        <button id="" data-toggle="tooltip" title="Export to excel" data-placement="bottom" class="btn btn-dark-grey text-white btn-export btn-shadow hover-blue hide-mobile btnExportMSO">
+                            <i class="fa fa-fw" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="dropdown mobile-dropdown-title d-block d-md-none d-lg-none d-xl-none">
+                        <button type="button" id="mobileactiontoggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-dark-grey text-white btn-export btn-shadow">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="mobileActiondropdown">
+                            <ul class="nav flex-column">
+                                <li>
+                                    <a class="nav-link btnCrewList" id="">
+                                        <img src="~/images/MedicalSignOffblack.png" /> <span>Crew List</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link btnExportMSO" id="">
+                                        <i class="fa fa-fw" aria-hidden="true"></i><span>Export To Excel</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-card card margin-bottom-custom table-common-design content-pane">
+                <div class="common-custom-card mobile-pad-0">
+                    <div class="counters-heading border-none position-relative clearfix mb-0 float-none">
+                        <div class="float-md-left">
+                            <span>Medical Sign Off <span id="tblspndtrmso" class="table-title-date-filter"></span></span>
+                        </div>
+                    </div>
+                    <div class="">
+                        <table style="width: 100%;" id="dtMedicalSignOff" class="table table-hover table-striped nowrap table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Rank</th>
+                                    <th>Nat</th>
+                                    <th class="white-space-break">Onboard Days</th>
+                                    <th>Sign On</th>
+                                    <th>Sign Off</th>
+                                    <th>Reason</th>
+                                    <th>Port Off</th>
+                                    <th>Country Off</th>
+                                    <th class="white-space-break">Current Status</th>
+                                    <th class="white-space-break">Status End Date</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading-indicator d-none">
+                <div class="loader bg-transparent no-shadow p-0">
+                    <div class="ball-spin-fade-loader">
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                        <div class="bg-teal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Modal
+{
+    <!-- Crew Name Modal -->
+
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/medicalSignOffList.bundle.js"></script>
+}
+

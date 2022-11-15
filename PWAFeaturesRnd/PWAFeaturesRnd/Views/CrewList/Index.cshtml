@@ -1,0 +1,372 @@
+﻿@{
+	Layout = "~/Views/Shared/base.cshtml";
+}
+@section Title
+{
+	Crew List
+}
+@section ContentSection
+{
+	<div class="app-main__outer fixed-page-header order-details crewing-details">
+		<div class="app-main__inner background-padding new-background common-border-radius">
+			<div class="app-page-title header-shadow">
+				<div class="page-title-wrapper">
+					<div class="page-title-heading">
+						<div class="module-vesel-name">
+							Crewing - Sichem Amethyst
+						</div>
+					</div>
+					<div class="page-title-actions">
+						<div class="d-inline-block mr-3 mb-mobile-3">
+							<button class="btn-shadow btn btn-info" id="dtrcrewlist">
+								<i class="fa fa-calendar pr-1"></i>
+								<span></span>
+								<i class="fa pl-1 fa-caret-down"></i>
+							</button>
+						</div>
+						<div class="d-inline-block dropdown mr-3">
+							<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+								<span class="btn-icon-wrapper pr-2 opacity-7">
+									<i class="fa fa-filter fa-w-20"></i>
+								</span>
+								<span id="spSubtitle">Crew List (20)</span>
+							</button>
+							<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+								<ul class="nav flex-column">
+									<li class="nav-item">
+										<a class="nav-link active link-clicked" href="#tab-eg115-0" data-toggle="tab">
+											<span>
+												Crew List (20)
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link link-clicked" href="#tab-eg115-3" data-toggle="tab">
+											<span>
+												Medical Sign Off (2)
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<button data-toggle="tooltip" title="Export to excel" data-placement="bottom" class="btn btn-dark btn-shadow font-size-lg p-1 hover-blue">
+							<i class="fa fa-fw" aria-hidden="true"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="main-card margin-bottom-custom card content-pane">
+				<div class="card-body">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab-eg115-0" role="tabpanel">
+
+							<div class="clearfix">
+								<h1 class="float-left">CREW LIST (2)</h1>
+								<div class="export">
+									<div class="position-relative form-group">
+										<div>
+											<div class="custom-checkbox custom-control custom-control-inline">
+												<input type="checkbox" name="ShowOverdue" id="chkShowOverdue" value="show-overdue" class="custom-control-input">
+												<label class="custom-control-label" for="chkShowOverdue">Show Overdue</label>
+											</div>
+											<div class="custom-checkbox custom-control custom-control-inline">
+												<input type="checkbox" name="ShowUnplannedBerths" id="chkShowUnplannedBerths" value="show-unplanned-berths" class="custom-control-input">
+												<label class="custom-control-label" for="chkShowUnplannedBerths">Show Unplanned Berths</label>
+											</div>
+											<div class="custom-checkbox custom-control custom-control-inline">
+												<input type="checkbox" name="filter" id="exampleCustomInline5" value="show-filter" class="custom-control-input">
+												<label class="custom-control-label" for="exampleCustomInline5">Show More Filter</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 show-filter" style="display:none;">
+									<div class="form-row mt-0">
+										<div class="col-6 col-md-6 col-lg-20percent">
+											<div class="position-relative form-group">
+												<select class="multiselect-dropdown form-control">
+													<optgroup label="Options">
+														<option value="Main Engine">0 Departments</option>
+													</optgroup>
+												</select>
+											</div>
+										</div>
+										<div class="col-6 col-md-6 col-lg-20percent">
+											<div class="position-relative form-group">
+												<select class="multiselect-dropdown form-control">
+													<optgroup label="Options">
+														<option value="Main Engine">0 Rank Category</option>
+													</optgroup>
+												</select>
+											</div>
+										</div>
+										<div class="col-12 col-md-12 col-lg-20percent text-right">
+											<div class="position-relative form-check">
+												<button class="mr-2 btn btn-primary">Search</button>
+												<button class="btn btn-secondary">Clear</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="table-responsive compact-table">
+								<table style="width: 100%;" id="dtcrewlistonboard" class="table table-hover table-bordered nowrap cardview layout-new row-sm">
+									<thead>
+										<tr>
+											<th class="text-left">
+												SN
+											</th>
+											<th class="text-left">
+												Crew Name
+											</th>
+											<th class="text-left">
+												Rank
+											</th>
+											<th class="text-left">
+												DEP
+											</th>
+											<th class="text-left">
+												NAT
+											</th>
+											<th class="text-center">
+												Sign On
+											</th>
+											<th class="text-center">
+												Due Relief
+											</th>
+											<th class="text-left">
+												EXT
+											</th>
+											<th class="text-left">
+												Left
+											</th>
+											<th class="text-center">
+												Status
+											</th>
+											<th class="text-left">
+												Reliver
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										@for (int i = 0; i < 10; i++)
+										{
+											<tr>
+												<td class="d-none d-sm-block"><Label>SN</Label><br />6</td>
+												<td class="tdblock">
+													<a href="#" class="td-row-header tdblock" data-toggle="modal" data-target="#crewname">Vakhnovan, sergiy</a>
+													<div class="d-block d-sm-none">2nd Engineer <span class="float-right">Ukrainian</span></div>
+												</td>
+												<td class="d-none d-sm-table-cell"><Label>Rank</Label><br />2nd Engineer</td>
+												<td class="d-none d-sm-table-cell"><Label>DEP</Label><br />Engg</td>
+												<td class="d-none d-sm-table-cell"><Label>NAT</Label><br />UKR</td>
+												<td class="text-center td-w-30"><Label> Sign On</Label><br />07 Mar 2020</td>
+												<td class="text-center td-w-30"><Label> Due Relief</Label><br />04 Jul 2020</td>
+												<td class="td-w-19"><Label>Left</Label><br />133 D</td>
+												<td class="td-w-19"><Label>EXT</Label><br />0 D</td>
+												<td class="text-center td-w-19"><Label>Status</Label><br /><span class="badge badge-pill badge-teal status-badge" data-toggle="tooltip" title="Approved" data-placement="bottom">A</span></td>
+												<td class=""><Label>Reliver</Label><br /><a href="#" class="" data-toggle="modal" data-target="#crewname">Tun, Zaw Zaw</a></td>
+											</tr>
+											<tr>
+												<td class="d-none d-sm-block"><Label>SN</Label><br />7</td>
+												<td class="tdblock">
+													<a href="#" class="td-row-header tdblock" data-toggle="modal" data-target="#crewname">Shkauratov, MArk</a>
+													<div class="d-block d-sm-none">3rd Engineer <span class="float-right">Russian</span></div>
+												</td>
+												<td class="d-none d-sm-table-cell"><Label>Rank</Label><br />3rd Engineer</td>
+												<td class="d-none d-sm-table-cell"><Label>DEP</Label><br />Engg</td>
+												<td class="d-none d-sm-table-cell"><Label>NAT</Label><br />RUS</td>
+												<td class="text-center td-w-30"><Label> Sign On</Label><br />03 Nov 2019</td>
+												<td class="text-center td-w-30"><Label> Due Relief</Label><br />01 May 2020</td>
+												<td class="td-w-19"><Label>Left</Label><br />90 D</td>
+												<td class="td-w-19"><Label>EXT</Label><br />0 D</td>
+												<td class="text-center td-w-19"><Label>Status</Label><br /><span class="badge badge-pill badge-teal status-badge" data-toggle="tooltip" title="Approved" data-placement="bottom">A</span></td>
+												<td class=""><Label>Reliver</Label><br /><a href="#" class="" data-toggle="modal" data-target="#crewname">Jain, Manoj</a></td>
+											</tr>
+
+										}
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="tab-pane medical" id="tab-eg115-3" role="tabpanel">
+							<div class="clearfix">
+								<h1 class="float-left">MEDICAL SIGN OFF (2)</h1>
+								<div class="export">
+									<div class="position-relative form-group mb-3">
+										<div>
+											<div class="custom-checkbox custom-control custom-control-inline">
+												<input type="checkbox" name="filter2" id="exampleCustomInline8" value="date-filter3" class="custom-control-input">
+												<label class="custom-control-label" for="exampleCustomInline8">Show Date Filter</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 date-filter3" style="display:none;">
+									<div class="form-row mt-0">
+										<div class="col-12 col-md-7 col-lg-6 col-xl-5">
+											<div class="position-relative form-group mb-0-current-mobile">
+												<label>Select Date Range</label>
+												<button class="btn btn-primary" id="reportrange1">
+													<i class="fa fa-calendar pr-1"></i>
+													<span></span>
+													<i class="fa pl-1 fa-caret-down"></i>
+												</button>
+											</div>
+										</div>
+
+										<div class="col-12 col-md-5 col-lg-4 col-xl-4 text-left mb-2">
+											<div class="position-relative form-check">
+												<button class="mr-2 btn btn-primary">Search</button>
+												<button class="btn btn-secondary">Clear</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="table-responsive compact-table">
+								<table style="width: 100%;" id="medicalsignoff" class="table table-hover table-bordered cardview layout-new row-sm">
+									<thead>
+										<tr>
+											<th class="text-left">
+												Rank
+											</th>
+											<th class="">
+												Name
+											</th>
+											<th>
+												NAT
+											</th>
+											<th class="text-left">
+												Onboard Days
+											</th>
+											<th class="text-center">
+												Sign On
+											</th>
+											<th class="text-center">
+												Sign Off
+											</th>
+											<th class="text-left">
+												Reason
+											</th>
+											<th class="text-left">
+												Port Off
+											</th>
+											<th class="text-left">
+												Country Off
+											</th>
+											<th class="text-left">
+												Current Status
+											</th>
+											<th class="text-center">
+												Status End Date
+											</th>
+										</tr>
+
+									</thead>
+									<tbody>
+										<tr>
+											<td class="d-none d-sm-block"><Label> Rank</Label><br />Cdt-Eng</td>
+											<td class="tdblock">
+												<span class="td-row-header tdblock">Chernyl, Alexandr</span>
+												<div class="d-block d-sm-none">Cdt-Eng <span class="float-right">Russian</span></div>
+											</td>
+											<td class="d-none d-sm-table-cell"><Label>NAT</Label><br />RUS</td>
+											<td class="text-left"><Label>Onboard Days</Label><br />151 D</td>
+											<td class="text-center"><Label>Sign On</Label><br />07 Jun 2019</td>
+											<td class="text-center"><Label>Sign Off</Label><br />03 Nov 2019</td>
+											<td class=""><Label>Reason</Label><br />End Of Contract</td>
+											<td class=""><Label>Port Off</Label><br />Port Moresby</td>
+											<td class=""><Label>Country Off</Label><br />Papua New Guinea</td>
+											<td class=""><Label>Current Status</Label><br />Vacation</td>
+											<td class="text-center"><Label> Status End Date</Label><br />06 Jan 2020</td>
+										</tr>
+										<tr>
+											<td class="d-none d-sm-block"><Label> Rank</Label><br />CadetElec</td>
+											<td class="tdblock">
+												<span class="td-row-header tdblock">Livenskiy, Alexandr </span>
+												<div class="d-block d-sm-none">CadetElec <span class="float-right">Russian</span> </div>
+											</td>
+											<td class="d-none d-sm-table-cell"><Label>NAT</Label><br />RUS</td>
+											<td class="text-left"><Label>Onboard Days</Label><br />181 D</td>
+											<td class="text-center"><Label>Sign On</Label><br />21 Dec 2018</td>
+											<td class="text-center"><Label>Sign Off</Label><br />07 Jun 2019</td>
+											<td class=""><Label>Reason</Label><br />End Of Contract</td>
+											<td class=""><Label>Port Off</Label><br />Singapore</td>
+											<td class=""><Label>Country Off</Label><br />Singapore</td>
+											<td class=""><Label>Current Status</Label><br />Vacation</td>
+											<td class="text-center"><Label> Status End Date</Label><br />24 Nov 2019</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+}
+
+@section Modal
+{
+	<!-- Crew Name Modal -->
+	@*<div class="modal fade common-modal-design" id="crewname" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			 aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="">Terms and Condition</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p class="mb-0">
+							I Agree to Terms and Condition
+						</p>
+					</div>
+					<div class="modal-footer">
+						<a href="/CrewDetails/Index" class="btn btn-primary btn-lg">OK</a>
+					</div>
+				</div>
+			</div>
+		</div>*@
+	<div class="modal fade" id="crewname" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		 aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Terms and Condition</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p class="mb-0">
+						I Agree to Terms and Condition
+					</p>
+				</div>
+				<div class="modal-footer text-right">
+
+					<a href="/CrewDetails/Index" class="btn btn-secondary">OK</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+}
+
+
+@section ScriptSection
+{
+	<script src="~/assets/scripts/crewList.bundle.js"></script>
+}

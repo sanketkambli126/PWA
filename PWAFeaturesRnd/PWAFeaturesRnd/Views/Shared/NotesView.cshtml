@@ -1,0 +1,221 @@
+﻿<div class="ui-theme-settings notes-sidebar-open open-sans-font">
+    @*<button type="button" id="btnCloseNotesTab" class="btn close-notes-tabs btn-open-options">
+            <i class="fa fa-times fsize-2 floating-close-icon" style=""></i>
+        </button>*@
+    <!-- Add new note section starts -->
+    <div class="close-notes-panel">
+        @*<span aria-hidden="true">×</span>*@
+        <img src="~/images/notest-collapse.svg" />
+    </div>
+    <div class="row mx-auto no-gutters add-note">
+        <div class="col-12 col-md-12 col-lg-12 col-xl-12 my-auto">
+            <div class="row no-gutters">
+                <div class="col-8 col-md-8 col-lg-8 col-xl-8">
+                    <div class="notes-title">
+                        <img src="~/images/my-notes.svg" />
+                        <h1 id="spanNoteDetailHeader"></h1>
+                    </div>
+                </div>
+                <div class="col-4 col-md-4 col-lg-4 col-xl-4 my-auto">
+                    <div id="divNotesEditActions" class="icons-right d-none editnotesicons">
+                        <a href="javascript:void(0);" id="" data-toggle="tooltip" data-placement="bottom" title="Mark as Completed">
+                            <div class="markascomplete markNoteAsCompletedForEditMode">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="chkMarkAsCompleteEdit">
+                                    <label class="custom-control-label" for="chkMarkAsCompleteEdit"></label>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="javascript:void(0);" id="deleteNoteForEditMode" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                            <img src="/images/delete-notes.svg" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-12 col-lg-12">
+            <div class="theme-settings__inner open-sans-font d-block">
+                <div class="height-100-percent">
+                    <div class="theme-settings__options-wrapper height-100-percent">
+                        <div class="notes-list-sidebar scroller mt-0">
+                            <div class="discussion-form p-0 apply-loader notes-form">
+                                <div class="apply-loader" id="divNotesEditSection">
+                                    <div class="row mx-auto no-gutters">
+                                        <div class="col-3 col-md-3 col-lg-3 col-xl-3">
+                                            <h1>Vessel </h1>
+                                        </div>
+                                        <div class="col-9 col-md-9 col-lg-9 col-xl-9 vessel-search ">
+                                            <select id="cboNotesVesselSearch" class="form-control form-control-sm">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mx-auto no-gutters d-none" id="divAreaDropdown">
+                                        <div class="col-3 col-md-3 col-lg-3 col-xl-3">
+                                            <h1>Area </h1>
+                                        </div>
+                                        <div class="col-9 col-md-9 col-lg-9 col-xl-9">
+                                            <select type="select" id="selArea" class="form-control form-ctrol-sm custom-select" disabled>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mx-auto no-gutters">
+                                        <div class="col-md-12 col-lg-12 col-xl-12">
+                                            <div class="notes-box">
+                                                <div class="row mx-auto no-gutters">
+                                                    <div class="col-12 col-md-12 col-lg-12 col-xl-12 my-auto">
+                                                        <div class="notes-box-title">
+                                                            <textarea rows="" id="txtNoteTitle" class="form-control title-color scroller notesFocusable" maxlength="150" placeholder="Title">
+                                                            </textarea>
+                                                            <input id="hdnNotesContextParams" type="hidden">
+                                                            <input id="hdnNotesReferenceId" type="hidden">
+                                                            <input type="hidden" id="hdnNoteId" />
+                                                            <input type="hidden" id="hdnIsReminderIsExpired" />
+                                                            <input type="hidden" id="hdnIsReminderAlertDismissed" />
+                                                            <input type="hidden" id="hdnNVReminderId" />
+                                                            <input type="hidden" id="hdnNoteStatus" value="1" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="notes-desc">
+                                                    <textarea rows="11" id="txtNoteDescription" class="form-control descr scroller notesFocusable" placeholder="Description"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mx-auto no-gutters">
+                                        <div class="col-md-12 col-lg-12 col-xl-12">
+                                            <div class="file-upload">
+                                                <label for="inputNotesMessageAttachments">
+                                                    <img src="/images/attachment.png" /> Add Attachment
+                                                </label>
+                                                <input id="inputNotesMessageAttachments" type="file" multiple />
+                                            </div>
+                                            <div id="divNotesMessageAttachemnts" class="apply-loader loader-height">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mx-auto no-gutters">
+                                        <div class="col-4 col-md-3 col-lg-3 col-xl-3">
+                                            <h1>Reminder</h1>
+                                        </div>
+                                        <div class="col-8 col-md-9 col-lg-9 col-xl-9">
+                                            <input type="text" class="form-control reminder-notes notesFocusable" id="reminderDate" value="" autocomplete="off" />
+                                            <img src="~/images/notes-reminder.png" class="reminder-img reminderDatePicker" />
+                                        </div>
+                                    </div>
+                                    <div class="row mx-auto no-gutters note-action">
+                                        <div class="col-3 col-md-3 col-lg-3 col-xl-3 text-left my-auto">
+                                            <a href="javascript:void(0);" id="btnCancelNote" class="btn-cancelsecondarybtn btn">Cancel</a>
+                                        </div>
+                                        <div class="col-9 col-md-9 col-lg-9 col-xl-9 text-right">
+                                            <button class="btn btn-discussion" id="btnSaveNote">Save Note</button>                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add new note section ends -->
+    <!-- Notes header section starts -->
+    <div class="row mx-auto no-gutters notes-border my-note">
+        <div class="col-6 col-md-6 col-lg-6 col-xl-6 my-auto">
+            <div class="notes-title">
+                <img src="~/images/my-notes.svg" />
+                <h1>My Notes</h1>
+            </div>
+        </div>
+        <div class="col-6 col-md-6 col-lg-6 col-xl-6 my-auto">
+            <div class="icons-right">
+                <a href="javascript:void(0);" id="plus-sign-note" class="">
+                    <img src="/images/new-discuss.png">
+                </a>
+                <a href="javascript:void(0);" id="notes-filter" class="">
+                    <img src="/images/searchchat.svg">
+                </a>
+                <a href="javascript:void(0);" id="collapsenotes" class="notes-collapse">
+                    <span></span>
+                    <img src="~/images/notescollapse.svg" />
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Notes header section ends -->
+    <div class="search-filter-n">
+        <div class="discussion-form p-0 apply-loader">
+            <input type="text" class="form-control d-none" id="notesSearchText" placeholder="Search.." autocomplete="off">
+               <a href="#" id="noteSearch"><i class="fa fa-search"></i></a> 
+               <a href="#" id="noteSearchCancel" class="cancelnotes"><i class="fa fa-times"></i></a>            
+        </div>
+        <div class="card tab-new-design" id="">
+            <div class="card-header card-header-tab-animation">
+                <ul class="nav nav-justified" id="tabs">
+                    <li class="nav-item"><a data-toggle="tab" href="#tabs2" class="nav-link pr-1 active">Current</a><span id="spanCurrentNotesCount" class="d-none text-teal"></span></li>
+                    <li class="nav-item"><a data-toggle="tab" href="#tabs3" class="nav-link pr-1">Completed</a><span id="spanCompletedNotesCount" class="d-none text-teal"></span></li>
+                    <li class="nav-item"><a data-toggle="tab" href="#tabs1" class="nav-link pr-0">All</a><span id="spanAllNotesCount" class="d-none text-teal"></span></li>
+                </ul>
+            </div>
+            <div class="card-body p-0">
+                <div class="tab-content">
+                    <div class="tab-pane active current" id="tabs2" role="tabpanel">
+                        <input type="hidden" id="hdnCurrentStatusPageNumber" value="1" />
+                        <input type="hidden" id="hdnCurrentHasNextPage" value="true" />
+                        <div class="theme-settings__inner open-sans-font d-block">
+                            <div class="height-100-percent">
+                                <div class="theme-settings__options-wrapper height-100-percent">
+                                    <div id="divNotesLoader" class="apply-loader">
+                                        <div id="divCurrentNotesSection" class="notes-list-sidebar scroller">
+                                            <ul id="currentnotessection" class="notessection activetab">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane completed" id="tabs3" role="tabpanel">
+                        <input type="hidden" id="hdnCompletedStatusPageNumber" value="1" />
+                        <input type="hidden" id="hdnCompletedHasNextPage" value="true" />
+                        <div class="theme-settings__inner open-sans-font d-block">
+                            <div class="height-100-percent">
+                                <div class="theme-settings__options-wrapper height-100-percent">
+                                    <div id="divNotesLoader" class="apply-loader">
+                                        <div id="divCompleteNotesSection" class="notes-list-sidebar scroller">
+                                            <ul id="completednotessection" class="notessection">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane all" id="tabs1" role="tabpanel">
+                        <input type="hidden" id="hdnAllStatusPageNumber" value="1" />
+                        <input type="hidden" id="hdnAllHasNextPage" value="true" />
+                        <div class="theme-settings__inner open-sans-font d-block">
+                            <div class="height-100-percent">
+                                <div class="theme-settings__options-wrapper height-100-percent">
+                                    <div id="divNotesLoader" class="apply-loader">
+                                        <div id="divAllNotesSection" class="notes-list-sidebar scroller">
+                                            <ul id="allnotessection" class="notessection">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Notes list starts -->
+    <!-- Have to separate out li and add from JS -->
+    <input type="hidden" id="hdnNotesMessageDetails" value="" />
+    <!-- Notes list ends -->
+</div>

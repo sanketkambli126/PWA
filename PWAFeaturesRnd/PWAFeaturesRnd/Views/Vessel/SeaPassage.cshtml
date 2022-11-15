@@ -1,0 +1,349 @@
+﻿
+@{
+    ViewData["Title"] = "SeaPassage";
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Sea Passasge
+}
+
+
+@section ContentSection
+{
+    <div class="app-main__outer fixed-page-header">
+        <div class="app-main__inner background-padding">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading">
+                        <div class="multiple-heading text-left">
+                            Sea Passage Loaded
+                            <div class="page-title-subheading text-left head-mobile-first-border"><span>ADAFERA</span><span><b>IMO 9258478</b></span><span> Charter No. 2363/ADAFE/TC/2020/2</span></div>
+                            <div class="page-title-subheading text-left"><span>Charter Name : Trafigura Marinetime Logistic Pte Singapore</span><span>Last Reported Event : 27 Apr 2020 02:30</span><span><a href="/Vessel/VesselPositionList"><b><i class="fa fa-angle-double-left"></i> Back to Activity List</b></a></span></div>
+                        </div>
+                    </div>
+                    <div class="page-title-actions action-right-m">
+                        <button type="button" data-toggle="tooltip" title="Print" data-placement="bottom" class="btn btn-dark btn-shadow font-size-lg p-1 hover-blue">
+                            <i class="fa fa-fw" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="main-card content-pane card margin-bottom-custom sea-passage-graph-box">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="vessel-details vessel-graph-box">
+                                <div class="widget-chart p-0">
+                                    <div class="main-card mb-0 card">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <div class="widget-content p-0">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left">
+                                                            <div class="clearfix">
+                                                                <div class="from-section float-left">
+                                                                    <div class="widget-heading"><i class="pe-7s-map-marker" aria-hidden="true" title="" style="font-weight: bold;"></i> From</div>
+                                                                    
+                                                                        <span class="widget-subheading opacity-1">FAOP CHL - SAN VICENTRE <a href='javascript: void(0);' data-target='#portdetails' data-toggle='modal' class='icon-hover-underline-none'> <i class='fa fa-anchor icon-red ml-1'></i><sup class='icon-red'>&#9733;</sup></a></span>
+                                                                        <span class="time widget-numbers fsize-1 mb-0">23 APR 2020 08:00</span>
+                                                                </div>
+                                                               
+                                                                <div class="to-section float-right">
+                                                                    <div class="widget-heading"><i class="pe-7s-map-marker" aria-hidden="true" title="" style="font-weight: bold;"></i> To</div>
+                                                                    
+                                                                    <span class="widget-subheading opacity-1">ETA ECU - ESMERALDAS</span>
+                                                                        <span class="time widget-numbers fsize-1 mb-0">05 MAY 2020 19:58</span>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-lg-12 graph-indicator mt-3">
+                                                                    <div class="row">
+                                                                        <div class="col-12 col-md-12 col-lg-12 speed-indicator mt-1">
+                                                                            <div class="progress-bar-animated-alt progress">
+                                                                                <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                                                                                    <span class="widget-numbers fsize-1 mt-0 mb-0 total-covered">Total Distance Covered - 566.00NM</span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <a class="text-black" href="javascript:void(0);" data-target="#badweather" data-toggle="modal">
+                                                                                <div class="progress-bar bg-default bg-purple-speed" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" style="left: 10%;"></div>
+                                                                            </a>
+                                                                            <a class="text-black" href="javascript:void(0);" data-target="#offhiredetails" data-toggle="modal">
+                                                                                <div class="progress-bar bg-default bg-stop" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" style="left: 40%;"></div>
+                                                                            </a>
+                                                                            <div class="progress-bar bg-default" role="progressbar" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100" style="left: 50%;" data-toggle="tooltip" data-placement="bottom" title="<b>AT SEA</b><br>27&deg;,41.00' S 76&deg;,28.00' W<br>1,802.00 nm remaining" data-html="true"></div>
+                                                                        </div>
+                                                                        <div class="col-12 col-md-12 col-lg-12 text-right total-distance">
+                                                                            <span class="widget-numbers fsize-1 mt-2 mb-2">Total Distance - 1,802.00 NM</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="main-card content-pane card mt-0">
+                <div class="card-body widget-content">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card-title mb-0 pl-3">CHARTERER'S ORDERs</div>
+                            <div class="row">
+                                <div class="widget-numbers col-md-6 col-lg-4 charter-chart">                                  
+                                    <div id="seaPassageSpeedRadialChart">
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <canvas id="fuel-consuption"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-card content-pane card mt-3 mb-3">
+                <div class="card-body">
+                    <div class="card-title">EVENTS (3)</div>
+                    <div class="table-responsive compact-table table-scroll">
+                        <table style="width: 100%;" id="dtportcalllocation" class="table table-hover table-bordered cardview row-sm nowrap">
+                            <thead>
+                                <tr>
+                                    <th colspan="10">
+                                        &nbsp;
+                                    </th>
+                                    <th colspan="4">
+                                        Weather
+                                    </th>
+                                    <th colspan="11">
+                                        Consumption (mt)
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Date/Time</th>
+                                    <th>Event</th>
+                                    <th>Date/Time</th>
+                                    <th>Position</th>
+                                    <th>Course</th>
+                                    <th class="white-space-break">Time Sailed</th>
+                                    <th class="white-space-break">Breaks Time</th>
+                                    <th>Dist</th>
+                                    <th class="white-space-break">Avg Speed</th>
+                                    <th>RPM</th>
+                                    <th class="white-space-break">True Slip</th>
+                                    <th>Wind Force</th>
+                                    <th>Sea State</th>
+                                    <th class="white-space-break">Wind Speed</th>
+                                    <th>Wind Dir</th>
+                                    <th>FO</th>
+                                    <th>LSFO</th>
+                                    <th>DO</th>
+                                    <th>GO</th>
+                                    <th>LNG</th>
+                                    <th class="white-space-break">FW DOM</th>
+                                    <th class="white-space-break">FW TECH</th>
+                                    <th>CLO</th>
+                                    <th>CRANK</th>
+                                    <th>AUX</th>
+                                    <th>General</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" class="border-right-0">Total</th>
+                                    <th colspan="1"></th>
+                                    <th colspan="2"></th>
+                                    <th colspan="2">74:00</th>
+                                    <th colspan="8">566</th>
+                                    <th>0.00</th>
+                                    <th>84.90</th>
+                                    <th>0.20</th>
+                                    <th>0.00</th>
+                                    <th>0.00</th>
+                                    <th>0.00</th>
+                                    <th>21.00</th>
+                                    <th>0.19</th>
+                                    <th>0.00</th>
+                                    <th>0.00</th>
+                                    <th>0.00</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+@section Modal
+{
+    <div class="modal fade" id="badweather" tabindex="-1" role="dialog" aria-labelledby="badweather" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bad Weather Details For Dated 23 Apr 2020</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtbadweatherlist" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Charter</th>
+                                    <th>Max</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="offhiredetails" tabindex="-1" role="dialog" aria-labelledby="badweather" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Off - Hire Details</h5>
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive compact-table">
+                        <table style="width: 100%;" id="dtOffHireList" class="table table-hover table-bordered cardview row-sm">
+                            <thead>
+                                <tr>
+                                    <th>Reason</th>
+                                    <th>Delay</th>
+                                    <th>Off - Hire</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="portdetails" tabindex="-1" role="dialog" aria-labelledby="portdetails"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agentdetails">Port Services</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body port-service">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card-title mb-1">San Vicente, CHL</div>
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-lg-2 pr-0"><b>Country :</b> <div class="flag CL small inline-block"></div> Chile</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0 pl-mobile-0"><b>UN/Loc Code :</b> CLSVE</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0"><b>Latitude :</b> 36&deg;,42.00'S</div>
+                                <div class="col-6 col-md-6 col-lg-3 pr-mobile-0 pl-mobile-0"><b>Longitude : </b> 73&deg;,8.00'W</div>
+                                <div class="col-6 col-md-6 col-lg-2pr-mobile-0 pr-mobile-0"><b>Key Hub :</b> No</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-card pt-3">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="card-title mb-1">ALERT (1)</div>
+                                <div class="card-body py-0 px-0 pb-2 port-service-alert-popup">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" role="tab" id="headingOne">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                MAR 11 Port Alert
+                                                            </a>
+                                                            <i class="fa fa-exclamation-circle text-danger float-right mr-3"></i><i class="fa fa-anchor float-right mr-2"></i>
+                                                        </h4>
+
+                                                    </div>
+                                                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                        <div class="panel-body">
+                                                            <div class="card-title mb-2">DETAILS</div>
+                                                            <div class="mb-2"><b>Title </b> MAR 11 Port Alert</div>
+                                                            <div class="mb-2"><b>Description </b></div>
+                                                            <div class="scroller">
+                                                                <div class="">
+                                                                    <p class="mb-1">
+                                                                        We note your vesel is currently heading towards Chile.
+                                                                    </p>
+                                                                    <p class="mb-0">
+                                                                        The attached MAR11 from covers potential deficiencies that frequently been raised during port state control inscpectiob and in some cases
+                                                                        let to detention. We update this form regularly basis our latest operational trends. it is critical that you and your team to go through there items very carefully before
+                                                                        arrival and send completed checklist to Vessel Control Group.If defective items are found then please copy to your DPA.The sooner a problem is known, the easier it is to resolve.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <hr />
+                                                            <div class="mb-2"><b>Attachments & Links (0)</b></div>
+                                                            <div class="row">
+                                                                <div class="col-12 col-md-12 col-lg-8">
+                                                                    <table style="width: 100%;" id="dtportservicelist" class="table table-hover table-bordered cardview row-sm mb-0">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Created Date</th>
+                                                                                <th>Title</th>
+                                                                                <th>Description</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/seaPassage.bundle.js"></script>
+}

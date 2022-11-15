@@ -1,0 +1,1055 @@
+﻿@model DefectDetailsViewModel
+
+@{
+    Layout = "~/Views/Shared/base.cshtml";
+}
+
+@section Title
+{
+    Defect Details
+}
+
+
+@section ContentSection
+{
+    @Html.HiddenFor(m => m.EncryptedVesselId)
+    @Html.HiddenFor(m => m.VesselName)
+    @Html.HiddenFor(m => m.EncryptedDWOId)
+    @Html.HiddenFor(m => m.DueDate)
+    @Html.HiddenFor(m => m.IsCompletedOrClosed)
+    @Html.HiddenFor(m => m.IsGuaranteeClaimCode)
+    @Html.HiddenFor(m => m.MessageDetailsJSON)
+    @Html.HiddenFor(m => m.IsStatusCompleted)
+    @Html.HiddenFor(m => m.IsFromViewRecord)
+
+    <div class="app-main__outer">
+        <div class="app-main__inner background-padding new-background common-border-radius mobile-tab-bottom-padding padding-top-20">
+            <div class="app-page-title header-shadow">
+                <div class="page-title-wrapper d-lg-block d-xl-flex">
+                    <div class="margin-left-35 width-55">
+                        <div class="">
+                            @if (Model.IsFromViewRecord == true)
+                            {
+                                <span class="common-small-heading">
+                                    @Model.VesselName
+                                </span>
+                            }
+                            else
+                            {
+                                <a class="common-heading-green"
+                                   href="@string.Concat(@Constants.DashboardVesselNavigation,@Model.EncryptedVesselId)">@Model.VesselName</a>
+                            }
+                        </div>
+
+                        <div class="common-sub-heading-black">
+                            <span class="common-small-heading">
+                                <span id="spanDefectName"> </span> |  <span id="spanDefectNumber"></span>
+                                <span class="d-none d-md-inline-block">|</span>
+                                <div>Due :  <span id="spanDefectDueDate"></span></div>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div class="page-title-actions mobile-padding-0 left-fixed-ipad left-fixed-ipad-pro">
+                        <partial name="DiscussionAndNotesCountButton" />
+                        <button class="btn btn-dark-grey text-white btn-shadow hover-blue mr-1 hide-mobile btnDefectReport">
+                            <img src="~/images/Download-doc-hover.png" class="m-0 align-top" /><span class="open-sans-font bold-text ml-2">Download Defect Report</span>
+                        </button>
+                        <button class="btn btn-dark-grey text-white btn-shadow hover-blue mr-1 hide-mobile btnDefectCloseAction btnDefectCloseActionDesktop">
+                            @*data-toggle="modal" data-target="#closuredefect"*@
+                            <img src="~/images/CloseDefectWhite.png" width="16" class="m-0 align-top" /><span class="open-sans-font bold-text ml-2">Close Defect</span>
+                        </button>
+                    </div>
+
+                    <div class="dropdown mobile-dropdown-title d-block d-md-none d-lg-none d-xl-none">
+                        <button type="button" id="mobileactiontoggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-dark-grey text-white btn-export btn-shadow">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right" id="mobileActiondropdown">
+                            <ul class="nav flex-column">
+                                <li id="baseDiscussionMobile" class="d-none">
+                                    <a class="nav-link discussionAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>Discussions (<span class="baseDiscussionCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                                <li id="baseNotesMobile" class="d-none">
+                                    <a class="nav-link noteAnchorOnClick">
+                                        <i class="fa fa-fw" aria-hidden="true" title=""></i><span>My Notes (<span class="baseNotesCountCommon">0</span>)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" id="">
+                                        <img src="~/images/Download-doc-black.png" class="btnDefectReport" /><span> Download Defect Report</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link btnDefectCloseAction btnDefectCloseActionMobile" id="">
+                                        <img src="~/images/CloseDefectGray.png" /> <span>Close Defect</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-pane">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-8 col-xl-8">
+                        <div class="common-custom-card">
+                            <div class="counters-heading border-none">
+                                <div>
+                                    <span>Description</span>
+                                </div>
+                            </div>
+                            <p id="spanDefectDescription" class="open-sans-font details-common"></p>
+                        </div>
+
+                        <div class="common-custom-card">
+                            <div class="counters-heading border-none">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <div>
+                                            <span class="mobilewidthrepair">Repair Specification</span>
+                                        </div>
+                                    </div>
+                                    <div class="float-right float-mobile-left">
+                                        <div class="download-attachments">
+                                            <a class="txt-green-attachments btnDownloadAttachment cursor-pointer" data-target="#modalDownloadAttachment" data-toggle="modal">
+                                                <img src="~/images/Download-doc-active.png" width="12" class="mr-1" /> <span>Download Attachment</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p id="spanRepairSpecification" class="open-sans-font details-common"></p>
+                        </div>
+
+                        <div class="common-custom-card mobile-pad-0 table-common-design ">
+                            <div class="counters-heading border-none mb-3 mb-md-2  position-relative">
+                                <div>
+                                    <span>Action Taken (<span id="spanActionTakenCount">0</span>)</span>
+                                </div>
+                            </div>
+                            <div class="table-scroll-width">
+                                <div class="table-responsive compact-table">
+                                    <table style="width: 100%;" id="dtActionTaken" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Reported By</th>
+                                                <th>Details</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="common-custom-card mobile-pad-0 table-common-design " id="divRequisition">
+                            <div class="counters-heading border-none mb-3 mb-md-2  position-relative">
+                                <div>
+                                    <span>Requisition (<span id="spanRequisitionCount">0</span>)</span>
+                                </div>
+                            </div>
+                            <div class="table-scroll-width">
+                                <div class="table-responsive compact-table">
+                                    <table style="width: 100%;" id="dtRequisition" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                        <thead>
+                                            <tr>
+                                                <th>Order No.</th>
+                                                <th>Priority</th>
+                                                <th>Status</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th>Requested Date</th>
+                                                <th>Ordered Date</th>
+                                                <th>Expected Delivery Date</th>
+                                                <th>Recieved Date</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="common-custom-card mobile-pad-0 table-common-design " id="divRescheduleHistory">
+                            <div class="counters-heading border-none mb-3 mb-md-2 position-relative">
+                                <div>
+                                    <span>Reschedule History (<span id="spanRescheduleHistoryCount">0</span>)</span>
+                                </div>
+                            </div>
+                            <div class="table-scroll-width">
+                                <div class="table-responsive compact-table">
+                                    <table style="width: 100%;" id="dtRescheduleHistory" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                        <thead>
+                                            <tr>
+                                                <th>Original Due Date</th>
+                                                <th>Requested Due Date</th>
+                                                <th>Approved Due Date</th>
+                                                <th>Reason</th>
+                                                <th>Requester Name</th>
+                                                <th>Requester Rank</th>
+                                                <th>Approver Name</th>
+                                                <th>Approver Rank</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="common-custom-card mobile-pad-0 table-common-design " id="divSpareParts">
+                            <div class="counters-heading border-none  position-relative">
+                                <div>
+                                    <span>Spare part usage details</span>
+                                </div>
+                            </div>
+                            <div class="table-scroll-width">
+                                <div class="table-responsive compact-table">
+                                    <table style="width: 100%;" id="dtSpareParts" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                        <thead>
+                                            <tr>
+                                                <th>Part Name</th>
+                                                <th>Maker's Ref No.</th>
+                                                <th>Plate/Sheet No.</th>
+                                                <th>Drawing Position</th>
+                                                <th>Location</th>
+                                                <th>Condition</th>
+                                                <th>Qty Used</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="common-custom-card" id="divRemarksAndFinding">
+                            <div class="counters-heading border-none">
+                                <div>
+                                    <span>Remarks & Findings</span>
+                                </div>
+                            </div>
+                            <p id="spanRemarksAndFindings" class="open-sans-font details-common"></p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 col-md-12 col-lg-4 col-xl-4">
+                        <div class="common-custom-card two-column-layout">
+                            <div class="counters-heading border-none">
+                                <div>
+                                    <span>Details</span>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Defect Name
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanDetailsDefectName"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Defect No.
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanDetailsDefectNo"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Category
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanCategory"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            System Area
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanSystemArea"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Effect
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanEffect"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Responsibility
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanResponsibility"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Priority
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanPriority"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Planned For
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanPlannedFor"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Status
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanStatus"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="common-custom-card two-column-layout">
+                            <div class="counters-heading border-none">
+                                <div>
+                                    <span>Timeline</span>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Due Date
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span class="txt-red" id="spanTimeLineDueDate"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Reported Date
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanReportedDate"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Est. Start
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanEstimatedStartDate"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 col-md-2 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Est. Completion
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-10 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanEstimatedCompletion"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="common-custom-card two-column-layout">
+                            <div class="counters-heading border-none">
+                                <div>
+                                    <span>Defect Attributes</span>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="row">
+                                    <div class="col-6 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Owner Specific
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-8 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanOwnerSpecific"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="dashboard-counters-label">
+                                            Specific No.
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-8 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span id="spanSpecificNo"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="divCritical">
+                                    <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span> - Critical</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="divTechnicalDefect">
+                                    <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span> - Technical Defect</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="divJSARequired">
+                                    <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span> - JSA Required</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="divMOCRequired">
+                                    <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                                        <div class="dashboard-counters">
+                                            <span> - MOC Required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="common-custom-card two-column-layout">
+                            <div class="counters-heading border-none">
+                                <div>
+                                    <span>Impact</span>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="row">
+                                    <div class="col-6 col-md-5 col-lg-5 col-xl-5">
+                                        <div class="dashboard-counters-label">
+                                            Estimated Period
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-7 col-lg-7 col-xl-7">
+                                        <div class="dashboard-counters">
+                                            <span id="spanOffHireEstimatedPeriod"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="divImpact">
+                                    <div class="col-12 col-md-5 col-lg-5 col-xl-5">
+                                        <div class="dashboard-counters">
+                                            <span id="spanImpact"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="divClassReq">
+                                    <div class="col-12 col-md-5 col-lg-5 col-xl-5">
+                                        <div class="dashboard-counters">
+                                            <span> - Class Approval Required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="divDispensionInPlace">
+                                    <div class="col-12 col-md-5 col-lg-5 col-xl-5">
+                                        <div class="dashboard-counters">
+                                            <span> - Dispension in Place</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="divGasFree">
+                                    <div class="col-12 col-md-5 col-lg-5 col-xl-5">
+                                        <div class="dashboard-counters">
+                                            <span> - Gas Free</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="common-custom-card mobile-pad-0 table-common-design " id="divRankAndHours">
+                            <div class="counters-heading border-none  position-relative w-100">
+                                <div>
+                                    <span>Ranks & Hours</span>
+                                </div>
+                            </div>
+                            <div id="divShoreStaff">
+                                <div class="counters-heading border-none position-relative mt-2">
+                                    <div>
+                                        <span>Shore Staff</span>
+                                    </div>
+                                </div>
+                                <div class="table-scroll-width">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtShoreStaff" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rank</th>
+                                                    <th>Hours</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divShipStaff">
+                                <div class="counters-heading border-none mt-3 position-relative">
+                                    <div>
+                                        <span>Ship Staff</span>
+                                    </div>
+                                </div>
+                                <div class="table-common-design table-scroll-width">
+                                    <div class="table-responsive compact-table">
+                                        <table style="width: 100%;" id="dtShipStaff" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rank</th>
+                                                    <th>Hours</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="loading-indicator d-none">
+            <div class="loader bg-transparent no-shadow p-0">
+                <div class="ball-spin-fade-loader">
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                    <div class="bg-teal"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script src="~/assets/scripts/defectDetails.bundle.js"></script>
+}
+
+@section Modal
+{
+    <div class="modal fade" id="modalDownloadAttachment" role="dialog" aria-labelledby="modalDownloadAttachment" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="max-width:600px;">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding">
+                    <div class="col-md-11 pl-0">
+                        <div class="">
+                            <a class="common-heading-green" id="vesselNameModal"></a>
+                        </div>
+                        <div class="common-sub-heading-black common-sub-heading-black-small">
+                            Download Attachment
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background padding-20">
+                    <div class="table-common-design icon-padding">
+                        <div class="common-custom-card mb-0 mobile-pad-0">
+                            <div class="counters-heading border-none">
+                                <div class="">
+                                    <span>Attachments</span>
+                                </div>
+                            </div>
+                            <div class="table-responsive compact-table">
+                                <table style="width: 100%;" id="dtDownloadAttachment" class="table table-hover table-striped table-bordered cardview row-sm">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Title</th>
+                                            <th>Type</th>
+                                            <th>Created Date</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="modal fade open-sans-font" id="defectClosureActionModal" role="dialog" aria-labelledby="defectClosureActionModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to close work order?</p>
+
+                    </div>
+                    <div class="modal-footer common-form-design">
+                        <button class="btn btn search-btn" data-dismiss="modal" id="yesDefectClosureAction">Yes</button>
+                        <button class="btn btn-secondary no-btn clickEventDisable" data-dismiss="modal" id="noDefectClosureAction">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    <div class="modal fade open-sans-font successpopup warningpopup" id="defectClosureActionModal" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="defectClosureActionModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body">
+                    <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                    <h2>Confirmation</h2>
+                    <h1>Do you want to close work order?</h1>
+                    <button class="btn btn-cancelsecondarybtn no-btn clickEventDisable btn-no" data-dismiss="modal" id="noDefectClosureAction">Cancel</button>
+                    <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="yesDefectClosureAction">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade open-sans-font successpopup" id="defectCloseWOSuccessModal" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="defectClosureActionModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered shadow-none" role="document">
+            <div class="modal-content">                
+                <div class="modal-body">
+                    <i class="fa fa-fw" aria-hidden="true" title=""></i>
+                    <h2>Success</h2>
+                    <h1>Work order closed successfully</h1>
+                    <button class="btn btn-secondary no-btn btn-ok" data-dismiss="modal" id="btnCloseDefectWOSuccessOk">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade p-0 modal-events closuremodal faop" id="closureDefectModal" role="dialog" data-backdrop="static" aria-labelledby="closureDefectModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="" id="">
+            <div class="modal-content">
+                <div class="modal-header header-background header-padding modaldetails-design">
+                    <div class="col-md-11 pl-0">
+                        <div class="common-sub-heading-black headershowmorewrapper">
+                            <span class="header">
+                                <div class="counters-heading" id="">Close Defect Work Order</div>
+                            </span>
+                            <div class="common-sub-heading-black">
+                                <div class="common-small-heading">
+                                    <div class="d-block">
+                                        <span class="common-small-heading">
+                                            <span id="spanClosureSystemAreaPath" class="value"></span>
+                                        </span>
+                                    </div>
+                                    <span class="common-heading-green"><div><span id="spanClosureVesselName"></span></div></span>
+                                    <span class="d-none d-md-inline-block dividerline">|</span>
+                                    <span class="common-small-heading"><div><span id="spanClosureDefectName"></span></div></span>
+                                    <span class="d-none d-md-inline-block dividerline">|</span>
+                                    <span class="common-small-heading"><span class="head">Defect No.  </span><span id="spanClosureDefectNo" class="value"></span></span>
+                                    <span class="d-none d-md-inline-block dividerline">|</span>
+                                    <span class="common-small-heading"><span class="head">Category  </span><span id="spanClosureCategory" class="value"></span></span>
+                                    <span class="d-none d-md-inline-block dividerline">|</span>
+                                    <span class="common-small-heading">
+                                        <span class="head">Assigned to  </span><span id="spanClosureAssignedTo" class="value"></span>
+                                    </span>
+                                    <span class="d-none d-md-inline-block dividerline">|</span>
+                                    <span class="common-small-heading">
+                                        <span class="head">Planned For  </span><span id="spanClosureSiteType" class="value"></span>
+                                    </span>
+                                    <span class="d-none d-md-inline-block dividerline">|</span>
+                                    <span class="common-small-heading"><span class="head">Priority  </span><span id="spanClosurePriority" class="value"></span></span>
+                                    <span class="d-none d-md-inline-block dividerline">|</span>
+                                    <span class="common-small-heading"><span class="head">Due date  </span><span id="spanClosureDueDate" class="value"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="close pull-right p-0 mr-0 mt-0" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body new-background padding-20 closemodalscroller scrollerpading">
+                    <div class="scrollermain">
+                        @*<div class="row">
+                                <div class="col-12 col-md-12">
+                                    <div class="common-custom-card">
+
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 col-xl-5 pr-3 pr-md-0">
+                                <div class="" style="">
+                                    <div class="common-custom-card two-column-layout height-equal-boxes-defect">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Defect Details</span>
+                                            </div>
+                                        </div>
+                                        <div class="staticmarginwidth scroller">
+                                            <div class="clearfix">
+                                                <div class="dashboard-counters-label float-left">
+                                                    Title
+                                                </div>
+                                                <div class="dashboard-counters float-left">
+                                                    <span id="spanClosureDefectTitle"></span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="dashboard-counters-label  float-left">
+                                                    System Area
+                                                </div>
+                                                <div class="dashboard-counters float-left">
+                                                    <span id="spanClosureSystemArea" class="text-break"></span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="dashboard-counters-label float-left">
+                                                    Completed On
+                                                </div>
+                                                <div class="dashboard-counters float-left">
+                                                    <span id="spanClosureCompletedOn"></span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="dashboard-counters-label float-left">
+                                                    Due Date
+                                                </div>
+                                                <div class="dashboard-counters float-left">
+                                                    <span id="spanClosureDetailsDueDate"></span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="dashboard-counters-label float-left">
+                                                    Condition Before Work Done
+                                                </div>
+                                                <div class="dashboard-counters float-left">
+                                                    <span id="spanClosureCondBef"></span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="dashboard-counters-label float-left">
+                                                    Condition After Work Done
+                                                </div>
+                                                <div class="dashboard-counters float-left">
+                                                    <span id="spanClosureCondAfter"></span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="dashboard-counters-label float-left">
+                                                    Symptoms Observed
+                                                </div>
+                                                <div class="dashboard-counters float-left">
+                                                    <span id="spanClosureSymptoms"></span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="dashboard-counters-label float-left mb-0">
+                                                    Additional Jobs Reported
+                                                </div>
+                                                <div class="dashboard-counters float-left">
+                                                    <span id="spanClosureAdditionalJobs"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xl-7">
+                                <div class="common-custom-card height-equal-boxes-remark">
+                                    <div class="counters-heading border-none" id="remarks">
+                                        <div>
+                                            <span>Remarks & Findings</span>
+                                        </div>
+                                    </div>
+                                    <p id="spanClosureRemarksAndFindings" class="open-sans-font details-common scroller p-0"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-5 pr-3 pr-md-0">
+                                <div class="common-custom-card mobile-pad-0 height-equal-boxes-two table-common-design mb-2 mb-md-0">
+                                    <div class="counters-heading border-none position-relative">
+                                        <div>
+                                            <span>Part Used (<span id="spanPartsUsed">0</span>)</span>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="table-responsive compact-table" id="">
+                                            <table style="width: 100%;" id="dtpartused" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Part Name</th>
+                                                        <th>Maker's Reference No.</th>
+                                                        <th>QTY</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xl-7 pr-3">
+                                <div class="" style="">
+                                    <div class="common-custom-card two-column-layout height-equal-boxes-two mb-0">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Impact Details</span>
+                                            </div>
+                                        </div>
+                                        <p id="" class="open-sans-font details-common mb-2"> <span class="txt-red semibold">Note:</span> Kindly review the Impact Details before closing the Defect.  </p>
+
+                                        <div class="row impactgroup">
+                                            <div class="col-xl-7">
+                                                <div class="row no-gutters">
+                                                    <div class="col-6 col-md-6 col-lg-4 col-xl-6">
+                                                        <div class="dashboard-counters-label w-auto">
+                                                            Was There
+                                                            Any Off Hire
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-6 col-lg-4 col-xl-6">
+                                                        <div class="radio-button-design ml-0 formgroup" id="">
+                                                            <div class="" id="divOffhire">
+                                                                <div class="custom-radio custom-control d-inline-block">
+                                                                    <input class="custom-control-input" id="offhireYes" name="offhire" type="radio" value="Yes" data-description="Yes">
+                                                                    <label class="custom-control-label" for="offhireYes">Yes</label>
+                                                                </div>
+                                                                <div class="custom-radio custom-control  d-inline-block ml-2">
+                                                                    <input class="custom-control-input" id="offhireNo" checked name="offhire" type="radio" value="No" data-description="No">
+                                                                    <label class="custom-control-label" for="offhireNo">No</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row no-gutters">
+                                                    <div class="col-6 col-md-6 col-lg-4 col-xl-6">
+                                                        <div class="dashboard-counters-label w-auto">
+                                                            Actual Time <span class="text-danger validationDefectClosure d-none">*</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-5 col-xl-6">
+                                                        <div class="form-group mb-0 common-form-design">
+                                                            <div class="sectionform">
+                                                                <div class="dashboard-counters-label  w-auto">
+                                                                    Days
+                                                                </div>
+                                                                <input type="number" id="txtInputDay" class="form-control inputdesignthree actualTimeInput" value="" min="0" max="999" placeholder="Days" />
+                                                            </div>
+                                                            <div class="sectionform">
+                                                                <div class="dashboard-counters-label  w-auto">
+                                                                    Hours
+                                                                </div>
+                                                                <input type="number" id="txtInputHours" class="form-control inputdesignthree actualTimeInput" value="" min="0" max="23" placeholder="Hours" />
+                                                            </div>
+                                                            <div class="sectionform">
+                                                                <div class="dashboard-counters-label  w-auto">
+                                                                    Minutes
+                                                                </div>
+                                                                <input type="number" id="txtInputMins" class="form-control inputdesignthree actualTimeInput" value="" min="0" max="59" placeholder="Mins" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row no-gutters">
+                                                    <div class="col-6 col-md-6 col-lg-4 col-xl-6">
+                                                        <div class="dashboard-counters-label  w-auto">
+                                                            Off Hire Type <span class="text-danger validationDefectClosure d-none">*</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-6 col-lg-5 col-xl-6">
+                                                        <div class="form-group mb-0 common-form-design">
+                                                            <select class="form-select form-control" id="selectOffHireDD">
+                                                                <option value="0">Select</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row no-gutters">
+                                                    <div class="col-6 col-md-6 col-lg-4 col-xl-6">
+                                                        <div class="dashboard-counters-label  w-auto">
+                                                            Impact
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-6 col-lg-5 col-xl-6">
+                                                        <div class="form-group mb-0 common-form-design">
+                                                            <select class="form-select form-control" id="selectImpactDD">
+                                                                <option value="">Select</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row no-gutters">
+                                                    <div class="col-6 col-md-6 col-lg-4 col-xl-6">
+                                                        <div class="dashboard-counters-label  w-auto">
+                                                            Regulatory Authority
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-6 col-lg-4 col-xl-6">
+                                                        <div class="radio-button-design ml-0 formgroup" id="">
+                                                            <div class="" id="divRegulatory">
+                                                                <div class="custom-radio custom-control d-inline-block">
+                                                                    <input class="custom-control-input" id="regular1" name="regular" type="radio" value="Yes" data-description="Yes">
+                                                                    <label class="custom-control-label" for="regular1">Yes</label>
+                                                                </div>
+                                                                <div class="custom-radio custom-control  d-inline-block ml-2">
+                                                                    <input class="custom-control-input" id="regular2" checked name="regular" type="radio" value="No" data-description="No">
+                                                                    <label class="custom-control-label" for="regular2">No</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row no-gutters">
+                                                    <div class="col-6 col-md-6 col-lg-4 col-xl-6">
+                                                        <div class="dashboard-counters-label  w-auto">
+                                                            Dispensation in Place
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-6 col-lg-4 col-xl-6">
+                                                        <div class="radio-button-design ml-0 formgroup" id="">
+                                                            <div class="" id="">
+                                                                <div class="custom-radio custom-control d-inline-block">
+                                                                    <input class="custom-control-input" id="disp1" name="dispensation" disabled type="radio" value="Yes" data-description="Yes">
+                                                                    <label class="custom-control-label" for="disp1">Yes</label>
+                                                                </div>
+                                                                <div class="custom-radio custom-control  d-inline-block ml-2">
+                                                                    <input class="custom-control-input" id="disp2" name="dispensation" type="radio" value="No" data-description="No">
+                                                                    <label class="custom-control-label" for="disp2">No</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row no-gutters">
+                                                    <div class="col-6 col-md-6 col-lg-4 col-xl-6">
+                                                        <div class="dashboard-counters-label  w-auto">
+                                                            Gas Free
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-6 col-lg-4 col-xl-6">
+                                                        <div class="radio-button-design ml-0" id="">
+                                                            <div class="" id="">
+                                                                <div class="custom-radio custom-control d-inline-block">
+                                                                    <input class="custom-control-input" id="gas1" name="gas" type="radio" value="Yes" data-description="Yes">
+                                                                    <label class="custom-control-label" for="gas1">Yes</label>
+                                                                </div>
+                                                                <div class="custom-radio custom-control  d-inline-block ml-2">
+                                                                    <input class="custom-control-input" id="gas2" checked name="gas" type="radio" value="No" data-description="No">
+                                                                    <label class="custom-control-label" for="gas2">No</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-5">
+                                                <div class="dashboard-counters-label  w-auto">
+                                                    Reason for Off Hire
+                                                </div>
+                                                <div class="form-group mb-0 common-form-design">
+                                                    <textarea id="txtReasonForOffHire" rows="5" class="form-control text-left p-2 mb-0 descr scroller"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer common-form-design">
+                    <button class="btn btn-cancelsecondarybtn closedefectcancelbtn" data-dismiss="modal" id="btnCancelSave">Cancel</button>
+                    <button class="btn btn search-btn" id="btnCloseDefectWO">Close Defect</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

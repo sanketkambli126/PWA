@@ -1,0 +1,307 @@
+﻿@model VesselActivitySeaPassageViewModel
+
+<div class="common-custom-card pt-0 pb-0 font-family-open-sans" data-type="SeaPassage" data-activity="@Model.ActivityId">
+    <div class="row">
+        <div class="col-md-3 col-lg-3 col-xl-3">
+            <div class="vessel-activity-port-details inner-padding height-100-percent">
+                <a href="/VoyageReporting/SeaPassageEvent?VoyageReportingRequestUrl=@Model.FromPortRequestUrl&VesselId=@Model.EncryptedVesselDetail" class="hover-none"><h1>@Model.Activity</h1></a>
+                <div class="clearfix mb-2">
+                    <div class="dashboard-counters-label mr-1">
+                        @Model.FromStatus
+                    </div>
+                    <div class="dashboard-counters">
+                        <span id="" class="font-weight-600">@(Model.FromDate.HasValue ? @Model.FromDate.Value.ToString("d MMM yyyy, HH:mm") : "")</span>
+                        @if (!string.IsNullOrEmpty(Model.ToStatus))
+                        {
+                            <span><img src="~/images/ETA.png" class="ml-1" /></span>
+                        }
+                    </div>
+
+                    <div class="dashboard-counters-label mr-1">
+                        @Model.ToStatus
+                    </div>
+                    <div class="dashboard-counters">
+                        <span id="" class="font-weight-600">@(Model.ToDate.HasValue ? @Model.ToDate.Value.ToString("d MMM yyyy, HH:mm") : "")</span>
+                    </div>
+                </div>
+                <div class="row mb-2 mb-md-0 mb-lg-2">
+                    <div class="col-7 col-md-12 col-lg-6 col-xl-6">
+                        <div class="dashboard-counters-label mr-0 float-none">
+                            Charterer No
+                        </div>
+                        <div class="dashboard-counters text-break">
+                            <span id="">
+                                @Model.ChartererNo
+
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-5 col-md-12 col-lg-6 col-xl-6">
+                        <div class="dashboard-counters-label mr-0 float-none">
+                            Voyage No.
+                        </div>
+                        <div class="dashboard-counters">
+                            <span id="">
+                                @Model.VoyageNo
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7 col-md-12 col-lg-6 col-xl-6">
+                        <div class="dashboard-counters-label mr-0 float-none">
+                            Event Date
+                        </div>
+                        <div class="dashboard-counters">
+                            <span id="">
+                                @(Model.LastReportedEvent.HasValue ? @Model.LastReportedEvent.Value.ToString("d MMM yyyy, HH:mm") : "")
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-5 col-md-12 col-lg-6 col-xl-6">
+                        @if (Model.ChannelCount > 0 || Model.NotesCount > 0)
+                        {
+                            <div class="dashboard-counters-label mr-0 float-none">
+                                Chat/Notes
+                            </div>
+
+                            <div class="table-discussionnotes">
+                                @if (Model.ChannelCount > 0)
+                                {
+                                    <span class="discussion-drop discussionListAnchorOnClickVoyageList cursor-pointer" data-messagejson="@Model.MessageDetailsJSON" data-toggle="tooltip" data-placement="top" title="Discussion">
+                                        <img style="height:16px;" src="/images/message-black.svg" />
+                                        <span id="@string.Concat("baseChannelCount", Model.ActivityId)" class="baseDiscussionCountCommon">@Model.ChannelCount</span>
+                                    </span>
+                                }
+                                @if (Model.NotesCount > 0)
+                                {
+                                    <span class="notes-drop noteListAnchorOnClick cursor-pointer" data-messagejson="@Model.MessageDetailsJSON" data-toggle="tooltip" data-placement="top" title="Notes">
+                                        <img style="height:15px;" src="/images/notes-black.svg" />
+                                        <span class="baseNotesCountCommon">@Model.NotesCount</span>
+                                    </span>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="apply-loader port-activity-detail inner-padding height-100-percent ">
+                <div class=" route-graph-loader">
+                    <div class="graph-top">
+                        <div class="row my-auto">
+                            <div class="col-12 col-md-12 col-lg-12  col-xl-12">
+                                <div class="graph-bar">
+                                    <div class="progress-bar-animated-alt progress divProgressBar">
+                                        <div class="progress-bar bg-bar divProgressBarFlow" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
+                                        </div>
+                                        <div class="graph-position-default at-location" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                             style="left:0%" data-toggle="tooltip" data-placement="bottom" data-html="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-left">
+                                <div class="fromtoport ml-0 voyage-divFromSection voyagemobiledivvessel">
+                                    <h5>From</h5>
+                                    <div class="clearfix">
+                                        <h6 class="d-inline-block mt-0 spanFromPortName equalheightport"></h6>
+                                        @if (Model.HasFromPortAlert)
+                                        {
+                                            <div class="cursor-pointer anchorPortAlertCls fromvesselport d-block d-md-inline-block ml-1" data-url="@Model.FromPortRequestUrl">
+                                                @*<div class="dashboard-counters-label mr-0 float-none port-message-red fromportalert">
+                    Port Alert
+                </div>*@
+                                                <i class="fa fa-anchor icon-red"></i> <sup class="icon-red">★</sup>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div>
+                                        <div class="d-block d-md-inline-block dashboard-counters-label mr-1 float-none spanFoap">
+
+                                        </div>
+
+                                        <div class="d-block d-md-inline-block dashboard-counters">
+                                            <span id="" class="spanSeaPassageFromDate">
+
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="d-block d-md-inline-block dashboard-counters-label mr-1 float-none ">
+                                            Traveled Distance
+                                        </div>
+
+                                        <div class="d-inline-block dashboard-counters">
+                                            <span id="" class="spanSPDistanceCovered">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    @if (Model.FromAgentRequestURL != null)
+                                    {
+                                        <a href="javascript:void(0);" class="agentlink showFromAgentDetails1" data-encryptedposid="@Model.FromAgentRequestURL" data-portname="@Model.FromPort">
+                                            <img src="~/images/agenticon.svg" />
+                                            <span class="align-middle">Agents</span>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-right">
+                                <div class="fromtoport to-port voyage-divToSection voyagemobiledivvessel">
+                                    <h5>To</h5>
+                                    <div class="clearfix">
+                                        <h6 class="d-block d-md-none mt-0 spanToPortName equalheightport"></h6>
+                                        @if (Model.HasToPortAlert)
+                                        {
+                                            <div class="anchorPortAlertCls tovesselport d-block d-md-inline-block cursor-pointer mr-1" data-url="@Model.ToPortRequestUrl">
+                                                <i class="fa fa-anchor icon-red"></i> <sup class="icon-red">★</sup>
+                                                @*<div class="cursor-pointer dashboard-counters-label mr-0 float-none port-message-red toportalert">
+                    Port Alert
+                </div>*@
+                                            </div>
+                                        }
+                                        <h6 class="d-none d-md-inline-block mt-0 spanToPortName"></h6>
+                                    </div>
+                                    <div>
+                                        <div class="d-block dashboard-counters-label mr-1 float-none d-md-inline-block spanToEosp text-right">
+
+                                        </div>
+                                        <div class="d-block d-md-inline-block dashboard-counters eta text-right">
+                                            <span id="" class="spanSeaPassageToDate">
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="d-block dashboard-counters-label mr-1 float-none d-md-inline-block text-right">
+                                            Total Distance
+                                        </div>
+                                        <div class="dashboard-counters d-inline-block eta">
+                                            <span id="" class="spanSPTotalDistance">
+
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    @if (Model.ToAgentRequestURL != null)
+                                    {
+                                        <a href="javascript:void(0);" class="agentlink showFromAgentDetails1" data-encryptedposid="@Model.ToAgentRequestURL" data-portname="@Model.ToPort">
+                                            <img src="~/images/agenticon.svg" />
+                                            <span class="align-middle">Agents</span>
+                                        </a>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-xl-3 @Model.CurrentVoyageClassName">
+            <div class="inner-padding height-100-percent">
+                <div class="apply-loader performance-section">
+                    <h1 class="vessel-position-h1">Performance</h1>
+                    <div class="row">
+                        <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+
+                        </div>
+                        <div class="col-7 col-md-7 col-lg-7 col-xl-7">
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center ">
+                                    <small>Speed (kn)</small>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center ">
+                                    <small>Consum. (mt)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 col-md-5 col-lg-5 col-xl-5 my-auto pl-0 pr-0">
+                            <h2>24 Hours</h2>
+                        </div>
+                        <div class="col-7 col-md-7 col-lg-7 col-xl-7 ">
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-right">
+                                    <div class="last24HourSpeed">
+                                        <div class="text-style last24HourSpeed-text">@Model.Last24HourSpeed</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-left">
+                                    <div class="last24HourConsumption">
+                                        <div class="text-style last24HourConsumption-text">@Model.Last24HourSpeedConsumption</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 col-md-5 col-lg-5 col-xl-5 my-auto pl-0 pr-0">
+                            <h2>Voyage Avg.</h2>
+                        </div>
+                        <div class="col-7 col-md-7 col-lg-7 col-xl-7 ">
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-right">
+                                    <div class="voyageAverageSpeed">
+                                        <div class="text-style voyageAverageSpeed-text">@Model.VoyageAverageSpeed</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-left">
+                                    <div class="voyageAverageConsumption">
+                                        <div class="text-style voyageAverageConsumption-text">@Model.VoyageAverageConsumption</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 col-md-5 col-lg-5 col-xl-5 my-auto pl-0 pr-0">
+                            <h2><span class="align-middle">CP Adjusted</span> <img src="~/images/outline-i.svg" width="15" class="i-outline-icon" title="Adjusted figures show speed and performance with entries above the wind CP allowance removed" data-html="true" data-toggle="tooltip" data-placement="bottom" /></h2>
+                        </div>
+                        <div class="col-7 col-md-7 col-lg-7 col-xl-7 ">
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-right">
+                                    <div class="cpAdjustedSpeed">
+                                        <div class="text-style cpAdjustedSpeed-text">@Model.CpAdjustedSpeed</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-left">
+                                    <div class="cpAdjustedConsumption">
+                                        <div class="text-style cpAdjustedConsumption-text">@Model.CpAdjustedConsumption</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row blue-performance mb-0">
+                        <div class="col-5 col-md-5 col-lg-5 col-xl-5 my-auto pr-0 pl-0">
+                            <h2>CP Orders</h2>
+                        </div>
+                        <div class="col-7 col-md-7 col-lg-7 col-xl-7 ">
+                            <div class="row my-auto">
+                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-right">
+                                    <div class="">
+                                        <div class="text-style cpOrdersSpeed-text">@Model.CpOrdersSpeed</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-6 col-xl-6 text-center padding-left">
+                                    <div class="">
+                                        <div class="text-style cpOrdersConsumption-text">@Model.CpOrdersConsumption</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

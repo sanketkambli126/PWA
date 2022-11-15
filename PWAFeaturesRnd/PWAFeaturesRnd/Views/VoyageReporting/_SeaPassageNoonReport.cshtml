@@ -1,0 +1,2012 @@
+﻿@using PWAFeaturesRnd.Common
+
+@model NoonReportDetailsViewModel
+@{
+    var NoonReportNvaigation = Model.NoonReportNvaigation;
+    var NoonReportWeather = Model.NoonReportWeather;
+    var noonReportVesselDraft = Model.NoonReportVesselDraft;
+    var noonPowerOutput = Model.NoonReportSlipAndPowerOutput;
+    var freshWaterDomestic = Model.FreshWaterDomestic;
+    var freshWaterTechnical = Model.FreshWaterTechnical;
+    var LubeOilClo = Model.LubeOilClo;
+    var LubeOilCrankCase = Model.LubeOilCrankCase;
+    var LubeOilAux = Model.LubeOilAux;
+    var LubeOilGeneral = Model.LubeOilGeneral;
+    var WasterRobSludge = Model.WasterRobSludge;
+    var WasterRobBilge = Model.WasterRobBilge;
+    var WasterRobSlops = Model.WasterRobSlops;
+    var WasterRobSewage = Model.WasterRobSewage;
+}
+
+
+<div class="modal-header header-background header-padding modaldetails-design">
+    <div class="col-md-11 pl-0 pr-0">
+        <div class="common-sub-heading-black noonheadershowmorewrapper">
+            <span class="header">
+                <div class="common-small-heading" id="divHeaderNoon">-</div>
+            </span>
+            <div class="common-small-heading">
+                <span class="common-heading-green"><div><span id="">@Model.VesselName</span></div></span>
+                @if (!string.IsNullOrEmpty(Model.Date) && Model.Date != "-")
+                {
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <span class="common-small-heading"><span class="head">Date  </span> <span id="" class="value">@Model.Date</span></span>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.SelectedStartUTC) && Model.SelectedStartUTC != "-")
+                {
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <span class="common-small-heading"><span class="head">+/- UTC  </span> <span id="" class="value">@Model.SelectedStartUTC</span></span>
+                }
+
+                @if (NoonReportNvaigation.IsNoon && Model.CanShowIDL)
+                {
+                    @if (!string.IsNullOrEmpty(Model.CrossedIDLDays) && Model.CrossedIDLDays != "-")
+                    {
+                        <span class="d-none d-md-inline-block dividerline">|</span>
+                        <span class="common-small-heading">
+                            <span class="head">Crossed IDL  </span> <span id="" class="value">@Model.CrossedIDLDays</span>
+                        </span>
+                    }
+                }
+
+                @if (!string.IsNullOrEmpty(Model.BusinessTime) && Model.BusinessTime != "-")
+                {
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <span class="common-small-heading">
+                        <span class="head">Buisness Time  </span> <span id="" class="value">@Model.BusinessTime</span>
+                    </span>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.NewShipTime) && Model.NewShipTime != "-")
+                {
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <span class="common-small-heading">
+                        <span class="head">Ship Clock (hrs)  </span> <span id="" class="value">@Model.NewShipTime</span>
+                    </span>
+                }
+                @if (!string.IsNullOrEmpty(Model.SecurityLevel) && Model.SecurityLevel != "-")
+                {
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <span class="common-small-heading">
+                        <span class="head">Security Level  </span> <span id="" class="value">@Model.SecurityLevel</span>
+                    </span>
+                }
+
+                @if (Model.SpaRouteChangedYes != null)
+                {
+                    <span class="d-none d-md-inline-block dividerline">|</span>
+                    <div class="common-small-heading">
+                        <span class="head">
+                            Has your planned route   &nbsp;<span class="common-sub-heading-red">changed due to weather? </span>
+                        </span>
+                        <span id="">
+                            @if (Model.SpaRouteChangedYes == true)
+                            {
+                                <span class="value">Yes</span>
+                            }
+                            else if (Model.SpaRouteChangedYes == false)
+                            {
+                                <span class="value">No</span>
+                            }
+                        </span>
+                    </div>
+                    @if (Model.SpaRouteChangedYes == true)
+                    {
+                        <span class="d-none d-md-inline-block dividerline">|</span>
+                        <span class="common-small-heading">
+                            <span class="head">Reason  </span> <span id="" class="value"> @Model.PlkIdRouteChangeReason</span>
+                        </span>
+                    }
+                }
+
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+      
+        @if (Model.IsNoonIncomplete == true)
+        {
+                <br/><br/>
+                <span class="dashboard-counters-label text-danger">Draft</span>
+        }
+    </div>
+</div>
+<div class="modal-body new-background padding-20 filters-popup-scroller">
+    <div class="scroller noonscroller">
+        <div id="tabdivhide">
+            <div class="margin-bottom-custom mt-0 tab-new-design tab-new-design-2 tabdesign-highlightsmall position-relative" id="">
+                <div class="card-header card-header-tab-animation hide-mobile" style="border-radius:9px;">
+                    <ul class="nav nav-justified">
+                        <li class="nav-item tab-sm"><a data-toggle="tab" href="#deck" class="active nav-link summary">DECK</a></li>
+                        <li class="nav-item tab-sm"><a data-toggle="tab" href="#engine" class="nav-link Riskassesments">ENGINE</a></li>
+                    </ul>
+                </div>
+                <div class="card-body p-0">
+                    <div class="tab-content mb-0 p-0">
+                        <div class="tab-pane active tab-box-1" id="deck" role="tabpanel">
+
+                            <div class="row background-padding no-gutters">
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-5 pl-0">
+                                    <div class="common-custom-card height-equal-boxes">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Navigation - Last 24 Hours</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix hazoc-list-margin">
+                                            <div class="row">
+                                                <div class="col-12 col-md-6 col-lg-5 col-xl-7">
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                ETA
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportNvaigation.EtaDate</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Latitude
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">
+                                                                    @NoonReportNvaigation.Lat3
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Longitude
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">
+                                                                    @NoonReportNvaigation.Long3
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Course (deg)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="" class="">
+                                                                    @NoonReportNvaigation.Course
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Dist. on Passage (nm)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportNvaigation.DisToGr</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0 mb-2 mb-md-0">
+                                                                Dist. by Engine (nm)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportNvaigation.DistLog</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6 col-lg-5 col-xl-5">
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-8">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Dist. on ECDIS (nm)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-4">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">
+                                                                    @NoonReportNvaigation.SpaDisByECDIS
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-8">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Dist to go (nm)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-4">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportNvaigation.DistGo</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-8">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                CP Speed (knots)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-4">
+                                                            <div class="dashboard-counters">
+                                                                <span id="" class="">@NoonReportNvaigation.CharterSpeed</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-8">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Avg. Speed (knots)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-4">
+                                                            <div class="dashboard-counters">
+                                                                <span id="" class="">@NoonReportNvaigation.Speed</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-8">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Time on Passage
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-4">
+                                                            <div class="dashboard-counters">
+                                                                <span id="" class="">@NoonReportNvaigation.SteamTime</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-8">
+                                                            <div class="dashboard-counters-label mr-0 mb-0">
+                                                                Speed over ground (knots)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-4">
+                                                            <div class="dashboard-counters">
+                                                                <span id="" class="">@NoonReportNvaigation.SpeedOverGround</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-2 padding0">
+                                    <div class="common-custom-card two-column-layout height-equal-boxes">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Total on Passage</span>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-4 col-lg-8 col-xl-8">
+                                                <div class="dashboard-counters-label">
+                                                    Distance (mm)
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-8 col-lg-4 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@CommonUtil.SetDecimalDefaultValue((decimal?)NoonReportNvaigation.TotalDistance)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-4 col-lg-8 col-xl-8">
+                                                <div class="dashboard-counters-label">
+                                                    Time sailed
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-8 col-lg-4 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@NoonReportNvaigation.TotalTimeSailed</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-4 col-lg-8 col-xl-8">
+                                                <div class="dashboard-counters-label">
+                                                    Avg. Speed
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-8 col-lg-4 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@NoonReportNvaigation.TotalAvgSpeed</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-3 padding0">
+                                    <div class="common-custom-card two-column-layout height-equal-boxes">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>ECA Details</span>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-7 col-md-7 col-lg-7 col-xl-7">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    ECA/US Water Entry
+                                                </div>
+                                            </div>
+                                            <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@NoonReportNvaigation.EcaEntryDate</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-7 col-md-7 col-lg-7 col-xl-7">
+                                                <div class="dashboard-counters-label  w-auto">
+                                                    ECA/US Water Exit
+                                                </div>
+                                            </div>
+                                            <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@NoonReportNvaigation.EcaExitDate</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-7 col-md-7 col-lg-7 col-xl-7">
+                                                <div class="dashboard-counters-label  w-auto">
+                                                    Fuel change over start
+                                                </div>
+                                            </div>
+                                            <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@NoonReportNvaigation.SpaFuelChangeOverStartDateTime</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-7 col-md-7 col-lg-7 col-xl-7">
+                                                <div class="dashboard-counters-label  w-auto">
+                                                    Fuel change over end
+                                                </div>
+                                            </div>
+                                            <div class="col-5 col-md-5 col-lg-5 col-xl-5">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@NoonReportNvaigation.SpaFuelChangeOverEndDateTime</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 col-lg-4 col-xl-2 pr-0">
+                                    <div class="common-custom-card two-column-layout height-equal-boxes">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Break in Passage</span>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-9 col-lg-9 col-xl-10">
+                                                <div class="dashboard-counters-label">
+                                                    Break in Passage
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-3 col-xl-2">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@NoonReportNvaigation.BreakTime</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-9 col-lg-9 col-xl-10">
+                                                <div class="dashboard-counters-label">
+                                                    Dist. During Breaks (nm)
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-3 col-xl-2">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@NoonReportNvaigation.BreakDist</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-9 col-lg-9 col-xl-10">
+                                                <div class="dashboard-counters-label">
+                                                    Off Hire
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-3 col-xl-2">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@NoonReportNvaigation.OutServTime</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row background-padding no-gutters">
+
+                                <div class="col-12 col-md-12 col-lg-9 col-xl-9 pl-0">
+                                    <div class="common-custom-card mobile-pad-0 height-equal-boxes-two table-scroll-width-modal noonscroller">
+                                        <div class="counters-heading border-none pl-3 pl-md-0">
+                                            <div>
+                                                <span>Navigation Synopsis (<span id="spanNavigationCount">0</span>)</span>
+                                            </div>
+                                        </div>
+                                        <div class="table-common-design">
+                                            <div class="table-responsive compact-table" id="divNavigationArr" data-noonsynopsis='@Newtonsoft.Json.JsonConvert.SerializeObject(Model.NoonSynopsis)'>
+                                                <table style="width: 100%;" id="dtnavigation" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>From Date</th>
+                                                            <th>To Date</th>
+                                                            <th>Tme (hrs)</th>
+                                                            <th>Reason</th>
+                                                            <th>AVG Speed (knots)</th>
+                                                            <th>Significant current</th>
+                                                            <th>Effect</th>
+                                                            <th>Comments</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-3 col-xl-3 pr-0">
+                                    <div class="common-custom-card height-equal-boxes-two">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Synopsis Comments</span>
+                                            </div>
+                                        </div>
+
+                                        @if (Model.NoonSynopsis != null && Model.NoonSynopsis.Any())
+                                        {
+                                            foreach (var item in Model.NoonSynopsis)
+                                            {
+                                                <strong><span>@item.FromDate</span> - <span>@item.ToDate</span></strong>
+                                                <p id="" class="open-sans-font details-common"><b>Comment</b> @item.Comment </p>
+                                                <hr />
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="common-custom-card">
+                                <div class="counters-heading border-none">
+                                    <div>
+                                        <span>Comments</span>
+                                    </div>
+                                </div>
+                                <p id="" class="open-sans-font details-common" style="min-height:100px;">@NoonReportNvaigation.SpaComment</p>
+                            </div>
+                            <div class="common-custom-card mobile-pad-0 table-scroll-width2">
+                                <div class="counters-heading border-none pl-3 pl-md-0">
+                                    <div>
+                                        <span>Break In Passage  (<span id="spanBreakpassageCount">0</span>)</span>
+                                    </div>
+                                </div>
+                                <div class="table-common-design">
+                                    <div class="compact-table" id="divBreakInPassegeArr" data-seapassagebreaks='@Newtonsoft.Json.JsonConvert.SerializeObject(Model.SeaPassageBreaks)'>
+                                        <table style="width: 100%;" id="dtbreakpassage" class="table table-hover table-striped table-bordered cardview row-sm nowrap">
+                                            <thead>
+                                                <tr class="table-sub-heading">
+                                                    <th colspan="5">
+                                                        Break In Passage
+                                                    </th>
+                                                    <th colspan="6">
+                                                        Fuel   Consumption
+                                                    </th>
+                                                    <th colspan="1">
+                                                        Distance (nm)
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Type</th>
+                                                    <th>From</th>
+                                                    <th>To</th>
+                                                    <th>Time (HRS)</th>
+                                                    <th>Reason</th>
+                                                    <th>HFO (mt)</th>
+                                                    <th>LFO (mt)</th>
+                                                    <th>DO (mt)</th>
+                                                    <th>GO (mt)</th>
+                                                    <th>LNG Bunker (mt)</th>
+                                                    <th>Cargo Boil Off(mt)</th>
+                                                    <th>Drifted</th>
+                                                    <th>Off Hire</th>
+                                                    <th>Off Hire Type</th>
+                                                    <th>Comments</th>
+                                                </tr>
+                                            </thead>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row background-padding no-gutters">
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-12 p-0">
+                                    <div class="common-custom-card height-equal-boxes-weather">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Weather at Noon</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix hazoc-list-margin">
+                                            <div class="clearfix weathernoonsection">
+                                                <div class="firstcolumn">
+                                                    <div class="sub-heading mb-1 mt-2">
+                                                        <b>Swell Condition</b>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Swell Direction
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportWeather.SwellDir </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Swell Height
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">
+                                                                    @NoonReportWeather.SwellHeig
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Swell Length
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportWeather.SwellLen </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="sub-heading mb-1 mt-2">
+                                                        <b>Sea Condition</b>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Sea Temp (°C)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@CommonUtil.SetDecimalDefaultValue(NoonReportWeather.SpaSeaTemp) </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Sea Direction
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportWeather.SpaSeaDir </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Sea Height
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportWeather.SpaSeaHeig </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Sea State
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportWeather.SpaSeaState </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="secondcolumn">
+                                                    <div class="sub-heading mb-1 mt-2">
+                                                        <b>Weather Condition</b>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Wind Direction
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportWeather.WindDir </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Wind Speed (m/s)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@CommonUtil.SetDecimalDefaultValue((decimal?)NoonReportWeather.WindSpeed) </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                True Wind Direction
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">
+                                                                    @CommonUtil.SetDecimalDefaultValue(NoonReportWeather.SpaTrueWindDirection)
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                True Wind Speed (m/s)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@CommonUtil.SetDecimalDefaultValue(NoonReportWeather.SpaTrueWindSpeed)</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Wind Force
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportWeather.WindForce </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Walves
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportWeather.WaveDir </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Current Wave Direction
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@NoonReportWeather.SpaCurrent </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-7">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Air Temp (°C)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-5">
+                                                            <div class="dashboard-counters">
+                                                                <span id="">@CommonUtil.SetDecimalDefaultValue(NoonReportWeather.SpaAirTemp) </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="thirdcolumn">
+                                                    <div class="sub-heading mb-1 mt-2">
+                                                        <b>Other Condition</b>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-8">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Bad Weather (Hrs.)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-4">
+                                                            <div class="dashboard-counters">
+                                                                <span id="" class="">@NoonReportWeather.SpaBadWeatherHrs </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-8">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Bad Weather Dist.
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-4">
+                                                            <div class="dashboard-counters">
+                                                                <span id="" class="">@NoonReportWeather.SpaBadWeatherDist</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-8">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Atmoshperic Pressure (mbar)
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-4">
+                                                            <div class="dashboard-counters">
+                                                                <span id="" class="">@CommonUtil.SetDecimalDefaultValue(NoonReportWeather.SpaBarPressure) </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-8">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Bar Movements
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-4">
+                                                            <div class="dashboard-counters">
+                                                                <span id="" class="">@NoonReportWeather.SpaBarMovement </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 col-md-8 col-lg-6 col-xl-8">
+                                                            <div class="dashboard-counters-label mr-0">
+                                                                Pitch n Roll
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-4 col-lg-6 col-xl-4">
+                                                            <div class="dashboard-counters">
+                                                                <span id="" class="">@NoonReportWeather.SpaPitchRoll</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row background-padding no-gutters">
+                                <div class="col-12 col-md-12 col-lg-9 col-xl-10 pl-0">
+                                    <div class="common-custom-card height-equal-boxes-log mobile-pad-0 consumptiondesign mb-3 mb-md-0 table-scroll-width-modal2 noonscroller">
+                                        <div class="counters-heading border-none pl-3 pl-md-0">
+                                            <div>
+                                                <span>@Model.Weather24HoursLabel (<span id="spanDeckLogWeatherCount">0</span>)</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="table-common-design">
+                                            <div class="table-responsive compact-table" id="divDeckLogWeatherArr" data-noonreportweather='@Newtonsoft.Json.JsonConvert.SerializeObject(Model.NoonReport24Weather)'>
+                                                <table style="width: 100%;" id="dtDeckLogWeather" class="table table-hover table-striped table-bordered cardview row-sm table-fixed-layout">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>From</th>
+                                                            <th>To</th>
+                                                            <th>Wind Speed (m/s)</th>
+                                                            <th>Wind Force</th>
+                                                            <th>Wind Direction</th>
+                                                            <th>Swell Direction</th>
+                                                            <th>Current Wave Direction</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-3 col-xl-2 pr-0">
+                                    <div class="common-custom-card two-column-layout height-equal-boxes-log mb-0">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Vessel Draft (m)</span>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-1 col-lg-3 col-xl-3">
+                                                <div class="dashboard-counters-label">
+                                                    Fore
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonReportVesselDraft.SpaDrftFwdD</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-1 col-lg-3 col-xl-3">
+                                                <div class="dashboard-counters-label">
+                                                    Mid
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonReportVesselDraft.SpaDraftMidD</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-1 col-lg-3 col-xl-3">
+                                                <div class="dashboard-counters-label">
+                                                    Aft
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonReportVesselDraft.SpaDrftAftD</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-1 col-lg-3 col-xl-3">
+                                                <div class="dashboard-counters-label">
+                                                    Mean
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonReportVesselDraft.SpaDraftMeanD</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="tab-pane tab-box-2 hide-mobile" id="engine" role="tabpanel">
+                            <div class="row background-padding no-gutters consumptiondesign ">
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-3 pl-0">
+                                    <div class="common-custom-card height-equal-boxes-engine two-column-layout">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Total Power Output</span>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-8 col-xl-8">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    M/E (kW/h)
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-4 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.PowerOutputMe <img src="/images/outline-i.png" class="i-outline-icon w-auto d-none" id="" data-html="true" data-toggle="tooltip" data-placement="bottom" data-original-title="info" title="info"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-8 col-xl-8">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    M/E Load Index
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-4 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.MainEngineLoad</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-8 col-xl-8">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    M/E.(MCR)
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-4 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.MainEngineMCR %</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-8 col-xl-8">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    Disel Eng. (kW/h)
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-4 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.PowerOutputDieselEng <img src="/images/outline-i.png" class="i-outline-icon w-auto d-none" " id="" data-html="true" data-toggle="tooltip" data-placement="bottom" data-original-title="info" title="info"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-8 col-xl-8">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    Turbo Generator (kW/h)
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-4 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.PowerOutputTurbGen <img src="/images/outline-i.png" class="i-outline-icon w-auto d-none" " id="" data-html="true" data-toggle="tooltip" data-placement="bottom" data-original-title="info" title="info"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-8 col-xl-8">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    Shaft Generator (kW/h)
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-4 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.PowerOutputShaftGen <img src="/images/outline-i.png" class="i-outline-icon w-auto d-none" " id="" data-html="true" data-toggle="tooltip" data-placement="bottom" data-original-title="info" title="info"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-8 col-xl-8">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    Cargo Reefer (kW/h)
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-4 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.CargoReefer</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-8 col-xl-8">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    SFOC (g/kWh)
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-4 col-xl-4">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.SpaSfoc</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3 col-xl-3 padding0">
+                                    <div class="common-custom-card height-equal-boxes-engine two-column-layout">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Slips</span>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-7 col-xl-7">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    Revolution
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-5 col-xl-5">
+                                                <div class="dashboard-counters">
+                                                    <span id="">
+                                                        Total (@noonPowerOutput.TotRev2)<br />
+                                                        Previous (@noonPowerOutput.TotRev1)
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-7 col-xl-7">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    Counter Rollover at
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-5 col-xl-5">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.CounterRolloverAt</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-7 col-xl-7">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    True Slip
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-5 col-xl-5">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.TrueSlip</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-7 col-xl-7">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    Obs. Slip
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-5 col-xl-5">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.ObsSlip</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-6 col-md-7 col-lg-7 col-xl-7">
+                                                <div class="dashboard-counters-label w-auto">
+                                                    RPM
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-5 col-lg-5 col-xl-5">
+                                                <div class="dashboard-counters">
+                                                    <span id="">@noonPowerOutput.Rpm</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-5 col-xl-6 pr-0">
+                                    <div class="common-custom-card height-equal-boxes-engine two-column-layout">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Fresh Water</span>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-4 col-xl-3">
+                                                        <div class="dashboard-counters-label">
+                                                            <span id="">
+
+                                                            </span>
+                                                        </div>
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            Tank Capacity
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none">
+                                                            Domestic (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(freshWaterDomestic.TankCapacity)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none">
+                                                            Technical (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(freshWaterTechnical.TankCapacity)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-4 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                Previous ROB
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Domestic (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(freshWaterDomestic.PreviousROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Technical (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(freshWaterTechnical.PreviousROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-4 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                Prodution Qty.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Domestic (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(freshWaterDomestic.ProductionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Technical (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(freshWaterTechnical.ProductionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-4 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                Consumption Qty.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Domestic (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(freshWaterDomestic.ConsumptionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Technical (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(freshWaterTechnical.ConsumptionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-4 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                ROB
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Domestic (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(freshWaterDomestic.ROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-4 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Technical (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(freshWaterTechnical.ROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                <div class="row no-gutters">
+                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-6 my-auto">
+                                                        <div class="dashboard-counters mb-2">
+                                                            <span id="">
+                                                                Domestic (m<sup>3</sup>)
+                                                            </span>
+                                                        </div>
+                                                        <div class="mb-0 progress">
+                                                            <div class="progress-bar noon-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:@string.Concat(freshWaterDomestic.Percentage,"%")"> @string.Concat(freshWaterDomestic.Percentage, "%")</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                                        <div class="dashboard-counters mb-2">
+                                                            Technical (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="mb-0 progress">
+                                                            <div class="progress-bar noon-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: @string.Concat(freshWaterTechnical.Percentage,"%")"> @string.Concat(freshWaterTechnical.Percentage, "%")</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row background-padding no-gutters consumptiondesign">
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-6 pl-0">
+                                    <div class="common-custom-card height-equal-boxes-enginetwo two-column-layout">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Lube Oil</span>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label">
+                                                            <span id="">
+
+                                                            </span>
+                                                        </div>
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            Tank Capacity
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none">
+                                                            CLO (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilClo.TankCapacity)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none">
+                                                            Aux (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilAux.TankCapacity)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none">
+                                                            Crank Case (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilCrankCase.TankCapacity)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none">
+                                                            General (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilGeneral.TankCapacity)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                Previous ROB
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            CLO (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilClo.PreviousROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Aux (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilAux.PreviousROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Crank Case (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilCrankCase.PreviousROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            General (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilGeneral.PreviousROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                Supplier Qty.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            CLO (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilClo.ProductionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Aux (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilAux.ProductionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Crank Case (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilCrankCase.ProductionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            General (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilGeneral.ProductionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                Consumption Qty.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            CLO (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilClo.ConsumptionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Aux (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilAux.ConsumptionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Crank Case (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilCrankCase.ConsumptionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            General (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilGeneral.ConsumptionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                ROB
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            CLO (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilClo.ROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Aux (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilAux.ROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Crank Case (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilCrankCase.ROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            General (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(LubeOilGeneral.ROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                <div class="row no-gutters">
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2">
+                                                            <span id="">
+                                                                CLO (m<sup>3</sup>)
+                                                            </span>
+                                                        </div>
+                                                        <div class="mb-0 progress">
+                                                            <div class="progress-bar noon-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: @string.Concat(LubeOilClo.Percentage,"%");">@string.Concat(LubeOilClo.Percentage, "%")</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters mb-2">
+                                                            Aux (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="mb-0 progress">
+                                                            <div class="progress-bar noon-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: @string.Concat(LubeOilAux.Percentage,"%");">@string.Concat(LubeOilAux.Percentage, "%")</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters mb-2 mt-3 mt-md-0">
+                                                            Crank Case (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="mb-0 progress">
+                                                            <div class="progress-bar noon-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: @string.Concat(LubeOilCrankCase.Percentage, "%");">@string.Concat(LubeOilCrankCase.Percentage, "%")</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters mb-2 mt-3 mt-md-0">
+                                                            General (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="mb-0 progress">
+                                                            <div class="progress-bar noon-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: @string.Concat(LubeOilGeneral.Percentage, "%")">@string.Concat(LubeOilGeneral.Percentage, "%")</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-6 pr-0">
+                                    <div class="common-custom-card height-equal-boxes-enginetwo two-column-layout">
+                                        <div class="counters-heading border-none">
+                                            <div>
+                                                <span>Waste ROB</span>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label">
+                                                            <span id="">
+
+                                                            </span>
+                                                        </div>
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            Tank Capacity
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none">
+                                                            Sludge (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSludge.TankCapacity)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none">
+                                                            Bilge (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobBilge.TankCapacity)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none">
+                                                            Slops (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSlops.TankCapacity)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none">
+                                                            Sewage (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSewage.TankCapacity)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                Previous ROB
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Sludge (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSludge.PreviousROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Bilge (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobBilge.PreviousROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Slops (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSlops.PreviousROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Sewage (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSewage.PreviousROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                Production  Qty.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Sludge (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSludge.ProductionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Bilge (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobBilge.ProductionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Slops (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSlops.ProductionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Sewage (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSewage.ProductionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                Discharge Qty.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Sludge (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSludge.ConsumptionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Bilge (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobBilge.ConsumptionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Slops (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSlops.ConsumptionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Sewage (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSewage.ConsumptionQty)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 border-bottom-cons">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2 mb-md-0">
+                                                            <span id="">
+                                                                ROB
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Sludge (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSludge.ROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Bilge (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobBilge.ROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Slops (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSlops.ROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-2 col-lg-2 col-xl-2">
+                                                        <div class="dashboard-counters-label mr-0 float-none d-block d-md-none">
+                                                            Sewage (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="dashboard-counters">
+                                                            <span id="">
+                                                                @CommonUtil.SetDecimalDefaultValue(WasterRobSewage.ROB)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row no-gutters">
+                                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                                <div class="row no-gutters">
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3 my-auto">
+                                                        <div class="dashboard-counters mb-2">
+                                                            <span id="">
+                                                                Sludge (m<sup>3</sup>)
+                                                            </span>
+                                                        </div>
+                                                        <div class="mb-0 progress">
+                                                            <div class="progress-bar noon-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:@string.Concat(WasterRobSludge.Percentage,"%");">@string.Concat(WasterRobSludge.Percentage, "%")</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters mb-2">
+                                                            Bilge (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="mb-0 progress">
+                                                            <div class="progress-bar noon-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: @string.Concat(WasterRobBilge.Percentage,"%");">@string.Concat(WasterRobBilge.Percentage, "%")</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters mb-2 mt-3 mt-md-0">
+                                                            Slops (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="mb-0 progress">
+                                                            <div class="progress-bar noon-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: @string.Concat(WasterRobSlops.Percentage, "%");">@string.Concat(WasterRobSlops.Percentage, "%")</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 col-md-3 col-lg-3 col-xl-3">
+                                                        <div class="dashboard-counters mb-2 mt-3 mt-md-0">
+                                                            Sewage (m<sup>3</sup>)
+                                                        </div>
+                                                        <div class="mb-0 progress">
+                                                            <div class="progress-bar noon-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: @string.Concat(WasterRobSewage.Percentage, "%");">@string.Concat(WasterRobSewage.Percentage, "%")</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row background-padding no-gutters">
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-7 pl-0">
+                                    <div class="common-custom-card mobile-pad-0 height-equal-boxestable">
+                                        <div class="counters-heading border-none pl-3 pl-md-0">
+                                            <div>
+                                                <span>Running hours/Power developed (<span id="spanRunnigpowerCount">0</span>)</span>
+                                            </div>
+                                        </div>
+                                        <div class="table-common-design">
+                                            <div class="table-responsive compact-table" id="divRunnigpowerArr" data-runnigpower='@Newtonsoft.Json.JsonConvert.SerializeObject(Model.VoyageRunningHourList)'>
+                                                <table style="width: 100%;" id="dtrunnigpower" class="table table-hover table-striped table-bordered cardview row-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Components</th>
+                                                            <th>Past Hrs </th>
+                                                            <th>Current Hrs</th>
+                                                            <th>Total Hrs</th>
+                                                            <th>Power (kW/h)</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-5 pr-0">
+                                    <div class="common-custom-card mobile-pad-0 height-equal-boxestable">
+                                        <div class="counters-heading border-none pl-3 pl-md-0">
+                                            <div>
+                                                <span>Engine Synopsis (<span id="spanEngineCount">0</span>)</span>
+                                            </div>
+                                        </div>
+                                        <div class="table-common-design">
+                                            <div class="table-responsive compact-table" id="divEngineArr" data-nooncomments='@Newtonsoft.Json.JsonConvert.SerializeObject(Model.NoonComments)'>
+                                                <table style="width: 100%;" id="dtengine" class="table table-hover table-striped table-bordered cardview row-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Type</th>
+                                                            <th>Reason </th>
+                                                            <th>Comment</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @Html.Partial("_NoonFuelRob", Model.FuelRobItems)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
