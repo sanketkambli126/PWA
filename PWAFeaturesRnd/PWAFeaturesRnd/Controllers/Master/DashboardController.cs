@@ -52,6 +52,7 @@ namespace PWAFeaturesRnd.Controllers.Master
     /// <seealso cref="PWAFeaturesRnd.Controllers.Base.AuthenticatedController" />
     public class DashboardController : AuthenticatedController
     {
+
         #region Private Properties
 
         /// <summary>
@@ -144,7 +145,7 @@ namespace PWAFeaturesRnd.Controllers.Master
             _vesselRoutingClient = vesselRoutingClient;
             _notificationClient = notificationClient;
             _marineWCFClient = marineWCFClient;
-            _hseqManagerDashboardClient = hseqManagerDashboardClient;            
+            _hseqManagerDashboardClient = hseqManagerDashboardClient;
         }
 
         /// <summary>
@@ -324,7 +325,7 @@ namespace PWAFeaturesRnd.Controllers.Master
         /// <param name="input">The input.</param>
         /// <returns></returns>
         [NonAction]
-      
+
         private async Task<List<VesselDashboardViewModel>> LoadVesselsByPage(VesselDashboardRequest input)
         {
             DataTablePageRequest<string> pageRequest = new DataTablePageRequest<string>();
@@ -378,8 +379,8 @@ namespace PWAFeaturesRnd.Controllers.Master
             _client.AccessToken = GetAccessToken();
             DataTablePageResponse<List<VesselDashboardViewModel>> response = await _client.PostGetVesselDashboardListPaged(pageRequest, request);
 
-			if (response != null && response.Data != null && response.Data.Any())
-			{
+            if (response != null && response.Data != null && response.Data.Any())
+            {
                 List<string> vesselIds = response.Data.Select(x => x.VesselIdentifier).ToList();
                 _hseqManagerDashboardClient.AccessToken = GetAccessToken();
                 List<VesselSentinelScoreResponseViewModel> sentinelScore = await _hseqManagerDashboardClient.GetVesselSentinelScore(vesselIds);
@@ -387,8 +388,8 @@ namespace PWAFeaturesRnd.Controllers.Master
                 foreach (var item in response.Data)
                 {
                     VesselSentinelScoreResponseViewModel obj = sentinelScore.FirstOrDefault(x => x.VesselId.Equals(item.VesselIdentifier));
-					if (obj != null)
-					{
+                    if (obj != null)
+                    {
                         item.SentinelTotalValue = obj.SentinelTotalValue;
                         item.SentinelTotalValueColor = obj.SentinelTotalValueColor;
                     }
@@ -1974,8 +1975,9 @@ namespace PWAFeaturesRnd.Controllers.Master
             var objDetails = CommonUtil.GetObjDetails(request);
             string logTemplate = "ActionMethod: {0} \nStart Time: {1} \nEnd Time: {2} \nDuration: {3} \nParams: \nRightShipRequestViewModel - {4} \n";
             AppendLog(CommonUtil.GetSessionObject<string>(HttpContext.Session, Constants.LogFileName), String.Format(logTemplate, this.ControllerContext.RouteData.Values["action"].ToString(), startTime.ToString(Constants.LogFileStartEndTimeFormat), endTime.ToString(Constants.LogFileStartEndTimeFormat), (endTime - startTime), objDetails));
+            string viewResult = await this.RenderViewToStringAsync("RightShipDetails",response);
 
-            return new JsonResult(new { data = response });
+            return new JsonResult(new { data = viewResult } );
         }
 
         /// <summary>
@@ -2687,12 +2689,5 @@ namespace PWAFeaturesRnd.Controllers.Master
         /// <returns>
         ///   <br />
         /// </returns>
-        public async Task<IActionResult> GetSentinelValue(string VesselId)
-        {
-            _hseqManagerDashboardClient.AccessToken = GetAccessToken();
-            var vesselId = CommonUtil.GetDecryptedVesselId(_provider, VesselId);
-            VesselSentinelValueViewModel result = await _hseqManagerDashboardClient.GetVesselSentinelValueById(vesselId);
-            return new JsonResult(result);
-        }
     }
 }

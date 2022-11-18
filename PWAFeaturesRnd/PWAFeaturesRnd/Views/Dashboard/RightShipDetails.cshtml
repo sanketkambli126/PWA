@@ -1,0 +1,20 @@
+﻿@model List<PWAFeaturesRnd.ViewModels.VesselManagement.RightShipResponseViewModel>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Vessel Name</th>
+            <th>Right Ship Score</th>
+            <th>GHG Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>@item.VesselName</th>
+                <th>@item.RightShipScore</th>
+                <th>@item.GHGRating</th>
+            </tr>
+        }
+    </tbody>
+</table>

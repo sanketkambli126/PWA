@@ -152,7 +152,7 @@ $(document).on('click', '.agentbtncall', function () {
             AddCommunicationLoadingIndicator('.communicationcall');
         },
         success: function (data) {
-            
+
             if (data != null && data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
                     var divHtmlElement = '<div class="listagentdiv"><div class="row no-gutters mx-auto"><div class="col-md-1 col-lg-1 col-xl-1 p-0"><img src="/images/agentcallblue.svg" /></div>' +
@@ -161,12 +161,12 @@ $(document).on('click', '.agentbtncall', function () {
                         divHtmlElement = divHtmlElement + '<button class="btn agentprimary">PRIMARY</button>'
                     }
                     divHtmlElement = divHtmlElement + '</h1><h2><span>Type </span>' + data[i].ctyName + '</h2><h3>' + data[i].comDesc + '</h3></div></div></div>'
-                    
+
                     parent.append(divHtmlElement);
                 }
             } else {
                 parent.append('<Label>No data found.</Label>');
-            }            
+            }
         },
         complete: function () {
             RemoveModelLoadingIndicator('.communicationcall');
@@ -201,7 +201,7 @@ $(document).on('click', '.agentbtnemail', function () {
                         divHtmlElement = divHtmlElement + '<button class="btn agentprimary">PRIMARY</button>'
                     }
                     divHtmlElement = divHtmlElement + '</h1><h2><span>Type </span>' + data[i].ctyName + '</h2><h3>' + data[i].comDesc + '</h3></div></div></div>'
-                    
+
                     parent.append(divHtmlElement);
                 }
             } else {
@@ -317,7 +317,7 @@ $(document).ready(function () {
     //BindFleetSummary(fleetId, menuType, vesselId, $('#selectedTitle').val());
     $("#fleetSelectionTitle").text("Viewing " + $('#selectedTitle').val());
     $(".spanfleetSelectionTitle").html("<em>Search Vessel / Fleet</em>");
-    $("#fleetSelectionVesselTitle").text("Viewing "+$('#selectedTitle').val());
+    $("#fleetSelectionVesselTitle").text("Viewing " + $('#selectedTitle').val());
 
     BindCrewFleetSummary(fleetId, menuType, vesselId);
     BindOpexFleetSummary(fleetId, menuType, vesselId);
@@ -985,6 +985,7 @@ $(document).ready(function () {
 //});
 
 
+
 $(window).on('load', function () {
     setTimeout(function () {
         if (($(window).width() < MobileScreenSize)) {
@@ -999,6 +1000,29 @@ $(window).on('load', function () {
         }
     }, 1000);
 
+   let fleetId = $('#fleetId').val()
+   let menuType = $('#menuType').val()
+   let vesselId = $('#vesselId').val()
+
+    var request =
+    {
+        "FleetId": fleetId,
+        "MenuType": menuType,
+        "VesselIds": vesselId
+    }
+
+    $.ajax({
+        "url": "/Dashboard/GetPSCDeficiencies",
+        "type": "POST",
+        "data": request,
+        "datatype": "json",
+        success: function (response)
+        {
+            response.data.forEach(function (e,idx) {
+                vshipDb.put("PSCDeficiency", idx, e);
+            });
+        }
+    })
 });
 
 $(document).on('click', '.notename', function () {
@@ -2048,7 +2072,7 @@ function BindVesselDetailsSummary(vesselid, parent, vesselIdentifier) {
                 if (data.image != null) {
                     $(parent).find(".imgvesselpicture").attr("src", "data:image/png;base64," + data.image + "");
                 }
-                
+
             }
         },
         complete: function () {
@@ -2605,7 +2629,7 @@ function BindHazoccSummary(vesselId, parent) {
                 $(parent).find('.ltiFreeDaysPanel').addClass(colorMap.get(data.ltiFreeDaysPriority).color);
                 $(parent).find('.ltiFreeDaysCount').addClass(colorMap.get(data.ltiFreeDaysPriority).textColor);
 
-                $(parent).find('.unsafeCount').text(ConvertDecimalNumberToString(data.unsafeRate, 2, 1, 2) );
+                $(parent).find('.unsafeCount').text(ConvertDecimalNumberToString(data.unsafeRate, 2, 1, 2));
                 $(parent).find('.unsafePanel').addClass(colorMap.get(data.unsafePriority).color);
                 $(parent).find('.unsafeCount').addClass(colorMap.get(data.unsafePriority).textColor);
 
@@ -3408,9 +3432,9 @@ function BindDashboardVesselList(fleetId, menuType, vesselId) {
                 $(".expandIcon").click(ExpandVesselDetail);
 
                 if ($('#vesselId').val() === '') {
-                        $("#vesselCount").text("| " + $('#hdnTotalCount').val() + " Vessel(s)");
+                    $("#vesselCount").text("| " + $('#hdnTotalCount').val() + " Vessel(s)");
 
-                } 
+                }
 
                 BindVoyageReportingMobile();
 
@@ -3791,6 +3815,10 @@ function GetSeriousIncidents(request) {
             $('#modalSeriousIncident').unblock();
         }
     });
+
+    setTimeout(function () {
+        dtSeriousIncidents.columns.adjust();
+    }, 300)
 }
 
 function GetPSCDetentionDetails(request) {
@@ -4176,13 +4204,13 @@ function BindGraph(data, parent) {
 
     if (data.isSeaPassageEvent == true) {
         var endPositionOfVessel = ConvertValueToPercentage(data.distanceTravelled, data.totalDistance);
-        var progressBarEndContent = "AT SEA" + "<br/>" + data.lastEventPosition + "<br/>" + data.remainingValue + " nm remaining"; 
+        var progressBarEndContent = "AT SEA" + "<br/>" + data.lastEventPosition + "<br/>" + data.remainingValue + " nm remaining";
         $(parent).find('.divProgressBarFlow').css('width', endPositionOfVessel + '%');
         $(parent).find('.at-location').css('left', endPositionOfVessel + '%');
-        $(parent).find('.at-location').attr('data-original-title',progressBarEndContent);
+        $(parent).find('.at-location').attr('data-original-title', progressBarEndContent);
         $(parent).find('.graphtooltip').attr('data-original-title', progressBarEndContent);
-        $(parent).find('[data-toggle="tooltip"]').tooltip({html:true});
-        $(parent).find('.graphtooltip').tooltip({html:true});
+        $(parent).find('[data-toggle="tooltip"]').tooltip({ html: true });
+        $(parent).find('.graphtooltip').tooltip({ html: true });
     }
 }
 
@@ -4211,7 +4239,7 @@ function BindPerformanceSummary(vesselId, parent) {
             });
         },
         success: function (result) {
-          
+
             for (let i = 0; i < result.length; i++) {
                 if (result.length == 1) {
                     $(parent).find(".hidepreformanceright").hide();
@@ -4269,105 +4297,121 @@ function SetPerformanceSummary(parent, selector, data) {
     //$(parent).find(".cpOrdersSpeed").addClass(colorMap.get(data.cpOrdersSpeedBackgroundPriority).color);
 
     $(parent).find(selector).find(".cpOrdersConsumption-text").text(data.cpOrdersConsumption);
-            //$(parent).find(".cpOrdersConsumption").addClass(colorMap.get(data.cpOrdersConsumptionPriority).textColor);
-            //$(parent).find(".cpOrdersConsumption").addClass(colorMap.get(data.cpOrdersConsumptionBackgroundPriority).color);     
+    //$(parent).find(".cpOrdersConsumption").addClass(colorMap.get(data.cpOrdersConsumptionPriority).textColor);
+    //$(parent).find(".cpOrdersConsumption").addClass(colorMap.get(data.cpOrdersConsumptionBackgroundPriority).color);     
 }
 
-function GetPSCDeficiencyDetails(request) {
+async function GetPSCDeficiencyDetails(request) {
     $("#hideDeficiencyPSC").prop('checked', false);
+    $('#bodyPcsDeficiency').html('');
+    let data = await vshipDb.getAll('PSCDeficiency');
 
-    $('#modalPscDeficiency').block({
-        message: $(" " + loadercontent),
-    });
+    if (data.length) {
+        $('#bodyPcsDeficiency').html(data.map(function (x) { return getPSCDeficiencyTableRow(x); }).join(''));
+    }
+    else
+    {
+        $('#bodyPcsDeficiency').htm('<tr><td colspan="7">No Records Found</td></tr>')
+    }
 
-    $('#dtPscDeficiency').DataTable().destroy();
-    var dtPscDeficiency = $('#dtPscDeficiency').DataTable({
-        "dom": '<<"row"<"col-12 col-md-7"i>><rt><"row"<"col-12 col-md-7"l><"col-12 col-md-5"p>>>',
-        "processing": false,
-        "serverSide": false,
-        "lengthChange": true,
-        "searching": true,
-        "fixedHeader": false,
-        "info": false,
-        "autoWidth": false,
-        "paging": false,
-        "scrollY": "150px",
-        "order": [],
-        "language": {
-            "emptyTable": "No PSC Deficiencies.",
-        },
-        "ajax": {
-            "url": "/Dashboard/GetPSCDeficiencies",
-            "type": "POST",
-            "data": request,
-            "datatype": "json"
-        },
-        "columns": [
-            {
-                className: "data-text-align tdblock",
-                data: "vesselName",
-                width: "110px",
-                render: function (data, type, full, meta) { return data; }
-            },
-            {
-                className: "data-datetime-align",
-                data: "detentionDate",
-                width: "55px",
-                render: function (data, type, full, meta) {
-                    var hrefLink = '/Inspection/List/?Inspection=' + full.encryptedInspectionURL + '&vesselId=' + full.encryptedVesselId;
-                    return GetFormattedDateWithURL(type, 'Insp. Date', data, "_self", hrefLink);
-                }
-            },
-            {
-                className: "data-text-align",
-                data: "whereLocation",
-                width: "120px",
-                render: function (data, type, full, meta) { return GetCellData('Where', data); }
-            },
+    //$('#modalPscDeficiency').block({
+    //    message: $(" " + loadercontent),
+    //});
 
-            {
-                className: "data-text-align",
-                data: "companyName",
-                width: "160px",
-                render: function (data, type, full, meta) { return GetCellData('Company', data); }
-            },
-            {
-                className: "data-text-align",
-                data: "inspectorName",
-                width: "140px",
-                render: function (data, type, full, meta) { return GetCellData('Inspector Name', data); }
-            },
-            {
-                className: "data-number-align",
-                data: "findingCount",
-                width: "60px",
-                render: function (data, type, full, meta) {
-                    return GetFormattedDecimal(type, 'No of Deficiencies', data, 0, 0);
-                }
-            },
-            {
-                className: "data-text-align",
-                data: "isDetained",
-                width: "50px",
-                render: function (data, type, full, meta) {
-                    return GetCellData('Detained (Y/N)', data);
-                }
-            },
-        ],
-        "initComplete": function (settings) {
-            var dataSpan = '#spanPscDefRate'
-            var priorityValue = $("#hdnPscDeficienciesPriority").val()
+    //$('#dtPscDeficiency').DataTable().destroy();
+    //var dtPscDeficiency = $('#dtPscDeficiency').DataTable({
+    //    "dom": '<<"row"<"col-12 col-md-7"i>><rt><"row"<"col-12 col-md-7"l><"col-12 col-md-5"p>>>',
+    //    "processing": false,
+    //    "serverSide": false,
+    //    "lengthChange": true,
+    //    "searching": true,
+    //    "fixedHeader": false,
+    //    "info": false,
+    //    "autoWidth": false,
+    //    "paging": false,
+    //    "scrollY": "150px",
+    //    "order": [],
+    //    "language": {
+    //        "emptyTable": "No PSC Deficiencies.",
+    //    },
+    //    "ajax": {
+    //        "url": "/Dashboard/GetPSCDeficiencies",
+    //        "type": "POST",
+    //        "data": request,
+    //        "datatype": "json"
+    //    },
+    //    "columns": [
+    //        {
+    //            className: "data-text-align tdblock",
+    //            data: "vesselName",
+    //            width: "110px",
+    //            render: function (data, type, full, meta) { return data; }
+    //        },
+    //        {
+    //            className: "data-datetime-align",
+    //            data: "detentionDate",
+    //            width: "55px",
+    //            render: function (data, type, full, meta) {
+    //                var hrefLink = '/Inspection/List/?Inspection=' + full.encryptedInspectionURL + '&vesselId=' + full.encryptedVesselId;
+    //                return GetFormattedDateWithURL(type, 'Insp. Date', data, "_self", hrefLink);
+    //            }
+    //        },
+    //        {
+    //            className: "data-text-align",
+    //            data: "whereLocation",
+    //            width: "120px",
+    //            render: function (data, type, full, meta) { return GetCellData('Where', data); }
+    //        },
 
-            $(dataSpan).text($("#hdnPscDeficiencyRate").val());
-            removeDetailsSubHeaderClass(dataSpan);
-            addDetailsSubHeaderClass(dataSpan, priorityValue)
+    //        {
+    //            className: "data-text-align",
+    //            data: "companyName",
+    //            width: "160px",
+    //            render: function (data, type, full, meta) { return GetCellData('Company', data); }
+    //        },
+    //        {
+    //            className: "data-text-align",
+    //            data: "inspectorName",
+    //            width: "140px",
+    //            render: function (data, type, full, meta) { return GetCellData('Inspector Name', data); }
+    //        },
+    //        {
+    //            className: "data-number-align",
+    //            data: "findingCount",
+    //            width: "60px",
+    //            render: function (data, type, full, meta) {
+    //                return GetFormattedDecimal(type, 'No of Deficiencies', data, 0, 0);
+    //            }
+    //        },
+    //        {
+    //            className: "data-text-align",
+    //            data: "isDetained",
+    //            width: "50px",
+    //            render: function (data, type, full, meta) {
+    //                return GetCellData('Detained (Y/N)', data);
+    //            }
+    //        },
+    //    ],
+    //    "initComplete": function (settings) {
+    //        var dataSpan = '#spanPscDefRate'
+    //        var priorityValue = $("#hdnPscDeficienciesPriority").val()
 
-            $('#spanPscDefInspectionCount').text($("#hdnPscDeficiencyInspectionCount").val());
-            $('#spanPscDefFindingCount').text($("#hdnpscDeficienciesCount").val());
+    //        $(dataSpan).text($("#hdnPscDeficiencyRate").val());
+    //        removeDetailsSubHeaderClass(dataSpan);
+    //        addDetailsSubHeaderClass(dataSpan, priorityValue)
 
-            $('#modalPscDeficiency').unblock();
-        }
-    });
+    //        $('#spanPscDefInspectionCount').text($("#hdnPscDeficiencyInspectionCount").val());
+    //        $('#spanPscDefFindingCount').text($("#hdnpscDeficienciesCount").val());
+
+    //        $('#modalPscDeficiency').unblock();
+    //    }
+    //});
+}
+
+function getPSCDeficiencyTableRow(obj)
+{
+    let tableRow = document.getElementById("PCSDeficiencyTableRow").text
+    return tableRow.replace(/\${(.*?)}/g, (x, y) => obj[y])
 }
 
 function GetCriticalPMSDetails(request) {
@@ -4613,69 +4657,27 @@ function GetOilSpillsToWater(request) {
 }
 
 function GetRightShipDetils(request) {
-    $('#modalRightShip').block({
-        message: $(" " + loadercontent),
-    })
+    //$('#modalRightShip').block({
+    //    message: $(" " + loadercontent),
+    //})
+    $('#tblRightDetails').html('');
 
-    $('#dtRightShip').DataTable().destroy();
-    var dtRightShip = $('#dtRightShip').DataTable({
-        "dom": '<<"row"<"col-12 col-md-7"i><"col-12 col-md-5"f>><rt><"row"<"col-12 col-md-7"l><"col-12 col-md-5"p>>>',
-        "processing": false,
-        "serverSide": false,
-        "lengthChange": true,
-        "searching": false,
-        "info": false,
-        "autoWidth": true,
-        "paging": false,
-        "scrollY": "150px",
-        "order": [[1, "desc"]],
-        "language": {
-            "emptyTable": "No rightship occurred.",
+    $.ajax({
+        "url": "/Dashboard/GetRightShipDetails",
+        "type": "POST",
+        "data": request,
+        "datatype": "json",
+        "success": function (response) {
+            let table = typeof response == "string" ? JSON.parse(response).data : response.data;
+            $('#tblRightDetails').html(table);
         },
-        "ajax": {
-            "url": "/Dashboard/GetRightShipDetails",
-            "type": "POST",
-            "data": request,
-            "datatype": "json"
-        },
-        "columns": [
-            {
-                className: "data-text-align tdblock",
-                data: "vesselName",
-                width: "275px",
-                render: function (data, type, full, meta) { return data }
-            },
-            {
-                className: "data-number-align",
-                data: "rightShipScore",
-                width: "80px",
-                render: function (data, type, full, meta) {
-                    return GetFormattedDecimal(type, 'Right Ship Score', data, 2, '0.00');
-                }
-            },
-            {
-                className: "data-text-align",
-                data: "ghgRating",
-                width: "45px",
-                render: function (data, type, full, meta) {
-                    if (data == null) {
-                        data = '';
-                    }
-                    return GetCellData("GHG Rating", data);
-                }
-            }
-        ],
-        "initComplete": function (settings) {
-            var dataSpan = '#spanRightshipScore'
-            var priorityValue = $("#hdnRightShipPriority").val()
-
-            $(dataSpan).text($("#hdnRightShipCount").val());
-            removeDetailsSubHeaderClass(dataSpan);
-            addDetailsSubHeaderClass(dataSpan, priorityValue)
-
-            $('#modalRightShip').unblock();
-        }
+        //"complete": function ()
+        //{
+        //    $('#modalRightShip').unblock();
+        //}
     });
+    //$('#modalRightShip').unblock();
+
 }
 
 function GetExperienceMatrixDetils(request) {
@@ -5339,8 +5341,8 @@ function CurrentVoyageAgentDetails(urlRequest, portname) {
                     tabContentsHtml += '</div>';
 
                     $('#VoyageAgentContentsHtml').append(tabContentsHtml);
-                   
-                   
+
+
                 }
             }
         },
@@ -5416,7 +5418,7 @@ function DeleteChannelById(channelId, isSaveAsDraft) {
     });
 }
 
-function BindSentinelValue(vesselid,parent) {
+function BindSentinelValue(vesselid, parent) {
     $.ajax({
         url: "/Dashboard/GetSentinelValue",
         type: "GET",
@@ -5441,7 +5443,7 @@ function BindSentinelValue(vesselid,parent) {
                     $(parent).find('.aSentinelValue').removeAttr("href");
                     state = 2;
                 }
-                $(parent).find('.pSentinelScore').text(ConvertDecimalNumberToString(data.sentinelTotalValue,1,state,1));
+                $(parent).find('.pSentinelScore').text(ConvertDecimalNumberToString(data.sentinelTotalValue, 1, state, 1));
             }
         }
     });
