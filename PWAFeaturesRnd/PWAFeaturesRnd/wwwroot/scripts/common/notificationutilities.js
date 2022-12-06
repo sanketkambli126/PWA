@@ -409,7 +409,7 @@ export function HideNewMessageAlert() {
 	AddClassIfAbsent('#divNewMessageAlert', 'd-none');
 }
 
-export function ChannelMessage(channelId, isScrolled) {
+export function ChannelMessage(channelId, isScrolled, vshipDb) {
 
 	LoadChatMessageScreen();
 	HideNewDiscussionSlot();
@@ -442,15 +442,13 @@ export function ChannelMessage(channelId, isScrolled) {
 		},
 		success: function (data) {
 			//AddClassIfAbsent($('#dummyMessages'), 'd-none');
-			if (data != null && data.data != null) {
-				if (!isScrolled) {
-					CreateTemplate(data.data);
-				}
-				else {
-					LoadMoreMessagesCreateTemplate(data.data);
-				}
-				$('#hdnHasNextPage').val(data.hasNextScroll);
-			}
+			fn_BindChannelMessages(data);
+		},
+		error: async function (jqXHR, exception)
+		{
+			const pageNumber = $('#hdnCurrentPageNumber').val() || 1
+			let data = await fn_GetOfflinedChannelMessaged(vshipDb, channelId, pageNumber)
+			fn_BindChannelMessages(data);
 		},
 		complete: function () {
 			RemoveModelLoadingIndicator('#divChatMessages');
@@ -476,6 +474,31 @@ export function ChannelMessage(channelId, isScrolled) {
 			$("#messageSection").css("margin-top", $(".chat-header").outerHeight(true));
 		}
 	});
+}
+
+async function fn_GetOfflinedChannelMessaged(vshipDb, channelId, PageNumber)
+{
+	const pageLength = 10;
+	const start = (pageLength * ((PageNumber || 1) - 1));
+	let offlinedata = await vshipDb.getAll('ChatNotificationDetails');
+	let finalData = offlinedata.filter(function (e) {
+		return e.channelId == channelId
+	});
+	let data = { hasNextScroll: finalData.length > (start + pageLength + 1), data: finalData.slice(start, start + pageLength) }
+	return Promise.resolve(data);
+}
+
+function fn_BindChannelMessages(data)
+{
+	if (data != null && data.data != null) {
+		if (!isScrolled) {
+			CreateTemplate(data.data);
+		}
+		else {
+			LoadMoreMessagesCreateTemplate(data.data);
+		}
+		$('#hdnHasNextPage').val(data.hasNextScroll);
+	}
 }
 
 //not being used at the moment
@@ -1959,6 +1982,7 @@ export function DeleteChannel(channelId, isSaveAsDraft, allChannelsDeleted) {
 			"channelId": channelId
 		},
 		success: function (data) {
+			data = typeof (data) == "string" ? JSON.parse(data) : data;
 			if (data != null) {
 
 				if (isSaveAsDraft === 'true') {

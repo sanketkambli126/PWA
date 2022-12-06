@@ -1,4 +1,6 @@
-﻿import "select2/dist/js/select2.full.js";
+﻿
+
+import "select2/dist/js/select2.full.js";
 require('bootstrap');
 
 import { AjaxError, GetCookie, ToastrAlert, IsNullOrEmptyOrUndefined, RemoveClassIfPresent, AddClassIfAbsent, GetStringNullOrWhiteSpace, AddModelLoadingIndicator, RemoveModelLoadingIndicator, BackButton, IsNullOrEmptyOrUndefinedLooseTyped, IsNullOrEmpty } from "../common/utilities.js";
@@ -19,14 +21,51 @@ var AttachedFiles = [];
 var AttachedFilesCol = new Map();
 var EditMsg = { EditMessageId: 0 };
 var isChannelSearchClicked = false;
-//$(document).mouseup(function (e) {
-//	var container = $(".new-discussion-layout");
-//	if (!container.is(e.target) && container.has(e.target).length === 0) {
-//		if ($('.new-discussion-layout').is(':visible')) {
-//			CreateChannel(true);
-//		}
-//	}
-//});
+
+
+var idb = function (e) { "use strict"; let t, n; const r = new WeakMap, o = new WeakMap, s = new WeakMap, a = new WeakMap, i = new WeakMap; let c = { get(e, t, n) { if (e instanceof IDBTransaction) { if ("done" === t) return o.get(e); if ("objectStoreNames" === t) return e.objectStoreNames || s.get(e); if ("store" === t) return n.objectStoreNames[1] ? void 0 : n.objectStore(n.objectStoreNames[0]) } return p(e[t]) }, set: (e, t, n) => (e[t] = n, !0), has: (e, t) => e instanceof IDBTransaction && ("done" === t || "store" === t) || t in e }; function u(e) { return e !== IDBDatabase.prototype.transaction || "objectStoreNames" in IDBTransaction.prototype ? (n || (n = [IDBCursor.prototype.advance, IDBCursor.prototype.continue, IDBCursor.prototype.continuePrimaryKey])).includes(e) ? function (...t) { return e.apply(f(this), t), p(r.get(this)) } : function (...t) { return p(e.apply(f(this), t)) } : function (t, ...n) { const r = e.call(f(this), t, ...n); return s.set(r, t.sort ? t.sort() : [t]), p(r) } } function d(e) { return "function" == typeof e ? u(e) : (e instanceof IDBTransaction && function (e) { if (o.has(e)) return; const t = new Promise((t, n) => { const r = () => { e.removeEventListener("complete", o), e.removeEventListener("error", s), e.removeEventListener("abort", s) }, o = () => { t(), r() }, s = () => { n(e.error || new DOMException("AbortError", "AbortError")), r() }; e.addEventListener("complete", o), e.addEventListener("error", s), e.addEventListener("abort", s) }); o.set(e, t) }(e), n = e, (t || (t = [IDBDatabase, IDBObjectStore, IDBIndex, IDBCursor, IDBTransaction])).some(e => n instanceof e) ? new Proxy(e, c) : e); var n } function p(e) { if (e instanceof IDBRequest) return function (e) { const t = new Promise((t, n) => { const r = () => { e.removeEventListener("success", o), e.removeEventListener("error", s) }, o = () => { t(p(e.result)), r() }, s = () => { n(e.error), r() }; e.addEventListener("success", o), e.addEventListener("error", s) }); return t.then(t => { t instanceof IDBCursor && r.set(t, e) }).catch(() => { }), i.set(t, e), t }(e); if (a.has(e)) return a.get(e); const t = d(e); return t !== e && (a.set(e, t), i.set(t, e)), t } const f = e => i.get(e); const l = ["get", "getKey", "getAll", "getAllKeys", "count"], D = ["put", "add", "delete", "clear"], v = new Map; function b(e, t) { if (!(e instanceof IDBDatabase) || t in e || "string" != typeof t) return; if (v.get(t)) return v.get(t); const n = t.replace(/FromIndex$/, ""), r = t !== n, o = D.includes(n); if (!(n in (r ? IDBIndex : IDBObjectStore).prototype) || !o && !l.includes(n)) return; const s = async function (e, ...t) { const s = this.transaction(e, o ? "readwrite" : "readonly"); let a = s.store; r && (a = a.index(t.shift())); const i = a[n](...t); return o && await s.done, i }; return v.set(t, s), s } return c = (e => ({ ...e, get: (t, n, r) => b(t, n) || e.get(t, n, r), has: (t, n) => !!b(t, n) || e.has(t, n) }))(c), e.deleteDB = function (e, { blocked: t } = {}) { const n = indexedDB.deleteDatabase(e); return t && n.addEventListener("blocked", () => t()), p(n).then(() => { }) }, e.openDB = function (e, t, { blocked: n, upgrade: r, blocking: o, terminated: s } = {}) { const a = indexedDB.open(e, t), i = p(a); return r && a.addEventListener("upgradeneeded", e => { r(p(a.result), e.oldVersion, e.newVersion, p(a.transaction)) }), n && a.addEventListener("blocked", () => n()), i.then(e => { s && e.addEventListener("close", () => s()), o && e.addEventListener("versionchange", () => o()) }).catch(() => { }), i }, e.unwrap = f, e.wrap = p, e }({});
+var vshipDb;
+async function createDB() {
+    const db = idb.openDB("Test", 1, {
+        upgrade(db) {
+            db.createObjectStore("htmlCachedData");
+            db.createObjectStore("modelCachedData");
+            db.createObjectStore("PSCDeficiency");
+            db.createObjectStore("ChatNotificationList");
+            db.createObjectStore("ChatNotificationDetails");
+            db.createObjectStore('ChatChannelsDeleted');
+        },
+    });
+
+    vshipDb = {
+        get: async (storeName, key) => (await db).transaction(storeName).store.get(key),
+        getAll: async (storeName) => (await db).transaction(storeName).store.getAll(),
+        getFirstFromIndex: async (storeName, indexName, direction) => {
+            const cursor = await (await db).transaction(storeName).store.index(indexName).openCursor(null, direction);
+            return (cursor && cursor.value) || null;
+        },
+        put: async (storeName, key, value) => (await db).transaction(storeName, 'readwrite').store.put(value, key === null ? undefined : key),
+        putAllFromJson: async (storeName, json) => {
+            const store = (await db).transaction(storeName, 'readwrite').store;
+            JSON.parse(json).forEach(item => store.put(item));
+        },
+        delete: async (storeName, key) => (await db).transaction(storeName, 'readwrite').store.delete(key),
+        autocompleteKeys: async (storeName, text, maxResults) => {
+            const results = [];
+            let cursor = await (await db).transaction(storeName).store.openCursor(IDBKeyRange.bound(text, text + '\uffff'));
+            while (cursor && results.length < maxResults) {
+                results.push(cursor.key);
+                cursor = await cursor.continue();
+            }
+            return results;
+        }
+    };
+    return Promise.resolve();
+}
+
+$(document).ready(function () {
+    fn_GetOfflineData();
+})
 
 $(document).on('click', '.expandIcon', ShowNotificationDraftDiscardConfBox);
 
@@ -89,11 +128,11 @@ $(document).on('click', '.addParticipants', function () {
     $(this).prop('disabled', true);
     $(this).find('img').prop('src', '/images/add-partici-disabled.png');
 
-	let userData = $(this).find('.participantsRow')
+    let userData = $(this).find('.participantsRow')
 
-	let userName = userData.data('username');
-	let userShortName = userData.data('usershortname');
-	let userRoleDescription = userData.data('description');
+    let userName = userData.data('username');
+    let userShortName = userData.data('usershortname');
+    let userRoleDescription = userData.data('description');
 
     let localAddedUser = { userShortName: userShortName.trim(), text: userName.trim(), id: anchorId.trim(), description: userRoleDescription.trim() };
     let isUserAdded = SelectedUser.some(x => x.id === anchorId);
@@ -144,29 +183,29 @@ $(document).on('click', '.replyPrivately', function () {
 
     UpdateSelectedVesselDropdown(vesselId, vesselName, '#cboNotificationVesselSearch', '#btnSearchParticipants');
 
-	$.ajax({
-		url: "/Notification/GetUserPrimaryRole",
-		type: "POST",
-		dataType: "JSON",
-		data: {
-			userIds: userId
-		},
-		success: function (data) {
-			var roleName;
-			if (data != null) {
-				roleName = data.find(x => x.userId == userId).roleName;
-			}
-			var obj = {
-				id: userId,
-				description: roleName,
-				userShortName: userShortName,
-				text: text
-			};
-			var option = new Option(obj.text, obj.id, true, true);
-			$(option).data('raw', obj);
-			$('#participantdropdown').append(option).trigger('change');
-		}
-	});
+    $.ajax({
+        url: "/Notification/GetUserPrimaryRole",
+        type: "POST",
+        dataType: "JSON",
+        data: {
+            userIds: userId
+        },
+        success: function (data) {
+            var roleName;
+            if (data != null) {
+                roleName = data.find(x => x.userId == userId).roleName;
+            }
+            var obj = {
+                id: userId,
+                description: roleName,
+                userShortName: userShortName,
+                text: text
+            };
+            var option = new Option(obj.text, obj.id, true, true);
+            $(option).data('raw', obj);
+            $('#participantdropdown').append(option).trigger('change');
+        }
+    });
 });
 
 $(document).on('click', '.attachment-close', function () {
@@ -235,16 +274,16 @@ function AttchmentCloseForEditMessage(messageId, elementObj) {
 }
 
 $(document).on('click', '.deleteChannel', function (e) {
-	e.preventDefault();
-	let channelId = $(this).data('channelid');
-	let isSaveAsDraft = $('#hdnIsSaveAsDraft_' + channelId).val();
-	
-	if (isSaveAsDraft === 'true') {
-		$('#pDeleteChannelMessage').text('Do you want to delete the draft?');
-	}
-	else {
-		$('#pDeleteChannelMessage').text('Are you sure you want to delete the discussion? This will also remove you from the chat and you will no longer receive messages.');
-	}
+    e.preventDefault();
+    let channelId = $(this).data('channelid');
+    let isSaveAsDraft = $('#hdnIsSaveAsDraft_' + channelId).val();
+
+    if (isSaveAsDraft === 'true') {
+        $('#pDeleteChannelMessage').text('Do you want to delete the draft?');
+    }
+    else {
+        $('#pDeleteChannelMessage').text('Are you sure you want to delete the discussion? This will also remove you from the chat and you will no longer receive messages.');
+    }
 
     $("#modalDeleteChannelConfirmationDialog").modal('show');
     $('#btnDeleteChannelYes').off();
@@ -399,8 +438,8 @@ function EditMessage(request, messageTag) {
                 RemoveClassIfPresent(editedStyle, 'd-none');
                 GetAttachmentViewForEditMessage(attachmentList, messageId);
             }
-		}
-	});
+        }
+    });
 }
 
 function GetSessionStorageFilterForList() {
@@ -450,7 +489,7 @@ $(document).ready(function () {
                         if (data != null) {
                             sessionStorage.setItem(NotificationPageKey, data);
                             $('#hdnSessionStorageDetails').val(data);
-                            GetSessionStorageFilterForList();                            
+                            GetSessionStorageFilterForList();
                         }
                     }
 
@@ -460,7 +499,7 @@ $(document).ready(function () {
                 //fill filter fields from sessionStorage        
                 $('#hdnSessionStorageDetails').val(sessionStorage.getItem(NotificationPageKey))
                 GetSessionStorageFilterForList();
-            }            
+            }
         }
         else {
             //fill sessionStorage from fields
@@ -493,11 +532,12 @@ $(document).ready(function () {
 
                 });
             }
-        }        
+        }
     }
 
     $('#divChatContainerSection').on('scroll', function () {
-        if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {           
+        if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+            console.log('reached scroller');
             let PageNumber = parseInt($('#hdnChatCurrentPageNumber').val());
             PageNumber++;
             $('#hdnChatCurrentPageNumber').val(PageNumber);
@@ -511,32 +551,32 @@ $(document).ready(function () {
             }
         }
     });
-	
+
 
     if (!IsNullOrEmptyOrUndefinedLooseTyped($("#EncryptedNoteId").val())) {
         BindNotesDetailsInVChat()
     }
 
-	AddClassIfAbsent('.new-discussion-layout', 'd-none');
-	AddMessagingUserIfNotExists();
-	SignalRConnect();
-	if ($(window).width() > MobileScreenSize) {
-		$('body').addClass("hideleftmenuheader");
-		$('body').addClass("toastrshiftleft");
-	}
-	else {
-		if (GetCookie('NotificationApplicationId') != '2') {
-			$('.mobile-header-back').hide();
-			$('.menumobile').addClass("chatbackcolorhide");
-			$('.app-header').css("height","60px");
-			RemoveClassIfPresent('.backclose', 'd-none');
-		}
-		else {
-			$('body').addClass("hideleftmenuheader");
+    AddClassIfAbsent('.new-discussion-layout', 'd-none');
+    AddMessagingUserIfNotExists();
+    SignalRConnect();
+    if ($(window).width() > MobileScreenSize) {
+        $('body').addClass("hideleftmenuheader");
+        $('body').addClass("toastrshiftleft");
+    }
+    else {
+        if (GetCookie('NotificationApplicationId') != '2') {
+            $('.mobile-header-back').hide();
+            $('.menumobile').addClass("chatbackcolorhide");
+            $('.app-header').css("height", "60px");
+            RemoveClassIfPresent('.backclose', 'd-none');
+        }
+        else {
+            $('body').addClass("hideleftmenuheader");
         }
     }
     if (GetCookie('NotificationApplicationId') == '1') {
-        $(".hideleftmenuheader .notification-box").css("padding","0px");
+        $(".hideleftmenuheader .notification-box").css("padding", "0px");
     }
 
     $('.backclose').click(function () {
@@ -563,9 +603,9 @@ $(document).ready(function () {
     //	RemoveModelLoadingIndicator('.notification-box');
     //});
 
-	$('.back').click(function () {
-		BackFunction();		
-	});
+    $('.back').click(function () {
+        BackFunction();
+    });
 
     $(document).on('click', '.attachmentClick', function () {
         let id = $(this).data('id');
@@ -642,7 +682,7 @@ $(document).ready(function () {
             });
         }
     }, 1000);
-   
+
 
     if (($(window).width() > 1200)) {
         var h1 = ($(".notification-box").height());
@@ -651,7 +691,7 @@ $(document).ready(function () {
             "height": h1 - h2 - 2
         });
 
-        
+
     }
 
     if (($(window).width() > 1439)) {
@@ -670,24 +710,24 @@ $(document).ready(function () {
         });
     }
 
-	if ($(window).width() > MobileScreenSize) {
-		var h1 = ($(".discussion").outerHeight());
-		var h2 = ($('.discussion-list-name').outerHeight());
-		var h3 = ($(".app-main").height());
+    if ($(window).width() > MobileScreenSize) {
+        var h1 = ($(".discussion").outerHeight());
+        var h2 = ($('.discussion-list-name').outerHeight());
+        var h3 = ($(".app-main").height());
 
-		$(".discussion-list").css({
-			"height": h3 - h1 - h2
-		});
-	}
+        $(".discussion-list").css({
+            "height": h3 - h1 - h2
+        });
+    }
 
-	if ($(window).width() < MobileScreenSize) {
-			var h1 = ($(".app-main").height());
-			var h2 = ($('.discussion').height());
+    if ($(window).width() < MobileScreenSize) {
+        var h1 = ($(".app-main").height());
+        var h2 = ($('.discussion').height());
 
-			$(".discussion-list").css({
-				"height": h1 - h2 - 80
-			});
-	}
+        $(".discussion-list").css({
+            "height": h1 - h2 - 80
+        });
+    }
 
     var val = $('#createChannelView').val();
     if (val != '1') {
@@ -757,6 +797,7 @@ $(document).ready(function () {
 
     $("#btnAddParticipant").off();
     $("#btnAddParticipant").click(function () {
+
         $("#searchparticipant").modal('show');
 
         $('.discussion-form .participant-design .select2-container--bootstrap4 .select2-selection').css("border-color", '#e5e5e5');
@@ -774,6 +815,9 @@ $(document).ready(function () {
         });
         $("#btnAddToMessage").off('click');
         $('#btnAddToMessage').click(function () {
+            if (!fn_CommonOfflineMessage()) {
+                return true;
+            }
             if (SelectedUser.length > 0) {
                 $("#addParticipantConfirmationDialog").modal('show');
 
@@ -792,14 +836,17 @@ $(document).ready(function () {
     });
 
     //Chat message scrolling
-    $('#divChatMessages').on('scroll', function () {
+    $('#divChatMessages').on('scroll', async function () {
         var pos = $('#divChatMessages').scrollTop();
         if (pos == 0) {
             let PageNumber = parseInt($('#hdnCurrentPageNumber').val());
             PageNumber++;
             $('#hdnCurrentPageNumber').val(PageNumber);
-            if ($('#hdnHasNextPage').val() == "true" && $('#hdnIsNewChannelSelected').val() == "false") {           
-                ChannelMessage($('#hdnSelectedChannelId').val(), true);
+            if ($('#hdnHasNextPage').val() == "true" && $('#hdnIsNewChannelSelected').val() == "false") {
+                if (!vshipDb) {
+                    await createDB()
+                }
+                ChannelMessage($('#hdnSelectedChannelId').val(), true, vshipDb);
             }
         }
     });
@@ -903,59 +950,65 @@ $(document).ready(function () {
 
     // plus query
 
-	
-		$("#plus-sign").click(function () {
-			ShowWelcomeMessage(false);
-			$('#hdnSelectedChannelId').val('');
-			ResetMandatoryFields();
-			LoadDiscussionScreen();
-			ClearCreateDiscussionControls();			
-			AddClassIfAbsent('#li_0', 'd-md-block');
-			ShowNewDiscussionSlot();
-			$('#DraftTitle').text("New Discussion");
-			$('#hdnIsAllowDrafrtConfBox').val("Yes");
-			AddModelLoadingIndicator('.new-discussion-layout');			
-			GetAreaList(null, 'cboAreaSelection', function () {
-				RemoveModelLoadingIndicator('.new-discussion-layout');
-			});
-		});
 
-	$("#cancel").click(function () {
-		$('#hdnIsAllowDrafrtConfBox').val("No");
-		var val = $('#IsStandaloneCreateChannel').val();
-		if (val == 'True' || val == 'true' || val == true) {
-			if (GetCookie('NotificationApplicationId') == '2') {
-				AfterSaveChannelSuccess();
-			}
-			else if (GetCookie('NotificationApplicationId') == '1') {
-				AfterCreateChannelAction();
-			}
-		}
-		else {
-			if (isChannelListPresentForCurrentUser()) {
-				RemoveClassIfPresent('#li_0', 'd-md-block');
-			}
-			let channelId = $('.currentdiscussion').attr('id') + '';
-			let isSaveAsDraft = $("#hdnIsSaveAsDraft_" + channelId).val();
-			
-			if (isSaveAsDraft == true || isSaveAsDraft == 'true' || isSaveAsDraft == 'True') {				
-					$('#hdnSelectedChannelId').val(channelId);
-				saveasDraftDetails(channelId);
-				}
-				else {
-					LoadChatMessageScreen();
-					ClearCreateDiscussionControls();
-					HideNewDiscussionSlot();
-				}			
-			ShowWelcomeMessage(true);
-		}
-	});
+    $("#plus-sign").click(function () {
+        ShowWelcomeMessage(false);
+        $('#hdnSelectedChannelId').val('');
+        ResetMandatoryFields();
+        LoadDiscussionScreen();
+        ClearCreateDiscussionControls();
+        AddClassIfAbsent('#li_0', 'd-md-block');
+        ShowNewDiscussionSlot();
+        $('#DraftTitle').text("New Discussion");
+        $('#hdnIsAllowDrafrtConfBox').val("Yes");
+        AddModelLoadingIndicator('.new-discussion-layout');
+        GetAreaList(null, 'cboAreaSelection', function () {
+            RemoveModelLoadingIndicator('.new-discussion-layout');
+        });
+    });
+
+    $("#cancel").click(function () {
+        $('#hdnIsAllowDrafrtConfBox').val("No");
+        var val = $('#IsStandaloneCreateChannel').val();
+        if (val == 'True' || val == 'true' || val == true) {
+            if (GetCookie('NotificationApplicationId') == '2') {
+                AfterSaveChannelSuccess();
+            }
+            else if (GetCookie('NotificationApplicationId') == '1') {
+                AfterCreateChannelAction();
+            }
+        }
+        else {
+            if (isChannelListPresentForCurrentUser()) {
+                RemoveClassIfPresent('#li_0', 'd-md-block');
+            }
+            let channelId = $('.currentdiscussion').attr('id') + '';
+            let isSaveAsDraft = $("#hdnIsSaveAsDraft_" + channelId).val();
+
+            if (isSaveAsDraft == true || isSaveAsDraft == 'true' || isSaveAsDraft == 'True') {
+                $('#hdnSelectedChannelId').val(channelId);
+                saveasDraftDetails(channelId);
+            }
+            else {
+                LoadChatMessageScreen();
+                ClearCreateDiscussionControls();
+                HideNewDiscussionSlot();
+            }
+            ShowWelcomeMessage(true);
+        }
+    });
 
     $("#btn-discussion").click(function () {
+        if (!fn_CommonOfflineMessage()) {
+            return true;
+        }
         CreateChannel(false);
     });
 
     $("#btn-SaveAsDraft").click(function () {
+        if (!fn_CommonOfflineMessage()) {
+            return true;
+        }
         CreateChannel(true);
     });
 
@@ -966,24 +1019,24 @@ $(document).ready(function () {
         }
     });
 
-	$('#txtSubject').keyup(function () {
-		if ($(this).val().length > 0) {
-			$("#txtSubject").css("border", "2px solid #e5e5e5");
-			$('#hdnIsAllowDrafrtConfBox').val("Yes");
-		}
-	});
+    $('#txtSubject').keyup(function () {
+        if ($(this).val().length > 0) {
+            $("#txtSubject").css("border", "2px solid #e5e5e5");
+            $('#hdnIsAllowDrafrtConfBox').val("Yes");
+        }
+    });
 
-	$('#txtMessage').focusout(function () {
-		if ($(this).val().length > 0) {
-			$("#txtMessage").css("border", "2px solid #e5e5e5");
-		}
-	});
-	$('#txtMessage').keyup(function () {
-		if ($(this).val().length > 0) {
-			$("#txtMessage").css("border", "2px solid #e5e5e5");
-			$('#hdnIsAllowDrafrtConfBox').val("Yes");
-		}
-	});
+    $('#txtMessage').focusout(function () {
+        if ($(this).val().length > 0) {
+            $("#txtMessage").css("border", "2px solid #e5e5e5");
+        }
+    });
+    $('#txtMessage').keyup(function () {
+        if ($(this).val().length > 0) {
+            $("#txtMessage").css("border", "2px solid #e5e5e5");
+            $('#hdnIsAllowDrafrtConfBox').val("Yes");
+        }
+    });
 
     //participants drop down
     InitialiseParticipantDropdown();
@@ -1028,23 +1081,23 @@ $(document).ready(function () {
         }
     });
 
-	//new message alert scroll 
-	//$("#divNewMessageAlert").click(function () {
-	//    ScrollToLastRow();
-	//    HideNewMessageAlert();
-	//});
+    //new message alert scroll 
+    //$("#divNewMessageAlert").click(function () {
+    //    ScrollToLastRow();
+    //    HideNewMessageAlert();
+    //});
     //TODO:
     //Need to check with rashid
-	//if ($(window).width() > MobileScreenSize) {
-	//	var notificationExpander = $('.expandIcon')[0];
-	//	if (notificationExpander != null && notificationExpander != undefined) {
-	//		notificationExpander.click();
-	//	}
-	//}
-	
-	if (($(window).width() > MobileScreenSize) & ($(window).width() < 991)) {
-		$('body').addClass('block-divs-ipad');
-	}
+    //if ($(window).width() > MobileScreenSize) {
+    //	var notificationExpander = $('.expandIcon')[0];
+    //	if (notificationExpander != null && notificationExpander != undefined) {
+    //		notificationExpander.click();
+    //	}
+    //}
+
+    if (($(window).width() > MobileScreenSize) & ($(window).width() < 991)) {
+        $('body').addClass('block-divs-ipad');
+    }
 
     $("#inputChannelAttachments").on('change', function sub(obj) {
         var input = document.getElementById('inputChannelAttachments');
@@ -1150,94 +1203,97 @@ $(document).ready(function () {
         e.preventDefault();
         var channelId = $('#hdnSelectedChannelId').val();
 
-		if ($("#meessageText").is(e.target) && !IsNullOrEmptyOrUndefinedLooseTyped($("#meessageText").val())) {
-			$("#hdnChannelDraftMessage_" + channelId).val($("#meessageText").val());
-		}
-	});
-	
-
-	$('#yesNotificationDraft').off();
-	$('#yesNotificationDraft').on('click', function () {
-		CreateChannel(true);
-	});
-
-	$('#noNotificationDraft').off();
-	$('#noNotificationDraft').on('click', function () {
-		var notificationDraftChannelId = $("#hdnNotificationDraftChannelId").val();
-		ExpandNotificationDetail(notificationDraftChannelId);
+        if ($("#meessageText").is(e.target) && !IsNullOrEmptyOrUndefinedLooseTyped($("#meessageText").val())) {
+            $("#hdnChannelDraftMessage_" + channelId).val($("#meessageText").val());
+        }
     });
 
-    
+
+    $('#yesNotificationDraft').off();
+    $('#yesNotificationDraft').on('click', function () {
+        CreateChannel(true);
+    });
+
+    $('#noNotificationDraft').off();
+    $('#noNotificationDraft').on('click', function () {
+        var notificationDraftChannelId = $("#hdnNotificationDraftChannelId").val();
+        ExpandNotificationDetail(notificationDraftChannelId);
+    });
+
+
 });
 
 window.yesNotificationDraftAction = function () {
-	CreateChannel(true);
-	return true;
+    CreateChannel(true);
+    return true;
 }
 
 window.noNotificationDraftAction = function () {
-	return true;
+    return true;
 }
 
 window.closeNotificationModalAction = function () {
-	return onCloseNotificationModalAction();
+    return onCloseNotificationModalAction();
 }
 
-window.chatScrollLastRow = function () {    
+window.chatScrollLastRow = function () {
 }
 
 function onCloseNotificationModalAction() {
-	var isValid = ValidationBeforeCreateDraft('#txtSubject', '#txtMessage', '#participantdropdown');
-	if ($('#hdnIsAllowDrafrtConfBox').val() == "Yes" && isValid) {
-		return false;
-	}
-	else {
-		return true;
-	}
+    var isValid = ValidationBeforeCreateDraft('#txtSubject', '#txtMessage', '#participantdropdown');
+    if ($('#hdnIsAllowDrafrtConfBox').val() == "Yes" && isValid) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 
 window.backAction = function () {
-	BackFunction();
+    BackFunction();
 }
 function BackFunction() {
-	updateAttachedFilesArray("");
-	DeleteAllDocument(AttachedFiles);
-	sessionStorage.removeItem(NotificationPageKey);
-	chatmobileBackNotification();
+    updateAttachedFilesArray("");
+    DeleteAllDocument(AttachedFiles);
+    sessionStorage.removeItem(NotificationPageKey);
+    chatmobileBackNotification();
 }
 function SetSessionStorageFilterForChannelList(request) {
-	$.ajax({
-		url: "/Notification/SetSessionStorageFilterForNotification",
-		type: "POST",
-		dataType: "JSON",
-		data: {
-			"channelRequest": request,
-			"sessionDetails": $('#hdnSessionStorageDetails').val()
-		},
-		success: function (data) {
-			if (data != null) {
-				$('#hdnSessionStorageDetails').val(data)
-				sessionStorage.setItem(NotificationPageKey, $('#hdnSessionStorageDetails').val());
-				GetChannelList(request);
-			}
-		}
-	});
+    $.ajax({
+        url: "/Notification/SetSessionStorageFilterForNotification",
+        type: "POST",
+        dataType: "JSON",
+        data: {
+            "channelRequest": request,
+            "sessionDetails": $('#hdnSessionStorageDetails').val()
+        },
+        success: function (data) {
+            if (data != null) {
+                $('#hdnSessionStorageDetails').val(data)
+                sessionStorage.setItem(NotificationPageKey, $('#hdnSessionStorageDetails').val());
+                GetChannelList(request);
+            }
+        },
+        error: function (jqXHR, exception) {
+            GetChannelList(request);
+        }
+    });
 }
 
-function ShowNewDiscussionSlot() {	
-	$(".discussion-list li.new-discussion-highlight").show();
-	$('.discussion-list li').find('.nav-link.active').addClass("currentdiscussion");
-	$('.discussion-list li').find('.nav-link').removeClass("active");
+function ShowNewDiscussionSlot() {
+    $(".discussion-list li.new-discussion-highlight").show();
+    $('.discussion-list li').find('.nav-link.active').addClass("currentdiscussion");
+    $('.discussion-list li').find('.nav-link').removeClass("active");
 }
 
-function CreateChannel(isSaveAsDraft) {    
+function CreateChannel(isSaveAsDraft) {
     $('#hdnIsAllowDrafrtConfBox').val("No");
-	let isValidate = null;
-	if (!isSaveAsDraft) {
-		isValidate = ValidationBeforeCreateChannel('#txtSubject', '#txtMessage', '#participantdropdown');
-	} else {
-		isValidate = ValidationBeforeCreateDraft('#txtSubject', '#txtMessage', '#participantdropdown',true);
-	}
+    let isValidate = null;
+    if (!isSaveAsDraft) {
+        isValidate = ValidationBeforeCreateChannel('#txtSubject', '#txtMessage', '#participantdropdown');
+    } else {
+        isValidate = ValidationBeforeCreateDraft('#txtSubject', '#txtMessage', '#participantdropdown', true);
+    }
 
     if (isValidate) {
         updateAttachedFilesArray("");
@@ -1284,35 +1340,35 @@ function CreateChannel(isSaveAsDraft) {
                         ToastrAlert("success", "Discussion created successfully.");
                     }
 
-					ResetAttachedFilesVariables();
-                    var val = $('#IsStandaloneCreateChannel').val();                    
+                    ResetAttachedFilesVariables();
+                    var val = $('#IsStandaloneCreateChannel').val();
                     if (val == 'True' || val == 'true' || val == true) {
 
-						setTimeout(function () {
-							if (GetCookie('NotificationApplicationId') == '2') {
-								updateChatAndNotesCount();
-								AfterSaveChannelSuccess();
-							}
-							else if (GetCookie('NotificationApplicationId') == '1') {
-								AfterCreateChannelAction();
-                            }							
-						}, 1000);						
-					}
+                        setTimeout(function () {
+                            if (GetCookie('NotificationApplicationId') == '2') {
+                                updateChatAndNotesCount();
+                                AfterSaveChannelSuccess();
+                            }
+                            else if (GetCookie('NotificationApplicationId') == '1') {
+                                AfterCreateChannelAction();
+                            }
+                        }, 1000);
+                    }
                     else {
-						var channelCount = parseInt($('#hdnChannelListCount').val());
-						channelCount = channelCount + 1;
-						$('#hdnChannelListCount').val(channelCount);
-						HideNewDiscussionSlot();
-						LoadChatMessageScreen();
-						NewChannelDetailCreated(data, isSaveAsDraft);						
-					}
-				}
-			},
-			complete: function () {
-				RemoveModelLoadingIndicator(".notification-createchat");
-			}
-		});
-	}
+                        var channelCount = parseInt($('#hdnChannelListCount').val());
+                        channelCount = channelCount + 1;
+                        $('#hdnChannelListCount').val(channelCount);
+                        HideNewDiscussionSlot();
+                        LoadChatMessageScreen();
+                        NewChannelDetailCreated(data, isSaveAsDraft);
+                    }
+                }
+            },
+            complete: function () {
+                RemoveModelLoadingIndicator(".notification-createchat");
+            }
+        });
+    }
 }
 function AfterSaveChannelSuccess() {
     window.parent.chatAfterSaveChannelSuccess();
@@ -1366,8 +1422,14 @@ export function NewChannelDetailCreated(channelId, isSaveAsDraft) {
         data: {
             "ChannelId": channelId
         },
-        success: function (data) {
+        success: async function (data) {
             if (data != null) {
+                data = typeof (data) == "string" ? JSON.parse(data) : data;
+                if (!vshipDb) {
+                    await createDb()
+                }
+                const length = (await vshipDb.getAll('ChatNotificationList')).length
+                vshipDb.put('ChatNotificationList', length, data);
                 ShowWelcomeMessage(true);
                 var ul = $('#chatsection');
                 var liclone = ul.find('#li_' + channelId);
@@ -1393,22 +1455,22 @@ export function NewChannelDetailCreated(channelId, isSaveAsDraft) {
                         $('#divDraft_' + data.channelId).hide();
                     }
 
-					liclone.find('.expandIcon')[0].click();
-				}
-                else {                   
-					$('#li_0').after(RowCreatedChannel(data, '', isSaveAsDraft));
-					var ul = $('#chatsection');
-					var liclone = ul.find('#li_' + channelId);
-					if (isSaveAsDraft == "true" || isSaveAsDraft == "True" || isSaveAsDraft == true) {					
-						liclone.find('.expandIcon')[0].click();
-					}
+                    liclone.find('.expandIcon')[0].click();
+                }
+                else {
+                    $('#li_0').after(RowCreatedChannel(data, '', isSaveAsDraft));
+                    var ul = $('#chatsection');
+                    var liclone = ul.find('#li_' + channelId);
+                    if (isSaveAsDraft == "true" || isSaveAsDraft == "True" || isSaveAsDraft == true) {
+                        liclone.find('.expandIcon')[0].click();
+                    }
                     else {
                         liclone.find('.expandIcon')[0].click();
-					}
-				}
-			}
-		}
-	});
+                    }
+                }
+            }
+        }
+    });
 }
 
 function SetSearchFilter(searchText, isSearchClicked) {
@@ -1725,7 +1787,7 @@ function ShowWelcomeMessage(isShowWelcome) {
             AddClassIfAbsent('#messageVesselName', 'd-md-block');
         }
     }
-    
+
 }
 
 function isChannelListPresentForCurrentUser() {
@@ -1754,27 +1816,27 @@ function UpdatesParticipants(channelId) {
         success: function (data) {
             var CoockieUserId = GetCookie('NotificationUserId');
 
-			if (data != null && data != '') {
-				for (var i = 0; i < data.length; i++) {
-					let userDetails = data[i];
-					if (CoockieUserId !== userDetails.ssUserId) {
-						var obj = {
-							id: userDetails.ssUserId,
-							description: userDetails.userRoleDescription,
-							userShortName: userDetails.userShortName,
-							text: userDetails.username
-						};
-						var option = new Option(obj.text, obj.id, true, true);
-						$(option).data('raw', obj);
-						$('#participantdropdown').append(option).trigger('change');
-					}
-				}
-			}
-		},
-		complete: function () {
-			RemoveModelLoadingIndicator('.new-discussion-layout');
-		}
-	});
+            if (data != null && data != '') {
+                for (var i = 0; i < data.length; i++) {
+                    let userDetails = data[i];
+                    if (CoockieUserId !== userDetails.ssUserId) {
+                        var obj = {
+                            id: userDetails.ssUserId,
+                            description: userDetails.userRoleDescription,
+                            userShortName: userDetails.userShortName,
+                            text: userDetails.username
+                        };
+                        var option = new Option(obj.text, obj.id, true, true);
+                        $(option).data('raw', obj);
+                        $('#participantdropdown').append(option).trigger('change');
+                    }
+                }
+            }
+        },
+        complete: function () {
+            RemoveModelLoadingIndicator('.new-discussion-layout');
+        }
+    });
 }
 
 function updateAttachedFilesArray(messageId) {
@@ -1803,11 +1865,11 @@ function updateAttachedFilesArray(messageId) {
 }
 
 function AddMessagingUserIfNotExists() {
-	$.ajax({
-		url: "/Notification/AddMessagingUserIfNotExists",
-		type: "POST",
-		dataType: "JSON",
-		success: function (userDetails) {
+    $.ajax({
+        url: "/Notification/AddMessagingUserIfNotExists",
+        type: "POST",
+        dataType: "JSON",
+        success: function (userDetails) {
         },
         complete: function () {
             GetCurrentUserDetails(function (userDetails) {
@@ -1825,7 +1887,7 @@ function AddMessagingUserIfNotExists() {
                 }
             });
         }
-	});
+    });
 }
 
 function AfterCreateChannelAction() {
@@ -1834,9 +1896,10 @@ function AfterCreateChannelAction() {
 
 
 function GetChannelList(request) {
+
     var divHtmlElement = '#chatsection';
     $(divHtmlElement).empty();
-    
+
     $.ajax({
         url: "/Notification/GetChannelList",
         type: "POST",
@@ -1844,59 +1907,18 @@ function GetChannelList(request) {
 
         data: {
             "channelRequest": request,
-            "sessionDetails": $('#hdnSessionStorageDetails').val()            
+            "sessionDetails": $('#hdnSessionStorageDetails').val()
         },
         beforeSend: function (xhr) {
             AddModelLoadingIndicator('.discussion-list');
         },
         success: function (data) {
-            let channelData = data != null ? data.data : null;
-            if (data != null && channelData != null && channelData.length > 0) {
-                $('#hdnChannelListCount').val(data.totalCount);
-                var newDiscussionRow = GetDiscussionRow();
-                $(divHtmlElement).append(newDiscussionRow);
-                ShowWelcomeMessage(false);
-                $('.fixed-mesage-box').show();
-                for (var i = 0; i < channelData.length; i++) {
-                    var row = RowCreatedChannel(channelData[i], channelData[i].className, channelData[i].isSaveAsDraft);
-                    $(divHtmlElement).append(row);
-                }
-            }
-            else {
-                //appending default new discussion row
-                $('#hdnChannelListCount').val(0);
-                var newDiscussionRow = GetDiscussionRow();
-                $(divHtmlElement).append(newDiscussionRow);
-                ShowWelcomeMessage(true);
-            }
+            fn_BindChannelList(data, divHtmlElement);
+        },
 
-            //TODO:
-            //Need to check with rashid
-            //$(".expandIcon").click(ExpandNotificationDetail);
-			$(".expandIcon").click(function () {
-				
-                let channelId = $('#hdnSelectedChannelId').val();                
-				let isSaveAsDraft = $("#hdnIsSaveAsDraft_" + channelId).val();
-
-                if (isSaveAsDraft == "false" || isSaveAsDraft == "False" || isSaveAsDraft == false) {
-                    $("#meessageText").val('');
-                    $('#meessageText').attr('rows', 2);
-                    updateAttachedFilesArray("");
-                    DeleteAllDocument(AttachedFiles);
-                    ResetChatMessage();
-                    if (!IsNullOrEmptyOrUndefinedLooseTyped($("#hdnChannelDraftMessage_" + channelId).val())) {
-                        $("#meessageText").val($("#hdnChannelDraftMessage_" + channelId).val());
-                    }
-                }
-            });
-
-            if (($(window).width() > MobileScreenSize)) {
-                //default open first channel
-                var notificationExpander = $('.expandIcon')[0];
-                if (notificationExpander != null && notificationExpander != undefined) {
-                    notificationExpander.click();
-                }
-            }
+        error: async function () {
+            let data = await fn_GetOfflineChannelList(request);
+            fn_BindChannelList(data, divHtmlElement);
         },
         complete: function () {
             RemoveModelLoadingIndicator('.discussion-list');
@@ -1952,6 +1974,56 @@ function GetChannelList(request) {
     });
 }
 
+function fn_BindChannelList(data, divHtmlElement) {
+    let channelData = data != null ? data.data : null;
+    if (data != null && channelData != null && channelData.length > 0) {
+        $('#hdnChannelListCount').val(data.totalCount);
+        var newDiscussionRow = GetDiscussionRow();
+        $(divHtmlElement).append(newDiscussionRow);
+        ShowWelcomeMessage(false);
+        $('.fixed-mesage-box').show();
+        for (var i = 0; i < channelData.length; i++) {
+            var row = RowCreatedChannel(channelData[i], channelData[i].className, channelData[i].isSaveAsDraft);
+            $(divHtmlElement).append(row);
+        }
+    }
+    else {
+        //appending default new discussion row
+        $('#hdnChannelListCount').val(0);
+        var newDiscussionRow = GetDiscussionRow();
+        $(divHtmlElement).append(newDiscussionRow);
+        ShowWelcomeMessage(true);
+    }
+
+    //TODO:
+    //Need to check with rashid
+    //$(".expandIcon").click(ExpandNotificationDetail);
+    $(".expandIcon").click(function () {
+
+        let channelId = $('#hdnSelectedChannelId').val();
+        let isSaveAsDraft = $("#hdnIsSaveAsDraft_" + channelId).val();
+
+        if (isSaveAsDraft == "false" || isSaveAsDraft == "False" || isSaveAsDraft == false) {
+            $("#meessageText").val('');
+            $('#meessageText').attr('rows', 2);
+            updateAttachedFilesArray("");
+            DeleteAllDocument(AttachedFiles);
+            ResetChatMessage();
+            if (!IsNullOrEmptyOrUndefinedLooseTyped($("#hdnChannelDraftMessage_" + channelId).val())) {
+                $("#meessageText").val($("#hdnChannelDraftMessage_" + channelId).val());
+            }
+        }
+    });
+
+    if (($(window).width() > MobileScreenSize)) {
+        //default open first channel
+        var notificationExpander = $('.expandIcon')[0];
+        if (notificationExpander != null && notificationExpander != undefined) {
+            notificationExpander.click();
+        }
+    }
+}
+
 function GetChannelListScrolled(request) {
     $.ajax({
         url: "/Notification/GetChannelList",
@@ -1967,21 +2039,43 @@ function GetChannelListScrolled(request) {
             //AddModelLoadingIndicator('.chat-paged-loader');
         },
         success: function (data) {
-            $('#hdnChatHasNextPage').val(data.hasNextScroll);
-            let channelListData = data != null ? data.data : null;
-            if (data != null && channelListData != null && channelListData.length > 0) {                               
-                $('.fixed-mesage-box').show();
-                for (var i = 0; i < channelListData.length; i++) {
-                    var row = RowCreatedChannel(channelListData[i], channelListData[i].className, channelListData[i].isSaveAsDraft);                   
-                    $('#chatsection').append(row);
-                }
-            }
+            fn_BindChannelListOnScroll(data);
+        },
+
+        error: async function (jqXHR, exception) {
+            let data = await fn_GetOfflineChannelList(request);
+            fn_BindChannelListOnScroll(data);
         },
         complete: function () {
-            //RemoveModelLoadingIndicator('.chat-paged-loader');
-            //AddClassIfAbsent('.chat-paged-loader', 'd-none');
         }
     });
+}
+
+async function fn_GetOfflineChannelList(request) {
+    if (!vshipDb) {
+        await createDB()
+    }
+    const pageLength = 100;
+    const start = (pageLength * ((request.PageNumber || 1) - 1));
+    let offlinedata = await vshipDb.getAll('ChatNotificationList');
+    let finalData = offlinedata.filter(function (e) {
+        return !convertStringToBool(request.isSearchClicked) ||
+            e.title.includes(request.searchText)
+    });
+    let data = { hasNextScroll: finalData.length > (start + pageLength + 1), data: finalData.slice(start, start + pageLength), totalCount: finalData.length }
+    return Promise.resolve(data);
+}
+
+function fn_BindChannelListOnScroll(data) {
+    $('#hdnChatHasNextPage').val(data.hasNextScroll);
+    let channelListData = data != null ? data.data : null;
+    if (data != null && channelListData != null && channelListData.length > 0) {
+        $('.fixed-mesage-box').show();
+        for (var i = 0; i < channelListData.length; i++) {
+            var row = RowCreatedChannel(channelListData[i], channelListData[i].className, channelListData[i].isSaveAsDraft);
+            $('#chatsection').append(row);
+        }
+    }
 }
 
 function GetDiscussionRow() {
@@ -2050,7 +2144,7 @@ function BindNotesDetailsInVChat() {
             "encryptedNoteId": $('#EncryptedNoteId').val()
         },
         success: function (data) {
-            if (data != null) {                
+            if (data != null) {
                 $('#ReferenceIdentifier').val(data.referenceIdentifier);
                 $('#ContextPayload').val(data.contextParams);
                 $('#CategoryId').val(data.catId);
@@ -2066,8 +2160,111 @@ function BindNotesDetailsInVChat() {
                     GetAreaList($('#CategoryId').val(), 'cboAreaSelection', function () {
                         RemoveModelLoadingIndicator('.new-discussion-layout');
                     });
-                }                
+                }
             }
         }
     });
+}
+
+function fn_CommonOfflineMessage() {
+    if (!navigator.onLine) {
+        alert('This feature is not allowed, app is Offline');
+        return false;
+    }
+    return true;
+}
+
+
+function fn_GetOfflineData() {
+    let request = {
+        'PageNumber': 1,
+    };
+    $.ajax({
+        url: "/Notification/GetChannelListForOfflineServe",
+        type: "POST",
+        dataType: "JSON",
+
+        data: {
+            "channelRequest": request,
+            "sessionDetails": $('#hdnSessionStorageDetails').val()
+        },
+        success: async function (response) {
+            if (!vshipDb) {
+                await createDB();
+            }
+            let offlineData = await vshipDb.getAll('ChatNotificationList');
+            offlineData.forEach(function (data, idx) {
+                vshipDb.delete('ChatNotificationList', idx);
+            });
+
+            response.data.forEach(function (data, idx) {
+                vshipDb.put('ChatNotificationList', idx, data);
+            })
+        }
+    });
+
+    $.ajax({
+        url: "/Notification/GetChannelMessagesForOfflineServe",
+        type: "POST",
+        dataType: "JSON",
+
+        data: {
+            "sessionDetails": $('#hdnSessionStorageDetails').val()
+        },
+        success: async function (response) {
+            if (!vshipDb) {
+                await createDB();
+            }
+            let offlineData = await vshipDb.getAll('ChatNotificationDetails');
+            offlineData.forEach(function (data, idx) {
+                vshipDb.delete('ChatNotificationDetails', idx);
+            });
+
+            response.data.forEach(function (data, idx) {
+                vshipDb.put('ChatNotificationDetails', idx, data);
+            })
+        }
+    });
+}
+
+window.addEventListener('online', function (event) {
+    fn_DeleteOfflineDeletedChannels();
+});
+
+function convertStringToBool(inputString) {
+    inputString = inputString || "";
+    if (typeof (inputString) == "string")
+        inputString = inputString.toLowerCase();
+
+    switch (inputString) {
+        case "1":
+        case "true":
+        case "yes":
+        case "y":
+        case 1:
+        case true:
+            return true;
+            break;
+
+        default: return false;
+    }
+}
+
+async function fn_DeleteOfflineDeletedChannels() {
+    if (!vshipDb) {
+        await createDB();
+    }
+    let offlineDeleteddata = await vshipDb.getAll('ChatChannelsDeleted');
+    offlineDeleteddata.forEach(function (d, idx) {
+        $.ajax({
+            url: "/Notification/DeleteChannelById",
+            type: "GET",
+            dataType: "JSON",
+            data: {
+                "channelId": channelId
+            },
+            success: function (response) { }
+        });
+    })
+    Promise.resolve();
 }

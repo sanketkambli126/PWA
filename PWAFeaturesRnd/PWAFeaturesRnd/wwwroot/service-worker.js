@@ -18,7 +18,10 @@ async function createDB() {
         upgrade(db) {
             db.createObjectStore("htmlCachedData");
             db.createObjectStore("modelCachedData");
-            db.createObjectStore("PSCDeficiency")
+            db.createObjectStore("PSCDeficiency");
+            db.createObjectStore("ChatNotificationList");
+            db.createObjectStore("ChatNotificationDetails");
+            db.createObjectStore('ChatChannelsDeleted');
         },
     });
 
@@ -127,6 +130,9 @@ self.addEventListener('fetch', function (event) {
                     return Promise.resolve(updatedresponse);
                 })
                 .catch(async function () {
+                    if (!vshipDb) {
+                        await createDB();
+                    }
                     var data = await vshipDb.get(objectStore.htmlCachedData.name, request.url.replace(request.referrer, ""))
                     let init = { "status": 200, "statusText": "" };
                     let newResponse = new Response(JSON.stringify(data.data), init)
@@ -140,10 +146,15 @@ self.addEventListener('fetch', function (event) {
         event.respondWith(
             fetch(request)
                 .then(async function (response) {
-                    let updatedresponse = await addTodb(request, response);
-                    return Promise.resolve(updatedresponse);
+                    var url = new URL(request.url);
+                    var channelId = url.searchParams.get("channelId");
+
+
                 })
                 .catch(async function () {
+                    if (!vshipDb) {
+                        await createDB();
+                    }
                     var data = await vshipDb.get(objectStore.modelCachedData.name, request.url.replace(request.referrer, ""))
                     let init = { "status": 200, "statusText": "" };
                     let newResponse = new Response(JSON.stringify(data.data), init)
@@ -151,6 +162,35 @@ self.addEventListener('fetch', function (event) {
                 })
         );
         return;
+    }
+    else if (request.url.match('/Notification/DeleteChannelById')) {
+        event.respondWith(
+            fetch(request)
+                .then(async function (response) {
+                    if (!vshipDb) {
+                        await createDB();
+                    }
+                    let url = new URL(request.url);
+                    let channelId = url.searchParams.get("channelId")
+                    let data = await vshipDb.get('ChatChannelsDeleted', channelId);
+                    deleteChannelFromChatList(channelId);
+                    if (data) {
+                        vshipDb.delete('ChatChannelsDeleted', channelId)
+                    }
+                    return Promise.resolve(response);
+                }).catch(async function () {
+                    if (!vshipDb) {
+                        await createDB();
+                    }
+                    let url = new URL(request.url);
+                    let channelId = url.searchParams.get("channelId")
+                    vshipDb.put('ChatChannelsDeleted', channelId, channelId);
+                    deleteChannelFromChatList(channelId);
+                    let init = { "status": 200, "statusText": "" };
+                    let newResponse = new Response(JSON.stringify({ success: true }), init)
+                    return Promise.resolve(newResponse);
+                })
+        );
     }
 
     // Always fetch non-GET requests from the network
@@ -203,7 +243,7 @@ self.addEventListener('fetch', function (event) {
     }
 
     // network first for non-fingerprinted resources
-    event.respondWith(
+    else event.respondWith(
         fetch(request)
             .then(function (response) {
                 // Stash a copy of this page in the cache
@@ -251,8 +291,7 @@ async function addTodb(request, response) {
     return Promise.resolve(newResponse);
 }
 
-async function addhtmlCachedToDb(request, response)
-{
+async function addhtmlCachedToDb(request, response) {
     let data = await response.json();
     let dataToAdd = { requestUrl: request.url.replace(request.referrer, ""), data: data }
     if (!vshipDb) {
@@ -263,4 +302,20 @@ async function addhtmlCachedToDb(request, response)
     let init = { "status": 200, "statusText": "" };
     let newResponse = new Response(JSON.stringify(data), init)
     return Promise.resolve(newResponse);
+}
+
+async function deleteChannelFromChatList(channelId) {
+    if (!vshipDb) {
+        await createDB();
+    }
+    let offlineData = await vshipDb.getAll('ChatNotificationList');
+    offlineData.map(function (d, idx) {
+        return { channelId: d.channelId, key: idx }
+    }).filter(function (e) {
+        return e.channelId == channelId
+    }).forEach(function (e) {
+        vshipDb.delete('ChatNotificationList', e.key);
+    })
+
+    return Promise.resolve()
 }
