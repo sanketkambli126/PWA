@@ -1,0 +1,51 @@
+﻿@model List<PWAFeaturesRnd.ViewModels.OfflineUrlMapping.Views>
+
+<div class="modal fade" id="divOfflineModalPopPup" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header header-background header-padding">
+                <div class="col-md-11 pl-0">
+                    <div class="common-heading-green">Take App Offline</div>
+                </div>
+                <div>
+                    <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <ul class="no-style">
+                    @{
+                        void RenderViewAndModule(PWAFeaturesRnd.ViewModels.OfflineUrlMapping.Views view)
+                        {
+                            <li><input type="checkbox" class="input-offline-modules" data-viewid="@view.ViewId" data-moduleid=""> @view.ViewName</li>
+                            <ul class="no-style">
+                                @foreach (var i in view.Modules)
+                                {
+                                    <li> <input type="checkbox" class="input-offline-modules" data-viewid="" data-moduleid="@i.ModuleId"> @i.ModuleName</li>
+                                    @if (@i.Views.Any())
+                                    {
+                                        <ul class="no-style">
+                                            @foreach (var item in @i.Views)
+                                            {
+                                                RenderViewAndModule(item);
+                                            }
+                                        </ul>
+                                    }
+                                }
+                            </ul>
+                        }
+                        foreach (var item in Model)
+                        {
+                            RenderViewAndModule(item);
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="modal-footer common-form-design">
+                <button type="button" id="btnclode" data-dismiss="modal" class="btn btn-cancelsecondarybtn" style="padding: 5px 12px;">Cancel</button>
+                <button type="button" id="btnSaveOffline" class="btn search-btn">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
