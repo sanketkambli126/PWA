@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\assets\scripts\approvalList.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\certificate.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\certificateDetails.bundle.js" />
     <Content Remove="wwwroot\scripts\lib\dataTables.colReorder.min.js" />
     <Content Remove="wwwroot\scripts\lib\dataTables.responsive.min.js" />
   </ItemGroup>

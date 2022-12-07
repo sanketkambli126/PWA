@@ -3492,6 +3492,7 @@ function OpenOfflineModal() {
 function fn_InitializeOfflineModal(modalHtml, modalId) {
     $('body').append(modalHtml);
     setTimeout(function () {
+        $('.view-list-name').append('<select style="padding-left: 50px;"><option value = "1">last 15 days</option><option value="2">last 30 days</option><option value="3">last 45 days</option></select>')
         $('#' + modalId).modal('show');
         $('#' + modalId).on('hidden.bs.modal', function (e) {
             $(this).remove();

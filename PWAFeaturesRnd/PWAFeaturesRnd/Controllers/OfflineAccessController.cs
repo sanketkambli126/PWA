@@ -26,14 +26,14 @@ namespace PWAFeaturesRnd.Controllers
             };
 
 
-            PWAFeaturesRnd.ViewModels.OfflineUrlMapping.Views ApprovalView = new Views();
-            ApprovalView.ViewId = 2;
-            ApprovalView.ViewName = "Approval List";
-            ApprovalView.Url = new OfflineModuleURL()
-            {
-                toStoreInCache = true,
-                Url = "/Approval/List"
-            };
+            //PWAFeaturesRnd.ViewModels.OfflineUrlMapping.Views ApprovalView = new Views();
+            //ApprovalView.ViewId = 2;
+            //ApprovalView.ViewName = "Approval List";
+            //ApprovalView.Url = new OfflineModuleURL()
+            //{
+            //    toStoreInCache = true,
+            //    Url = "/Approval/List"
+            //};
 
             PWAFeaturesRnd.ViewModels.OfflineUrlMapping.Views Defects = new Views();
             Defects.ViewId = 3;
@@ -161,25 +161,25 @@ namespace PWAFeaturesRnd.Controllers
 
             DashboardView.Modules.Add(keyIndicator);
 
-            Modules ApprovalModule = new Modules();
-            ApprovalModule.ModuleId = 2;
-            ApprovalModule.ModuleName = "Approval";
-            ApprovalModule.Views.Add(ApprovalView);
+            //Modules ApprovalModule = new Modules();
+            //ApprovalModule.ModuleId = 2;
+            //ApprovalModule.ModuleName = "Approval";
+            //ApprovalModule.Views.Add(ApprovalView);
 
-            DashboardView.Modules.Add(ApprovalModule);
+            //DashboardView.Modules.Add(ApprovalModule);
 
             Modules DefectsApprovalModule = new Modules();
             DefectsApprovalModule.ModuleName = "Defect Approval";
             DefectsApprovalModule.ModuleId = 3;
             DefectsApprovalModule.Views.Add(Defects);
 
-            ApprovalView.Modules.Add(DefectsApprovalModule);
+            //ApprovalView.Modules.Add(DefectsApprovalModule);
 
             Modules InspectionsAndAuditApprovalModule = new Modules();
             InspectionsAndAuditApprovalModule.ModuleName = "Inspection & Audit";
             InspectionsAndAuditApprovalModule.ModuleId = 4;
             InspectionsAndAuditApprovalModule.Views.Add(InspectionsAndAudit);
-            ApprovalView.Modules.Add(InspectionsAndAuditApprovalModule);
+            //ApprovalView.Modules.Add(InspectionsAndAuditApprovalModule);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -188,14 +188,14 @@ namespace PWAFeaturesRnd.Controllers
             JobSafetyAnalysislModule.ModuleId = 5;
             JobSafetyAnalysislModule.Views.Add(JobSafetyAnalysis);
 
-            ApprovalView.Modules.Add(JobSafetyAnalysislModule);
+            //ApprovalView.Modules.Add(JobSafetyAnalysislModule);
 
             Modules PlannedMaintainanceModule = new Modules();
             PlannedMaintainanceModule.ModuleName = "Planned Maintainance";
             PlannedMaintainanceModule.ModuleId = 6;
             PlannedMaintainanceModule.Views.Add(PlannedMaintainance);
 
-            ApprovalView.Modules.Add(PlannedMaintainanceModule);
+            //ApprovalView.Modules.Add(PlannedMaintainanceModule);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -204,12 +204,12 @@ namespace PWAFeaturesRnd.Controllers
             PurchaseOrderModule.ModuleId = 7;
             PurchaseOrderModule.Views.Add(PurchaseOrder);
 
-            ApprovalView.Modules.Add(PurchaseOrderModule);
+            //ApprovalView.Modules.Add(PurchaseOrderModule);
 
             Views.AddRange(new List<Views>()
             {
                 DashboardView,
-                ApprovalView,
+                //ApprovalView,
                 Defects,
                 InspectionsAndAudit,
                 JobSafetyAnalysis,

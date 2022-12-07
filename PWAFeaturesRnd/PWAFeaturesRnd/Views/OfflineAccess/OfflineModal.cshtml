@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header header-background header-padding">
                 <div class="col-md-11 pl-0">
-                    <div class="common-heading-green">Take App Offline</div>
+                    <div class="common-heading-green">Go Offline</div>
                 </div>
                 <div>
                     <button type="button" class="close pull-right p-0 mr-0 mt-0 font-size-close" data-dismiss="modal" aria-label="Close">
@@ -18,7 +18,10 @@
                     @{
                         void RenderViewAndModule(PWAFeaturesRnd.ViewModels.OfflineUrlMapping.Views view)
                         {
-                            <li><input type="checkbox" class="input-offline-modules" data-viewid="@view.ViewId" data-moduleid=""> @view.ViewName</li>
+                            <li class="view-list-name">
+                                <input type="checkbox" class="input-offline-modules" data-viewid="@view.ViewId" data-moduleid="">@view.ViewName
+                            </li>
+
                             <ul class="no-style">
                                 @foreach (var i in view.Modules)
                                 {
