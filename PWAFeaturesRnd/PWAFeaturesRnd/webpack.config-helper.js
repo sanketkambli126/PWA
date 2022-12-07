@@ -242,7 +242,8 @@ module.exports = (options) => {
                 "./wwwroot/scripts/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js",
                 "./wwwroot/scripts/common/common.js",
                 "./src/scripts-init/tables.js",
-                "./wwwroot/scripts/common/jquery.signalR.min.js"
+                "./wwwroot/scripts/common/jquery.signalR.min.js"//,
+                // "./wwwroot/scripts/common/OfflineModal.js"
             ],
             login: [
                 "./wwwroot/scripts/login/login.js"
@@ -391,13 +392,13 @@ module.exports = (options) => {
                 "./wwwroot/scripts/master/lookup/companyLookUp.js"
             ],
             vvrList: [
-               "./src/scripts-init/tables.js",
-               "./wwwroot/scripts/lib/jquery.matchHeight.js",
-               "./src/scripts-init/form-components/datepicker.js",
-               "./wwwroot/daterangepicker/build/vendor/jquery.hammer.js",
-               "./wwwroot/daterangepicker/js/caleran.js",
-               "./wwwroot/scripts/master/inspection/vvr/vvrList.js"
-               
+                "./src/scripts-init/tables.js",
+                "./wwwroot/scripts/lib/jquery.matchHeight.js",
+                "./src/scripts-init/form-components/datepicker.js",
+                "./wwwroot/daterangepicker/build/vendor/jquery.hammer.js",
+                "./wwwroot/daterangepicker/js/caleran.js",
+                "./wwwroot/scripts/master/inspection/vvr/vvrList.js"
+
             ],
             hazOccList: [
                 "./src/scripts-init/tables.js",

@@ -1,5 +1,4 @@
-﻿
-<div class="header-dots">
+﻿<div class="header-dots">
     <div class="vesseldropdowntopheader" data-toggle="modal" data-target="#modalSendEmail" id="vesselandfleetsectiondesktop">
         <img src="~/images/veseltopiconnew.svg" class="vesselselect" />
         <span class="spanfleetSelectionTitle"></span>
@@ -10,7 +9,7 @@
         </div>
     </div>
 
-    <button type="button" id="btnToggleDemoMode" class="p-0 mr-1 btn btnToggleDemoMode d-none" >
+    <button type="button" id="btnToggleDemoMode" class="p-0 mr-1 btn btnToggleDemoMode d-none">
         <span class="icon-wrapper icon-wrapper-alt rounded-circle">
             <i class="demo-icon flag large DE"></i>
             <span class="headericonnames">Demo</span>
@@ -135,11 +134,11 @@
         </span>
     </button>
     @*<button type="button" class="p-0 mr-1 btn" data-toggle="modal" data-target="#settings">
-            <span class="icon-wrapper icon-wrapper-alt rounded-circle">
-                <span class="icon-wrapper-bg bg-teal"></span>
-                <i class="text-teal fa fa-fw" aria-hidden="true" title=""></i>
-            </span>
-        </button>*@
+    <span class="icon-wrapper icon-wrapper-alt rounded-circle">
+    <span class="icon-wrapper-bg bg-teal"></span>
+    <i class="text-teal fa fa-fw" aria-hidden="true" title=""></i>
+    </span>
+    </button>*@
 
     <partial name="_Portals" />
 </div>
@@ -151,7 +150,7 @@
                 <div class="btn-group">
                     <div class="dropdown" id="headerdropdown">
                         <a class="dropdown-toggle hover-none btn p-0" data-toggle="dropdown" href="#">
-                            <img width="38" class="rounded-circle d-inline-block d-md-none"  src="~/assets/images/avatars/user.png" alt="">
+                            <img width="38" class="rounded-circle d-inline-block d-md-none" src="~/assets/images/avatars/user.png" alt="">
                             <img src="~/assets/images/user-info-arrow.png" class="user-arrow d-inline-block" />
                             <div class="header-user-info">
                                 <div class="name">@Context.Session.GetString(@Constants.UserNameSessionKey)</div>
@@ -161,7 +160,7 @@
                         <ul class="dropdown-menu dropdown-menu-right user-logout pb-0" role="menu" aria-labelledby="dLabel">
                             <li>
                                 <div class="dropdown-menu-header">
-                                    <a href="javascript:void(0)" id="closelogoutpanel"><span aria-hidden="true" class="close-logout userDropdownClose" >×</span></a>
+                                    <a href="javascript:void(0)" id="closelogoutpanel"><span aria-hidden="true" class="close-logout userDropdownClose">×</span></a>
                                     <div class="row no-gutters">
                                         <div class="col-12 col-md-12 col-xl-12">
                                             <div class="user">
@@ -176,6 +175,9 @@
                                     </div>
                                 </div>
                                 <div class="link-logout">
+                                    <a class="offlinebtnclass" href="#" id="btnOffline">
+                                        Go Offline
+                                    </a>
                                     <a href="@string.Concat(AppSettings.ManageAccountURL)" target="_blank" class="">
                                         Manage Account
                                     </a>

@@ -24228,3 +24228,7 @@ div.dataTables_wrapper div.dataTables_filter input:focus {
 .overflow-x-hidden {
     overflow-x: hidden;
 }
+
+.no-style {
+    list-style-type: none;
+}

@@ -86,6 +86,11 @@ $(document).on('click', '.preferenceHeaderRight', function () {
     BindUserPreferences();
 });
 
+$(document).on('click', '#btnOffline', OpenOfflineModal);
+
+$(document).on('click', '#btnSaveOffline', fn_TakeAppOffline);
+
+
 $(document).on('click', '.showFromAgentDetails1', function () {
     let urlRequest = $(this).data('encryptedposid');
     let portname = decodeURIComponent($(this).data('portname'));
@@ -2170,7 +2175,7 @@ $(document).ready(function () {
             $(".app-header__content").removeClass('header-mobile-open');
         });
     }
-    
+
 });
 
 
@@ -3255,7 +3260,7 @@ function SetVesselNameToHeaderDD() {
             url: window.location.href
         },
         success: function (data) {
-            if (!IsNullOrEmptyOrUndefinedLooseTyped(data) && $('#IsAllowSelectFleetParent').val()!== 'true') {
+            if (!IsNullOrEmptyOrUndefinedLooseTyped(data) && $('#IsAllowSelectFleetParent').val() !== 'true') {
                 $(".spanfleetSelectionTitle").text(data);
             }
         },
@@ -3474,3 +3479,92 @@ function CurrentVoyageAgentDetails(urlRequest, portname) {
         }
     });
 }
+
+function OpenOfflineModal() {
+    $.ajax({
+        url: '/OfflineAccess/GetOfflineDetailsModal',
+        success: function (response) {
+            fn_InitializeOfflineModal(response.view, 'divOfflineModalPopPup')
+        }
+    })
+}
+
+function fn_InitializeOfflineModal(modalHtml, modalId) {
+    $('body').append(modalHtml);
+    setTimeout(function () {
+        $('.view-list-name').append('<select style="padding-left: 50px;"><option value = "1">last 15 days</option><option value="2">last 30 days</option><option value="3">last 45 days</option></select>')
+        $('#' + modalId).modal('show');
+        $('#' + modalId).on('hidden.bs.modal', function (e) {
+            $(this).remove();
+        })
+    }, 200)
+}
+
+async function fn_getOfflineData(list) {
+    $.ajax({
+        url: '/OfflineAccess/GetAppOfflineURLs',
+        method: 'POST',
+        data: { data: list },
+        success: async function (response) {
+            if (response) {
+                if (vshipDb) {
+                    let offlineData = await vshipDb.getAll('appMetaData');
+                    if (offlineData && offlineData.length > 0) {
+                        offlineData.forEach(function (d, idx) {
+                            vshipDb.delete('appMetaData', idx);
+                        });
+                    }
+                    response.urls.forEach(function (d, idx) {
+                        vshipDb.put('appMetaData', idx, d);
+                    })
+                }
+                fn_TakeDataOffline();
+                setInterval(fn_TakeDataOffline,600000)
+            }
+        }
+    });
+}
+
+async function fn_TakeDataOffline() {
+    /*window.location.reload();*/
+    let offlineData = await vshipDb.getAll('appMetaData');
+    if (offlineData.length > 0)
+    {
+        for (let url of offlineData) {
+            $.ajax({
+                url: url.url,
+                success: function (response)
+                {
+                    console.log(response);
+                }
+            })
+        }
+    }
+}
+
+async function fn_TakeAppOffline() {
+    let data = [];
+
+    new Promise(function (resolve) {
+        $('#divOfflineModalPopPup').modal('hide');
+        $('.input-offline-modules:checkbox:checked').each(function () { data.push({ viewid: $(this).data('viewid'), moduleid: $(this).data('moduleid') }); });
+        resolve();
+    }).then(function () {
+        fn_getOfflineData(data);
+    })
+}
+
+
+$(document).on('change', '.input-offline-modules', function () {
+    const viewId = $(this).data('viewid');
+    const moduleId = $(this).data('moduleid');
+
+    let this_obj = $(this);
+
+    if (viewId != "" && viewId != 0) {
+        $(`.input-offline-modules[data-viewid="${viewId}"]`).prop('checked', this_obj.prop('checked'));
+    }
+    if (moduleId != "" && moduleId != 0) {
+        $(`.input-offline-modules[data-moduleid="${moduleId}"]`).prop('checked', this_obj.prop('checked'));
+    }
+})
