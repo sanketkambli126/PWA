@@ -64,6 +64,7 @@ async function createDB() {
 }
 
 $(document).ready(function () {
+    fn_SaveOfflineDataToServer();
     fn_GetOfflineData();
 })
 
@@ -427,19 +428,58 @@ function EditMessage(request, messageTag) {
         type: "POST",
         dataType: "JSON",
         data: request,
-        success: function (data) {
-            if (data == true) {
-                let newMessage = IsNullOrEmptyOrUndefinedLooseTyped(request['MessageDescription']) ? "" : request['MessageDescription'];
-                let messageId = request['Id'];
-                let attachmentList = request['AttachmentList'];
-                $(messageTag).text(newMessage);
-                let parent = $(messageTag).parents('li')[0];
-                let editedStyle = $(parent).find('.edited-style')[0];
-                RemoveClassIfPresent(editedStyle, 'd-none');
-                GetAttachmentViewForEditMessage(attachmentList, messageId);
+        success: async function (data) {
+            if (!vshipDb) {
+                await createDB();
             }
+            let offlineData = (await vshipDb.getAll('ChatNotificationDetails')).map(function (d, idx) {
+                return { data: d, key: idx }
+            }).filter(function (e) {
+                return e.data.messageId == request["Id"]
+            });
+            offlineData.forEach(function (e) {
+                let newData = e.data;
+                newData.messageDescription = request["MessageDescription"];
+                newData.attachmenst = request["AttachmentList"]
+                newData.isMessageEdited = true;
+                newData.isPendingToSync = false;
+                vshipDb.put('ChatNotificationDetails', e.key, newData);
+            })
+            fn_SuccessOnEditMessage(data, request, messageTag);
+        },
+        error: async function () {
+            if (!vshipDb) {
+                await createDB();
+            }
+            let data = (await vshipDb.getAll('ChatNotificationDetails')).map(function (d, idx) {
+                return { data: d, key: idx }
+            }).filter(function (e) {
+                return e.data.messageId == request["Id"]
+            });
+            data.forEach(function (e) {
+                let newData = e.data;
+                newData.messageDescription = request["MessageDescription"];
+                newData.isPendingToSync = true;
+                newData.isMessageEdited = true;
+                newData.attachmenst = request["AttachmentList"]
+                vshipDb.put('ChatNotificationDetails', e.key, newData);
+            })
+            fn_SuccessOnEditMessage(true, request, messageTag);
         }
     });
+}
+
+function fn_SuccessOnEditMessage(data, request, messageTag) {
+    if (data == true) {
+        let newMessage = IsNullOrEmptyOrUndefinedLooseTyped(request['MessageDescription']) ? "" : request['MessageDescription'];
+        let messageId = request['Id'];
+        let attachmentList = request['AttachmentList'];
+        $(messageTag).text(newMessage);
+        let parent = $(messageTag).parents('li')[0];
+        let editedStyle = $(parent).find('.edited-style')[0];
+        RemoveClassIfPresent(editedStyle, 'd-none');
+        GetAttachmentViewForEditMessage(attachmentList, messageId);
+    }
 }
 
 function GetSessionStorageFilterForList() {
@@ -836,17 +876,14 @@ $(document).ready(function () {
     });
 
     //Chat message scrolling
-    $('#divChatMessages').on('scroll', async function () {
+    $('#divChatMessages').on('scroll', function () {
         var pos = $('#divChatMessages').scrollTop();
         if (pos == 0) {
             let PageNumber = parseInt($('#hdnCurrentPageNumber').val());
             PageNumber++;
             $('#hdnCurrentPageNumber').val(PageNumber);
             if ($('#hdnHasNextPage').val() == "true" && $('#hdnIsNewChannelSelected').val() == "false") {
-                if (!vshipDb) {
-                    await createDB()
-                }
-                ChannelMessage($('#hdnSelectedChannelId').val(), true, vshipDb);
+                ChannelMessage($('#hdnSelectedChannelId').val(), true);
             }
         }
     });
@@ -2059,7 +2096,7 @@ async function fn_GetOfflineChannelList(request) {
     const start = (pageLength * ((request.PageNumber || 1) - 1));
     let offlinedata = await vshipDb.getAll('ChatNotificationList');
     let finalData = offlinedata.filter(function (e) {
-        return !convertStringToBool(request.isSearchClicked) ||
+        return (request.searchText == null || request.searchText == undefined || request.searchText == "") ||
             e.title.includes(request.searchText)
     });
     let data = { hasNextScroll: finalData.length > (start + pageLength + 1), data: finalData.slice(start, start + pageLength), totalCount: finalData.length }
@@ -2228,7 +2265,7 @@ function fn_GetOfflineData() {
 }
 
 window.addEventListener('online', function (event) {
-    fn_DeleteOfflineDeletedChannels();
+    fn_SaveOfflineDataToServer();
 });
 
 function convertStringToBool(inputString) {
@@ -2250,6 +2287,12 @@ function convertStringToBool(inputString) {
     }
 }
 
+async function fn_SaveOfflineDataToServer() {
+    fn_DeleteOfflineDeletedChannels();
+    fn_DeleteOfflineDeletedMessages();
+    fn_SaveOfflineEditedMessages();
+}
+
 async function fn_DeleteOfflineDeletedChannels() {
     if (!vshipDb) {
         await createDB();
@@ -2261,10 +2304,68 @@ async function fn_DeleteOfflineDeletedChannels() {
             type: "GET",
             dataType: "JSON",
             data: {
-                "channelId": channelId
+                "channelId": d
             },
             success: function (response) { }
         });
     })
     Promise.resolve();
 }
+
+async function fn_DeleteOfflineDeletedMessages() {
+    if (!vshipDb) {
+        await createDB();
+    }
+    let offlineData = (await vshipDb.getAll('ChatNotificationDetails')).map(function (d, idx) {
+        return { data: d, key: idx }
+    });
+
+    let filteredDeletedData = offlineData.filter(function (e) { return convertStringToBool(e.data["isDeleted"]) && !Number.isNaN(Number(e.data.messageId)) });
+    filteredDeletedData.forEach(function (d) {
+        let request = {
+            "Id": d.data.messageId,
+            "ChannelId": d.data.channelId,
+            "MessageDescription": d.data.messageDescription
+        };
+        $.ajax({
+            url: "/Notification/DeleteMessage",
+            type: "POST",
+            dataType: "JSON",
+            data: request,
+            success: function (resp) {
+                vshipDb.delete('ChatNotificationDetails', d.key);
+            }
+        })
+    })
+}
+
+async function fn_SaveOfflineEditedMessages() {
+    if (!vshipDb) {
+        await createDB();
+    }
+    let offlineData = (await vshipDb.getAll('ChatNotificationDetails')).map(function (d, idx) {
+        return { data: d, key: idx }
+    });
+
+    let filteredEditedData = offlineData.filter(function (e) { return !convertStringToBool(e.data["isDeleted"]) && convertStringToBool(e.data["isPendingToSync"]) && !Number.isNaN(Number(e.data.messageId)) });
+    filteredEditedData.forEach(function (d) {
+        let request = {
+            "MessageDescription": d.data.messageDescription,
+            "Id": d.data.messageId,
+            "ChannelId": d.data.channelId,
+            "AttachmentList": d.data.attachments
+        };
+        let newData = d.data;
+        newData.isPendingToSync = false;
+        $.ajax({
+            url: "/Notification/EditMessage",
+            type: "POST",
+            dataType: "JSON",
+            data: request,
+            success: function (resp) {
+                vshipDb.put('ChatNotificationDetails', d.key, newData);
+            }
+        })
+    })
+}
+
