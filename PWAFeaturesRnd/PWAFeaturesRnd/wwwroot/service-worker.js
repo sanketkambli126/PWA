@@ -33,7 +33,8 @@ async function createDB() {
                 cursor = await cursor.continue();
             }
             return results;
-        }
+        },
+        getAllKeys: async (storeName) => (await db).transaction(storeName).store.getAllKeys()
     };
     return Promise.resolve();
 }
@@ -198,7 +199,7 @@ self.addEventListener('fetch', function (event) {
     }
 
     // network first for non-fingerprinted resources
-    else event.respondWith(
+    event.respondWith(
         fetch(request)
             .then(function (response) {
                 // Stash a copy of this page in the cache
@@ -299,9 +300,11 @@ async function deleteChannelFromChatList(channelId) {
     if (!vshipDb) {
         await createDB();
     }
+    let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationList')
+
     let offlineData = await vshipDb.getAll('ChatNotificationList');
     offlineData.map(function (d, idx) {
-        return { channelId: d.channelId, key: idx }
+        return { channelId: d.channelId, key: allkeyofAppMetaData[idx] }
     }).filter(function (e) {
         return e.channelId == channelId
     }).forEach(function (e) {

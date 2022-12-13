@@ -79,7 +79,8 @@
                         cursor = await cursor.continue();
                     }
                     return results;
-                }
+                },
+                getAllKeys: async (storeName) => (await db).transaction(storeName).store.getAllKeys()
             };
             return Promise.resolve();
 

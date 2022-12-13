@@ -17534,6 +17534,7 @@ div.dataTables_wrapper div.dataTables_filter input:focus {
     .discussion-list-name.participant-list .right-chat {
         margin-left: -6px;
     }
+
     .closed-sidebar .app-sidebar .app-sidebar__inner ul li a {
         margin-top: 17px;
     }
@@ -19075,8 +19076,9 @@ div.dataTables_wrapper div.dataTables_filter input:focus {
 
 @media only screen and (max-width:767px) {
     .closed-sidebar .app-sidebar .app-sidebar__inner ul li a {
-        margin-top: 22px; 
+        margin-top: 22px;
     }
+
     .addparticipant {
         position: absolute;
         top: 0px;
@@ -24231,4 +24233,13 @@ div.dataTables_wrapper div.dataTables_filter input:focus {
 
 .no-style {
     list-style-type: none;
+}
+
+.sync-pending {
+    text-align: right;
+    color: red;
+}
+
+.fa-refresh::before  {
+    content: "\f021";
 }

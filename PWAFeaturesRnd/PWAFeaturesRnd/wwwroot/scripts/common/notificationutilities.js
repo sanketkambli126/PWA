@@ -30,9 +30,8 @@ var vshipDb;
 async function createDB() {
     const db = idb.openDB("Test", 1, {
         upgrade(db) {
-            db.createObjectStore("htmlCachedData");
             db.createObjectStore("modelCachedData");
-            db.createObjectStore("PSCDeficiency");
+            db.createObjectStore("appMetaData")
             db.createObjectStore("ChatNotificationList");
             db.createObjectStore("ChatNotificationDetails");
             db.createObjectStore('ChatChannelsDeleted');
@@ -60,7 +59,8 @@ async function createDB() {
                 cursor = await cursor.continue();
             }
             return results;
-        }
+        },
+        getAllKeys: async (storeName) => (await db).transaction(storeName).store.getAllKeys()
     };
     return Promise.resolve();
 }
@@ -285,6 +285,8 @@ export function RowCreatedChannel(result, className, isSaveAsDraft) {
         unreadMessageCount = '<div class= "discussionlistcount">' + result.unreadMessageCount + '</div>'
     }
 
+    let isSyncIconToShow = !convertStringToBool(result.isPendingToSync) ? "d-none" : "";
+
     var localRow =
         $('<li class="nav-item" id="li_' + result.channelId + '">'
             + '<input type="hidden" id="hdnTitle_' + result.channelId + '" value="' + result.title + '" />'
@@ -339,6 +341,9 @@ export function RowCreatedChannel(result, className, isSaveAsDraft) {
             + unreadMessageCount
             + '</div>'
             + '<div class="col-12 justify-content-end mt-auto">'
+            + '<div id="divSyncPending_' + result.channelId + '" class="sync-pending ' + isSyncIconToShow + '">'
+            + '<i class="fa fa-refresh" title="sync pending"></i>'
+            + '</div>'
             + '<div class="date"> '
             + result.recievedDate
             + ' </div>'
@@ -628,7 +633,6 @@ export function SetSeenForChannelId(channelId) {
             let parentChatDesc = $(el).parents('.chat-desc')[0];
             let messageId = $(parentChatDesc).data('msgid');
             SetReadParticipantsCount(messageId, el);
-
         }
     }
 }
@@ -659,6 +663,7 @@ function CreateTemplate(data) {
 }
 
 function RowCreated(result, lastRowclass) {
+    let isretryVisible = !convertStringToBool(result.isRetry) ? "d-none" : "";
     let isSeenClass = result.isSeen == true ? '' : 'd-none';
     let isSentClass = result.isSent == true ? '' : 'd-none';
     let canReplyPrivatelyClass = result.ssUserId == GetCookie('NotificationUserId') ? 'd-none ' : '';
@@ -706,7 +711,7 @@ function RowCreated(result, lastRowclass) {
 
         localRow = $('<li ' + lastRowclass + '><div class="row mx-auto no-gutters' + isCurrentUserSenderOfMessage + '"><div class="col-1 col-md-1 col-lg-1 col-xl-1"><div class=" readyByButton1 initialname green-name">' + result.userShortName + '</div>' +
             '</div><div class="col-11 col-md-11 col-lg-11 col-xl-11"><div class="right-chat editchat' + result.messageId + '"><div class="chat-name">' + result.username + '<a href="javascript:void(0);" class="ml-2 ' + canReplyPrivatelyClass + 'replyPrivately" data-usrid="' + result.ssUserId + '" data-userShortName="' + result.userShortName + '" data-username="' + result.username + '" data-channelId="' + result.channelId + '" data-toggle="tooltip" data-placement="bottom" title="Create new chat with this participant"><i class="fa fa-reply"></i></a>' + '</div>' +
-            '<div class="chat-date d-inline-block mr-3">' + result.createdOnUTCDateFormat + '</div>' + editedLable + '<div class="chat-desc" data-isunread="' + result.isUnreadMessage + '" data-msgid="' + result.messageId + '" data-channelid="' + result.channelId + '"><p class="text-break ' + isMessageDescription + '">' + result.messageDescription + '</p><i class="fa fa-fw sent ' + result.messageId + ' ' + isSentClass + ' ' + result.channelId + '" data-toggle="tooltip" data-placement="bottom" aria-hidden="true" title="Sent"></i><i class="fa fa-redo retry d-none" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Retry"></i> <div class="dropdown-notify btn-group ' + isSeenClass + ' "> <button type="button"  aria-haspopup="true" aria-expanded="false" class="btn p-0 readByButton" ><img class="seen ' + result.messageId + ' ' + isSeenClass + ' ' + result.channelId + '" data-toggle="tooltip" data-placement="bottom" title="Seen" src="/images/mobilechatseen.svg" width="17" height="13px"/><span class="d-inline-block d-md-none seencount" id="seencount_' + result.messageId + '" >' + result.readParticipantCount + '</span></button><ul class="dropdown-menu dropdown-menu-right dropdown-list readByDropdown" role="menu"></ul></div>' +
+            '<div class="chat-date d-inline-block mr-3">' + result.createdOnUTCDateFormat + '</div>' + editedLable + '<div class="chat-desc" data-isunread="' + result.isUnreadMessage + '" data-msgid="' + result.messageId + '" data-channelid="' + result.channelId + '"><p class="text-break ' + isMessageDescription + '">' + result.messageDescription + '</p><i class="fa fa-fw sent ' + result.messageId + ' ' + isSentClass + ' ' + result.channelId + '" data-toggle="tooltip" data-placement="bottom" aria-hidden="true" title="Sent"></i><i class="fa fa-redo retry ' + isretryVisible + '" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Retry"></i> <div class="dropdown-notify btn-group ' + isSeenClass + ' "> <button type="button"  aria-haspopup="true" aria-expanded="false" class="btn p-0 readByButton" ><img class="seen ' + result.messageId + ' ' + isSeenClass + ' ' + result.channelId + '" data-toggle="tooltip" data-placement="bottom" title="Seen" src="/images/mobilechatseen.svg" width="17" height="13px"/><span class="d-inline-block d-md-none seencount" id="seencount_' + result.messageId + '" >' + result.readParticipantCount + '</span></button><ul class="dropdown-menu dropdown-menu-right dropdown-list readByDropdown" role="menu"></ul></div>' +
             '<div class="dropdown-notify message-options btn-group ' + MessageOptionsVisiblity + '">\
             <button type="button" class="btn dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw" aria-hidden="true" title=""></i></button>\
             <ul class="dropdown-menu dropdown-list message-options-list" role="menu">\
@@ -1010,6 +1015,24 @@ export function CallSendMessage(request, retryDiv, onCompleteCallback, isCalledT
                     let el = $(retryDiv).find('.chat-desc')[0];
                     $(el).attr('data-msgid', data);
                 }
+                let newMessage = {
+                    isRetry: false,
+                    messageId: parseInt(data),
+                    isSeen: true,
+                    isSent: true,
+                    messageDescription: request.MessageDescription,
+                    userShortName: currentUser.userShortName,
+                    username: currentUser.username,
+                    createdOnUTCDateFormat: moment().format("DD MMM YYYY HH:mm"),
+                    isUnreadMessage: false,
+                    isAttachment: request.AttachmentList && request.AttachmentList.length > 0,
+                    attachments: request.AttachmentList,
+                    ssUserId: GetCookie('NotificationUserId'),
+                    channelId: request.ChannelId,
+                    isMessageEdited: false
+                }
+                $('#divSyncPending_' + request.channelId).addClass('d-none')
+                addMessageToDb(newMessage)
                 NewChannelMessage(request.ChannelId);
                 NewChannelDetailActive(request.ChannelId);
             }
@@ -1018,8 +1041,44 @@ export function CallSendMessage(request, retryDiv, onCompleteCallback, isCalledT
             if (!IsNullOrEmptyOrUndefined(onCompleteCallback)) {
                 onCompleteCallback();
             }
+        },
+        error: async function (jqXHR, exception) {
+            let newMessage = {
+                isRetry: true,
+                messageId: 0,
+                isSeen: false,
+                isSent: false,
+                messageDescription: request.MessageDescription,
+                userShortName: currentUser.userShortName,
+                username: currentUser.username,
+                createdOnUTCDateFormat: moment().format("DD MMM YYYY HH:mm"),
+                isUnreadMessage: false,
+                isAttachment: request.AttachmentList && request.AttachmentList.length > 0,
+                attachments: request.AttachmentList,
+                ssUserId: GetCookie('NotificationUserId'),
+                channelId: request.ChannelId,
+                isMessageEdited: false,
+                isPendingToSync: true
+            }
+            addMessageToDb(newMessage)
+            $(retryDiv).find('.retry').removeClass('d-none');
+            $('#divSyncPending_' + request.channelId).removeClass('d-none')
         }
     });
+}
+async function addMessageToDb(newMessage) {
+    let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
+
+    let offlineData = await vshipDb.getAll('ChatNotificationDetails');
+    let finalData = offlineData.map(function (data, idx) { return { key: allkeyofAppMetaData[idx], data: data } });
+    let exisistingDetails = finalData.filter(function (d) { return d.data.messageDescription == newMessage.messageDescription && d.data.messageId == 0 })
+    if (exisistingDetails.length == 1) {
+        vshipDb.put('ChatNotificationDetails', exisistingDetails[0].key, newMessage);
+    }
+    else {
+        const count_chats = allkeyofAppMetaData.reduce(function (val1, val2) { return Math.max(val1, val2); }) + 1;
+        vshipDb.put('ChatNotificationDetails', count_chats, newMessage);
+    }
 }
 
 export function setHeight(elem) {
@@ -2006,8 +2065,9 @@ export function DeleteMessage(request, successCallback) {
                 if (!vshipDb) {
                     await createDB();
                 }
+                let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
                 let offlineData = (await vshipDb.getAll('ChatNotificationDetails')).map(function (d, idx) {
-                    return { data: d, key: idx }
+                    return { data: d, key: allkeyofAppMetaData[idx] }
                 }).filter(function (e) {
                     return e.data.messageId == request["Id"]
                 });
@@ -2029,8 +2089,10 @@ export function DeleteMessage(request, successCallback) {
             if (!vshipDb) {
                 await createDB();
             }
+            let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
+
             let data = (await vshipDb.getAll('ChatNotificationDetails')).map(function (d, idx) {
-                return { data: d, key: idx }
+                return { data: d, key: allkeyofAppMetaData[idx] }
             }).filter(function (e) {
                 return e.data.messageId == request["Id"]
             });
@@ -2039,6 +2101,7 @@ export function DeleteMessage(request, successCallback) {
                 let newData = e.data;
                 newData.isDeleted = true;
                 newData.isPendingToSync = true;
+                $('#divSyncPending_' + e.data.channelId).removeClass('d-none');
                 vshipDb.put('ChatNotificationDetails', e.key, newData);
             })
 

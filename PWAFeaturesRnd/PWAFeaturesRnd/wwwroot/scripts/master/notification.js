@@ -28,12 +28,11 @@ var vshipDb;
 async function createDB() {
     const db = idb.openDB("Test", 1, {
         upgrade(db) {
-            db.createObjectStore("htmlCachedData");
             db.createObjectStore("modelCachedData");
-            db.createObjectStore("PSCDeficiency");
             db.createObjectStore("ChatNotificationList");
             db.createObjectStore("ChatNotificationDetails");
             db.createObjectStore('ChatChannelsDeleted');
+            db.createObjectStore("appMetaData")
         },
     });
 
@@ -58,7 +57,8 @@ async function createDB() {
                 cursor = await cursor.continue();
             }
             return results;
-        }
+        },
+        getAllKeys: async (storeName) => (await db).transaction(storeName).store.getAllKeys()
     };
     return Promise.resolve();
 }
@@ -66,6 +66,7 @@ async function createDB() {
 $(document).ready(function () {
     fn_SaveOfflineDataToServer();
     fn_GetOfflineData();
+    fn_SaveOfflineAddedMessage();
 })
 
 $(document).on('click', '.expandIcon', ShowNotificationDraftDiscardConfBox);
@@ -432,8 +433,9 @@ function EditMessage(request, messageTag) {
             if (!vshipDb) {
                 await createDB();
             }
+            let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
             let offlineData = (await vshipDb.getAll('ChatNotificationDetails')).map(function (d, idx) {
-                return { data: d, key: idx }
+                return { data: d, key: allkeyofAppMetaData[idx] }
             }).filter(function (e) {
                 return e.data.messageId == request["Id"]
             });
@@ -451,8 +453,9 @@ function EditMessage(request, messageTag) {
             if (!vshipDb) {
                 await createDB();
             }
+            let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
             let data = (await vshipDb.getAll('ChatNotificationDetails')).map(function (d, idx) {
-                return { data: d, key: idx }
+                return { data: d, key: allkeyofAppMetaData[idx] }
             }).filter(function (e) {
                 return e.data.messageId == request["Id"]
             });
@@ -463,6 +466,7 @@ function EditMessage(request, messageTag) {
                 newData.isMessageEdited = true;
                 newData.attachmenst = request["AttachmentList"]
                 vshipDb.put('ChatNotificationDetails', e.key, newData);
+                $('#divSyncPending_' + newData.channelId).removeClass('d-none');
             })
             fn_SuccessOnEditMessage(true, request, messageTag);
         }
@@ -1465,7 +1469,8 @@ export function NewChannelDetailCreated(channelId, isSaveAsDraft) {
                 if (!vshipDb) {
                     await createDb()
                 }
-                const length = (await vshipDb.getAll('ChatNotificationList')).length
+                let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
+                const length = allkeyofAppMetaData.reduce(function (val1, val2) { return Math.max(val1, val2) }) + 1;
                 vshipDb.put('ChatNotificationList', length, data);
                 ShowWelcomeMessage(true);
                 var ul = $('#chatsection');
@@ -2095,9 +2100,15 @@ async function fn_GetOfflineChannelList(request) {
     const pageLength = 100;
     const start = (pageLength * ((request.PageNumber || 1) - 1));
     let offlinedata = await vshipDb.getAll('ChatNotificationList');
+    let offlineChatDetails = (await vshipDb.getAll('ChatNotificationDetails')).filter(function (x) { return convertStringToBool(x["isPendingToSync"]) }).map(function (d) { return d.channelId })
+    offlinedata.forEach(function (xd) {
+        xd.isPendingToSync = offlineChatDetails.filter(function (y) {
+            return xd.channelId == y
+        }).length > 0
+    });
     let finalData = offlinedata.filter(function (e) {
         return (request.searchText == null || request.searchText == undefined || request.searchText == "") ||
-            e.title.includes(request.searchText)
+            e.title.toLowerCase().includes(request.searchText.toLowerCase())
     });
     let data = { hasNextScroll: finalData.length > (start + pageLength + 1), data: finalData.slice(start, start + pageLength), totalCount: finalData.length }
     return Promise.resolve(data);
@@ -2229,9 +2240,11 @@ function fn_GetOfflineData() {
             if (!vshipDb) {
                 await createDB();
             }
+            let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationList')
+
             let offlineData = await vshipDb.getAll('ChatNotificationList');
             offlineData.forEach(function (data, idx) {
-                vshipDb.delete('ChatNotificationList', idx);
+                vshipDb.delete('ChatNotificationList', allkeyofAppMetaData[idx]);
             });
 
             response.data.forEach(function (data, idx) {
@@ -2252,9 +2265,11 @@ function fn_GetOfflineData() {
             if (!vshipDb) {
                 await createDB();
             }
+            let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
+
             let offlineData = await vshipDb.getAll('ChatNotificationDetails');
             offlineData.forEach(function (data, idx) {
-                vshipDb.delete('ChatNotificationDetails', idx);
+                vshipDb.delete('ChatNotificationDetails', allkeyofAppMetaData[idx]);
             });
 
             response.data.forEach(function (data, idx) {
@@ -2266,6 +2281,7 @@ function fn_GetOfflineData() {
 
 window.addEventListener('online', function (event) {
     fn_SaveOfflineDataToServer();
+    fn_SaveOfflineAddedMessageOnNetworkChange();
 });
 
 function convertStringToBool(inputString) {
@@ -2316,8 +2332,9 @@ async function fn_DeleteOfflineDeletedMessages() {
     if (!vshipDb) {
         await createDB();
     }
+    let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
     let offlineData = (await vshipDb.getAll('ChatNotificationDetails')).map(function (d, idx) {
-        return { data: d, key: idx }
+        return { data: d, key: allkeyofAppMetaData[idx] }
     });
 
     let filteredDeletedData = offlineData.filter(function (e) { return convertStringToBool(e.data["isDeleted"]) && !Number.isNaN(Number(e.data.messageId)) });
@@ -2333,6 +2350,7 @@ async function fn_DeleteOfflineDeletedMessages() {
             dataType: "JSON",
             data: request,
             success: function (resp) {
+                $('#divSyncPending_' + d.data.channelId).addClass('d-none');
                 vshipDb.delete('ChatNotificationDetails', d.key);
             }
         })
@@ -2343,11 +2361,13 @@ async function fn_SaveOfflineEditedMessages() {
     if (!vshipDb) {
         await createDB();
     }
+    let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
+
     let offlineData = (await vshipDb.getAll('ChatNotificationDetails')).map(function (d, idx) {
-        return { data: d, key: idx }
+        return { data: d, key: allkeyofAppMetaData[idx] }
     });
 
-    let filteredEditedData = offlineData.filter(function (e) { return !convertStringToBool(e.data["isDeleted"]) && convertStringToBool(e.data["isPendingToSync"]) && !Number.isNaN(Number(e.data.messageId)) });
+    let filteredEditedData = offlineData.filter(function (e) { return !convertStringToBool(e.data["isDeleted"]) && convertStringToBool(e.data["isPendingToSync"]) && !Number.isNaN(Number(e.data.messageId)) && Number(e.data.messageId) != 0 });
     filteredEditedData.forEach(function (d) {
         let request = {
             "MessageDescription": d.data.messageDescription,
@@ -2363,9 +2383,52 @@ async function fn_SaveOfflineEditedMessages() {
             dataType: "JSON",
             data: request,
             success: function (resp) {
+                $('#divSyncPending_' + newData.channelId).addClass('d-none');
                 vshipDb.put('ChatNotificationDetails', d.key, newData);
             }
         })
     })
 }
 
+async function fn_SaveOfflineAddedMessageOnNetworkChange() {
+    let retrys = $('.retry');
+    retrys.each(function () {
+        let retry = $(this);
+        if (!$(retry).hasClass('d-none')) {
+            $(retry).trigger('click');
+        }
+    });
+}
+
+async function fn_SaveOfflineAddedMessage() {
+    if (!vshipDb) {
+        await createDB()
+    }
+    let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails');
+    let offlineData = (await vshipDb.getAll('ChatNotificationDetails')).map(function (d, idx) {
+        return { data: d, key: allkeyofAppMetaData[idx] }
+    });
+
+    let filteredEditedData = offlineData.filter(function (e) { return convertStringToBool(e.data["isPendingToSync"]) && !Number.isNaN(Number(e.data.messageId)) && Number(e.data.messageId) == 0 });
+    filteredEditedData.forEach(function (e) {
+        const request =
+        {
+            "MessageDescription": e.data.messageDescription,
+            "ChannelId": e.data.channelId,
+            "AttachmentList": e.data.attachments
+        }
+        $.ajac({
+            url: "/Notification/SendNotification",
+            type: "POST",
+            dataType: "JSON",
+            data: request,
+            success: function (data) {
+                if (parseInt(data) != 0) {
+                    e.data.messageId = parseInt(data)
+                    $('#divSyncPending_' + request.channelId).addClass('d-none')
+                    vshipDb.put('ChatNotificationDetails', e.key, e.data);
+                }
+            }
+        });
+    });
+}

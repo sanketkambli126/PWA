@@ -3509,9 +3509,10 @@ async function fn_getOfflineData(list) {
             if (response) {
                 if (vshipDb) {
                     let offlineData = await vshipDb.getAll('appMetaData');
+                    let allAkeyofAppMetaData = await vshipDb.getAllKeys('appMetaData')
                     if (offlineData && offlineData.length > 0) {
                         offlineData.forEach(function (d, idx) {
-                            vshipDb.delete('appMetaData', idx);
+                            vshipDb.delete('appMetaData', allAkeyofAppMetaData[idx]);
                         });
                     }
                     response.urls.forEach(function (d, idx) {
@@ -3519,7 +3520,7 @@ async function fn_getOfflineData(list) {
                     })
                 }
                 fn_TakeDataOffline();
-                setInterval(fn_TakeDataOffline,600000)
+                //setInterval(fn_TakeDataOffline, 600000)
             }
         }
     });
@@ -3528,13 +3529,11 @@ async function fn_getOfflineData(list) {
 async function fn_TakeDataOffline() {
     /*window.location.reload();*/
     let offlineData = await vshipDb.getAll('appMetaData');
-    if (offlineData.length > 0)
-    {
+    if (offlineData.length > 0) {
         for (let url of offlineData) {
             $.ajax({
                 url: url.url,
-                success: function (response)
-                {
+                success: function (response) {
                     console.log(response);
                 }
             })

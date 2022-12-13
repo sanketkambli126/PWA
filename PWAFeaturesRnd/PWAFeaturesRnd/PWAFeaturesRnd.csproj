@@ -7,6 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\assets\scripts\approvalList.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\certificate.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\certificateDetails.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\changeOrderStatus.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\chatmain.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\crewDetails.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\crewList.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\dashboard.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\dashboardMapFullScreen.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\defectDetails.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\defectsList.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\financeReport.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\financeTransactionReport.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\generalLedger.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\generalLedgerTransaction.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\hazOccDetails.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\hazOccList.bundle.js" />
+    <Content Remove="wwwroot\assets\scripts\inspectionActionsList.bundle.js" />
     <Content Remove="wwwroot\scripts\lib\dataTables.colReorder.min.js" />
     <Content Remove="wwwroot\scripts\lib\dataTables.responsive.min.js" />
   </ItemGroup>
