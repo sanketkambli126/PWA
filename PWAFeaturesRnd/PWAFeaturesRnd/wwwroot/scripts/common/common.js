@@ -3501,6 +3501,7 @@ function fn_InitializeOfflineModal(modalHtml, modalId) {
 }
 
 async function fn_getOfflineData(list) {
+    ToastrAlert('success', 'Data is in queued, it will take some time')
     $.ajax({
         url: '/OfflineAccess/GetAppOfflineURLs',
         method: 'POST',
@@ -3520,7 +3521,6 @@ async function fn_getOfflineData(list) {
                     })
                 }
                 fn_TakeDataOffline();
-                //setInterval(fn_TakeDataOffline, 600000)
             }
         }
     });
@@ -3531,14 +3531,20 @@ async function fn_TakeDataOffline() {
     let offlineData = await vshipDb.getAll('appMetaData');
     if (offlineData.length > 0) {
         for (let url of offlineData) {
+            let data = JSON.parse(url.requestDataString);
             $.ajax({
                 url: url.url,
+                data: data,
                 success: function (response) {
                     console.log(response);
                 }
             })
         }
     }
+
+    setTimeout(function () {
+        ToastrAlert('success', 'Data is successfully downloaded for offline access');
+    }, 2000)
 }
 
 async function fn_TakeAppOffline() {
@@ -3552,18 +3558,3 @@ async function fn_TakeAppOffline() {
         fn_getOfflineData(data);
     })
 }
-
-
-$(document).on('change', '.input-offline-modules', function () {
-    const viewId = $(this).data('viewid');
-    const moduleId = $(this).data('moduleid');
-
-    let this_obj = $(this);
-
-    if (viewId != "" && viewId != 0) {
-        $(`.input-offline-modules[data-viewid="${viewId}"]`).prop('checked', this_obj.prop('checked'));
-    }
-    if (moduleId != "" && moduleId != 0) {
-        $(`.input-offline-modules[data-moduleid="${moduleId}"]`).prop('checked', this_obj.prop('checked'));
-    }
-})

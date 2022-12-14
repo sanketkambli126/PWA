@@ -26,15 +26,6 @@ namespace PWAFeaturesRnd.Controllers
             };
 
 
-            //PWAFeaturesRnd.ViewModels.OfflineUrlMapping.Views ApprovalView = new Views();
-            //ApprovalView.ViewId = 2;
-            //ApprovalView.ViewName = "Approval List";
-            //ApprovalView.Url = new OfflineModuleURL()
-            //{
-            //    toStoreInCache = true,
-            //    Url = "/Approval/List"
-            //};
-
             PWAFeaturesRnd.ViewModels.OfflineUrlMapping.Views Defects = new Views();
             Defects.ViewId = 3;
             Defects.ViewName = "Defect Details";
@@ -90,81 +81,86 @@ namespace PWAFeaturesRnd.Controllers
                     Url = "/Dashboard/GetInspectionFleetSummary",
                     dbStoreName = "InspectionFleetSummary",
                     toStoreInDb = true,
+                    requestDataString = "{ \"FleetId\":null, \"MenuType\":\"R\", \"VesselId\":null, \"PSCDetentionFromDate\":\"2022-09-14\", \"PSCDetentionToDate\":\"2022-12-14\",\"PSCDetentionPriorityLimit\":0, \"PSCDeficiencyFromDate\":\"2022-09-14\",\"PSCDeficiencyToDate\":\"2022-12-14\", \"PSCDeficiencyPriorityLimit\":0.88, \"OMVFindingsFromdate\":\"2022-06-14\", \"OMVFindingsToDate\":\"2022-12-14\", \"OMVFindingsPriorityHighLimit\":2.8, \"OMVFindingsPriorityLowLimit\":2.7, \"OverdueInspectionsPriorityLimit\":0 }"
                 },
                  new OfflineModuleURL()
                 {
                     Url = "/Dashboard/GetCrewFleetSummary",
                     dbStoreName = "CrewFleetSummary",
                     toStoreInDb = true,
+                    requestDataString = "{\"FleetId\" : null, \"VesselId\" : null, \"MenuType\" : \"R\"}"
                 },
                   new OfflineModuleURL()
                 {
                     Url = "/Dashboard/GetOpexFleetSummary",
                     dbStoreName = "OpexFleetSummary",
                     toStoreInDb = true,
+                    requestDataString = "{ \"FleetId\" : null, \"VesselId\" : null, \"MenuType\" : \"R\", \"BudgetDays\" : 90, \"BudgetPercentageHighLimit\" : 10, \"BudgetPercentageLowLimit\" : 5, \"OpexToDate\" : \"2022-10-31\" }"
                 },
                    new OfflineModuleURL()
                 {
                     Url = "/Dashboard/GetHazOccFleetSummary",
                     dbStoreName = "HazOccFleetSummary",
                     toStoreInDb = true,
+                    requestDataString = "{ \"FleetId\" : null, \"VesselId\" : null,  \"MenuType\" : \"R\", \"IncidentEndDate\" : \"2022-12-14\", \"IncidentStartDate\" : \"2022-09-14\", \"LtiFromDate\" : \"2021-12-14\", \"LtiToDate\" : \"2022-12-14\", \"LtifPriority\" : 7, \"OilSpillFromDate\" : \"2022-09-14\", \"OilSpillPriorityLimit\" : 0, \"OilSpillToDate\" : \"2022-12-14\", \"SeriousIncidentsPriority\" : 0 }"
                 },
                  new OfflineModuleURL()
                 {
                     Url = "/Dashboard/GetCommercialFleetSummary",
                     dbStoreName = "CommercialFleetSummary",
                     toStoreInDb = true,
+                    requestDataString = "{ \"FleetId\" : null, \"FuelEfficiencyFromDate\" : \"2022-09-14\", \"FuelEfficiencyPriorityHighLimit\" : 5, \"FuelEfficiencyPriorityLowLimit\" : 0, \"FuelEfficiencyToDate\" : \"2022-12-14\", \"MenuType\" : \"R\", \"OffHireEndDate\" : \"2022-12-14\", \"OffHirePriority\" : \"00:17:26\", \"OffHireStartDate\" : \"2022-09-14\", \"VesselId\" : null }"
                 },
                  new OfflineModuleURL()
                 {
                     Url = "/Dashboard/GetRightshipFleetSummary",
                     dbStoreName = "RightshipFleetSummary",
                     toStoreInDb = true,
+                    requestDataString = "{ \"FleetId\" : null,  \"VesselId\" : null, \"MenuType\" : \"R\",  \"RightShipPriority\" : 3 }"
                 },
                  new OfflineModuleURL()
                 {
                     Url = "/Dashboard/GetPMSFleetSummary",
                     dbStoreName = "PMSFleetSummary",
                     toStoreInDb = true,
+                    requestDataString = "{\"FleetId\":null,\"MenuType\":\"R\",\"VesselId\":null,\"CriticalPmspriority\":0}"
                 },
                  new OfflineModuleURL()
                 {
-                    Url = "/Dashboard/GetFleetSummary",
-                    dbStoreName = "FleetSummary",
+                    Url = "/Dashboard/GetSeriousIncidents",
+                    dbStoreName = "SeriousIncidentDetails",
                     toStoreInDb = true,
+                    requestDataString = "{ \"IncidentStartDate\":\"0001-01-01\", \"IncidentEndDate\": \"0001-01-01\", \"FleetId\":null, \"MenuType\":\"R\", \"VesselId\":null}"
                 },
-                new OfflineModuleURL()
+                  new OfflineModuleURL()
                 {
-                    Url = "/Dashboard/GetPSCDeficiencies",
-                    dbStoreName = "PSCDeficiencies",
+                    Url = "/Dashboard/GetRightShipDetails",
+                    dbStoreName = "RightShipDetails",
                     toStoreInDb = true,
+                    requestDataString = "{\"FleetId\":null,\"MenuType\":\"R\",\"VesselId\":null,\"MonthDate\":null}"
                 },
-          new OfflineModuleURL()
+                   new OfflineModuleURL()
                 {
                     Url = "/Dashboard/GetOverdueInspectionDetails",
                     dbStoreName = "OverdueInspectionDetails",
                     toStoreInDb = true,
-                },
-            new OfflineModuleURL()
-                {
-                    Url = "/Dashboard/GetExperienceMatrixDetails",
-                    dbStoreName = "ExperienceMatrixDetails",
-                    toStoreInDb = true,
+                    requestDataString = "{\"MenuType\":\"R\",\"FleetId\":null,\"EncryptedVesselId\":null}"
                 },
              new OfflineModuleURL()
                 {
                     Url = "/Dashboard/GetCriticalPMS",
                     dbStoreName = "CriticalPMS",
                     toStoreInDb = true,
+                    requestDataString = "{\"VesselId\":null,\"MenuType\":\"R\",\"FleetId\":null}"
                 }
             };
 
             DashboardView.Modules.Add(keyIndicator);
 
-            //Modules ApprovalModule = new Modules();
-            //ApprovalModule.ModuleId = 2;
-            //ApprovalModule.ModuleName = "Approval";
-            //ApprovalModule.Views.Add(ApprovalView);
+            Modules Chat = new Modules();
+            Chat.ModuleId = 2;
+            Chat.ModuleName = "Chat";
+            DashboardView.Modules.Add(Chat);
 
             //DashboardView.Modules.Add(ApprovalModule);
 

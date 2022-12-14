@@ -29,6 +29,7 @@ namespace PWAFeaturesRnd.ViewModels.OfflineUrlMapping
     }
     public class OfflineModuleURL
     {
+        public string requestDataString { get; set; }
         public string Url { get; set; }
         public string dbStoreName { get; set; }
         public bool toStoreInDb { get; set; }

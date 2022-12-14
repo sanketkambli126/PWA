@@ -43,6 +43,7 @@ using PWAFeaturesRnd.ViewModels.Sentinel;
 using PWAFeaturesRnd.ViewModels.Shared;
 using PWAFeaturesRnd.ViewModels.VesselManagement;
 using PWAFeaturesRnd.ViewModels.VoyageReporting;
+using System.Text.Json;
 
 namespace PWAFeaturesRnd.Controllers.Master
 {
@@ -1975,9 +1976,9 @@ namespace PWAFeaturesRnd.Controllers.Master
             var objDetails = CommonUtil.GetObjDetails(request);
             string logTemplate = "ActionMethod: {0} \nStart Time: {1} \nEnd Time: {2} \nDuration: {3} \nParams: \nRightShipRequestViewModel - {4} \n";
             AppendLog(CommonUtil.GetSessionObject<string>(HttpContext.Session, Constants.LogFileName), String.Format(logTemplate, this.ControllerContext.RouteData.Values["action"].ToString(), startTime.ToString(Constants.LogFileStartEndTimeFormat), endTime.ToString(Constants.LogFileStartEndTimeFormat), (endTime - startTime), objDetails));
-            string viewResult = await this.RenderViewToStringAsync("RightShipDetails",response);
+            string viewResult = await this.RenderViewToStringAsync("RightShipDetails", response);
 
-            return new JsonResult(new { data = viewResult } );
+            return new JsonResult(new { data = viewResult });
         }
 
         /// <summary>

@@ -84,7 +84,7 @@ namespace PWAFeaturesRnd
                 options.DefaultScheme = "cookie";
                 options.DefaultChallengeScheme = "oidc";
             })
-            .AddCookie("cookie", options => 
+            .AddCookie("cookie", options =>
             {
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(AppSettings.CookieTimeout);
                 options.Cookie.MaxAge = options.ExpireTimeSpan; // optional
@@ -393,6 +393,7 @@ namespace PWAFeaturesRnd
                         CTX.HandleResponse();
                     }
 
+                    //var content = "{\"access_token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vVlNoaXAvU2hpcFN1cmUvQ2xpZW50SUQiOlsiNDAzOUEzNzgtMjlEQi00Mjk4LUIxRjEtOEQ0M0VGNjM2MzIzIiwiNDAzOUEzNzgtMjlEQi00Mjk4LUIxRjEtOEQ0M0VGNjM2MzIzIl0sInVuaXF1ZV9uYW1lIjoia2h5YXRpLnBhcmlraEB2c2hpcHMuY29tIiwiaHR0cDovL1ZTaGlwL1NoaXBTdXJlL1VzZXJJRCI6IlZHUlAwMDAwNDEyMCIsImh0dHA6Ly9WU2hpcC9TaGlwU3VyZS9TaXRlSUQiOiJTWVNUMDAwMDAwMDEiLCJodHRwOi8vVlNoaXAvU2hpcFN1cmUvRGVwYXJ0bWVudElEIjoiQUNDVCIsImh0dHA6Ly9WU2hpcC9TaGlwU3VyZS9Vc2VyRGlzcGxheU5hbWUiOiJLaHlhdGkgUGFyaWtoIiwiaHR0cDovL1ZTaGlwL1NoaXBTdXJlL1VzZXJFbWFpbCI6IktoeWF0aS5QYXJpa2hAdnNoaXBzLmNvbSIsImh0dHA6Ly9WU2hpcC9TaGlwU3VyZS9TaGlwU3VyZVJvbGUiOlsie1wiUm9sZUlkXCI6XCJGTlJBMDAwMDAwMDZcIixcIlJvbGVEZXNjcmlwdGlvblwiOlwiU2FsZXMgSW52b2ljZSBMZXZlbCA0XCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIkZOUkEwMDAwMDAxMVwiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJTYWxlcyBDcmVkaXQgTm90ZSBMZXZlbCA0XCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIkZOUkEwMDAwMDAxNVwiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJKb3VybmFsIExldmVsIDNcIixcIklzUHJpbWFyeVwiOmZhbHNlfSIsIntcIlJvbGVJZFwiOlwiRk5SQTAwMDAwMDE4XCIsXCJSb2xlRGVzY3JpcHRpb25cIjpcIkpvdXJuYWwgTGV2ZWwgNlwiLFwiSXNQcmltYXJ5XCI6ZmFsc2V9Iiwie1wiUm9sZUlkXCI6XCJGTlJBMDAwMDAwMjNcIixcIlJvbGVEZXNjcmlwdGlvblwiOlwiTm9uIFBPIEludm9pY2UgTGV2ZWwgNVwiLFwiSXNQcmltYXJ5XCI6ZmFsc2V9Iiwie1wiUm9sZUlkXCI6XCJGTlJBMDAwMDAwMjdcIixcIlJvbGVEZXNjcmlwdGlvblwiOlwiTm9uIFBPIENyZWRpdCBOb3RlIExldmVsIDRcIixcIklzUHJpbWFyeVwiOmZhbHNlfSIsIntcIlJvbGVJZFwiOlwiRk5SQTAwMDAwMDI4XCIsXCJSb2xlRGVzY3JpcHRpb25cIjpcIk5vbiBQTyBDcmVkaXQgTm90ZSBMZXZlbCA1XCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIkZOUkEwMDAwMDAzMlwiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJBY2NvdW50cyBFbnRpdHkgLSBKb3VybmFsIEFwcHJvdmVyXCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIkZOUkEwMDAwMDAzNlwiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJFbnRpdHkgQWNjb3VudHMgLSBUcmF2ZWwgSW50ZXJmYWNlXCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIkZOUkEwMDAwMDAzN1wiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJFbnRpdHkgQWNjb3VudHMgLSBUcmF2ZWwgQlNQXCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIkZOUkEwMDAwMDAzOFwiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJFbnRpdHkgQWNjb3VudHMgLSBNVFMgSW50ZXJmYWNlXCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIkdMQVMwMDAwMDAwMlwiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJGbGVldCBNYW5hZ2VyXCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIkdMQVMwMDAwMDAwNlwiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJBY2NvdW50cyAtIFZlc3NlbCBFbGVjdHJvbmljIFBheW1lbnRzXCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIkdMQVMwMDAwMDAwOFwiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJBY2NvdW50cyAtIExlZGdlckdlbmVyYWwgRmluYW5jZU1hbmFnZXIgVkZDXCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIkdMQVMwMDAwMDAxMlwiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJJbmZvcm1hdGlvbiBTeXN0ZW1zIERlcGFydG1lbnRcIixcIklzUHJpbWFyeVwiOmZhbHNlfSIsIntcIlJvbGVJZFwiOlwiR0xBUzAwMDAwMDg5XCIsXCJSb2xlRGVzY3JpcHRpb25cIjpcIk1hc3RlclwiLFwiSXNQcmltYXJ5XCI6ZmFsc2V9Iiwie1wiUm9sZUlkXCI6XCJHTEFTMDAwMDAxMTRcIixcIlJvbGVEZXNjcmlwdGlvblwiOlwiQWNjb3VudHMgLSBTZWN1cmUgQUxMIFJhdGVzIEN1cnJlbmN5IFVwbG9hZGVyXCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIkdMQVMwMDAwMDExNVwiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJBY2NvdW50cyAtIFNlY3VyZSBQZXJpb2RpYyBSYXRlcyBDdXJyZW5jeSBVcGxvYWRlclwiLFwiSXNQcmltYXJ5XCI6ZmFsc2V9Iiwie1wiUm9sZUlkXCI6XCJHTEFTMDAwMDAxMTlcIixcIlJvbGVEZXNjcmlwdGlvblwiOlwiQWNjb3VudHMgLSBTZWN1cmUgTWFzdGVyIENoYXJ0IFVwZGF0ZVwiLFwiSXNQcmltYXJ5XCI6ZmFsc2V9Iiwie1wiUm9sZUlkXCI6XCJHTEFTMDAwMDAxMjBcIixcIlJvbGVEZXNjcmlwdGlvblwiOlwiQWNjb3VudHMgLSBTZWN1cmUgQmFuayBVcGRhdGVcIixcIklzUHJpbWFyeVwiOmZhbHNlfSIsIntcIlJvbGVJZFwiOlwiR0xBUzAwMDAwMTIxXCIsXCJSb2xlRGVzY3JpcHRpb25cIjpcIkFjY291bnRzIC0gU2VjdXJlIFRheCBDb2RlcyBNYWludGFpblwiLFwiSXNQcmltYXJ5XCI6ZmFsc2V9Iiwie1wiUm9sZUlkXCI6XCJHTEFTMDAwMDAxMjNcIixcIlJvbGVEZXNjcmlwdGlvblwiOlwiRW50aXR5IC0gU3lzdGVtIEFkbWluIChyZXN0cmljdGVkIHVzZXJzKVwiLFwiSXNQcmltYXJ5XCI6ZmFsc2V9Iiwie1wiUm9sZUlkXCI6XCJHTEFTMDAwMDAxMjVcIixcIlJvbGVEZXNjcmlwdGlvblwiOlwiQWNjb3VudHMgRW50aXR5IC0gU3lzdGVtIEFkbWluIChyZXN0cmljdGVkKVwiLFwiSXNQcmltYXJ5XCI6ZmFsc2V9Iiwie1wiUm9sZUlkXCI6XCJHTEFTMDAwMDAxMjZcIixcIlJvbGVEZXNjcmlwdGlvblwiOlwiQWNjb3VudHMgRW50aXR5IC1TZW5pb3IgTWFuYWdlbWVudCBSZWFkIE9ubHlcIixcIklzUHJpbWFyeVwiOmZhbHNlfSIsIntcIlJvbGVJZFwiOlwiR0xBUzAwMDAwMTQwXCIsXCJSb2xlRGVzY3JpcHRpb25cIjpcIkFjY291bnRzIC0gU2VjdXJlIFZlc3NlbCBFeGNoUmV2YWwgUmUtcnVuXCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIk1SUkEwMDAwMDAwMVwiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJTdXBlciBBZG1pblwiLFwiSXNQcmltYXJ5XCI6dHJ1ZX0iLCJ7XCJSb2xlSWRcIjpcIlBVUkEwMDAwMDAwM1wiLFwiUm9sZURlc2NyaXB0aW9uXCI6XCJQTyBMZXZlbCAzXCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iLCJ7XCJSb2xlSWRcIjpcIi0xXCIsXCJSb2xlRGVzY3JpcHRpb25cIjpcIkFwaVRlc3RSb2xlXCIsXCJJc1ByaW1hcnlcIjpmYWxzZX0iXSwibmJmIjoxNjcwOTkxODIwLCJleHAiOjE2NzEwMjkwMjAsImlhdCI6MTY3MDk5MTgyMCwiaXNzIjoiVlNoaXBzVG9rZW5BcGkiLCJhdWQiOiJWU2hpcHNSZXNvdXJjZUFwaSJ9.S2wRF1hyRelTsL9yGxhtNyr7VweR3YLskUghSk4dSLk\",\"token_type\":\"bearer\",\"expires_in\":37200,\"refresh_token\":\"ee7fe1ca6f244c0981f92e0c2f092448\"}"; //
                     var content = await responseMessage.Content.ReadAsStringAsync();
                     // received token from authorization server
                     var json = JObject.Parse(content);
@@ -406,7 +407,7 @@ namespace PWAFeaturesRnd
                     option.Expires = DateTime.Now.AddMonths(6);
                     Claim clientPortalTokenClaim = new Claim("ClientWebToken", TokenHelper.AccessToken);
                     identities.First().AddClaim(clientPortalTokenClaim);
-                    
+
 
                     IdentityModelEventSource.ShowPII = true;
                     Microsoft.IdentityModel.Tokens.SecurityToken validatedToken;
@@ -449,7 +450,7 @@ namespace PWAFeaturesRnd
                 context.HttpContext.Session.SetString("UserType", EnumsHelper.GetDescription(UserType.Client));
             }
             context.HttpContext.Session.SetString("UserId", claims.FirstOrDefault(x => x.Type == Constants.UserIDClaimType).Value);
-            context.HttpContext.Session.SetString(Constants.UserNameSessionKey, claims.FirstOrDefault(x => x.Type == Constants.UserDisplayNameClaimType).Value);                      
+            context.HttpContext.Session.SetString(Constants.UserNameSessionKey, claims.FirstOrDefault(x => x.Type == Constants.UserDisplayNameClaimType).Value);
         }
 
         /// <summary>

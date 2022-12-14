@@ -1,5 +1,4 @@
 ﻿@model List<PWAFeaturesRnd.ViewModels.OfflineUrlMapping.Views>
-
 <div class="modal fade" id="divOfflineModalPopPup" role="dialog" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -14,36 +13,37 @@
                 </div>
             </div>
             <div class="modal-body">
-                <ul class="no-style">
-                    @{
-                        void RenderViewAndModule(PWAFeaturesRnd.ViewModels.OfflineUrlMapping.Views view)
+                <label class="common-heading-green" style="font-weight: 100;">This feature will make your app work in offline mode.</label>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    @foreach (var item in Model)
+                    {
+                        @if (item.Modules.Any())
                         {
-                            <li class="view-list-name">
-                                <input type="checkbox" class="input-offline-modules" data-viewid="@view.ViewId" data-moduleid="">@view.ViewName
-                            </li>
-
-                            <ul class="no-style">
-                                @foreach (var i in view.Modules)
-                                {
-                                    <li> <input type="checkbox" class="input-offline-modules" data-viewid="" data-moduleid="@i.ModuleId"> @i.ModuleName</li>
-                                    @if (@i.Views.Any())
-                                    {
-                                        <ul class="no-style">
-                                            @foreach (var item in @i.Views)
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseOne_@item.ViewId" aria-expanded="true" aria-controls="collapseOne">
+                                            @item.ViewName
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne_@item.ViewId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <ul class="list-group">
+                                            @foreach (var i in item.Modules)
                                             {
-                                                RenderViewAndModule(item);
+                                                <li class="list-group-item">
+                                                    <input id="chk_offlineModule_@i.ModuleId" type="checkbox" class="input-offline-modules" data-viewid="@item.ViewId" data-moduleid="@i.ModuleId">
+                                                    <label for="chk_offlineModule_@i.ModuleId">@i.ModuleName</label>
+                                                </li>
                                             }
                                         </ul>
-                                    }
-                                }
-                            </ul>
-                        }
-                        foreach (var item in Model)
-                        {
-                            RenderViewAndModule(item);
+                                    </div>
+                                </div>
+                            </div>
                         }
                     }
-                </ul>
+                </div>
             </div>
             <div class="modal-footer common-form-design">
                 <button type="button" id="btnclode" data-dismiss="modal" class="btn btn-cancelsecondarybtn" style="padding: 5px 12px;">Cancel</button>

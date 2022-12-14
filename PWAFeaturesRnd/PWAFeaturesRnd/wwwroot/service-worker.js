@@ -91,10 +91,12 @@ self.addEventListener('fetch', function (event) {
         request.url.match("/Dashboard/GetCommercialFleetSummary") ||
         request.url.match("/Dashboard/GetRightshipFleetSummary") ||
         request.url.match("/Dashboard/GetPMSFleetSummary") ||
+
         request.url.match("/Dashboard/GetFleetSummary") ||
-        request.url.match("/Dashboard/GetPSCDeficiencies") ||
+
+        request.url.match("/Dashboard/GetSeriousIncidents") ||
         request.url.match("/Dashboard/GetOverdueInspectionDetails") ||
-        request.url.match("/Dashboard/GetExperienceMatrixDetails") ||
+        request.url.match("/Dashboard/GetRightShipDetails") ||
         request.url.match("/Dashboard/GetCriticalPMS")
     ) {
 
