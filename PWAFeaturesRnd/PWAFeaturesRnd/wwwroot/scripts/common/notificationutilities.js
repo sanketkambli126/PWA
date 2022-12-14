@@ -1031,7 +1031,7 @@ export function CallSendMessage(request, retryDiv, onCompleteCallback, isCalledT
                     channelId: request.ChannelId,
                     isMessageEdited: false
                 }
-                $('#divSyncPending_' + request.channelId).addClass('d-none')
+                $('#divSyncPending_' + newMessage.channelId).addClass('d-none')
                 addMessageToDb(newMessage)
                 NewChannelMessage(request.ChannelId);
                 NewChannelDetailActive(request.ChannelId);
@@ -1062,13 +1062,15 @@ export function CallSendMessage(request, retryDiv, onCompleteCallback, isCalledT
             }
             addMessageToDb(newMessage)
             $(retryDiv).find('.retry').removeClass('d-none');
-            $('#divSyncPending_' + request.channelId).removeClass('d-none')
+            $('#divSyncPending_' + newMessage.channelId).removeClass('d-none')
         }
     });
 }
 async function addMessageToDb(newMessage) {
+    if (!vshipDb) {
+        await createDB();
+    }
     let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
-
     let offlineData = await vshipDb.getAll('ChatNotificationDetails');
     let finalData = offlineData.map(function (data, idx) { return { key: allkeyofAppMetaData[idx], data: data } });
     let exisistingDetails = finalData.filter(function (d) { return d.data.messageDescription == newMessage.messageDescription && d.data.messageId == 0 })
