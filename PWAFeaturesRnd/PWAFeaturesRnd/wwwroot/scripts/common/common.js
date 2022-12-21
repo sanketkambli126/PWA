@@ -88,7 +88,9 @@ $(document).on('click', '.preferenceHeaderRight', function () {
 
 $(document).on('click', '#btnOffline', OpenOfflineModal);
 
-$(document).on('click', '#btnSaveOffline', fn_TakeAppOffline);
+$(document).on('click', '#btnSaveOffline', function () {
+    fn_TakeAppOffline()
+});
 
 
 $(document).on('click', '.showFromAgentDetails1', function () {
@@ -2146,6 +2148,9 @@ $(document).ready(function () {
             datatype: "json",
             success: function (data) {
                 NavigateToNotificationDashboard(data, channelId, isDraft);
+            },
+            error: function (xhjr) {
+                window.location.href = "/Dashboard/NotificationChatView/";
             }
         });
 
@@ -3556,13 +3561,9 @@ async function fn_TakeAppOffline() {
         resolve();
     }).then(function () {
         fn_getOfflineData(data);
-        fn_ChatGetOfflineData();
     })
 
-    //u = window.open('/Dashboard/NotificationChatView/', '_blank');
-    //setTimeout(function () {
-    //    u.close();
-    //}, 10000)
+    fn_ChatGetOfflineData();
 }
 
 async function fn_ChatGetOfflineData() {

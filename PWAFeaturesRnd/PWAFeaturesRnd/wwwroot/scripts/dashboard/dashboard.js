@@ -280,7 +280,7 @@ $(document).on('click', '.closeagentother', function () {
 });
 
 $(document).ready(function () {
-
+    sessionStorage.setItem('hdnSessionStorageDetails', $('#hdnSessionStorageDetails').val())
     sessionStorage.removeItem(NotificationPageKey);
     sessionStorage.removeItem(NotificationChatPageKey);
     sessionStorage.removeItem(NotificationMobileChatDetailKey);

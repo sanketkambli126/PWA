@@ -2,7 +2,7 @@
 import { ErrorLog, GetStringNullOrWhiteSpace } from "../common/utilities.js";
 
 $(document).ready(function () {
-    
+    $('#hdnSessionStorageDetails').val(sessionStorage.getItem('hdnSessionStorageDetails'));
     if (sessionStorage.getItem(NotificationChatPageKey) != null) {
         if ($('#isFilterChange').val() == "True" || $('#isFilterChange').val() == "true" || $('#isFilterChange').val() == true) {
             $.ajax({
@@ -18,19 +18,27 @@ $(document).ready(function () {
                         data = typeof (data) == 'string' ? JSON.parse(data) : data;
                         sessionStorage.setItem(NotificationChatPageKey, data);
                         $('#hdnSessionStorageDetails').val(data);
-                        $('.vesseldropdowntopheader').addClass('d-none');
-                        $('body').addClass('hidemobilepatch');
-                        document.getElementById("notificationchatform").submit()
-                        IFrameResize();
                     }
+                    $('.vesseldropdowntopheader').addClass('d-none');
+                    $('body').addClass('hidemobilepatch');
+                    document.getElementById("notificationchatform").submit()
+                    IFrameResize();
+                },
+                error: function () {
+                    $('.vesseldropdowntopheader').addClass('d-none');
+                    $('body').addClass('hidemobilepatch');
+                    document.getElementById("notificationchatform").submit()
+                    IFrameResize();
                 }
 
-            });            
+            });
         }
         else {
 
             //fill filter fields from sessionStorage
-            $('#hdnSessionStorageDetails').val(sessionStorage.getItem(NotificationChatPageKey))
+            if (sessionStorage.getItem(NotificationChatPageKey)) {
+                $('#hdnSessionStorageDetails').val(sessionStorage.getItem(NotificationChatPageKey))
+            }
             $.ajax({
                 url: "/Dashboard/GetSessionStorageFilterForChat",
                 type: "POST",
@@ -42,16 +50,22 @@ $(document).ready(function () {
                     data = typeof (data) == 'string' ? JSON.parse(data) : data;
                     if (data != null) {
                         $('#urlParameter').val(data.urlParameter)
-                        $('.vesseldropdowntopheader').addClass('d-none');
-                        $('body').addClass('hidemobilepatch');
-                        document.getElementById("notificationchatform").submit()
-                        IFrameResize();
                     }
+                    $('.vesseldropdowntopheader').addClass('d-none');
+                    $('body').addClass('hidemobilepatch');
+                    document.getElementById("notificationchatform").submit()
+                    IFrameResize();
+                },
+                error: function (xhjr) {
+                    $('.vesseldropdowntopheader').addClass('d-none');
+                    $('body').addClass('hidemobilepatch');
+                    document.getElementById("notificationchatform").submit()
+                    IFrameResize();
                 }
 
             });
         }
-        
+
     }
     else {
         //sessionStorage.removeItem(NotificationPageKey);
@@ -61,7 +75,7 @@ $(document).ready(function () {
         $('body').addClass('hidemobilepatch');
         document.getElementById("notificationchatform").submit()
         IFrameResize();
-    }   
+    }
 
 
     $('#chatclosebutton').click(function () {
@@ -85,7 +99,7 @@ $(document).ready(function () {
         });
     });
 
-    $(window).resize(function () {        
+    $(window).resize(function () {
         IFrameResize();
         document.getElementById('iFrameNotificationChatFrame').contentWindow.chatScrollLastRow();
     });
