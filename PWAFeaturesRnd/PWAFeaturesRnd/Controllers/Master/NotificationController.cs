@@ -262,7 +262,7 @@ namespace PWAFeaturesRnd.Controllers.Master
                     channelMessage.AddRange(MessageResponse.Results.ToList());
                 }
                 i++;
-                if (i > 100)
+                if (i > 50)
                 {
                     break;
                 }

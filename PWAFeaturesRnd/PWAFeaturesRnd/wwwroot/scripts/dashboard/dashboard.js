@@ -5105,6 +5105,7 @@ function GetApprovalsList() {
         },
         success: function (response) {
             if (!IsNullOrEmpty(response)) {
+                response = typeof (response) == 'string' ? JSON.parse(response) : response;
                 var result = response.data;
                 for (var i = 0; i < result.length; i++) {
                     var newRow = CreateApprovalTemplate(result[i], i);

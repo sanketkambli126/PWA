@@ -28,7 +28,7 @@
 
 @section ContentSection
 {
-<form id="notificationchatform" target="NotificationChatFrame" action="@AppSettings.NotificationChatDiscussionURL" method="POST" class="d-none">
+<form id="notificationchatform" target="NotificationChatFrame" action="@AppSettings.NotificationChatDiscussionURL" method="GET" class="d-none">
     @Html.Hidden("urlParameter", Model.UrlParameter)
     @Html.Hidden("isFilterChange", Model.IsFilterChange)
 </form>

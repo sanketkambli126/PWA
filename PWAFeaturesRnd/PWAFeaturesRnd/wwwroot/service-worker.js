@@ -2,13 +2,14 @@
 var vshipDb;
 
 async function createDB() {
-    const db = idb.openDB("Test", 1, {
+    const db = idb.openDB("Test", 2, {
         upgrade(db) {
             db.createObjectStore("modelCachedData");
             db.createObjectStore("appMetaData")
             db.createObjectStore("ChatNotificationList");
             db.createObjectStore("ChatNotificationDetails");
             db.createObjectStore('ChatChannelsDeleted');
+            db.createObjectStore('POSTRequests');
         },
     });
 
@@ -83,7 +84,7 @@ self.addEventListener('activate', function (event) {
 
 self.addEventListener('fetch', function (event) {
     var request = event.request;
-
+   
     if (request.url.match("/Dashboard/GetInspectionFleetSummary") ||
         request.url.match("/Dashboard/GetCrewFleetSummary") ||
         request.url.match("/Dashboard/GetOpexFleetSummary") ||
@@ -115,6 +116,32 @@ self.addEventListener('fetch', function (event) {
         );
         return;
     }
+    //else if (request.method == "POST") {
+    //    event.respondWith(
+    //        fetch(request)
+    //            .then(async function (response) {
+    //                if (!vshipDb) {
+    //                    await createDB();
+    //                }
+    //                let url = request.url;
+    //                let data = await response.json();
+    //                vshipDb.put("POSTRequests", url, data);
+    //                let init = { "status": 200, "statusText": "" };
+    //                let newResponse = new Response(new Blob([JSON.stringify(data)]), init)
+    //                return Promise.resolve(newResponse);
+    //            })
+    //            .catch(async function () {
+    //                if (!vshipDb) {
+    //                    await createDB();
+    //                }
+    //                let url = request.url;
+    //                let data = await vshipDb.get('POSTRequests', url)
+    //                let init = { "status": 200, "statusText": "" };
+    //                let newResponse = new Response(JSON.stringify(data), init)
+    //                return Promise.resolve(newResponse);
+    //            })
+    //    );
+    //}
     else if (request.url.match('/Notification/DeleteChannelById')) {
         event.respondWith(
             fetch(request)
@@ -140,6 +167,40 @@ self.addEventListener('fetch', function (event) {
                     deleteChannelFromChatList(channelId);
                     let init = { "status": 200, "statusText": "" };
                     let newResponse = new Response(JSON.stringify({ success: true }), init)
+                    return Promise.resolve(newResponse);
+                })
+        );
+    }
+
+    else if (request.url.match('/Dashboard/SetSessionStorageFilterForChat') ||
+        request.url.match('/Dashboard/GetSessionStorageFilterForChat') ||
+        request.url.match('/Notification/GetSessionStorageFilterForList') ||
+        request.url.match('/Notification/AddMessagingUserIfNotExists') ||
+        request.url.match('/Notification/GetCurrentUserDetails') ||
+        request.url.match('/Notification/SetSessionStorageFilterForNotification') ||
+        request.url.match('/Notification/GetUnreadChannelCount')
+    ) {
+        event.respondWith(
+            fetch(request)
+                .then(async function (response) {
+                    if (!vshipDb) {
+                        await createDB();
+                    }
+                    let url = request.url;
+                    let data = await response.json();
+                    vshipDb.put("POSTRequests", url, data);
+                    let init = { "status": 200, "statusText": "" };
+                    let newResponse = new Response(new Blob([JSON.stringify(data)]), init)
+                    return Promise.resolve(newResponse);
+                })
+                .catch(async function () {
+                    if (!vshipDb) {
+                        await createDB();
+                    }
+                    let url = request.url;
+                    let data = await vshipDb.get('POSTRequests', url)
+                    let init = { "status": 200, "statusText": "" };
+                    let newResponse = new Response(JSON.stringify(data), init)
                     return Promise.resolve(newResponse);
                 })
         );
@@ -203,19 +264,20 @@ self.addEventListener('fetch', function (event) {
     // network first for non-fingerprinted resources
     event.respondWith(
         fetch(request)
-            .then(function (response) {
+            .then(async function (response) {
                 // Stash a copy of this page in the cache
                 addToCache(request, response);
-                return response;
+                return Promis.resolve(response);
             })
-            .catch(function () {
-                return caches.match(request)
+            .catch(async function () {
+                return Promise.resolve(caches.match(request)
                     .then(function (response) {
                         return response || serveOfflineImage(request);
                     })
                     .catch(function () {
                         return serveOfflineImage(request);
-                    });
+                    }));
+
             })
     );
 });

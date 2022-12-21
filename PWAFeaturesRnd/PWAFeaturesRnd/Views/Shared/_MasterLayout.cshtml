@@ -38,13 +38,14 @@
         var vshipDb;
 
         async function createDB() {
-            const db = idb.openDB('Test', 1, {
+            const db = idb.openDB('Test', 2, {
                 upgrade(db) {
                     db.createObjectStore("modelCachedData");
                     db.createObjectStore("appMetaData");
                     db.createObjectStore("ChatNotificationList");
                     db.createObjectStore("ChatNotificationDetails");
                     db.createObjectStore('ChatChannelsDeleted');
+                    db.createObjectStore('POSTRequests');
                 },
             });
 

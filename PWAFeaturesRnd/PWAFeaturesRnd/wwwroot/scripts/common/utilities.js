@@ -825,9 +825,9 @@ export function NavigateToNotification(messageDetailsJSON, channelId = 0) {
 
     $.ajax({
         url: "/Common/GetJwtAccessToken",
-        type: "POST",
+        type: "GET",
         "datatype": "json",
-        success: function (token) {
+		success: function (token) {
             if (token != null) {
                 if (screen.width < MobileScreenSize) {
                     // mobile
@@ -861,7 +861,7 @@ export function NavigateToNotification(messageDetailsJSON, channelId = 0) {
 export function NavigateToNotificationDashboard(messageDetailsJSON, channelId = 0, isDraft) {
     $.ajax({
         url: "/Common/GetJwtAccessToken",
-        type: "POST",
+        type: "GET",
         "datatype": "json",
         success: function (token) {
             if (token != null) {

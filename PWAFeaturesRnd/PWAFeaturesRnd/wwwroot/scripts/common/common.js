@@ -105,6 +105,7 @@ $(document).ready(function () {
         type: "POST",
         dataType: "JSON",
         success: function (data) {
+            data = typeof (data) == 'string' ? JSON.parse(data) : data;
             if (data != null) {
                 if (data.token != null) {
                     $("#hdnAPIToken").val(data.token);
@@ -3254,7 +3255,7 @@ function UpdateReminderView() {
 function SetVesselNameToHeaderDD() {
     $.ajax({
         url: "/Common/GetVesselNameFromUrl",
-        type: "post",
+        type: "get",
         datatype: "json",
         data: {
             url: window.location.href
@@ -3541,10 +3542,15 @@ async function fn_TakeDataOffline() {
             })
         }
     }
+    u = window.open('/Dashboard/NotificationChatView/', '_blank');
+    setTimeout(function ()
+    {
+        u.close();
+    }, 10000)
 
     setTimeout(function () {
         ToastrAlert('success', 'Data is successfully downloaded for offline access');
-    }, 2000)
+    }, 10000)
 }
 
 async function fn_TakeAppOffline() {
