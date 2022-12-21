@@ -15,6 +15,7 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     if (data != null) {
+                        data = typeof (data) == 'string' ? JSON.parse(data) : data;
                         sessionStorage.setItem(NotificationChatPageKey, data);
                         $('#hdnSessionStorageDetails').val(data);
                         $('.vesseldropdowntopheader').addClass('d-none');
@@ -38,6 +39,7 @@ $(document).ready(function () {
                     "sessionDetails": $('#hdnSessionStorageDetails').val()
                 },
                 success: function (data) {
+                    data = typeof (data) == 'string' ? JSON.parse(data) : data;
                     if (data != null) {
                         $('#urlParameter').val(data.urlParameter)
                         $('.vesseldropdowntopheader').addClass('d-none');

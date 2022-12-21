@@ -105,6 +105,7 @@ $(document).ready(function () {
         type: "POST",
         dataType: "JSON",
         success: function (data) {
+            data = typeof (data) == 'string' ? JSON.parse(data) : data;
             if (data != null) {
                 if (data.token != null) {
                     $("#hdnAPIToken").val(data.token);
@@ -3254,7 +3255,7 @@ function UpdateReminderView() {
 function SetVesselNameToHeaderDD() {
     $.ajax({
         url: "/Common/GetVesselNameFromUrl",
-        type: "post",
+        type: "get",
         datatype: "json",
         data: {
             url: window.location.href
@@ -3497,7 +3498,7 @@ function fn_InitializeOfflineModal(modalHtml, modalId) {
         $('#' + modalId).on('hidden.bs.modal', function (e) {
             $(this).remove();
         })
-    }, 200)
+    }, 600)
 }
 
 async function fn_getOfflineData(list) {
@@ -3541,10 +3542,9 @@ async function fn_TakeDataOffline() {
             })
         }
     }
-
     setTimeout(function () {
         ToastrAlert('success', 'Data is successfully downloaded for offline access');
-    }, 2000)
+    }, 10000)
 }
 
 async function fn_TakeAppOffline() {
@@ -3556,5 +3556,67 @@ async function fn_TakeAppOffline() {
         resolve();
     }).then(function () {
         fn_getOfflineData(data);
+        fn_ChatGetOfflineData();
     })
+
+    //u = window.open('/Dashboard/NotificationChatView/', '_blank');
+    //setTimeout(function () {
+    //    u.close();
+    //}, 10000)
+}
+
+async function fn_ChatGetOfflineData() {
+    let request = {
+        'PageNumber': 1,
+    };
+    $.ajax({
+        url: "/Notification/GetChannelListForOfflineServe",
+        type: "POST",
+        dataType: "JSON",
+
+        data: {
+            "channelRequest": request,
+            "sessionDetails": $('#hdnSessionStorageDetails').val()
+        },
+        success: async function (response) {
+            if (!vshipDb) {
+                await createDB();
+            }
+            let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationList')
+
+            let offlineData = await vshipDb.getAll('ChatNotificationList');
+            offlineData.forEach(function (data, idx) {
+                vshipDb.delete('ChatNotificationList', allkeyofAppMetaData[idx]);
+            });
+
+            response.data.forEach(function (data, idx) {
+                vshipDb.put('ChatNotificationList', idx, data);
+            })
+        }
+    });
+
+    $.ajax({
+        url: "/Notification/GetChannelMessagesForOfflineServe",
+        type: "POST",
+        dataType: "JSON",
+
+        data: {
+            "sessionDetails": $('#hdnSessionStorageDetails').val()
+        },
+        success: async function (response) {
+            if (!vshipDb) {
+                await createDB();
+            }
+            let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
+
+            let offlineData = await vshipDb.getAll('ChatNotificationDetails');
+            offlineData.forEach(function (data, idx) {
+                vshipDb.delete('ChatNotificationDetails', allkeyofAppMetaData[idx]);
+            });
+
+            response.data.forEach(function (data, idx) {
+                vshipDb.put('ChatNotificationDetails', idx, data);
+            })
+        }
+    });
 }

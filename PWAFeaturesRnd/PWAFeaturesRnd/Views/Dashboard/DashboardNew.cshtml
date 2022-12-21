@@ -7,21 +7,22 @@
 
 @section Title
     {
-                    Dashboard - @Context.Session.GetString(@Constants.UserNameSessionKey)
+    Dashboard - @Context.Session.GetString(@Constants.UserNameSessionKey)
 }
 
-    @section ContentSection
+@section ContentSection
     {
+    @Html.Hidden("hdnSessionStorageDetails", Model.SessionStorageDetails)
     @Html.Hidden("EnableTour", AppSettings.EnableTour)
     <script id="PCSDeficiencyTableRow" type="text/template">
         <tr>
-              <td>${vesselName}</td>
-              <td>${detentionDate}</td>
-              <td>${whereLocation}</td>
-              <td>${companyName}</td>
-              <td>${inspectorName}</td>
-              <td>No of Deficiencies ${findingCount}</td>
-              <td>${isDetained}</td>
+            <td>${vesselName}</td>
+            <td>${detentionDate}</td>
+            <td>${whereLocation}</td>
+            <td>${companyName}</td>
+            <td>${inspectorName}</td>
+            <td>No of Deficiencies ${findingCount}</td>
+            <td>${isDetained}</td>
         </tr>
     </script>
     <div class="app-main__outer">
@@ -621,7 +622,7 @@
     </div>
 }
 
-    @section Modal
+@section Modal
     {
     <partial name="VoyageReportingModal" />
 
@@ -924,7 +925,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="bodyPcsDeficiency">
-
                                 </tbody>
                             </table>
                         </div>
@@ -1283,7 +1283,7 @@
     </div>
 }
 
-    @section ScriptSection
+@section ScriptSection
     {
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>

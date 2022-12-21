@@ -30,7 +30,7 @@
 {
     
 <div class="app-main__outer"></div>
-    <form id="notificationchatform" target="NotificationChatFrame" action="@AppSettings.NotificationChatURL" method="POST" class="d-none">
+    <form id="notificationchatform" target="NotificationChatFrame" action="@AppSettings.NotificationChatURL" method="GET" class="d-none">
         @Html.Hidden("urlParameter", Model.UrlParameter)
         @Html.Hidden("isFilterChange", Model.IsFilterChange)
     </form>
@@ -48,6 +48,7 @@
         }
 
         function goTo(url) {
+            debugger;
             window.location.href = url;
         }
     </script>
