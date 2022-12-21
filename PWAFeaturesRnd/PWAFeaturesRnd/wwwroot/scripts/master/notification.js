@@ -66,7 +66,6 @@ async function createDB() {
 
 $(document).ready(function () {
     fn_SaveOfflineDataToServer();
-    fn_GetOfflineData();
     fn_SaveOfflineAddedMessage();
 })
 
@@ -2225,62 +2224,6 @@ function fn_CommonOfflineMessage() {
     return true;
 }
 
-
-function fn_GetOfflineData() {
-    let request = {
-        'PageNumber': 1,
-    };
-    $.ajax({
-        url: "/Notification/GetChannelListForOfflineServe",
-        type: "POST",
-        dataType: "JSON",
-
-        data: {
-            "channelRequest": request,
-            "sessionDetails": $('#hdnSessionStorageDetails').val()
-        },
-        success: async function (response) {
-            if (!vshipDb) {
-                await createDB();
-            }
-            let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationList')
-
-            let offlineData = await vshipDb.getAll('ChatNotificationList');
-            offlineData.forEach(function (data, idx) {
-                vshipDb.delete('ChatNotificationList', allkeyofAppMetaData[idx]);
-            });
-
-            response.data.forEach(function (data, idx) {
-                vshipDb.put('ChatNotificationList', idx, data);
-            })
-        }
-    });
-
-    $.ajax({
-        url: "/Notification/GetChannelMessagesForOfflineServe",
-        type: "POST",
-        dataType: "JSON",
-
-        data: {
-            "sessionDetails": $('#hdnSessionStorageDetails').val()
-        },
-        success: async function (response) {
-            if (!vshipDb) {
-                await createDB();
-            }
-            let allkeyofAppMetaData = await vshipDb.getAllKeys('ChatNotificationDetails')
-
-            let offlineData = await vshipDb.getAll('ChatNotificationDetails');
-            offlineData.forEach(function (data, idx) {
-                vshipDb.delete('ChatNotificationDetails', allkeyofAppMetaData[idx]);
-            });
-
-            response.data.forEach(function (data, idx) {
-                vshipDb.put('ChatNotificationDetails', idx, data);
-            })
-        }
-    });
-}
 
 window.addEventListener('online', function (event) {
     fn_SaveOfflineDataToServer();

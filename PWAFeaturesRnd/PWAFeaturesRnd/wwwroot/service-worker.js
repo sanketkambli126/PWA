@@ -116,32 +116,6 @@ self.addEventListener('fetch', function (event) {
         );
         return;
     }
-    //else if (request.method == "POST") {
-    //    event.respondWith(
-    //        fetch(request)
-    //            .then(async function (response) {
-    //                if (!vshipDb) {
-    //                    await createDB();
-    //                }
-    //                let url = request.url;
-    //                let data = await response.json();
-    //                vshipDb.put("POSTRequests", url, data);
-    //                let init = { "status": 200, "statusText": "" };
-    //                let newResponse = new Response(new Blob([JSON.stringify(data)]), init)
-    //                return Promise.resolve(newResponse);
-    //            })
-    //            .catch(async function () {
-    //                if (!vshipDb) {
-    //                    await createDB();
-    //                }
-    //                let url = request.url;
-    //                let data = await vshipDb.get('POSTRequests', url)
-    //                let init = { "status": 200, "statusText": "" };
-    //                let newResponse = new Response(JSON.stringify(data), init)
-    //                return Promise.resolve(newResponse);
-    //            })
-    //    );
-    //}
     else if (request.url.match('/Notification/DeleteChannelById')) {
         event.respondWith(
             fetch(request)

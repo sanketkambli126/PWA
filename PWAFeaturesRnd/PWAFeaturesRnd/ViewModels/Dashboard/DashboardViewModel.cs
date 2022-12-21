@@ -71,5 +71,6 @@ namespace PWAFeaturesRnd.ViewModels.Dashboard
 		/// The active mobile tab class.
 		/// </value>
 		public string ActiveMobileTabClass { get; set; }
+        public string SessionStorageDetails { get; set; }
     }
 }

@@ -277,7 +277,8 @@ namespace PWAFeaturesRnd.Controllers.Master
             var endTime = DateTime.Now;
             string logTemplate = "ActionMethod: {0} \nStart Time: {1} \nEnd Time: {2} \nDuration: {3} \nParams: \nVesselId - {4} \nFleetRequest - {5} \n";
             AppendLog(CommonUtil.GetSessionObject<string>(HttpContext.Session, Constants.LogFileName), String.Format(logTemplate, this.ControllerContext.RouteData.Values["action"].ToString(), startTime.ToString(Constants.LogFileStartEndTimeFormat), endTime.ToString(Constants.LogFileStartEndTimeFormat), (endTime - startTime), VesselId, FleetRequest));
-
+            NotificationChatViewModel viewModel = new NotificationChatViewModel() { UrlParameter = "", IsFilterChange = false };
+            dashboardViewModel.SessionStorageDetails = SetSessionStorageDetail(_provider, viewModel);
             return View("DashboardNew", dashboardViewModel);
         }
 
