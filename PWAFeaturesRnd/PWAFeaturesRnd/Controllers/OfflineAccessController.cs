@@ -160,6 +160,11 @@ namespace PWAFeaturesRnd.Controllers
             Modules Chat = new Modules();
             Chat.ModuleId = 2;
             Chat.ModuleName = "Chat";
+            Chat.OfflineModuleURLs.Add(new OfflineModuleURL()
+            {
+                Url = "/Dashboard/NotificationChatView",
+                toStoreInCache = true,
+            });
             DashboardView.Modules.Add(Chat);
 
             //DashboardView.Modules.Add(ApprovalModule);
