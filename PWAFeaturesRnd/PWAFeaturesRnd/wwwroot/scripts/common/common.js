@@ -3533,7 +3533,6 @@ async function fn_getOfflineData(list) {
 }
 
 async function fn_TakeDataOffline() {
-    /*window.location.reload();*/
     let offlineData = await vshipDb.getAll('appMetaData');
     if (offlineData.length > 0) {
         for (let url of offlineData) {
@@ -3541,12 +3540,14 @@ async function fn_TakeDataOffline() {
             $.ajax({
                 url: url.url,
                 data: data,
+                async: false,
                 success: function (response) {
                     console.log(response);
                 }
             })
         }
     }
+    $('#divOfflineModalPopPup').modal('hide');
     setTimeout(function () {
         ToastrAlert('success', 'Data is successfully downloaded for offline access');
     }, 10000)
@@ -3554,15 +3555,13 @@ async function fn_TakeDataOffline() {
 
 async function fn_TakeAppOffline() {
     let data = [];
-
+    document.getElementById('iViewToRender').src = '/Dashboard/NotificationChatView'
     new Promise(function (resolve) {
-        $('#divOfflineModalPopPup').modal('hide');
         $('.input-offline-modules:checkbox:checked').each(function () { data.push({ viewid: $(this).data('viewid'), moduleid: $(this).data('moduleid') }); });
         resolve();
     }).then(function () {
         fn_getOfflineData(data);
     })
-
     fn_ChatGetOfflineData();
 }
 

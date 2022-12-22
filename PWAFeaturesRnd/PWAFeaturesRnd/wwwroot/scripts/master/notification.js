@@ -517,8 +517,8 @@ function GetSessionStorageFilterForList() {
             }
         },
         error: function () {
-            $('#IsSearchClicked').val(data.isSearchClicked)
-            $('#SearchText').val(data.searchText)
+            $('#IsSearchClicked').val(true)
+            $('#SearchText').val('')
             DisplaySearchBox();
             let request = {
                 searchText: GetStringNullOrWhiteSpace($('#inputSearchChannel').val()),
