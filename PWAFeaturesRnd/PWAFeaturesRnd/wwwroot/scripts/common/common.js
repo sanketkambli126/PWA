@@ -3540,15 +3540,14 @@ async function fn_TakeDataOffline() {
             $.ajax({
                 url: url.url,
                 data: data,
-                async: false,
                 success: function (response) {
-                    console.log(response);
+                    console.log('URL fetched : ' + url.url);
                 }
             })
         }
     }
-    $('#divOfflineModalPopPup').modal('hide');
     setTimeout(function () {
+        $('#divOfflineModalPopPup').modal('hide');
         ToastrAlert('success', 'Data is successfully downloaded for offline access');
     }, 10000)
 }

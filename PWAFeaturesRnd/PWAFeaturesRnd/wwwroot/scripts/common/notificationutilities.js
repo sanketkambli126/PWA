@@ -957,7 +957,7 @@ export function SendMessage(message, channelId, attachedFiles, onSuccessCallBack
         isAttachment: attachedFiles.length > 0,
         attachments: attachedFiles,
         ssUserId: GetCookie('NotificationUserId'),
-        channelId: $('#hdnSelectedChannelId').val()
+        channelId: parseInt($('#hdnSelectedChannelId').val())
     }];
 
     $('#messageSection .lastRow').removeClass('lastRow');
@@ -1029,7 +1029,7 @@ export function CallSendMessage(request, retryDiv, onCompleteCallback, isCalledT
                     isAttachment: request.AttachmentList && request.AttachmentList.length > 0,
                     attachments: request.AttachmentList,
                     ssUserId: GetCookie('NotificationUserId'),
-                    channelId: request.ChannelId,
+                    channelId: parseInt(request.ChannelId),
                     isMessageEdited: false
                 }
                 $('#divSyncPending_' + newMessage.channelId).addClass('d-none')
@@ -1057,7 +1057,7 @@ export function CallSendMessage(request, retryDiv, onCompleteCallback, isCalledT
                 isAttachment: request.AttachmentList && request.AttachmentList.length > 0,
                 attachments: request.AttachmentList,
                 ssUserId: GetCookie('NotificationUserId'),
-                channelId: request.ChannelId,
+                channelId: parseInt(request.ChannelId),
                 isMessageEdited: false,
                 isPendingToSync: true
             }

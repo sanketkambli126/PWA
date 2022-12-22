@@ -221,19 +221,6 @@ self.addEventListener('fetch', function (event) {
             caches.match(request)
                 .then(function (response) {
                     return response || fetch(request)
-                        .then(function (response) {
-                            addToCache(request, response);
-                            return response || serveOfflineImage(request);
-                        })
-                        .catch(function () {
-                            return caches.match(request)
-                                .then(function (response) {
-                                    return response || serveOfflineImage(request);
-                                })
-                                .catch(function () {
-                                    return serveOfflineImage(request);
-                                });
-                        });
                 })
         );
 
