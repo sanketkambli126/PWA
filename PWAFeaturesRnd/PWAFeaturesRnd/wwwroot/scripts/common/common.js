@@ -3554,7 +3554,7 @@ async function fn_TakeDataOffline() {
 
 async function fn_TakeAppOffline() {
     let data = [];
-    document.getElementById('iViewToRender').src = '/Dashboard/NotificationChatView'
+    document.getElementById('iViewToRender').src = '/Dashboard/NotificationChatView/'
     new Promise(function (resolve) {
         $('.input-offline-modules:checkbox:checked').each(function () { data.push({ viewid: $(this).data('viewid'), moduleid: $(this).data('moduleid') }); });
         resolve();
