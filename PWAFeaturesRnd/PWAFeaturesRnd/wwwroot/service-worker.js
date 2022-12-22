@@ -84,7 +84,7 @@ self.addEventListener('activate', function (event) {
 
 self.addEventListener('fetch', function (event) {
     var request = event.request;
-   
+
     if (request.url.match("/Dashboard/GetInspectionFleetSummary") ||
         request.url.match("/Dashboard/GetCrewFleetSummary") ||
         request.url.match("/Dashboard/GetOpexFleetSummary") ||
@@ -146,12 +146,12 @@ self.addEventListener('fetch', function (event) {
         );
     }
 
-    else if (request.url.match('/Dashboard/SetSessionStorageFilterForChat') ||
-        request.url.match('/Dashboard/GetSessionStorageFilterForChat') ||
-        request.url.match('/Notification/GetSessionStorageFilterForList') ||
-        request.url.match('/Notification/AddMessagingUserIfNotExists') ||
+    else if (
+        //request.url.match('/Dashboard/SetSessionStorageFilterForChat') ||
+        //request.url.match('/Dashboard/GetSessionStorageFilterForChat') ||
+        //request.url.match('/Notification/GetSessionStorageFilterForList') ||
+        //request.url.match('/Notification/AddMessagingUserIfNotExists') ||
         request.url.match('/Notification/GetCurrentUserDetails') ||
-        request.url.match('/Notification/SetSessionStorageFilterForNotification') ||
         request.url.match('/Notification/GetUnreadChannelCount')
     ) {
         event.respondWith(
@@ -179,13 +179,18 @@ self.addEventListener('fetch', function (event) {
                 })
         );
     }
-
+    else if (request.url.match('/Dashboard/GetDefaultParameterNotification')) {
+        event.respondWith(fetch(request))
+    }
     // Always fetch non-GET requests from the network
     else if (request.method !== 'GET' || request.url.match(/\/browserLink/ig)) {
         event.respondWith(
             fetch(request)
                 .catch(function () {
-                    return caches.match(offlineUrl);
+                    return caches.match(request)
+                        .then(function (response) {
+                            return response || caches.match(offlineUrl);
+                        });
                 })
         );
         return;

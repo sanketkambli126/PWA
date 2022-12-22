@@ -879,7 +879,7 @@ export function NavigateToNotificationDashboard(messageDetailsJSON, channelId = 
                         redirectURL = redirectURL + 'NotificationChatDetailView/'
                     }
 
-                    var form = $("<form id='formNotificationChatView' action='" + redirectURL + "' method='post'><input type='text' name='searchRequest' value='"
+                    var form = $("<form id='formNotificationChatView' action='" + redirectURL + "' method='POST'><input type='text' name='searchRequest' value='"
                         + JSON.stringify(obj) + "' /></form>");
                     $('body').append(form);
                     form.submit();
@@ -889,7 +889,7 @@ export function NavigateToNotificationDashboard(messageDetailsJSON, channelId = 
 
                     var redirectURL = window.location.protocol + "//" + window.location.host + '/Dashboard/NotificationChatView/';
 
-                    var form = $("<form id='formNotificationChatView' action='" + redirectURL + "' method='post'><input type='text' name='searchRequest' value='"
+                    var form = $("<form id='formNotificationChatView' action='" + redirectURL + "' method='POST'><input type='text' name='searchRequest' value='"
                         + JSON.stringify(obj) + "' /></form>");
                     $('body').append(form);
                     form.submit();

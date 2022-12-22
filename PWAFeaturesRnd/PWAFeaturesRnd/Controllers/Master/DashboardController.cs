@@ -44,6 +44,7 @@ using PWAFeaturesRnd.ViewModels.Shared;
 using PWAFeaturesRnd.ViewModels.VesselManagement;
 using PWAFeaturesRnd.ViewModels.VoyageReporting;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace PWAFeaturesRnd.Controllers.Master
 {
@@ -116,6 +117,8 @@ namespace PWAFeaturesRnd.Controllers.Master
         /// </summary>
         private readonly HSEQManagerDashboardClient _hseqManagerDashboardClient;
 
+        private ITicketStore _ticketStore;
+
         #endregion
 
         /// <summary>
@@ -133,7 +136,8 @@ namespace PWAFeaturesRnd.Controllers.Master
         /// <param name="notificationClient">The notification client.</param>
         /// <param name="marineWCFClient"></param>
         /// <param name="hseqManagerDashboardClient"></param>
-        public DashboardController(CrewClient crewClient, FinanceClient financeClient, PurchasingClient parchasingClient, MarineClient marineClient, SharedClient client, TechnicalDashboardClient technicalDashboardClient, DocumentClient documentClient, VesselRoutingClient vesselRoutingClient, IDataProtectionProvider provider, NotificationClient notificationClient, MarineWCFClient marineWCFClient, HSEQManagerDashboardClient hseqManagerDashboardClient)
+        /// <param name="hseqManagerDashboardClient"></param>
+        public DashboardController(CrewClient crewClient, FinanceClient financeClient, PurchasingClient parchasingClient, MarineClient marineClient, SharedClient client, TechnicalDashboardClient technicalDashboardClient, DocumentClient documentClient, VesselRoutingClient vesselRoutingClient, IDataProtectionProvider provider, NotificationClient notificationClient, MarineWCFClient marineWCFClient, HSEQManagerDashboardClient hseqManagerDashboardClient, ITicketStore ticketStore)
         {
             _provider = provider;
             _client = client;
@@ -147,6 +151,7 @@ namespace PWAFeaturesRnd.Controllers.Master
             _notificationClient = notificationClient;
             _marineWCFClient = marineWCFClient;
             _hseqManagerDashboardClient = hseqManagerDashboardClient;
+            _ticketStore = ticketStore;
         }
 
         /// <summary>
@@ -279,6 +284,7 @@ namespace PWAFeaturesRnd.Controllers.Master
             AppendLog(CommonUtil.GetSessionObject<string>(HttpContext.Session, Constants.LogFileName), String.Format(logTemplate, this.ControllerContext.RouteData.Values["action"].ToString(), startTime.ToString(Constants.LogFileStartEndTimeFormat), endTime.ToString(Constants.LogFileStartEndTimeFormat), (endTime - startTime), VesselId, FleetRequest));
             NotificationChatViewModel viewModel = new NotificationChatViewModel() { UrlParameter = "", IsFilterChange = false };
             dashboardViewModel.SessionStorageDetails = SetSessionStorageDetail(_provider, viewModel);
+            StoredNoticationToken(GetAccessToken(), _ticketStore);
             return View("DashboardNew", dashboardViewModel);
         }
 

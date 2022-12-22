@@ -511,12 +511,29 @@ function GetSessionStorageFilterForList() {
                 GetChannelList(request);
                 ShowWelcomeMessage(false);
             }
+            else
+            {
+
+            }
+        },
+        error: function () {
+            $('#IsSearchClicked').val(data.isSearchClicked)
+            $('#SearchText').val(data.searchText)
+            DisplaySearchBox();
+            let request = {
+                searchText: GetStringNullOrWhiteSpace($('#inputSearchChannel').val()),
+                isSearchClicked: false,
+                'PageNumber': parseInt($('#hdnChatCurrentPageNumber').val() || 1)
+            };
+            GetChannelList(request);
+            ShowWelcomeMessage(false);
         }
 
     });
 }
 
 $(document).ready(function () {
+    $('#hdnSessionStorageDetails').val(sessionStorage.getItem('hdnSessionStorageDetails'));
     AjaxError();
     var clearSessionStorage = $('#hdnClearSessionStorage').val();
     if ($('#OpenCreateNewChannel').val() != "True") {
@@ -541,8 +558,10 @@ $(document).ready(function () {
                 });
             }
             else {
-                //fill filter fields from sessionStorage        
-                $('#hdnSessionStorageDetails').val(sessionStorage.getItem(NotificationPageKey))
+                if (sessionStorage.getItem(NotificationPageKey) != null && sessionStorage.getItem(NotificationPageKey) != undefined && sessionStorage.getItem(NotificationPageKey) != "") {
+                    //fill filter fields from sessionStorage        
+                    $('#hdnSessionStorageDetails').val()
+                }
                 GetSessionStorageFilterForList();
             }
         }
@@ -1315,6 +1334,7 @@ function SetSessionStorageFilterForChannelList(request) {
                 sessionStorage.setItem(NotificationPageKey, $('#hdnSessionStorageDetails').val());
                 GetChannelList(request);
             }
+
         },
         error: function (jqXHR, exception) {
             GetChannelList(request);
