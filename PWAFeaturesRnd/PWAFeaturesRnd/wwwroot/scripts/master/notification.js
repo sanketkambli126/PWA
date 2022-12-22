@@ -511,8 +511,7 @@ function GetSessionStorageFilterForList() {
                 GetChannelList(request);
                 ShowWelcomeMessage(false);
             }
-            else
-            {
+            else {
 
             }
         },
@@ -2364,6 +2363,9 @@ async function fn_SaveOfflineAddedMessageOnNetworkChange() {
             $(retry).trigger('click');
         }
     });
+    setTimeout(function () {
+        fn_SaveOfflineAddedMessage()
+    }, 400)
 }
 
 async function fn_SaveOfflineAddedMessage() {
@@ -2376,6 +2378,7 @@ async function fn_SaveOfflineAddedMessage() {
     });
 
     let filteredEditedData = offlineData.filter(function (e) { return convertStringToBool(e.data["isPendingToSync"]) && !Number.isNaN(Number(e.data.messageId)) && Number(e.data.messageId) == 0 });
+    console.log(filteredEditedData);
     filteredEditedData.forEach(function (e) {
         const request =
         {
