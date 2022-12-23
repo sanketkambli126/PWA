@@ -3501,13 +3501,16 @@ function fn_InitializeOfflineModal(modalHtml, modalId) {
         $('.view-list-name').append('<select style="padding-left: 50px;"><option value = "1">last 15 days</option><option value="2">last 30 days</option><option value="3">last 45 days</option></select>')
         $('#' + modalId).modal('show');
         $('#' + modalId).on('hidden.bs.modal', function (e) {
-            $(this).remove();
+            let modalObj = $(this);
+            setTimeout(function () {
+                modalObj.remove();
+            }, 20 * 1000)
         })
     }, 600)
 }
 
 async function fn_getOfflineData(list) {
-    ToastrAlert('success', 'Data is in queued, it will take some time')
+    //ToastrAlert('success', 'Data is in queued, it will take some time')
     $.ajax({
         url: '/OfflineAccess/GetAppOfflineURLs',
         method: 'POST',
@@ -3533,6 +3536,26 @@ async function fn_getOfflineData(list) {
 }
 
 async function fn_TakeDataOffline() {
+    for (let u = 1; u <= 10; u++) {
+        setTimeout(function () {
+            $('#divProgressBar_offlineDownload').removeClass('d-none');
+            let pr = $('#progress_bar_value');
+            pr.css('width', `${u * 10}%`);
+            pr.html(`${u * 10}%`);
+            pr.attr('aria-valuenow', `${u * 10}`)
+
+            if (u == 10) {
+                $('#divProgressBar_offlineDownload').addClass('d-none');
+                let pr = $('#progress_bar_value');
+                pr.css('width', `0%`);
+                pr.html(`0%`);
+                pr.attr('aria-valuenow', `0`);
+                ToastrAlert('success', 'Data Downloaded Successfully');
+            }
+        }, (u * 1000))
+    }
+    $('#divOfflineModalPopPup').modal('hide');
+
     let offlineData = await vshipDb.getAll('appMetaData');
     if (offlineData.length > 0) {
         for (let url of offlineData) {
@@ -3546,10 +3569,6 @@ async function fn_TakeDataOffline() {
             })
         }
     }
-    setTimeout(function () {
-        $('#divOfflineModalPopPup').modal('hide');
-        ToastrAlert('success', 'Data is successfully downloaded for offline access');
-    }, 10000)
 }
 
 async function fn_TakeAppOffline() {

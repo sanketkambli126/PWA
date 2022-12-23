@@ -515,7 +515,7 @@ export function ChannelMessage(channelId, isScrolled) {
                 $('[data-toggle="tooltip"]').tooltip();
                 $('#hdnIsNewChannelSelected').val(false);
                 $("#messageSection").css("margin-top", $(".chat-header").outerHeight(true));
-            }, 5000)
+            }, 1000)
         }
     });
 }
