@@ -24585,3 +24585,23 @@ div.dataTables_wrapper div.dataTables_filter input:focus {
     width: 0;
     transition: width 0.5s ease-in;
 }
+
+.progressbarcircle {
+    right: 47px;
+}
+
+.progressbarcircle {
+    position: fixed;
+    right: auto;
+    top: 90px;
+    width: 60px;
+    height: 60px;
+    z-index: 99;
+}
+
+
+@media only screen and (min-width:1441px) and (max-width:2000px) {
+    .progressbarcircle {
+        right: 450px;
+    }
+}

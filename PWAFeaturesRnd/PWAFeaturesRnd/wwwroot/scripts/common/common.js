@@ -3497,13 +3497,18 @@ function OpenOfflineModal() {
 
 function fn_InitializeOfflineModal(modalHtml, modalId) {
     $('body').append(modalHtml);
+    
     setTimeout(function () {
+        let progressdiv = $('#progressBarDiv');
+        progressdiv.remove();
+        $('.app-main').append(progressdiv);
         $('.view-list-name').append('<select style="padding-left: 50px;"><option value = "1">last 15 days</option><option value="2">last 30 days</option><option value="3">last 45 days</option></select>')
         $('#' + modalId).modal('show');
         $('#' + modalId).on('hidden.bs.modal', function (e) {
             let modalObj = $(this);
             setTimeout(function () {
                 modalObj.remove();
+                $('#progressBarDiv').remove();
             }, 20 * 1000)
         })
     }, 600)
@@ -3538,18 +3543,17 @@ async function fn_getOfflineData(list) {
 async function fn_TakeDataOffline() {
     for (let u = 1; u <= 10; u++) {
         setTimeout(function () {
-            $('#divProgressBar_offlineDownload').removeClass('d-none');
-            let pr = $('#progress_bar_value');
-            pr.css('width', `${u * 10}%`);
-            pr.html(`${u * 10}%`);
-            pr.attr('aria-valuenow', `${u * 10}`)
+            $('#progressBarDiv').removeClass('d-none');
+            let c1 = document.getElementById('c1');
+            let t1 = document.getElementById('t1');
+            c1.setAttribute('stroke-dasharray', `${u * 10} 100`);
+            t1.textContent = `${u * 10}%`;
 
             if (u == 10) {
-                $('#divProgressBar_offlineDownload').addClass('d-none');
+                $('#progressBarDiv').addClass('d-none');
                 let pr = $('#progress_bar_value');
-                pr.css('width', `0%`);
-                pr.html(`0%`);
-                pr.attr('aria-valuenow', `0`);
+                c1.setAttribute('stroke-dasharray', `${0} 100`);
+                t1.textContent = `${0}%`;
                 ToastrAlert('success', 'Data Downloaded Successfully');
             }
         }, (u * 1000))
